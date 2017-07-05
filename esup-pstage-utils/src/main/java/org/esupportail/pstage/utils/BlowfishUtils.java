@@ -1,5 +1,6 @@
 package org.esupportail.pstage.utils;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.Key;
 
@@ -15,7 +16,7 @@ import org.springframework.util.StringUtils;
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr
  *
  */
-public class BlowfishUtils {
+public class BlowfishUtils implements Serializable {
 	/**
 	 * Logger
 	 */

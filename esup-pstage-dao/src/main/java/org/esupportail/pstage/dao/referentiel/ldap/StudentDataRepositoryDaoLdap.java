@@ -21,6 +21,7 @@ import org.esupportail.pstage.domain.beans.EtudiantRef;
 import org.esupportail.pstage.domain.beans.LdapAttributes;
 import org.esupportail.pstage.domain.beans.LdapGroupeAttributs;
 import org.esupportail.pstage.utils.DonneesStatic;
+import org.esupportail.pstage.utils.Utils;
 import org.springframework.ldap.filter.AndFilter;
 import org.springframework.ldap.filter.EqualsFilter;
 import org.springframework.ldap.filter.Filter;
@@ -111,7 +112,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 			try {
 				etudiantRef.setDateNais(new SimpleDateFormat("dd/MM/yyyy").parse(ldapUser.getAttribute("dateNaissance")));
 			} catch (ParseException e) {
-				e.printStackTrace();
+				logger.error(e);
 			}
 		}
 
@@ -177,8 +178,8 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 			etudiantRef.setStudys(mapEtudes);
 		}
 
-		List<String> listeAnneesUniv = new ArrayList<String>();
-		listeAnneesUniv.add("2015");
+		List<String> listeAnneesUniv = new ArrayList<>();
+		listeAnneesUniv.add(Utils.getCurrentYear(false));
 		etudiantRef.setListeAnneesUniv(listeAnneesUniv);
 
 		AdministrationApogee adminApogee = new AdministrationApogee();
@@ -262,7 +263,6 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 				etapes.put(etapeCode, etapeLibelle);
 			}
 		}
-		//TODO pq libelle vide ?
 		logger.info("Resultat etape 1 : " + etapes);
 		return etapes;
 	}

@@ -34,7 +34,7 @@
 
         <t:div styleClass="mt5" rendered="#{sessionController.currentManageStructure.accordPartenariat.estValide}">
             <t:htmlTag value="i" styleClass="fa fa-check fz16 fontGreen mrf5"/>
-            <h:outputText value="#{msgs['ACCORD.EXIST_VALIDE']}" escape="false" styleClass="fontBold fontGreen" />
+            <h:outputText value="#{msgs['ACCORD.DEJAVALIDE']}" escape="false" styleClass="fontBold fontGreen" />
 
             <t:htmlTag value="div" style="height:5px;" />
 
@@ -46,8 +46,7 @@
 
             <t:htmlTag value="div" style="height:5px;" />
 
-            <h:outputText value="#{msgs['ACCORD.DATEVALIDATION']}" escape="false"
-                          styleClass="mlf5"/>
+            <h:outputText value="#{msgs['ACCORD.DATEVALIDATION']}" escape="false" styleClass="fontBold"/>
             <h:outputText value="#{sessionController.currentManageStructure.accordPartenariat.dateValidation}"
                           styleClass="mlf5">
                 <f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />

@@ -52,7 +52,7 @@ public class ModeValidationStageConverter implements Serializable, Converter {
 					"object " + value + " is not a ModeValidationStageDTO.");
 		}
 		ModeValidationStageDTO e = (ModeValidationStageDTO) value;
-		return ""+e.getId();
+		return Integer.toString(e.getId());
 	}
 	
 	/**

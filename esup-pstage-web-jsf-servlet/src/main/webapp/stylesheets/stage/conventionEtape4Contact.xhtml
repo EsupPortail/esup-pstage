@@ -56,15 +56,15 @@
                                         <h:outputText value="#{msgs['CONTACT.TELFAXMAIL']}" />
                                     </f:facet>
                                     <t:div rendered="#{not empty contact.tel}">
-                                        <b>Tel : </b>
+                                        <t:htmlTag value="b">Tel : </t:htmlTag>
                                         <h:outputText id="telC" value="#{contact.tel}" />
                                     </t:div>
                                     <t:div rendered="#{not empty contact.fax}">
-                                        <b>Fax : </b>
+                                        <t:htmlTag value="b">Fax : </t:htmlTag>
                                         <h:outputText id="faxC" value="#{contact.fax}" />
                                     </t:div>
                                     <t:div rendered="#{not empty contact.mail}">
-                                        <b>Mail : </b>
+                                        <t:htmlTag value="b">Mail : </t:htmlTag>
                                         <h:outputText id="mailC" value="#{contact.mail}" />
                                     </t:div>
                                 </p:column>
@@ -80,7 +80,8 @@
                                                  rendered="#{not empty conventionController.convention.contact and !conventionController.conventionValide
 								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
 								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
+								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)
 								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
 								(!sessionController.autoriserEtudiantAModifierEntreprise
 								and ((empty conventionController.convention.contact.loginModif and
@@ -101,7 +102,8 @@
                                                  rendered="#{!conventionController.conventionValide
 		                        and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
 		                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-		                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}"
+		                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)}"
                                                  value="#{msgs['CONVENTION.ETAPE4.MODIF.CONTACT']}">
                                     <f:setPropertyActionListener value="#{0}"
                                                                  target="#{etablissementController.idContactSel}" />
@@ -140,9 +142,6 @@
                                                      update="@form"
                                                      rendered="#{not empty etablissementController.serviceSel
                                          and not empty etablissementController.contactSel}">
-                                        <f:setPropertyActionListener
-                                                value="#{etablissementController.serviceSel}"
-                                                target="#{conventionController.convention.service}" />
                                         <f:setPropertyActionListener
                                                 value="#{etablissementController.contactSel}"
                                                 target="#{conventionController.convention.contact}" />

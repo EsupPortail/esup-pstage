@@ -31,7 +31,7 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 	//critere de niveau 1 pour les conventions 
 	private List<SelectItem> firstLevelStatCriteriaForConvention ;
 	//critere de niveau 2 pour les conventions 
-	private List<SelectItem> secondLevelStatCriteriaForConvention ; 
+	private List<SelectItem> secondLevelStatCriteriaForConvention ;
 
 	private String critereUnLib;
 	private String critereDeuxLib;
@@ -45,7 +45,7 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 
 	private HashMap<String, List<StatisticItemDTO>> map;
 
-	List<StatisticItemDTO> statsItemList;
+	transient List<StatisticItemDTO> statsItemList;
 
 	private Integer idCentreGestion;
 	private String libelle;
@@ -84,7 +84,7 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 
 		StatisticCriteria statCriteria = new StatisticCriteria();
 		firstStatsCriteriumList = statCriteria.getFirstLevelStatCriteriaForConvention();
-		firstLevelStatCriteriaForConvention = new ArrayList<SelectItem>(firstStatsCriteriumList.size());		
+		firstLevelStatCriteriaForConvention = new ArrayList<SelectItem>(firstStatsCriteriumList.size());
 
 		for(Entry<String, String> entry : firstStatsCriteriumList.entrySet()) {
 			String valeur = entry.getValue();
@@ -96,7 +96,7 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 
 		StatisticCriteria statCriteria = new StatisticCriteria();
 		secondStatsCriteriumList = statCriteria.getSecondLevelStatCriteriaForConvention();
-		secondLevelStatCriteriaForConvention = new ArrayList<SelectItem>(secondStatsCriteriumList.size());		
+		secondLevelStatCriteriaForConvention = new ArrayList<SelectItem>(secondStatsCriteriumList.size());
 
 		for(Entry<String, String> entry : secondStatsCriteriumList.entrySet()) {
 			String valeur = entry.getValue();
@@ -194,17 +194,18 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 	}
 
 	public String ValueToKeyForCritere (LinkedHashMap<String,String> map, String critere ) {
-		String cle="";
-		String valeur="";
+		String cle;
+		String valeur;
+		String value = critere;
 		for(Entry<String, String> entry : map.entrySet()) {
 			cle = entry.getKey();
 			valeur = entry.getValue();
 			if(critere.equals(valeur)){
-				critere=cle;
+				value=cle;
 				break;
 			}
 		}//fin boucle
-		return critere;
+		return value;
 	}
 
 	//arrondir le double x à n décimales : pour que le pourcentage n'ait que 2 décimales
@@ -231,67 +232,67 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 		String uneAnnee = this.annee_scolaire;
 
 		//Critere 1 = vide
-		if(critereUnCle.equals("")){
+		if("".equals(critereUnCle)){
 
 			//Appel de la fonction selon le critere 2
-			if (critereDeuxCle.equals("")){
+			if ("".equals(critereDeuxCle)){
 				uneAnnee = "all";
 				statsItemList = statistiquesDomainService.getNumberOfConventions(idCentreGestion, etab);
 				message = getString("CONVENTION.STATS.ANNEE");
 			}
-			else if (critereDeuxCle.equals("TYPE")){
+			else if ("TYPE".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByType(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.TYPE");
 			}
-			else if (critereDeuxCle.equals("GRA")){
+			else if ("GRA".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByIndemnity(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.GRA");
 			}
-			else if (critereDeuxCle.equals("TEMPS")){
+			else if ("TEMPS".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByWorkDuration(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.TEMPS");
 			}
-			else if (critereDeuxCle.equals("NB")){
+			else if ("NB".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByNbDaysPerWeek(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.NB");
 			}
-			else if (critereDeuxCle.equals("ORI")){
+			else if ("ORI".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByWayToFind(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.ORI");
 			}
-			else if (critereDeuxCle.equals("ENS")){
+			else if ("ENS".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByTeacherGuide(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.ENS");
 			}
-			else if (critereDeuxCle.equals("ENT")){
+			else if ("ENT".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStructure(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.ENT");
 			}
-			else if (critereDeuxCle.equals("DOM")){
+			else if ("DOM".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStructureActivity(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.DOM");
 			}
-			else if (critereDeuxCle.equals("JUR")){
+			else if ("JUR".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStructureType(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.JUR");
 			}
-			else if (critereDeuxCle.equals("SIZE")){
+			else if ("SIZE".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStructureSize(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.SIZE");
 			}
-			else if (critereDeuxCle.equals("DEPGEO")){
+			else if ("DEPGEO".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByServiceDep(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.DEPGEO");
 			}
-			else if (critereDeuxCle.equals("PAYS")){
+			else if ("PAYS".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByServiceCountry(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.PAYS");
 			}
-			else if (critereDeuxCle.equals("THEME")){
+			else if ("THEME".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByTheme(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.THEME");
 			}
-			else if (critereDeuxCle.equals("DUREE")){
+			else if ("DUREE".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByNbWeeks(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.DUREE");
 			}
@@ -300,66 +301,66 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 
 
 		//Critere 1 = UFR
-		if(critereUnCle.equals("UFR")){
+		if("UFR".equals(critereUnCle)){
 
 			//Appel de la fonction selon le critere 2
-			if (critereDeuxCle.equals("")){
+			if ("".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStudy(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.UFR");
 			}
-			else if (critereDeuxCle.equals("TYPE")){
+			else if ("TYPE".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStudyAndType(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.UFR.TYPE");
 			}
-			else if (critereDeuxCle.equals("GRA")){
+			else if ("GRA".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStudyAndIndemnity(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.UFR.GRA");
 			}
-			else if (critereDeuxCle.equals("TEMPS")){
+			else if ("TEMPS".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStudyAndWorkDuration(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.UFR.TEMPS");
 			}
-			else if (critereDeuxCle.equals("NB")){
+			else if ("NB".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStudyAndNbDaysPerWeek(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.UFR.NB");
 			}
-			else if (critereDeuxCle.equals("ORI")){
+			else if ("ORI".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStudyAndWayToFind(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.UFR.ORI");
 			}
-			else if (critereDeuxCle.equals("ENS")){
+			else if ("ENS".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStudyAndTeacherGuide(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.UFR.ENS");
 			}
-			else if (critereDeuxCle.equals("ENT")){
+			else if ("ENT".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStudyAndStructure(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.UFR.ENT");
 			}
-			else if (critereDeuxCle.equals("DOM")){
+			else if ("DOM".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStudyAndActivity(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.UFR.DOM");
 			}
-			else if (critereDeuxCle.equals("JUR")){
+			else if ("JUR".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStudyAndStructureType(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.UFR.JUR");
 			}
-			else if (critereDeuxCle.equals("SIZE")){
+			else if ("SIZE".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStudyAndStructureSize(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.UFR.SIZE");
 			}
-			else if (critereDeuxCle.equals("DEPGEO")){
+			else if ("DEPGEO".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStudyAndServiceDep(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.UFR.DEPGEO");
 			}
-			else if (critereDeuxCle.equals("PAYS")){
+			else if ("PAYS".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStudyAndServiceCountry(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.UFR.PAYS");
 			}
-			else if (critereDeuxCle.equals("THEME")){
+			else if ("THEME".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStudyAndTheme(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.UFR.THEME");
 			}
-			else if (critereDeuxCle.equals("DUREE")){
+			else if ("DUREE".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStudyAndNbWeeks(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.UFR.DUREE");
 			}
@@ -367,66 +368,66 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 		}//fin Critere 1 = UFR
 
 		//Critere 1 = DEP
-		if(critereUnCle.equals("DEP")){
+		if("DEP".equals(critereUnCle)){
 
 			//Appel de la fonction selon le critere 2
-			if (critereDeuxCle.equals("")){
+			if ("".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByDepartment(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.DEP");
 			}
-			else if (critereDeuxCle.equals("TYPE")){
+			else if ("TYPE".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByDepartmentAndType(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.DEP.TYPE");
 			}
-			else if (critereDeuxCle.equals("DOM")){
+			else if ("DOM".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByDepartmentAndActivity(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.DEP.DOM");
 			}
-			else if (critereDeuxCle.equals("GRA")){
+			else if ("GRA".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByDepartmentAndIndemnity(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.DEP.GRA");
 			}
-			else if (critereDeuxCle.equals("TEMPS")){
+			else if ("TEMPS".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByDepartmentAndWorkDuration(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.DEP.TEMPS");
 			}
-			else if (critereDeuxCle.equals("NB")){
+			else if ("NB".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByDepartmentAndNbDaysPerWeek(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.DEP.NB");
 			}
-			else if (critereDeuxCle.equals("ORI")){
+			else if ("ORI".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByDepartmentAndWayToFind(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.DEP.ORI");
 			}
-			else if (critereDeuxCle.equals("ENS")){
+			else if ("ENS".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByDepartmentAndTeacherGuide(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.DEP.ENS");
 			}
-			else if (critereDeuxCle.equals("ENT")){
+			else if ("ENT".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByDepartmentAndStructure(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.DEP.ENT");
 			}
-			else if (critereDeuxCle.equals("JUR")){
+			else if ("JUR".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByDepartmentAndStructureType(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.DEP.JUR");
 			}
-			else if (critereDeuxCle.equals("SIZE")){
+			else if ("SIZE".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByDepartmentAndStructureSize(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.DEP.SIZE");
 			}
-			else if (critereDeuxCle.equals("DEPGEO")){
+			else if ("DEPGEO".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByDepartmentAndServiceDep(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.DEP.DEPGEO");
 			}
-			else if (critereDeuxCle.equals("PAYS")){
+			else if ("PAYS".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByDepartmentAndServiceCountry(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.DEP.PAYS");
 			}
-			else if (critereDeuxCle.equals("THEME")){
+			else if ("THEME".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByDepartmentAndTheme(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.DEP.THEME");
 			}
-			else if (critereDeuxCle.equals("DUREE")){
+			else if ("DUREE".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByDepartmentAndNbWeeks(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.DEP.DUREE");
 			}
@@ -434,69 +435,69 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 		}//fin Critere 1 = ETAPE
 
 		//Critere 1 = ETAPE
-		if(critereUnCle.equals("ETAPE")){
+		if("ETAPE".equals(critereUnCle)){
 
 			//Appel de la fonction selon le critere 2
-			if (critereDeuxCle.equals("")){
+			if ("".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStep(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.ETAPE");
 			}
-			else if (critereDeuxCle.equals("TYPE")){
+			else if ("TYPE".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStepAndType(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.ETAPE.TYPE");
 			}
-			else if (critereDeuxCle.equals("DOM")){
+			else if ("DOM".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStepAndActivity(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.ETAPE.DOM");
 			}
-			else if (critereDeuxCle.equals("GRA")){
+			else if ("GRA".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStepAndIndemnity(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.ETAPE.GRA");
 			}
-			else if (critereDeuxCle.equals("TEMPS")){
+			else if ("TEMPS".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStepAndWorkDuration(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.ETAPE.TEMPS");
 			}
-			else if (critereDeuxCle.equals("NB")){
+			else if ("NB".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStepAndNbDaysPerWeek(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.ETAPE.NB");
 			}
-			else if (critereDeuxCle.equals("ORI")){
+			else if ("ORI".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStepAndWayToFind(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.ETAPE.ORI");
 			}
-			else if (critereDeuxCle.equals("ENS")){
+			else if ("ENS".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStepAndTeacherGuide(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.ETAPE.ENS");
 			}
-			else if (critereDeuxCle.equals("ENT")){
+			else if ("ENT".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStepAndStructure(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.ETAPE.ENT");
 			}
-			else if (critereDeuxCle.equals("JUR")){
+			else if ("JUR".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStepAndStructureType(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.ETAPE.JUR");
 			}
-			else if (critereDeuxCle.equals("SIZE")){
+			else if ("SIZE".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStepAndStructureSize(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.ETAPE.SIZE");
 			}
-			else if (critereDeuxCle.equals("DEPGEO")){
+			else if ("DEPGEO".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStepAndServiceDep(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.ETAPE.DEPGEO");
 			}
-			else if (critereDeuxCle.equals("PAYS")){
+			else if ("PAYS".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStepAndServiceCountry(idCentreGestion, uneAnnee, etab);
 
 				// MODIFS STATS 2017
 				critereDeuxCle = "zone géographique";
 				message = "Nombre de stages par étape d'étude et par zone géographique";
 			}
-			else if (critereDeuxCle.equals("THEME")){
+			else if ("THEME".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStepAndTheme(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.ETAPE.THEME");
 			}
-			else if (critereDeuxCle.equals("DUREE")){
+			else if ("DUREE".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStepAndNbWeeks(idCentreGestion, uneAnnee, etab);
 				message = getString("CONVENTION.STATS.ETAPE.DUREE");
 			}
@@ -515,10 +516,13 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 			//connaitre le pourcentage de conventions ramenés
 			pourcentage=0;
 			for (StatisticItemDTO unItem : statsItemList){
-				pourcentage = (unItem.getNumber()*100)/total;
+				if (total != 0) {
+					pourcentage = (unItem.getNumber() * 100) / total;
+				} else {
+					pourcentage = 0;
+				}
 				//pourcentage = arrondiNDecimales(pourcentage,2);
 				unItem.setPercentage(pourcentage);
-				//System.out.println("pourcentage="+pourcentage);
 			}
 			map.put(uneAnnee,statsItemList);
 		}
@@ -551,7 +555,7 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 
 	/**
 	 * @return List<SelectItem>
-	 * @throws StatistiquesException 
+	 * @throws StatistiquesException
 	 */
 	public List<SelectItem> getAnneesConventions() throws StatistiquesException{
 

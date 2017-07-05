@@ -23,7 +23,8 @@
                                       escape="false"/>
                         <h:outputText value="#{msgs['CONVENTION.CONSIGNES2']}"
                                       escape="false"/>
-                        <t:div styleClass="ml40 mt20 mb20">
+                        <t:div styleClass="ml40 mt20 mb20"
+                               rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}">
                             <p:commandButton value="#{msgs['FORM.NEXT']}" ajax="false" styleClass="fontGreen"
                                              action="#{conventionController.goToCreerConventionRechEtu}"/>
                         </t:div>

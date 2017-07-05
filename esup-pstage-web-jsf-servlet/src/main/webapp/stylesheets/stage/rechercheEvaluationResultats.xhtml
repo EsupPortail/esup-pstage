@@ -10,8 +10,8 @@
                 <h:outputText value="#{msgs['RECHERCHEEVALUATION.TITRE']}" />
             </f:facet>
             <h:form id="formRechEvaluation">
-                <t:div
-                        rendered="#{empty conventionController.rechercheConventionPaginator.liste}">
+
+                <t:div rendered="#{empty conventionController.rechercheConventionPaginator.liste}">
                     <t:htmlTag value="br" />
                     <t:htmlTag value="div" style="height: 5px;" />
                     <h:panelGrid columns="2">
@@ -21,8 +21,8 @@
                                       escape="false" />
                     </h:panelGrid>
                 </t:div>
-                <t:div
-                        rendered="#{not empty conventionController.rechercheConventionPaginator.liste}">
+
+                <t:div rendered="#{not empty conventionController.rechercheConventionPaginator.liste}">
                     <t:htmlTag value="div" style="height:10px;" />
                     <t:div>
                         <h:graphicImage alt="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"

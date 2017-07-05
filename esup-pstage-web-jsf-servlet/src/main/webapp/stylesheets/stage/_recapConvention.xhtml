@@ -198,6 +198,20 @@
         <p:row>
             <p:column style="text-align:right;">
                 <h:outputText styleClass="fontBold"
+                              value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE']}" />
+            </p:column>
+            <p:column>
+                <h:outputText value="#{conventionController.convention.volumeHoraireFormation}"
+                              rendered="#{not empty conventionController.convention.volumeHoraireFormation
+                              and conventionController.convention.volumeHoraireFormation != '0'}"/>
+                <h:outputText value="Non saisi"
+                              rendered="#{empty conventionController.convention.volumeHoraireFormation
+                              or conventionController.convention.volumeHoraireFormation == '0'}"/>
+            </p:column>
+        </p:row>
+        <p:row>
+            <p:column style="text-align:right;">
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.NOMCENTRE']}" />
             </p:column>
             <p:column>

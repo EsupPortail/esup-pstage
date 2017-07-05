@@ -1,102 +1,98 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
-	<p:dialog id="suppressionCentre" widgetVar="suppressionCentre"
-		header="#{msgs['CENTRE.SUPPRESSION.HEAD']}" resizable="false" modal="true">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['CENTRE.SUPPRESSION.HEAD']}" />
-		</f:facet>
-		<p:panel style="border:none">
-			<h:panelGrid align="center">
-				<h:outputLabel value="#{centreController.centre.nomCentre}"
-					for="suppressionCentre" />
-				<h:panelGrid columns="2">
-					<h:outputText value="#{centreController.centre.voie}" />
-					<h:outputText value="#{centreController.centre.batimentResidence}" />
-				</h:panelGrid>
-				<h:panelGrid columns="2">
-					<h:outputText value="#{centreController.centre.codePostal}" />
-					<h:outputText value="#{centreController.centre.commune}" />
-				</h:panelGrid>
-				<t:htmlTag value="div" style="height:5px;" />
-				<t:div
-					rendered="#{centreController.nbCriteres != 0 || centreController.nbPersonnels != 0 || centreController.nbContacts != 0
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+    <p:dialog id="suppressionCentre" widgetVar="suppressionCentre"
+              header="#{msgs['CENTRE.SUPPRESSION.HEAD']}" resizable="false" modal="true">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['CENTRE.SUPPRESSION.HEAD']}" />
+        </f:facet>
+        <p:panel style="border:none">
+            <t:div styleClass="textCenter">
+                <h:outputLabel value="#{centreController.centre.nomCentre}"
+                               for="suppressionCentre" />
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{centreController.centre.voie}" />
+                    <h:outputText value="#{centreController.centre.batimentResidence}" />
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{centreController.centre.codePostal}" />
+                    <h:outputText value="#{centreController.centre.commune}" />
+                </h:panelGrid>
+                <t:htmlTag value="div" style="height:5px;" />
+                <t:div rendered="#{centreController.nbCriteres != 0 || centreController.nbPersonnels != 0 || centreController.nbContacts != 0
 				|| centreController.nbConventions != 0 || centreController.nbOffres != 0}">
-					<h:outputLabel value="#{msgs['CENTRE.SUPPRESSION.ELEMENTS']}"
-						for="suppressionCentre" />
-					<h:panelGrid columns="2"
-						rendered="#{centreController.nbCriteres != 0}">
-						<h:outputText value="#{centreController.nbCriteres}" />
-						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CRITERES']}" />
-					</h:panelGrid>
-					<t:htmlTag value="div" style="height:3px;" />
-					<h:panelGrid columns="2"
-						rendered="#{centreController.nbPersonnels != 0}">
-						<h:outputText value="#{centreController.nbPersonnels}" />
-						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_PERSONNES']}" />
-					</h:panelGrid>
-					<t:htmlTag value="div" style="height:3px;" />
-					<h:panelGrid columns="2"
-						rendered="#{centreController.nbConventions != 0}">
-						<h:outputText value="#{centreController.nbConventions}" />
-						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CONVENTIONS']}" />
-					</h:panelGrid>
-					<t:htmlTag value="div" style="height:3px;" />
-					<h:panelGrid columns="2"
-						rendered="#{centreController.nbOffres != 0}">
-						<h:outputText value="#{centreController.nbOffres}" />
-						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_OFFRES']}" />
-					</h:panelGrid>
-					<t:htmlTag value="div" style="height:3px;" />
-					<h:panelGrid columns="2"
-						rendered="#{centreController.nbContacts != 0}">
-						<h:outputText value="#{centreController.nbContacts}" />
-						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CONTACTS']}" />
-					</h:panelGrid>
-					<t:htmlTag value="div" style="height:3px;" />
-				</t:div>
-				<t:div
-					rendered="#{centreController.nbCriteres == 0 and centreController.nbPersonnels == 0 and centreController.nbContacts == 0
+                    <h:outputLabel value="#{msgs['CENTRE.SUPPRESSION.ELEMENTS']}"
+                                   for="suppressionCentre" />
+                    <h:panelGrid columns="2"
+                                 rendered="#{centreController.nbCriteres != 0}">
+                        <h:outputText value="#{centreController.nbCriteres}" />
+                        <h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CRITERES']}" />
+                    </h:panelGrid>
+                    <t:htmlTag value="div" style="height:3px;" />
+                    <h:panelGrid columns="2"
+                                 rendered="#{centreController.nbPersonnels != 0}">
+                        <h:outputText value="#{centreController.nbPersonnels}" />
+                        <h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_PERSONNES']}" />
+                    </h:panelGrid>
+                    <t:htmlTag value="div" style="height:3px;" />
+                    <h:panelGrid columns="2"
+                                 rendered="#{centreController.nbConventions != 0}">
+                        <h:outputText value="#{centreController.nbConventions}" />
+                        <h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CONVENTIONS']}" />
+                    </h:panelGrid>
+                    <t:htmlTag value="div" style="height:3px;" />
+                    <h:panelGrid columns="2"
+                                 rendered="#{centreController.nbOffres != 0}">
+                        <h:outputText value="#{centreController.nbOffres}" />
+                        <h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_OFFRES']}" />
+                    </h:panelGrid>
+                    <t:htmlTag value="div" style="height:3px;" />
+                    <h:panelGrid columns="2"
+                                 rendered="#{centreController.nbContacts != 0}">
+                        <h:outputText value="#{centreController.nbContacts}" />
+                        <h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CONTACTS']}" />
+                    </h:panelGrid>
+                    <t:htmlTag value="div" style="height:3px;" />
+                </t:div>
+                <t:div
+                        rendered="#{centreController.nbCriteres == 0 and centreController.nbPersonnels == 0 and centreController.nbContacts == 0
 				and centreController.nbConventions == 0 and centreController.nbOffres == 0}">
-					<h:outputText value="#{msgs['CENTRE.SUPPRESSION.ELEMENTS.VIDES']}" />
-				</t:div>
-				<t:div>
-					<fieldset>
-						<legend>
-							<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
-								value="/media/images/warning_20px.png" />
-						</legend>
-						<h:panelGrid>
-							<t:htmlTag value="center">
-								<h:outputText value="#{msgs['CENTRE.SUPPRESSION.RAPPEL']}" />
-							</t:htmlTag>
-							<t:htmlTag value="div" style="height:2px;" />
-							<h:outputText value="#{msgs['CENTRE.SUPPRESSION.RAPPEL_BIS']}" />
-						</h:panelGrid>
-					</fieldset>
-				</t:div>
-				<t:htmlTag value="div" style="height:15px;" />
-				<h:outputLabel value="#{msgs['CENTRE.SUPPRESSION.AVERTISSEMENT']}"
-					for="suppressionCentre" />
-			</h:panelGrid>
-		</p:panel>
-		<h:form id="formSupprCentre">
-			<center>
-				<h:panelGrid columns="3">
-					<p:commandButton action="#{centreController.supprimerCentre}"
-						value="#{msgs['FORM.OUI']}" update="erreurSupprCentre" />
-					<t:htmlTag value="div" style="width:30px;" />
-					<p:commandButton value="#{msgs['FORM.NON']}"
-						onclick="PF('suppressionCentre').hide();" />
-				</h:panelGrid>
-				<t:htmlTag value="div" style="height:10px;" />
-				<p:message id="erreurSupprCentre" for="formSupprCentre" />
-			</center>
-			<t:htmlTag value="div" style="height:20px;" />
-		</h:form>
-	</p:dialog>
+                    <h:outputText value="#{msgs['CENTRE.SUPPRESSION.ELEMENTS.VIDES']}" />
+                </t:div>
+                <t:div>
+                    <fieldset>
+                        <legend>
+                            <h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+                                            value="/media/images/warning_20px.png" />
+                        </legend>
+                        <h:panelGrid>
+                            <t:htmlTag value="center">
+                                <h:outputText value="#{msgs['CENTRE.SUPPRESSION.RAPPEL']}" />
+                            </t:htmlTag>
+                            <t:htmlTag value="div" style="height:2px;" />
+                            <h:outputText value="#{msgs['CENTRE.SUPPRESSION.RAPPEL_BIS']}" />
+                        </h:panelGrid>
+                    </fieldset>
+                </t:div>
+                <t:htmlTag value="div" style="height:15px;" />
+                <h:outputLabel value="#{msgs['CENTRE.SUPPRESSION.AVERTISSEMENT']}"
+                               for="suppressionCentre" styleClass="fontBold" />
+            </t:div>
+        </p:panel>
+        <h:form id="formSupprCentre">
+            <t:div styleClass="textCenter mt10">
+                <p:commandButton action="#{centreController.supprimerCentre}"
+                                 value="#{msgs['FORM.OUI']}" update="erreurSupprCentre" />
+                <p:commandButton value="#{msgs['FORM.NON']}" styleClass="mlf40"
+                                 onclick="PF('suppressionCentre').hide();" />
+            </t:div>
+            <t:htmlTag value="div" style="height:10px;" />
+            <p:message id="erreurSupprCentre" for="formSupprCentre" />
+            <t:htmlTag value="div" style="height:20px;" />
+        </h:form>
+    </p:dialog>
 </ui:composition>
 

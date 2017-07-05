@@ -1,115 +1,115 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<p:column sortBy="#{offre.idOffre}">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['OFFRE.ID']}" />
-		</f:facet>
-		<h:outputText value="#{offre.idOffre}" />
-	</p:column>
-	<p:column sortBy="#{offre.intitule}">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['OFFRE.INTITULE']}" />
-		</f:facet>
-		<h:outputText value="#{offre.intitule}" title="#{offre.intitule}">
-			<f:converter binding="#{limitCharactersShownUpTo50Converter}" />
-		</h:outputText>
-	</p:column>
-	<p:column sortBy="#{offre.typeOffre.libelle}">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['OFFRE.TYPEOFFRE']}" />
-		</f:facet>
-		<h:outputText value="#{offre.typeOffre.libelle}" />
-		<h:outputText value="#{offre.contratOffre.libelle}"
-			rendered="#{not empty offre.contratOffre}" styleClass="mlf5"/>
-	</p:column>
-	<p:column sortBy="#{offre.structure.raisonSociale}"
-		rendered="#{not sessionController.pageAuthorized}">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['OFFRE.ETABLISSEMENT']}" />
-		</f:facet>
-			<h:outputText value="#{offre.structure.raisonSociale}"
-				title="#{offre.structure.raisonSociale}">
-				<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
-			</h:outputText>
-	</p:column>
-	<p:column sortBy="#{offre.centreGestion.nomCentre}"
-		rendered="#{welcomeController.personnel || welcomeController.etudiant || welcomeController.enseignant}">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['OFFRE.GESTION.CENTREGESTION']}" />
-		</f:facet>
-			<h:outputText value="#{offre.centreGestion.nomCentre}"
-				title="#{offre.centreGestion.nomCentre}">
-			</h:outputText>
-	</p:column>
-	<p:column sortBy="#{offre.dateCreation}">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['OFFRE.DATECREATION']}" />
-		</f:facet>
-		<h:outputText value="#{offre.dateCreation}" />
-	</p:column>
-	<p:column sortBy="#{offre.estDiffusee}">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
-		</f:facet>
-		<!-- pour les offres encore diffusees (vert)-->
-		<h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
-			rendered="#{offre.estDiffusee and !offre.estSupprimee
+    <p:column sortBy="#{offre.idOffre}">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['OFFRE.ID']}" />
+        </f:facet>
+        <h:outputText value="#{offre.idOffre}" />
+    </p:column>
+    <p:column sortBy="#{offre.intitule}">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['OFFRE.INTITULE']}" />
+        </f:facet>
+        <h:outputText value="#{offre.intitule}">
+            <f:converter binding="#{limitCharactersShownUpTo50Converter}" />
+        </h:outputText>
+    </p:column>
+    <p:column sortBy="#{offre.typeOffre.libelle}">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['OFFRE.TYPEOFFRE']}" />
+        </f:facet>
+        <h:outputText value="#{offre.typeOffre.libelle}" />
+        <h:outputText value="#{offre.contratOffre.libelle}"
+                      rendered="#{not empty offre.contratOffre}" styleClass="mlf5"/>
+    </p:column>
+    <p:column sortBy="#{offre.structure.raisonSociale}"
+              rendered="#{not sessionController.pageAuthorized}">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['OFFRE.ETABLISSEMENT']}" />
+        </f:facet>
+        <h:outputText value="#{offre.structure.raisonSociale}"
+                      title="#{offre.structure.raisonSociale}">
+            <f:converter binding="#{limitCharactersShownUpTo30Converter}" />
+        </h:outputText>
+    </p:column>
+    <p:column sortBy="#{offre.centreGestion.nomCentre}"
+              rendered="#{welcomeController.personnel || welcomeController.etudiant || welcomeController.enseignant}">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['OFFRE.GESTION.CENTREGESTION']}" />
+        </f:facet>
+        <h:outputText value="#{offre.centreGestion.nomCentre}"
+                      title="#{offre.centreGestion.nomCentre}">
+        </h:outputText>
+    </p:column>
+    <p:column sortBy="#{offre.dateCreation}">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['OFFRE.DATECREATION']}" />
+        </f:facet>
+        <h:outputText value="#{offre.dateCreation}" />
+    </p:column>
+    <p:column sortBy="#{offre.estDiffusee}">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
+        </f:facet>
+        <!-- pour les offres encore diffusees (vert)-->
+        <h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
+                      rendered="#{offre.estDiffusee and !offre.estSupprimee
 			and currentDateBean le offre.dateFinDiffusion}"
-			style="color:green;" />
-		<!-- pour les offres diffusees mais terminees (rouge)-->
-		<h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
-			rendered="#{offre.estDiffusee and !offre.estSupprimee
+                      style="color:green;" />
+        <!-- pour les offres diffusees mais terminees (rouge)-->
+        <h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
+                      rendered="#{offre.estDiffusee and !offre.estSupprimee
 			and currentDateBean gt offre.dateFinDiffusion}"
-			style="color:red;" />
-		<h:outputText value="#{msgs['OFFRE.DIFFUSION.NESTPASDIFFUSEE']}"
-			rendered="#{!offre.estDiffusee and !offre.estSupprimee}"
-			style="color:orange;" />
-		<h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTSUPPRIMEE']}"
-			rendered="#{(offre.estDiffusee and offre.estSupprimee)||(!offre.estDiffusee and offre.estSupprimee)}"
-			style="color:purple;font-weight:bold;" />
-			
-		<!--<t:htmlTag value="br" />-->
-		<h:outputText value=" "/>
-		
-		<!-- pour les offres encore diffusees (vert)-->
-		<h:outputText value="#{msgs['OFFRE.DIFFUSION.JUSQU']} "
-			rendered="#{offre.estDiffusee and !offre.estSupprimee
+                      style="color:red;" />
+        <h:outputText value="#{msgs['OFFRE.DIFFUSION.NESTPASDIFFUSEE']}"
+                      rendered="#{!offre.estDiffusee and !offre.estSupprimee}"
+                      style="color:orange;" />
+        <h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTSUPPRIMEE']}"
+                      rendered="#{(offre.estDiffusee and offre.estSupprimee)||(!offre.estDiffusee and offre.estSupprimee)}"
+                      style="color:purple;font-weight:bold;" />
+
+        <!--<t:htmlTag value="br" />-->
+        <h:outputText value=" "/>
+
+        <!-- pour les offres encore diffusees (vert)-->
+        <h:outputText value="#{msgs['OFFRE.DIFFUSION.JUSQU']} "
+                      rendered="#{offre.estDiffusee and !offre.estSupprimee
 			and currentDateBean le offre.dateFinDiffusion}"
-			style="color:green;"/>
-		<h:outputText value="#{offre.dateFinDiffusion}"
-			rendered="#{offre.estDiffusee and !offre.estSupprimee
+                      style="color:green;"/>
+        <h:outputText value="#{offre.dateFinDiffusion}"
+                      rendered="#{offre.estDiffusee and !offre.estSupprimee
 			and currentDateBean le offre.dateFinDiffusion}"
-			style="color:green;font-weight:bold;">
-			<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
-		</h:outputText>
-		<!-- pour les offres diffusees mais terminees (rouge)-->
-		<h:outputText value="#{msgs['OFFRE.DIFFUSION.JUSQU']} "
-			rendered="#{offre.estDiffusee and !offre.estSupprimee
+                      style="color:green;font-weight:bold;">
+            <f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+        </h:outputText>
+        <!-- pour les offres diffusees mais terminees (rouge)-->
+        <h:outputText value="#{msgs['OFFRE.DIFFUSION.JUSQU']} "
+                      rendered="#{offre.estDiffusee and !offre.estSupprimee
 			and currentDateBean gt offre.dateFinDiffusion}"
-			style="color:red;"/>
-		<h:outputText value="#{offre.dateFinDiffusion}"
-			rendered="#{offre.estDiffusee and !offre.estSupprimee
+                      style="color:red;"/>
+        <h:outputText value="#{offre.dateFinDiffusion}"
+                      rendered="#{offre.estDiffusee and !offre.estSupprimee
 			and currentDateBean gt offre.dateFinDiffusion}"
-			style="color:red;font-weight:bold;">
-			<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
-		</h:outputText>
-	</p:column>
-	<p:column sortBy="#{offre.avecFichier || offre.avecLien}">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['OFFRE.FICHIERLIEN']}" />
-		</f:facet>
-		<h:outputText value="#{msgs['FORM.OUI']} /"
-			rendered="#{offre.avecFichier || offre.avecLien}" />
-		<t:htmlTag value="i" styleClass="fa fa-link fz13 mlf5" id="imageLien" rendered="#{offre.avecLien}"/>
-		<p:tooltip for="imageLien" value="#{msgs['OFFRE.LIEN']}" />
-		<t:htmlTag value="i" styleClass="fa fa-file-text-o fz13 mlf5" id="imageFichier" rendered="#{offre.avecFichier}"/>
-		<p:tooltip for="imageFichier" value="#{msgs['OFFRE.FICHIER']}" />
-		<h:outputText value="#{msgs['FORM.NON']}"
-			rendered="#{!(offre.avecFichier || offre.avecLien)}" />
-	</p:column>
+                      style="color:red;font-weight:bold;">
+            <f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+        </h:outputText>
+    </p:column>
+    <p:column sortBy="#{offre.avecFichier || offre.avecLien}">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['OFFRE.FICHIERLIEN']}" />
+        </f:facet>
+        <h:outputText value="#{msgs['FORM.OUI']} /"
+                      rendered="#{offre.avecFichier || offre.avecLien}" />
+        <t:htmlTag value="i" styleClass="fa fa-link fz13 mlf5" id="imageLien" rendered="#{offre.avecLien}"/>
+        <p:tooltip for="imageLien" value="#{msgs['OFFRE.LIEN']}" />
+        <t:htmlTag value="i" styleClass="fa fa-file-text-o fz13 mlf5" id="imageFichier" rendered="#{offre.avecFichier}"/>
+        <p:tooltip for="imageFichier" value="#{msgs['OFFRE.FICHIER']}" />
+        <h:outputText value="#{msgs['FORM.NON']}"
+                      rendered="#{!(offre.avecFichier || offre.avecLien)}" />
+    </p:column>
 </ui:composition>

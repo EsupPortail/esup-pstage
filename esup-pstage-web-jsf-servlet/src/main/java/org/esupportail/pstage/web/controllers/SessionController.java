@@ -51,7 +51,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	/**
 	 * Logger
 	 */
-	private final Logger logger = Logger.getLogger(this.getClass());
+	private final transient Logger logger = Logger.getLogger(this.getClass());
 	/**
 	 * The serialization id.
 	 */
@@ -63,7 +63,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	/**
 	 * The authenticator.
 	 */
-	private Authenticator authenticator;	
+	private transient Authenticator authenticator;
 	/**
 	 * true to print login/logout button in servlet mode.
 	 */
@@ -197,11 +197,11 @@ public class SessionController extends AbstractDomainAwareBean {
 	/**
 	 * Classe d'upload d'image avec redimensionnement
 	 */
-	private ImageUploadBean imageUploadBean;
+	private transient ImageUploadBean imageUploadBean;
 	/**
 	 * Classe d'upload de fichiers pour les offres
 	 */
-	private FileUploadBean offreFileUploadBean;
+	private transient FileUploadBean offreFileUploadBean;
 	/**
 	 * uploadFilesFileSizeLimit
 	 */
@@ -597,7 +597,7 @@ public class SessionController extends AbstractDomainAwareBean {
 				this.mailingListEntrIA = new InternetAddress(this.mailingListEntr);
 				this.mailingListEntrIA.validate();
 			} catch (AddressException e) {
-				e.printStackTrace();
+				logger.error(e);
 				Assert.isTrue(false, "with property mailingListEntr = "+this.mailingListEntr);
 			}
 		}
@@ -609,7 +609,7 @@ public class SessionController extends AbstractDomainAwareBean {
 				this.mailingListPStageIA = new InternetAddress(this.mailingListPStage);
 				this.mailingListPStageIA.validate();
 			} catch (AddressException e) {
-				e.printStackTrace();
+				logger.error(e);
 				Assert.isTrue(false, "with property mailingListPStage = "+this.mailingListPStage);
 			}
 		}
@@ -620,7 +620,7 @@ public class SessionController extends AbstractDomainAwareBean {
 					+ this.getClass().getName() + " can not be null : "+superAdmin);
 		}
 		if(org.springframework.util.StringUtils.hasText(adminAuthentication)){
-			if(!adminAuthentication.equals("cas") && !adminAuthentication.equals("shibb")){
+			if(!"cas".equals(adminAuthentication) && !"shibb".equals(adminAuthentication)){
 				Assert.isTrue(false, "property adminAuthentication must be 'cas' or 'shibb'");
 			}
 		}
@@ -631,15 +631,15 @@ public class SessionController extends AbstractDomainAwareBean {
 				+ this.getClass().getName() + " can not be null");
 		if(Utils.isNumber(uploadFilesFileSizeLimit)){
 			int i = Utils.convertStringToInt(this.uploadFilesFileSizeLimit);
-			if((""+i).length()<=3 && (""+i).length()>1){
+			if((Integer.toString(i)).length()<=3 && (Integer.toString(i)).length()>1){
 				this.uploadFilesFileSizeLimit=i+"o";
 			}
 			i = i /1024;
-			if((""+i).length()<=3 && (""+i).length()>1){
+			if((Integer.toString(i)).length()<=3 && (Integer.toString(i)).length()>1){
 				this.uploadFilesFileSizeLimit=i+"ko";
 			}
 			i = i /1024;
-			if((""+i).length()<=3 && (""+i).length()>1){
+			if((Integer.toString(i)).length()<=3 && (Integer.toString(i)).length()>1){
 				this.uploadFilesFileSizeLimit=i+"mo";
 			}
 		}

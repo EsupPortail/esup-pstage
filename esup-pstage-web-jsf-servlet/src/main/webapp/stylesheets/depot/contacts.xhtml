@@ -61,7 +61,7 @@
                                          reflow="true" tableStyle="table-layout: auto;"
                                          rendered="#{not empty etablissementController.serviceSel}">
                                 <ui:include src="/stylesheets/_commun/_serviceColumns.xhtml" />
-                                <p:column>
+                                <p:column styleClass="background-color-grey textCenter">
                                     <f:facet name="header">
                                         <h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
                                     </f:facet>
@@ -124,7 +124,7 @@
 								and not empty etablissementController.listeContacts}">
                                 <p:column>
                                     <f:facet name="header">
-                                        <t:htmlTag value="i" styleClass="fa fa-user fz16"/>
+                                        <t:htmlTag value="i" styleClass="fa fa-user fz13"/>
                                     </f:facet>
                                     <h:outputText id="civC" value="#{contact.civilite.libelle}"
                                                   rendered="#{!(sessionController.currentManageStructure.idAccordPartenariat>0
@@ -169,20 +169,20 @@
 								 and sessionController.currentManageStructure.accordPartenariat.idContact==contact.id}" />
                                 </p:column>
                                 <!--<p:column sortBy="#{contact.fonction}"-->
-                                          <!--sortable="#{not empty contact.fonction}">-->
-                                    <!--<f:facet name="header">-->
-                                        <!--<h:outputText-->
-                                                <!--value="#{msgs['CONTACT.FONCTION']}" />-->
-                                    <!--</f:facet>-->
-                                    <!--<h:outputText id="fonctionC" value="#{contact.fonction}"-->
-                                                  <!--rendered="#{!(sessionController.currentManageStructure.idAccordPartenariat>0-->
-								 <!--and sessionController.currentManageStructure.accordPartenariat!=null-->
-								 <!--and sessionController.currentManageStructure.accordPartenariat.idContact==contact.id)}" />-->
-                                    <!--<h:outputText id="fonctionCA" value="#{contact.fonction}"-->
-                                                  <!--styleClass="fontBold fontRed"-->
-                                                  <!--rendered="#{sessionController.currentManageStructure.idAccordPartenariat>0-->
-								 <!--and sessionController.currentManageStructure.accordPartenariat!=null-->
-								 <!--and sessionController.currentManageStructure.accordPartenariat.idContact==contact.id}" />-->
+                                <!--sortable="#{not empty contact.fonction}">-->
+                                <!--<f:facet name="header">-->
+                                <!--<h:outputText-->
+                                <!--value="#{msgs['CONTACT.FONCTION']}" />-->
+                                <!--</f:facet>-->
+                                <!--<h:outputText id="fonctionC" value="#{contact.fonction}"-->
+                                <!--rendered="#{!(sessionController.currentManageStructure.idAccordPartenariat>0-->
+                                <!--and sessionController.currentManageStructure.accordPartenariat!=null-->
+                                <!--and sessionController.currentManageStructure.accordPartenariat.idContact==contact.id)}" />-->
+                                <!--<h:outputText id="fonctionCA" value="#{contact.fonction}"-->
+                                <!--styleClass="fontBold fontRed"-->
+                                <!--rendered="#{sessionController.currentManageStructure.idAccordPartenariat>0-->
+                                <!--and sessionController.currentManageStructure.accordPartenariat!=null-->
+                                <!--and sessionController.currentManageStructure.accordPartenariat.idContact==contact.id}" />-->
                                 <!--</p:column>-->
                                 <p:column>
                                     <f:facet name="header">
@@ -226,7 +226,7 @@
 								 and sessionController.currentManageStructure.accordPartenariat!=null
 								 and sessionController.currentManageStructure.accordPartenariat.idContact==contact.id}" />
                                 </p:column>
-                                <p:column rendered="#{sessionController.adminPageAuthorized
+                                <p:column styleClass="textCenter background-color-grey" rendered="#{sessionController.adminPageAuthorized
  								            or (sessionController.pageAuthorized and empty contact.login and empty contact.mdp)
  								            or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==contact.id)}">
                                     <f:facet name="header">
@@ -266,15 +266,14 @@
                                         <p:tooltip value="#{msgs['FORM.SUPPRIMER']}" for="supprC"  />
                                     </p:commandLink>
                                 </p:column>
-                                <p:column rendered="#{sessionController.adminPageAuthorized
+                                <p:column styleClass="textCenter background-color-grey" rendered="#{sessionController.adminPageAuthorized
                                     and sessionController.currentManageStructure.idAccordPartenariat gt 0
                                     and sessionController.currentManageStructure.accordPartenariat != null
                                     and sessionController.currentManageStructure.accordPartenariat.estValide}">
                                     <f:facet name="header">
-                                        <h:outputText
-                                                value="#{msgs['GENERAL.ACTIONS']}" />
+                                        <h:outputText value="Gestion du compte entreprise" />
                                     </f:facet>
-                                    <p:commandLink id="creationCompte"
+                                    <p:commandLink id="creationCompte" styleClass="mrf5"
                                                    rendered="#{not empty etablissementController.serviceSel
                                             and not empty etablissementController.listeServices
                                             and empty contact.mdp}"
@@ -289,20 +288,19 @@
                                                    value="#{msgs['CONTACT.GESTION.COMPTE.CREATION']}" />
                                     </p:commandLink>
 
-                                    <p:commandLink  id="supprCompte"
-                                                    rendered="#{not empty etablissementController.serviceSel
+                                    <p:commandLink id="supprCompte" styleClass="mrf5"
+                                                   rendered="#{not empty etablissementController.serviceSel
 													and not empty etablissementController.listeServices
 													and not empty contact.mdp}"
-                                                    oncomplete="PF('supprCompteContact').show();"
-                                                    update="supprCompteContact">
+                                                   oncomplete="PF('supprCompteContact').show();"
+                                                   update="supprCompteContact">
                                         <f:setPropertyActionListener value="#{contact}"
                                                                      target="#{etablissementController.formContact}" />
                                         <t:htmlTag value="i" styleClass="fa fa-user-times fz16"/>
-                                        <p:tooltip
-                                                value="#{msgs['CONTACT.GESTION.COMPTE.SUPPRESSION']}" />
+                                        <p:tooltip for="supprCompte" value="#{msgs['CONTACT.GESTION.COMPTE.SUPPRESSION']}" />
                                     </p:commandLink>
 
-                                    <p:commandLink  id="resetMdp"
+                                    <p:commandLink  id="resetMdp" styleClass="mrf5"
                                                     rendered="#{not empty etablissementController.serviceSel
 													and not empty etablissementController.listeServices
 													and not empty contact.mdp}"
@@ -313,8 +311,7 @@
                                         <f:setPropertyActionListener value="#{contact}"
                                                                      target="#{etablissementController.formContact}" />
                                         <t:htmlTag value="i" styleClass="fa fa-rotate-right fz16"/>
-                                        <p:tooltip
-                                                value="#{msgs['CONTACT.GESTION.COMPTE.RESETMDP']}" />
+                                        <p:tooltip for="resetMdp" value="#{msgs['CONTACT.GESTION.COMPTE.RESETMDP']}" />
                                     </p:commandLink>
 
                                     <h:outputText

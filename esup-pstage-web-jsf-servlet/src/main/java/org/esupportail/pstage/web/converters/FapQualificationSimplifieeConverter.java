@@ -51,7 +51,7 @@ public class FapQualificationSimplifieeConverter implements Serializable, Conver
 					"object " + value + " is not a FapQualificationSimplifieeDTO.");
 		}
 		FapQualificationSimplifieeDTO e = (FapQualificationSimplifieeDTO) value;
-		return ""+e.getId();
+		return Integer.toString(e.getId());
 	}
 	
 	/**

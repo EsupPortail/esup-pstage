@@ -16,6 +16,8 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+import org.esupportail.commons.services.logging.Logger;
+import org.esupportail.commons.services.logging.LoggerImpl;
 import org.esupportail.pstage.utils.Utils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -49,6 +51,11 @@ public class ImageUploadBean{
 	private String extension;
 
 	/**
+	 * A logger.
+	 */
+	private final Logger logger = new LoggerImpl(this.getClass());
+
+	/**
 	 * Constructeur
 	 * @param directory
 	 */
@@ -66,7 +73,7 @@ public class ImageUploadBean{
 			UploadedFile uploadItem = event.getFile();
 			String imageName = uploadItem.getFileName();
 
-			int i=imageName.lastIndexOf(".");
+			int i=imageName.lastIndexOf('.');
 			this.extension="";
 			if(i>0){
 				this.extension=imageName.substring(i+1);
@@ -91,24 +98,23 @@ public class ImageUploadBean{
 				}
 				fos.flush();
 			}catch (IOException ex1){
-				ex1.printStackTrace();
-				//
+				logger.error(ex1);
 			}catch (Exception e){
-				e.printStackTrace();
+				logger.error(e);
 			}finally{ // fermeture des filechannel
-				if(is != null){
-					try{
+				try{
+					if (is != null) {
 						is.close();
-					}catch(IOException e){
-						e.printStackTrace();
-						//logger.error("Can't close input file channel");
 					}
-					try{
+				}catch(IOException e){
+					logger.error(e);
+				}
+				try{
+					if (fos != null) {
 						fos.close();
-					}catch (IOException e){
-						e.printStackTrace();
-						// logger.error("Can't close ouput file channel");
 					}
+				}catch (IOException e){
+					logger.error(e);
 				}
 			}
 		}
@@ -123,7 +129,7 @@ public class ImageUploadBean{
 	 * @return ByteArrayOutputStream
 	 * @throws Exception
 	 */
-	public static InputStream scaleImage(InputStream p_image, int p_width, int p_height, String extension) throws Exception {
+	public static InputStream scaleImage(InputStream p_image, int p_width, int p_height, String extension) throws IOException {
 
 		InputStream imageStream = new BufferedInputStream(p_image);
 		Image image = ImageIO.read(imageStream);
@@ -149,8 +155,8 @@ public class ImageUploadBean{
 			thumbWidth = (int)(thumbHeight * imageRatio);
 		}
 
-		BufferedImage thumbImage = null;
-		Graphics2D graphics2D = null;
+		BufferedImage thumbImage;
+		Graphics2D graphics2D;
 		thumbImage = new BufferedImage(thumbWidth, thumbHeight, BufferedImage.TYPE_INT_RGB);
 		graphics2D = thumbImage.createGraphics();
 		// Gestion image transparence

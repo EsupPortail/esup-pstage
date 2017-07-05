@@ -22,7 +22,7 @@
                                               value="#{msgs['GENERAL.LIGNE.SELECTION']}" />
                             </t:div>
                             <p:dataTable id="listeOffres"
-                                         value="#{offreController.rechercheOffrePaginator.liste}"
+                                         value="#{offreController.rechercheOffrePaginator.visibleItems}"
                                          var="offre" rows="10" rowKey="#{offre.idOffre}" rowHover="true"
                                          paginator="true" paginatorAlwaysVisible="false"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

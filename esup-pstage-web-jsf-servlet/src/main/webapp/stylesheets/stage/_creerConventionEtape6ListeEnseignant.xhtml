@@ -7,16 +7,18 @@
 
     <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
     <h:outputText value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT.LISTE']}" styleClass="ml5" escape="false"/>
-    <h:outputText styleClass="fontItalic fontGreen fontBold fz09"
-                  value="#{msgs['GENERAL.LIGNE.SELECTION']}" />
 
-    <p:dataTable id="listeEns" styleClass="mt20 mb10 ml20"
+    <t:div styleClass="textCenter mt10">
+        <h:outputText styleClass="fontItalic fontGreen fontBold fz09"
+                      value="#{msgs['GENERAL.LIGNE.SELECTION']}" />
+    </t:div>
+    <p:dataTable id="listeEns" styleClass="mb10 ml20"
                  value="#{conventionController.listeEnseignant}" var="enseignant"
                  rows="5" rowHover="true" paginator="true" paginatorPosition="bottom"
                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                  rowsPerPageTemplate="5,10,15,20" paginatorAlwaysVisible="false"
                  reflow="true" tableStyle="table-layout: auto;"
-                 rowKey="#{enseignant.id}"
+                 rowKey="#{enseignant.uidEnseignant}"
                  selectionMode="single" selection="#{conventionController.resultatEnseignant}">
 
         <p:ajax event="rowSelect" listener="#{conventionController.onTuteurEnsSelect}"
@@ -24,18 +26,6 @@
 
         <ui:include src="/stylesheets/stage/_listeEnseignantsColumns.xhtml" />
 
-        <!--<p:column style="width:120px; background-color:#A5A5A5;" styleClass="textCenter">-->
-            <!--<p:commandButton value="#{msgs['FORM.SELECTIONNER']}" icon="fa fa-check"-->
-                             <!--action="#{conventionController.checkSurchargeTuteur}"-->
-                             <!--update="@form">-->
-                <!--<f:setPropertyActionListener value="_creerConventionEtape6Enseignant"-->
-                                             <!--target="#{sessionController.creationConventionEtape6CurrentPage}" />-->
-                <!--<f:setPropertyActionListener value="#{enseignant}"-->
-                                             <!--target="#{conventionController.convention.enseignant}" />-->
-                <!--<f:setPropertyActionListener value="#{enseignant}"-->
-                                             <!--target="#{conventionController.resultatEnseignant}" />-->
-            <!--</p:commandButton>-->
-        <!--</p:column>-->
     </p:dataTable>
 
     <p:commandButton value="#{msgs['FORM.PREVIOUS']}"

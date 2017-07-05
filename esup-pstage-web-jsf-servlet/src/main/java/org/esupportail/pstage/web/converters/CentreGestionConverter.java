@@ -62,7 +62,7 @@ public class CentreGestionConverter implements Serializable, Converter {
 					"object " + value + " is not a CentreGestionDTO.");
 		}
 		CentreGestionDTO c = (CentreGestionDTO) value;
-		return ""+c.getIdCentreGestion();
+		return Integer.toString(c.getIdCentreGestion());
 	}
 
 	/**

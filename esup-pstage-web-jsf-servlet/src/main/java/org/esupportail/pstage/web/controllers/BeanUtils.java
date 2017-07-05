@@ -139,7 +139,7 @@ public class BeanUtils extends AbstractDomainAwareBean {
 	 * @return the cogFrance
 	 */
 	public String getCogFrance() {
-		this.cogFrance=getFrance().getCog()+"";
+		this.cogFrance=Integer.toString(getFrance().getCog());
 		return this.cogFrance;
 	}
 
@@ -666,6 +666,39 @@ public class BeanUtils extends AbstractDomainAwareBean {
 		return droitLecture;
 	}
 
+	/**
+	 * String
+	 */
+	private String libelleDroitEcritureAvantValP = "ECRITURE_AVANT_VALP";
+
+	/**
+	 * @return the libelleDroitAdmin
+	 */
+	public String getLibelleDroitEcritureAvantValP() {
+		return libelleDroitEcritureAvantValP;
+	}
+
+	/**
+	 * Objet DroitEcriture
+	 */
+	private DroitAdministrationDTO droitEcritureAvantValP;
+	/**
+	 * @return DroitAdministrationDTO
+	 */
+	public DroitAdministrationDTO getDroitEcritureAvantValP() {
+		droitEcritureAvantValP = null;
+
+		List<DroitAdministrationDTO> l = getNomenclatureDomainService().getDroitsAdmin();
+
+		for (DroitAdministrationDTO c : l) {
+			if (c.getLibelle().equalsIgnoreCase(DonneesStatic.LIBELLE_DROIT_ECRITURE_AVANT_VALP)) {
+				droitEcritureAvantValP = c;
+			}
+		}
+
+		return droitEcritureAvantValP;
+	}
+
 	
 	/* ***************************************************************
 	 * Méme Adresse
@@ -721,13 +754,12 @@ public class BeanUtils extends AbstractDomainAwareBean {
 	 * @return String xxxx/xxxx
 	 */
 	public String getAnneeUniversitaireCourante(Date date){
-		String anneeUniversitaire = "";
+		String anneeUniversitaire;
 		Calendar debutStage = Calendar.getInstance();
 		debutStage.setTime(date);
 		int year = debutStage.get(Calendar.YEAR);
 		Calendar debutAnnee = Calendar.getInstance();
-		debutAnnee.set(year, Integer.parseInt(startYearMonth) - 1, Integer
-				.parseInt(startYearDay), 0, 0, 0);
+		debutAnnee.set(year, Integer.parseInt(startYearMonth) - 1, Integer.parseInt(startYearDay), 0, 0, 0);
 		// pas de millisecond (sinon c sera toujours avant debut annee, meme
 		// s'il s'agit du meme jour)
 		debutAnnee.clear(Calendar.MILLISECOND);

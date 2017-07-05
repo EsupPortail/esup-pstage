@@ -33,12 +33,14 @@
                         <p:menuitem value="#{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}"
                                     action="#{conventionController.goToRechercheConventionEnseignantTuteur}"
                                     rendered="#{welcomeController.enseignantTuteur}"
+                                    onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
                                     icon="fa fa-list" styleClass="#{sessionController.currentPageConvention ? 'selected' : ''}"/>
                     </p:submenu>
                     <p:submenu label="#{msgs['MENUSTAGE.GESTIONCONVENTION']}"
                                rendered="#{sessionController.utilisationStage and welcomeController.etudiant}">
                         <p:menuitem value="#{msgs['MENUSTAGE.RECHCONVENTION.ETU']}"
                                     action="#{conventionController.goToRechercheConventionEtu}" icon="fa fa-search"
+                                    onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
                                     styleClass="#{sessionController.currentPageConvention ? 'selected' : ''}"/>
                         <p:menuitem value="#{msgs['MENUSTAGE.CREERCONVENTION']}"
                                     action="#{conventionController.goToCreerConvention}" icon="fa fa-plus"
@@ -119,10 +121,12 @@
                                     styleClass="#{false ? 'selected' : ''}"/>
                         <p:menuitem value="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}"
                                     action="#{evaluationController.goToRechercheEvalEns}"
+                                    onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
                                     rendered="#{welcomeController.enseignantTuteur}" icon="fa fa-list"
                                     styleClass="#{false ? 'selected' : ''}"/>
                         <p:menuitem value="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}"
                                     action="#{evaluationController.goToRechercheEvalEtu}"
+                                    onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
                                     rendered="#{welcomeController.etudiant}" icon="fa fa-list"
                                     styleClass="#{false ? 'selected' : ''}"/>
                     </p:submenu>
@@ -164,12 +168,10 @@
                     <t:htmlTag value="ul">
                         <t:htmlTag value="li">
                             <h:commandLink action="#{conventionController.goToRechercheConventionEtu}"
-                                           rendered="#{welcomeController.enseignantTuteur}"
                                            value="#{msgs['MENUSTAGE.RECHCONVENTION.ETU']}" styleClass="fa fa-search"/>
                         </t:htmlTag>
                         <t:htmlTag value="li">
                             <h:commandLink action="#{conventionController.goToCreerConvention}"
-                                           rendered="#{welcomeController.enseignantTuteur}"
                                            value="#{msgs['MENUSTAGE.CREERCONVENTION']}" styleClass="fa fa-plus"/>
                         </t:htmlTag>
                     </t:htmlTag>

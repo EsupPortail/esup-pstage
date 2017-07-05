@@ -58,8 +58,8 @@
                                          tableStyle="table-layout: auto;" reflow="true"
                                          rendered="#{not empty etablissementController.serviceSel}">
                                 <ui:include src="/stylesheets/_commun/_serviceColumns.xhtml" />
-                                <p:column
-                                        rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+                                <p:column styleClass="background-color-grey textCenter"
+                                          rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
                                     <f:facet name="header">
                                         <h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
                                     </f:facet>
@@ -178,10 +178,11 @@
                                     <h:outputText id="mailC" value="#{contact.mail}" />
                                 </p:column>
 
-                                <p:column colspan="2" rendered="#{sessionController.adminPageAuthorized
-								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty contact.login and empty contact.mdp)
-								or (sessionController.pageAuthorized and empty contact.login and empty contact.mdp)
-								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==contact.id)}">
+                                <p:column colspan="2" styleClass="background-color-grey textCenter"
+                                          rendered="#{sessionController.adminPageAuthorized
+                                    or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty contact.login and empty contact.mdp)
+                                    or (sessionController.pageAuthorized and empty contact.login and empty contact.mdp)
+                                    or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==contact.id)}">
                                     <f:facet name="header">
                                         <h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
                                     </f:facet>

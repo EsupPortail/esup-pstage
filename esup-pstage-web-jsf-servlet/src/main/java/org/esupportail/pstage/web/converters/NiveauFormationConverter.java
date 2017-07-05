@@ -51,7 +51,7 @@ public class NiveauFormationConverter implements Serializable, Converter {
 					"object " + value + " is not a NiveauFormationDTO.");
 		}
 		NiveauFormationDTO e = (NiveauFormationDTO) value;
-		return ""+e.getId();
+		return Integer.toString(e.getId());
 	}
 	
 	/**

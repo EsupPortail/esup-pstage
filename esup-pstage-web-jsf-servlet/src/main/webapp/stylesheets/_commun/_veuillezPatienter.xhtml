@@ -1,13 +1,18 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
-	<h:panelGrid columns="2">
-		<h:graphicImage alt="#{msgs['FORM.VEUILLEZPATIENTER']}"
-			title="#{msgs['FORM.VEUILLEZPATIENTER']}"
-			value="/media/images/loadingCircle.gif" />
-		<h:outputText value=" #{msgs['FORM.VEUILLEZPATIENTER']}" />
-	</h:panelGrid>
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+
+    <t:div styleClass="PCOnly">
+        <h:graphicImage alt="#{msgs['FORM.VEUILLEZPATIENTER']}"
+                        title="#{msgs['FORM.VEUILLEZPATIENTER']}"
+                        value="/media/images/loadingCircle.gif" />
+        <h:outputText value=" #{msgs['FORM.VEUILLEZPATIENTER']}" />
+    </t:div>
+    <t:div styleClass="phoneOnly textCenter" style="margin-top:50%;">
+        <h:graphicImage alt="#{msgs['FORM.VEUILLEZPATIENTER']}"
+                        title="#{msgs['FORM.VEUILLEZPATIENTER']}"
+                        value="/media/images/loadingCircle.gif" />
+        <h:outputText value=" #{msgs['FORM.VEUILLEZPATIENTER']}" />
+    </t:div>
 </ui:composition>

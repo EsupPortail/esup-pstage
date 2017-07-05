@@ -35,7 +35,7 @@
                                                              target="#{etablissementController.afficherSelectionCentreContact}" />
                             </p:commandButton>
 
-                            <p:dialog id="selectSignataire" widgetVar="selectSignataire" resizable="false">
+                            <p:dialog id="selectSignataire" widgetVar="selectSignataire" resizable="false" modal="true">
 
                                 <ui:include src="/stylesheets/_commun/_subPanelSelectContact.xhtml">
                                     <ui:param name="idOpService" value="opService" />

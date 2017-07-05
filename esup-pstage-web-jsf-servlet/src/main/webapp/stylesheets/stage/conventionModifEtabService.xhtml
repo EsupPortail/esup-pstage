@@ -54,16 +54,17 @@
 
                                     <ui:include src="/stylesheets/_commun/_serviceColumns.xhtml" />
 
-                                    <p:column style="background-color:#A5A5A5; width:100px;" styleClass="textCenter">
+                                    <p:column styleClass="background-color-grey textCenter">
                                         <f:facet name="header">
                                             <t:div>
                                                 <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2"/>
                                                 <h:outputText value="#{msgs['GENERAL.ACTIONS']}" styleClass="ml5"/>
                                             </t:div>
                                         </f:facet>
-                                        <p:commandLink id="modif" oncomplete="PF('modifService').show();"
+                                        <p:commandLink id="modif" oncomplete="PF('statusDialog').hide(); PF('modifService').show();"
                                                        update="modifService"
                                                        action="#{etablissementController.modifService}"
+                                                       onstart="PF('statusDialog').show();"
                                                        rendered="#{((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
                                             welcomeController.admin || welcomeController.personnel || welcomeController.writer)
                                             || (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||

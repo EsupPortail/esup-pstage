@@ -30,7 +30,7 @@
             <h:outputText value="#{etudiantRef.nom} #{etudiantRef.nomMarital} " styleClass="fontBold"/>
             <h:outputText value=" #{etudiantRef.prenom}" />
         </p:column>
-        <p:column style="width:120px; background-color:#A5A5A5;" styleClass="textCenter">
+        <p:column styleClass="textCenter background-color-grey">
             <p:commandButton value="#{msgs['FORM.SELECTIONNER']}" icon="fa fa-check"
                              action="#{conventionController.goToChoixEtapeEtudiant}"
                              update="@form">

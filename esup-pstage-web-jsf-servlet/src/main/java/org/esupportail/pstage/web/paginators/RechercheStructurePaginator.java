@@ -20,7 +20,7 @@ public class RechercheStructurePaginator extends ListPaginator<StructureDTO> {
 	/**
 	 * Liste
 	 */
-	private List<StructureDTO> liste=null;
+	private List<StructureDTO> liste;
 	
 	/**
 	 * Constructeur

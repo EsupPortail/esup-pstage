@@ -268,7 +268,7 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	}
 
 	/**
-	 * @see org.esupportail.pstagedata.domain.ConventionDomainService#updateConventionValidation(org.esupportail.pstagedata.domain.dto.ConventionDTO)
+	 * @see org.esupportail.pstage.domain.ConventionDomainService#updateConventionValidation(ConventionDTO)
 	 */
 	public boolean updateConventionValidation(ConventionDTO convention)
 			throws DataUpdateException, WebServiceDataBaseException {

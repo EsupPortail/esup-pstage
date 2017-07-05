@@ -45,13 +45,12 @@ import gouv.education.apogee.commun.transverse.exception.WebBaseException;
  */
 
 @SuppressWarnings("serial")
-public class StudentDataRepositoryDaoWS implements
-		StudentDataRepositoryDao {
+public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 
 	/**
 	 *
 	 */
-	final Logger logger = Logger.getLogger(StudentDataRepositoryDaoWS.class);
+	final transient Logger logger = Logger.getLogger(StudentDataRepositoryDaoWS.class);
 
 	/**
 	 * startYearDay
@@ -150,7 +149,7 @@ public class StudentDataRepositoryDaoWS implements
 
 		// recherche des informations etudiant dans Apogee
 		// annee a null puisqu'on n'est pas en modification donc il s'agit forcement de l'annee courante.
-		studentApogee = getStudentApogee(universityCode, codEtu, null);
+		studentApogee = getStudentApogee(universityCode, codEtu, null, false);
 		if (studentApogee != null) {
 			if (logger.isDebugEnabled()) {
 				logger.debug("Apres getStudentApogee - statusApogee = "+studentApogee.getAdministrationApogee().isStatusApogee());
@@ -239,7 +238,7 @@ public class StudentDataRepositoryDaoWS implements
 		adminApogee.setRaison("");
 
 		// recherche des informations etudiant dans Apogee
-		studentApogee = getStudentApogee(universityCode, id, annee);
+		studentApogee = getStudentApogee(universityCode, id, annee, true);
 		if (studentApogee != null) {
 			if (logger.isDebugEnabled()) {
 				logger.debug("Apres getStudentApogee - studentApogee.getAdministrationApogee().isStatusApogee() = "+studentApogee.getAdministrationApogee().isStatusApogee());
@@ -268,8 +267,7 @@ public class StudentDataRepositoryDaoWS implements
 	/**
 	 * @see org.esupportail.pstage.dao.referentiel.StudentDataRepositoryDao#getEtudiantsRefByName(java.lang.String, java.lang.String, java.lang.String)
 	 */
-	public List<EtudiantRef> getEtudiantsRefByName(String universityCode,
-												   String name, String firstName) {
+	public List<EtudiantRef> getEtudiantsRefByName(String universityCode, String name, String firstName) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("#getEtudiantsRefByName# [universityCode  :"+universityCode+"]");
 		}
@@ -342,7 +340,7 @@ public class StudentDataRepositoryDaoWS implements
 
 			try {
 				// annee a null puisqu'on n'est pas en modification donc il s'agit forcement de l'annee courante.
-				studentApogee = getStudentApogee(universityCode, codEtu, null);
+				studentApogee = getStudentApogee(universityCode, codEtu, null, true);
 			} catch (Exception e){
 				logger.error("Exception sur getStudentApogee(?,?) dans getEtudiantsRefByName() : " + e);
 			}
@@ -371,7 +369,7 @@ public class StudentDataRepositoryDaoWS implements
 	 * @param id
 	 * @return studentApogee
 	 */
-	public EtudiantRef getStudentApogee(String universityCode, String id, String annee) {
+	public EtudiantRef getStudentApogee(String universityCode, String id, String annee, boolean temRecupAnneeAntecedente) {
 		if (logger.isDebugEnabled()){
 			logger.debug("#getStudentApogee# - [id : "+id+", universityCode  : "+universityCode +", annee  : "+ annee +"]");
 		}
@@ -554,13 +552,14 @@ public class StudentDataRepositoryDaoWS implements
 			List<String> listeAnneesUniv = new ArrayList<String>();
 
 			String [] annees = serviceAdministratif.recupererAnneesIa(etudiant.getCodEtu().toString(), "E");
-
 			// INSCRIPTION SUR L'ANNEE PRECEDENTE ?
-			if (Arrays.asList(annees).contains(anneePrecedente)){
-				logger.debug("Inscription trouvee sur l'annee precedente ("+anneePrecedente+")");
-				listeAnneesUniv.add(anneePrecedente);
-			} else {
-				logger.debug("Pas d'inscription pour l'etudiant "+ etudiant.getCodEtu().toString()+" sur l'annee "+anneePrecedente);
+			if (temRecupAnneeAntecedente) {
+				if (Arrays.asList(annees).contains(anneePrecedente)) {
+					logger.debug("Inscription trouvee sur l'annee precedente (" + anneePrecedente + ")");
+					listeAnneesUniv.add(anneePrecedente);
+				} else {
+					logger.debug("Pas d'inscription pour l'etudiant " + etudiant.getCodEtu().toString() + " sur l'annee " + anneePrecedente);
+				}
 			}
 
 			// INSCRIPTION SUR L'ANNEE COURANTE ?
@@ -766,7 +765,7 @@ public class StudentDataRepositoryDaoWS implements
 	 * @return ApogeeMap
 	 */
 	@SuppressWarnings("unused")
-	public ApogeeMap getEtapesByEtudiantAndAnnee(String cod, String anneeScolaire) {
+	public ApogeeMap getEtapesByEtudiantAndAnnee(String cod, String anneeScolaire, String codeUniversite) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("#getEtapesByEtudiantAndAnnee# - cod : " + cod);
 		}
@@ -787,8 +786,6 @@ public class StudentDataRepositoryDaoWS implements
 			logger.debug("#getStudentIAIP# - [cod : " + cod +", annee : "+annee+"]");
 		}
 		ApogeeMap apogeeMap = new ApogeeMap();
-
-		//		try {
 
 		AdministratifMetierServiceInterfaceProxy serviceAdministratif = new AdministratifMetierServiceInterfaceProxy();
 
@@ -917,11 +914,20 @@ public class StudentDataRepositoryDaoWS implements
 									}
 									OffreFormationDTO3 offreFormation = versionDiplome[j].getOffreFormation();
 									if (offreFormation != null) {
+
 										if (offreFormation.getCodFinalite() != null) {
 											etpins.setCodFinalite(offreFormation.getCodFinalite());
 										}
 										if (offreFormation.getLibFinalite() != null) {
 											etpins.setLibFinalite(offreFormation.getLibFinalite());
+										}
+
+										// Recup volume horaire si saisi
+										Integer volumeHoraire = offreFormation.getListEtape()[0].getListVersionEtape()[0].getVolume();
+										if (volumeHoraire != null) {
+											etpins.setVolumeHoraire(Integer.toString(volumeHoraire));
+										} else {
+											etpins.setVolumeHoraire("0");
 										}
 
 										// Recup éléments pédagogiques
@@ -932,11 +938,13 @@ public class StudentDataRepositoryDaoWS implements
 												ElementPedagogiDTO2[] elementPedagogique = listeelementPedagogiDTO[k].getListElementPedagogi();
 												for (int l = 0; l < elementPedagogique.length; l++) {
 													// Remplissage de la table des elements pedagogiques si elp de nature stage (ou avec temoin stage actif) et non suspendu
-													if ((elementPedagogique[l].getLibNatureElp().equalsIgnoreCase("stage") || elementPedagogique[l].getTemStage().equals("O"))
+													if ((elementPedagogique[l].getLibNatureElp().equalsIgnoreCase("stage")
+															|| elementPedagogique[l].getTemStage().equals("O"))
 															&& !elementPedagogique[l].getTemSusp().equals("O")) {
 														ElementPedagogique elpedago = new ElementPedagogique();
 														elpedago.setCodEtp(etpins.getCodeEtp());
 														elpedago.setCodVrsVet(etpins.getCodVrsVet());
+
 														elpedago.setCodElp(elementPedagogique[l].getCodElp());
 														elpedago.setLibElp(elementPedagogique[l].getLibElp());
 														elpedago.setTemElpTypeStage(elementPedagogique[l].getTemStage());
@@ -972,63 +980,6 @@ public class StudentDataRepositoryDaoWS implements
 			}
 		}
 
-		/*
-		// recherche des Inscriptions pedagogiques 
-		try{
-			long t1 = System.currentTimeMillis();
-			ContratPedagogiqueResultatVdiVetDTO2[]  tabcontratPedagoResultatVdiVet =
-					servicePedagogique.recupererContratPedagogiqueResultatVdiVet_v2(cod, annee, DonneesStatic.ws_sourceRes_Apogee, "", "", "","E");
-			long t2 = System.currentTimeMillis();
-			System.out.println("recupererContratPedagogiqueResultatVdiVet_v2 : " + (t2-t1) + " ms");
-			if(tabcontratPedagoResultatVdiVet != null){
-				for (ContratPedagogiqueResultatVdiVetDTO2 contratPedagoResVdiVet : tabcontratPedagoResultatVdiVet) {
-
-					EtapeResVdiVetDTO2[]  tabEtapeResVdiVet = contratPedagoResVdiVet.getEtapes();
-					for (EtapeResVdiVetDTO2 etapeResVdiVet : tabEtapeResVdiVet) {
-						if (etapeResVdiVet.getEtape() != null) {
-							// prendre les IP en cours "E"
-							if (logger.isDebugEnabled()){
-								logger.debug("- Inscription Pedagogique -");
-								logger.debug("[codeEtape : "+etapeResVdiVet.getEtape().getCodEtp() +
-										", codeVersionEtape : " + etapeResVdiVet.getEtape().getCodVrsVet() +
-										", libEtape : "+etapeResVdiVet.getEtape().getLibWebVet() +
-										", etatInscription : E ]");
-							}
-							// liste etape
-							Object idl=etapeResVdiVet.getEtape().getCodEtp();
-							String lib=etapeResVdiVet.getEtape().getLibWebVet();
-							lEtape.put(idl+"",lib);
-							// liste etape-versionEtape
-							String vet=etapeResVdiVet.getEtape().getCodVrsVet().toString();
-							lEtapeVet.put(idl+"",vet);
-							// liste etape-versionEtape pedagogique
-							lEtapeVetPedago.put(idl+"",vet);
-							// renseignement de la liste des etapes- version etapes - inscriptions
-							EtapeInscription etpins = new EtapeInscription();
-							etpins.setCodeEtp(etapeResVdiVet.getEtape().getCodEtp());
-							etpins.setCodVrsVet(etapeResVdiVet.getEtape().getCodVrsVet().toString());
-							etpins.setLibWebVet(etapeResVdiVet.getEtape().getLibWebVet());
-							etpins.setTypeIns(DonneesStatic.TYPE_INS_PEDAGO);
-							//									listeEtapeInscriptions.add(etpins);
-						}
-					}
-				}
-			}
-		} catch (WebBaseException e) {
-			if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
-				logger.warn("Aucun resultat pour l'etudiant "+ cod +" sur l'annee "+annee);
-			} else if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")
-					|| e.toString().equals("technical.data.nullretrieve.findIAA")
-					|| e.toString().equals("technical.data.nullretrieve.findIAE")) {
-				logger.warn("Pas d'inscription pour l'etudiant "+ cod +" sur l'annee "+annee);
-			} else {
-				logger.warn("WebBaseException dans getStudentIAIP - recupererContratPedagogiqueResultatVdiVet_v2 pour l'etudiant "+ cod +" sur l'annee "+annee);
-			}
-		} catch (Exception e) {
-			logger.error("Exception pour "+ cod +" sur l'annee "+ annee +" : " + e);
-		}
-
-		*/
 
 		apogeeMap.setStudentSteps(lEtape);
 		apogeeMap.setStudentsEtapesVets(lEtapeVet);
@@ -1049,120 +1000,6 @@ public class StudentDataRepositoryDaoWS implements
 
 		return apogeeMap;
 	}
-
-
-	/**
-	 * recherche des ELPs etudiant.
-	 * @param cod
-	 * @param apogeeMap
-	 * @return ApogeeMap
-	 */
-/*	public ApogeeMap getStudentELPV2(final String cod, final ApogeeMap apogeeMap) {
-		if (logger.isDebugEnabled()) {
-			logger.debug("#getStudentELPV2# - cod : " + cod);
-		}
-		try {
-
-			OffreFormationMetierServiceInterfaceProxy offreFormationMetierService = new OffreFormationMetierServiceInterfaceProxy();
-
-			// recuperation des etapes pedagogiques
-			LinkedHashMap<String,String> tabStudentsEtapesVets = apogeeMap.getStudentsEtapesVetsPedago();
-			String etape = "";
-			String vetEtape = "";
-			LinkedHashMap<String,ElementPedagogique> elementPedagogiques = new LinkedHashMap<String,ElementPedagogique>();
-			List<ElementPedagogique> listeELPs = new  ArrayList<ElementPedagogique>();
-			if (tabStudentsEtapesVets != null && (!tabStudentsEtapesVets.isEmpty())) {
-				Iterator<String> it2 = tabStudentsEtapesVets.keySet().iterator();
-				while (it2.hasNext()) {
-					etape = it2.next();
-					vetEtape = tabStudentsEtapesVets.get(etape);
-					if (logger.isDebugEnabled()) {
-						logger.debug("Etape : " + etape);
-						logger.debug("VetEtape : " + vetEtape);
-					}
-					try {
-						// recherche des elements pedagogiques pour une etape/version etape
-						SECritereDTO2 seCritereDTO = new SECritereDTO2();
-						seCritereDTO.setCodAnu(getYear());
-						seCritereDTO.setCodDip("aucun");
-						seCritereDTO.setCodElp("tous");
-						seCritereDTO.setCodEtp(etape);
-						seCritereDTO.setCodVrsVdi("aucun");
-						seCritereDTO.setCodVrsVet(vetEtape);
-
-						// recherche des Elements Pedagogiques des etapes, versions etapes
-						long t1 = System.currentTimeMillis();
-						DiplomeDTO3[] diplomeDTO = offreFormationMetierService.recupererSE_v3(seCritereDTO);
-						long t2 = System.currentTimeMillis();
-						System.out.println("ELPV2 - recupererSE_v3 " + (t2-t1) + " ms");
-						if (diplomeDTO != null) {
-							for (int i = 0; i < diplomeDTO.length; i++) {
-								VersionDiplomeDTO3[] versionDiplome = diplomeDTO[i].getListVersionDiplome();
-								for (int j = 0; j < versionDiplome.length; j++) {
-									OffreFormationDTO3 offreFormation = versionDiplome[j].getOffreFormation();
-									ListeElementPedagogiDTO2[] listeelementPedagogiDTO =
-											offreFormation.getListEtape()[0].getListVersionEtape()[0].getListListeElementPedagogi();
-									for (int k = 0; k < listeelementPedagogiDTO.length; k++) {
-										ElementPedagogiDTO2[] elementPedagogique = listeelementPedagogiDTO[k].getListElementPedagogi();
-										for (int l = 0; l < elementPedagogique.length; l++) {
-											//remplissage de la table des elements pedagogiques, si elp de type stage et non suspendu
-											if (elementPedagogique[l].getTemStage().equals("O") && !elementPedagogique[l].getTemSusp().equals("O")) {
-												if (logger.isDebugEnabled()) {
-													logger.debug("- Element Pedagogique valide -");
-													logger.debug("elementPedagogique[l].getCodElp() = " + elementPedagogique[l].getCodElp());
-													logger.debug("elementPedagogique[l].getLibCourtElp() = " + elementPedagogique[l].getLibCourtElp());
-													logger.debug("elementPedagogique[l].getCredits() = " + elementPedagogique[l].getCredits());
-													//													logger.debug("elementPedagogique[l].getTemStage() = " + elementPedagogique[l].getTemStage());
-													//													logger.debug("elementPedagogique[l].getTemSusp() = " + elementPedagogique[l].getTemSusp());
-												}
-												//												elementPedagogique[l].getCodElp();
-												//												elementPedagogique[l].getCredits();
-												//												elementPedagogique[l].getTemStage();
-												ElementPedagogique elpedago = new ElementPedagogique();
-												elpedago.setCodEtp(etape);
-												elpedago.setCodVrsVet(vetEtape);
-												elpedago.setCodElp(elementPedagogique[l].getCodElp());
-												elpedago.setLibElp(elementPedagogique[l].getLibElp());
-												elpedago.setTemElpTypeStage(elementPedagogique[l].getTemStage());
-												if (elementPedagogique[l].getCredits() != null) {
-													elpedago.setNbrCrdElp(elementPedagogique[l].getCredits());
-												}
-												//renseignement de la map element pedagogique
-												Object idl=etape;
-												elementPedagogiques.put(idl+"",elpedago);
-												// renseignement de la liste des elements pedagogiques
-												if (!listeELPs.contains(elpedago)) {
-													listeELPs.add(elpedago) ;
-												}
-
-											}
-										}
-									}
-								}
-							}
-						}
-					} catch (WebBaseException e) {
-						logger.warn("WebBaseException getStudentELPV2 = " + e );
-						if (e.toString().equals("technical.data.nullretrieve.recupererse")){
-							logger.error("Aucune donnee en sortie [cod : " + cod + ", etape/vet : " + etape+"/"+ vetEtape+"]");
-							continue;
-						}
-						continue;
-					}
-				}
-			}
-			apogeeMap.setElementPedagogiques(elementPedagogiques);
-			apogeeMap.setListeELPs(listeELPs);
-			return apogeeMap;
-		} catch (WebBaseException e) {
-			logger.error("WebBaseException in getStudentELPV2 = " + e );
-
-			return apogeeMap;
-		} catch (Exception e) {
-			logger.error("Exception in getStudentELPV2 = " + e);
-			throw new CommunicationApogeeException(e);
-		}
-	}*/
 
 	/**
 	 * @param codInd
@@ -1247,11 +1084,9 @@ public class StudentDataRepositoryDaoWS implements
 		return year.trim();
 	}
 
-
 	/**
 	 * Getters/Setters 
 	 */
-
 
 	/**
 	 * @return the startYearDay

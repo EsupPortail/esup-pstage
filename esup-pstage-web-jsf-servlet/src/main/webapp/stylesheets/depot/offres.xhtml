@@ -38,12 +38,12 @@
 
                                     <ui:include src="/stylesheets/_commun/_rechercheOffreResultatsColumns.xhtml" />
 
-                                    <p:column styleClass="textCenter">
+                                    <p:column styleClass="textCenter background-color-grey">
                                         <f:facet name="header">
                                             <h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
                                         </f:facet>
-                                        <p:commandLink  id="suppr" update="supprOffre"
-                                                        oncomplete="PF('supprOffre').show();">
+                                        <p:commandLink id="suppr" update="supprOffre"
+                                                       oncomplete="PF('supprOffre').show();">
                                             <f:setPropertyActionListener value="gestionOffres"
                                                                          target="#{offreController.retour}" />
                                             <f:setPropertyActionListener value="_supprOffreEtape1"
@@ -61,7 +61,7 @@
                         <t:div rendered="#{(sessionController.pageAuthorized
                         || (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure))}"
                                styleClass="ml20 mt15 mb20 textCenter">
-                            <p:commandButton id="ajoutO" value="#{msgs['OFFRE.GESTION.CREER']}"
+                            <p:commandButton id="ajoutO" value="#{msgs['OFFRE.GESTION.CREER']} pour cette structure"
                                              icon="fa fa-plus fz13"
                                              action="#{offreController.goToEntrepriseCreationOffre}">
                                 <f:setPropertyActionListener value="#{false}"

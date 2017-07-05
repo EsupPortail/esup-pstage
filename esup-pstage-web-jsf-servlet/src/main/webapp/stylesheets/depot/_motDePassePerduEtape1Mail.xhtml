@@ -14,7 +14,7 @@
     <t:div style="height:5px;" />
 
     <p:inputText id="mdpoMail" size="50" maxlength="50" styleClass="autoWidth"
-                 value="#{welcomeController.mailMotDePassePerdu}" required="true"
+                 value="#{welcomeController.mailPassPerdu}" required="true"
                  validatorMessage="#{requiredMessageController.adresseMailNonValide}">
         <f:validator binding="#{mailValidator}" />
         <p:ajax event="blur" update="msgMdpMail"/>

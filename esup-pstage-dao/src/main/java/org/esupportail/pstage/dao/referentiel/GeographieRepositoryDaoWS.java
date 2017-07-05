@@ -24,7 +24,7 @@ public class GeographieRepositoryDaoWS implements GeographieRepositoryDao {
 	/**
 	 * 
 	 */
-	final Logger logger = Logger.getLogger(GeographieRepositoryDaoWS.class);
+	final transient Logger logger = Logger.getLogger(GeographieRepositoryDaoWS.class);
 	
 	/**
 	 * @see org.esupportail.pstage.dao.referentiel.GeographieRepositoryDao#getCommuneFromDepartement(java.lang.String)

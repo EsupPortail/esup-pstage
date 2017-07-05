@@ -30,7 +30,7 @@ public abstract class AbstractDomainAwareBean extends AbstractJsfMessagesAwareBe
 	/**
 	 * A logger.
 	 */
-	private final Logger logger = new LoggerImpl(this.getClass());
+	private final transient Logger logger = new LoggerImpl(this.getClass());
 	
 	/**
 	 * see {@link DomainService}.

@@ -3,440 +3,11 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-
                 xmlns:t="http://myfaces.apache.org/tomahawk">
 
-    <h:panelGrid
-            style="font-size:12px;">
-        <t:div>
-            <h:panelGrid
-                    style="font-size:12px;">
-                <h:outputText value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.POSTE']} "
-                />
-                <t:htmlTag value="em">
-                    <h:outputText value="#{msgs['OFFRE.DESCRIPTION']} : " />
-                </t:htmlTag>
 
-                <h:outputText value="#{offreController.currentOffre.description}"
-                              escape="false" />
-
-                <h:panelGrid
-                        style="font-size:12px;" columns="2"
-                        rendered="#{not empty offreController.currentOffre.fapN1}">
-                    <t:htmlTag value="em">
-                        <h:outputText value="#{msgs['OFFRE.DOMAINE']} : " />
-                    </t:htmlTag>
-                    <h:outputText value="#{offreController.currentOffre.fapN1.libelle}" />
-                </h:panelGrid>
-
-                <h:panelGrid
-                        style="font-size:12px;" columns="2">
-                    <t:htmlTag value="em">
-                        <h:outputText value="#{msgs['OFFRE.TYPEOFFRE']} : " />
-                    </t:htmlTag>
-                    <h:outputText
-                            value="#{offreController.currentOffre.typeOffre.libelle}" />
-                </h:panelGrid>
-                <h:panelGrid
-                        style="font-size:12px;" columns="2"
-                        rendered="#{not empty offreController.currentOffre.contratOffre}">
-                    <t:htmlTag value="em">
-                        <h:outputText value="#{msgs['OFFRE.CONTRATOFFRE']} : " />
-                    </t:htmlTag>
-                    <h:outputText
-                            value="#{offreController.currentOffre.contratOffre.libelle}" />
-                </h:panelGrid>
-            </h:panelGrid>
-        </t:div>
-        <t:div
-                rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}">
-            <h:panelGrid style="font-size:12px;"
-            >
-                <h:panelGrid columns="2" style="font-size:12px;"
-                >
-                    <t:htmlTag value="em">
-                        <h:outputText value="#{msgs['OFFRE.DEBUT']} : " />
-                    </t:htmlTag>
-                    <h:panelGrid style="font-size:12px;" columns="2"
-                    >
-                        <h:outputText value="#{offreController.currentOffre.moisDebut}"
-                                      rendered="#{not empty offreController.currentOffre.moisDebut}" />
-                        <h:outputText value="#{offreController.currentOffre.anneeDebut}"
-                                      rendered="#{not empty offreController.currentOffre.anneeDebut}" />
-                        <t:panelGroup colspan="2"
-                                      rendered="#{not empty offreController.currentOffre.precisionDebut}">
-                            <h:outputText
-                                    value="#{offreController.currentOffre.precisionDebut}" />
-                        </t:panelGroup>
-                    </h:panelGrid>
-                </h:panelGrid>
-
-                <h:panelGrid
-                        style="font-size:12px;" columns="2">
-                    <t:htmlTag value="em"
-                               rendered="#{(offreController.currentOffre.contratOffre==beanUtils.cdd ||
-							offreController.currentOffre.typeOffre==beanUtils.stage ||
-							offreController.currentOffre.typeOffre==beanUtils.alternance ||
-							offreController.currentOffre.typeOffre==beanUtils.vieVia)
-							and offreController.currentOffre.duree gt 0}">
-                        <h:outputText value="#{msgs['OFFRE.DUREE']} : " />
-                    </t:htmlTag>
-                    <h:panelGrid
-                            style="font-size:12px;"
-                            columns="2"
-                            rendered="#{(offreController.currentOffre.contratOffre==beanUtils.cdd ||
-								offreController.currentOffre.typeOffre==beanUtils.stage ||
-								offreController.currentOffre.typeOffre==beanUtils.alternance ||
-								offreController.currentOffre.typeOffre==beanUtils.vieVia)
-								and offreController.currentOffre.duree gt 0}">
-                        <h:outputText value="#{offreController.currentOffre.duree}" />
-                        <h:outputText
-                                value="#{offreController.currentOffre.uniteDuree.libelle}" />
-                    </h:panelGrid>
-                </h:panelGrid>
-            </h:panelGrid>
-        </t:div>
-        <t:div>
-            <h:panelGrid style="font-size:12px;" columns="4">
-                <h:panelGrid style="font-size:12px;">
-                    <h:outputText value="#{msgs['OFFRE.LIEU']} : " escape="false" />
-                </h:panelGrid>
-                <h:panelGrid style="font-size:12px;" columns="2"
-                             rendered="#{not empty offreController.currentOffre.lieuCodePostal}">
-                    <t:htmlTag value="em">
-                        <h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']} : " />
-                    </t:htmlTag>
-                    <h:outputText
-                            value="#{offreController.currentOffre.lieuCodePostal}" />
-                </h:panelGrid>
-                <h:panelGrid style="font-size:12px;" columns="2"
-                             rendered="#{not empty offreController.currentOffre.lieuCommune}">
-                    <t:htmlTag value="em">
-                        <h:outputText value="#{msgs['STRUCTURE.COMMUNE']} : " />
-                    </t:htmlTag>
-                    <h:outputText value="#{offreController.currentOffre.lieuCommune}" />
-                </h:panelGrid>
-                <h:panelGrid style="font-size:12px;" columns="3"
-                             rendered="#{not empty offreController.currentOffre.lieuPays}">
-                    <t:htmlTag value="em">
-                        <h:outputText value="#{msgs['STRUCTURE.PAYS']} : " />
-                    </t:htmlTag>
-                    <h:graphicImage id="flagO"
-                                    value="../../media/images/flags/#{offreController.currentOffre.lieuPays.iso2}.png"
-                                    alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-                                    title="#{offreController.currentOffre.lieuPays.libelle}" />
-                    <h:outputText
-                            value="#{offreController.currentOffre.lieuPays.libelle}" />
-                </h:panelGrid>
-            </h:panelGrid>
-        </t:div>
-        <t:div
-                rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}">
-            <h:panelGrid style="font-size:12px;">
-                <h:panelGrid style="font-size:12px;" columns="2">
-                    <t:htmlTag value="em">
-                        <h:outputText value="#{msgs['OFFRE.DEPLACEMENT']} " />
-                    </t:htmlTag>
-                    <h:outputText value="#{msgs['FORM.OUI']}"
-                                  rendered="#{offreController.currentOffre.deplacement}" />
-                    <h:outputText value="#{msgs['FORM.NON']}"
-                                  rendered="#{!offreController.currentOffre.deplacement}" />
-                </h:panelGrid>
-                <h:panelGrid style="font-size:12px;" columns="2">
-                    <t:htmlTag value="em">
-                        <h:outputText value="#{msgs['OFFRE.PERMIS']} " />
-                    </t:htmlTag>
-                    <h:outputText value="#{msgs['FORM.OUI']}"
-                                  rendered="#{offreController.currentOffre.permis}" />
-                    <h:outputText value="#{msgs['FORM.NON']}"
-                                  rendered="#{!offreController.currentOffre.permis}" />
-                </h:panelGrid>
-                <h:panelGrid style="font-size:12px;" columns="2">
-                    <t:htmlTag value="em">
-                        <h:outputText value="#{msgs['OFFRE.INDEMNITE']} " />
-                    </t:htmlTag>
-                    <h:outputText value="#{msgs['FORM.OUI']}"
-                                  rendered="#{offreController.currentOffre.remuneration}" />
-                    <h:outputText value="#{msgs['FORM.NON']}"
-                                  rendered="#{!offreController.currentOffre.remuneration}" />
-                </h:panelGrid>
-                <h:panelGrid style="font-size:12px;" columns="2">
-                    <t:htmlTag value="em">
-                        <h:outputText value="#{msgs['OFFRE.INDEMNITE_PRECISIONS']} : "
-                                      rendered="#{offreController.currentOffre.remuneration}" />
-                    </t:htmlTag>
-                    <h:outputText
-                            value="#{offreController.currentOffre.precisionRemuneration}"
-                            rendered="#{offreController.currentOffre.remuneration}" />
-                </h:panelGrid>
-                <h:panelGrid style="font-size:12px;" columns="2"
-                             rendered="#{not empty offreController.currentOffre.avantages}">
-                    <t:htmlTag value="em">
-                        <h:outputText value="#{msgs['OFFRE.AVANTAGES']} : " />
-                    </t:htmlTag>
-                    <h:outputText value="#{offreController.currentOffre.avantages}" />
-                </h:panelGrid>
-                <h:panelGrid style="font-size:12px;" columns="2"
-                             rendered="#{not empty offreController.currentOffre.tempsTravail}">
-                    <t:htmlTag value="em">
-                        <h:outputText value="#{msgs['OFFRE.TEMPSTRAVAIL']} : " />
-                    </t:htmlTag>
-                    <h:outputText
-                            value="#{offreController.currentOffre.tempsTravail.libelle}" />
-                </h:panelGrid>
-                <h:panelGrid style="font-size:12px;" columns="2"
-                             rendered="#{not empty offreController.currentOffre.quotiteTravail}">
-                    <t:htmlTag value="em"
-                               rendered="#{offreController.currentOffre.tempsTravail==beanUtils.tempsPartiel}">
-                        <h:outputText value="#{msgs['OFFRE.QUOTITETRAVAIL']} : " />
-                    </t:htmlTag>
-                    <h:outputText
-                            value="#{offreController.currentOffre.quotiteTravail} %"
-                            rendered="#{offreController.currentOffre.tempsTravail==beanUtils.tempsPartiel}" />
-                </h:panelGrid>
-                <h:panelGrid style="font-size:12px;" columns="2"
-                             rendered="#{not empty offreController.currentOffre.commentaireTempsTravail}">
-                    <t:htmlTag value="em">
-                        <h:outputText value="#{msgs['OFFRE.COMTPSTRAVAIL']} : " />
-                    </t:htmlTag>
-                    <h:outputText
-                            value="#{offreController.currentOffre.commentaireTempsTravail}" />
-                </h:panelGrid>
-                <t:htmlTag value="div" style="height: 20px;" />
-                <h:outputText
-                        value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.CANDIDAT']} "
-                />
-                <h:panelGrid style="font-size:12px;" columns="2"
-                             rendered="#{not empty offreController.currentOffre.niveauFormation}">
-                    <t:htmlTag value="em">
-                        <h:outputText value="#{msgs['OFFRE.NIVEAUFORMATION']} : " />
-                    </t:htmlTag>
-                    <h:outputText
-                            value="#{offreController.currentOffre.niveauFormation.libelle}" />
-                </h:panelGrid>
-                <h:panelGrid style="font-size:12px;"
-                             rendered="#{not empty offreController.currentOffre.competences}">
-                    <t:htmlTag value="em">
-                        <h:outputText value="#{msgs['OFFRE.COMPSOUHAITEES']} : " />
-                    </t:htmlTag>
-                    <h:outputText value="#{offreController.currentOffre.competences}"
-                                  escape="false" />
-                </h:panelGrid>
-                <t:htmlTag value="div" style="height: 20px;" />
-                <h:outputText
-                        value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.POSTULER']} "
-                />
-                <h:panelGrid style="font-size:12px;" columns="2"
-                             rendered="#{not empty offreController.currentOffre.referenceOffreEtablissement}">
-                    <t:htmlTag value="em">
-                        <h:outputText value="#{msgs['OFFRE.REFOFFRE']}" />
-                    </t:htmlTag>
-                    <h:outputText
-                            value="#{offreController.currentOffre.referenceOffreEtablissement}" />
-                </h:panelGrid>
-                <h:panelGrid style="font-size:12px;" columns="2"
-                             rendered="#{not empty offreController.currentOffre.modesCandidature}">
-                    <t:htmlTag value="em">
-                        <h:outputText
-                                value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.MODALITESREP']} " />
-                    </t:htmlTag>
-                    <p:dataList var="mode"
-                                value="#{offreController.currentOffre.modesCandidature}" rows="10">
-                        <h:outputText value="#{mode.libelle}" />
-                    </p:dataList>
-                </h:panelGrid>
-                <h:panelGrid style="font-size:12px;" columns="2">
-                    <t:htmlTag value="em">
-                        <h:outputText value="#{msgs['OFFRE.ANNEEU']}" />
-                    </t:htmlTag>
-                    <h:outputText
-                            value="#{offreController.currentOffre.anneeUniversitaire}" />
-                </h:panelGrid>
-                <h:panelGrid columns="3" style="font-size:12px;" align="center">
-                    <h:panelGrid style="font-size:12px;"
-                                 rendered="#{offreController.currentOffre.idContactCand>0 and not empty offreController.currentOffre.contactCand}">
-                        <t:htmlTag value="em">
-                            <h:outputText
-                                    value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.CONTACTCAND']}" />
-                        </t:htmlTag>
-                        <h:panelGrid columns="3" style="font-size:12px;"
-                                     rendered="#{!offreController.currentOffre.cacherNomContactCand}">
-                            <h:outputText
-                                    value="#{offreController.currentOffre.contactCand.civilite.libelle} "
-                                    rendered="#{not empty offreController.currentOffre.contactCand.civilite}" />
-                            <h:outputText
-                                    value="#{offreController.currentOffre.contactCand.nom} " />
-                            <h:outputText
-                                    value="#{offreController.currentOffre.contactCand.prenom}" />
-                        </h:panelGrid>
-                        <t:panelGroup colspan="3" style="font-size:12px;">
-                            <h:panelGrid columns="2" style="font-size:12px;"
-                                         rendered="#{not empty offreController.currentOffre.contactCand.fonction}">
-                                <h:outputText value="#{msgs['CONTACT.FONCTION']} : " />
-                                <h:outputText
-                                        value="#{offreController.currentOffre.contactCand.fonction}" />
-                            </h:panelGrid>
-                        </t:panelGroup>
-                        <h:panelGrid columns="2" style="font-size:12px;"
-                                     rendered="#{not empty offreController.currentOffre.contactCand.tel
-			and!offreController.currentOffre.cacherTelContactCand}">
-                            <h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
-                                            title="#{msgs['CONTACT.TELEPHONE']}"
-                                            value="../../media/images/phone.png" />
-                            <h:outputText
-                                    value=" #{offreController.currentOffre.contactCand.tel}" />
-                        </h:panelGrid>
-                        <h:panelGrid columns="2" style="font-size:12px;"
-                                     rendered="#{not empty offreController.currentOffre.contactCand.fax
-			and !offreController.currentOffre.cacherFaxContactCand}">
-                            <h:graphicImage alt="#{msgs['CONTACT.FAX']}"
-                                            title="#{msgs['CONTACT.FAX']}"
-                                            value="../../media/images/printer.png" />
-                            <h:outputText
-                                    value=" #{offreController.currentOffre.contactCand.fax}" />
-                        </h:panelGrid>
-                        <h:panelGrid columns="2" style="font-size:12px;"
-                                     rendered="#{not empty offreController.currentOffre.contactCand.mail
-			and !offreController.currentOffre.cacherMailContactCand}">
-                            <h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
-                                            title="#{msgs['CONTACT.MAIL']}"
-                                            value="../../media/images/email.png" />
-                            <h:outputText
-                                    value=" #{offreController.currentOffre.contactCand.mail}" />
-                        </h:panelGrid>
-                    </h:panelGrid>
-                    <h:panelGrid columns="3"
-                                 rendered="#{offreController.currentOffre.idContactCand gt 0 and not empty offreController.currentOffre.contactCand
-					and offreController.currentOffre.idContactInfo gt 0 and not empty offreController.currentOffre.contactInfo}">
-                        <t:htmlTag value="div" style="width: 25px;" />
-                        <p:separator style="width:2px; height:180px;" />
-                        <t:htmlTag value="div" style="width: 25px;" />
-                    </h:panelGrid>
-                    <h:panelGrid style="font-size:12px;"
-                                 rendered="#{offreController.currentOffre.idContactInfo gt 0 and not empty offreController.currentOffre.contactInfo}">
-                        <t:htmlTag value="em">
-                            <h:outputText
-                                    value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.CONTACTINFO']}" />
-                        </t:htmlTag>
-                        <h:panelGrid columns="3" style="font-size:12px;"
-                                     rendered="#{!offreController.currentOffre.cacherNomContactInfo}">
-                            <h:outputText
-                                    value="#{offreController.currentOffre.contactInfo.civilite.libelle} "
-                                    rendered="#{not empty offreController.currentOffre.contactInfo.civilite}" />
-                            <h:outputText
-                                    value="#{offreController.currentOffre.contactInfo.nom} " />
-                            <h:outputText
-                                    value="#{offreController.currentOffre.contactInfo.prenom}" />
-                        </h:panelGrid>
-                        <t:panelGroup colspan="3" style="font-size:12px;">
-                            <h:panelGrid columns="2" style="font-size:12px;"
-                                         rendered="#{not empty offreController.currentOffre.contactInfo.fonction}">
-                                <h:outputText value="#{msgs['CONTACT.FONCTION']} : " />
-                                <h:outputText
-                                        value="#{offreController.currentOffre.contactInfo.fonction}" />
-                            </h:panelGrid>
-                        </t:panelGroup>
-                        <h:panelGrid columns="2" style="font-size:12px;"
-                                     rendered="#{not empty offreController.currentOffre.contactInfo.tel
-			and!offreController.currentOffre.cacherTelContactInfo}">
-                            <h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
-                                            title="#{msgs['CONTACT.TELEPHONE']}"
-                                            value="../../media/images/phone.png" />
-                            <h:outputText
-                                    value=" #{offreController.currentOffre.contactInfo.tel}" />
-                        </h:panelGrid>
-                        <h:panelGrid columns="2" style="font-size:12px;"
-                                     rendered="#{not empty offreController.currentOffre.contactInfo.fax
-			and !offreController.currentOffre.cacherFaxContactInfo}">
-                            <h:graphicImage alt="#{msgs['CONTACT.FAX']}"
-                                            title="#{msgs['CONTACT.FAX']}"
-                                            value="../../media/images/printer.png" />
-                            <h:outputText
-                                    value=" #{offreController.currentOffre.contactInfo.fax}" />
-                        </h:panelGrid>
-                        <h:panelGrid columns="2" style="font-size:12px;"
-                                     rendered="#{not empty offreController.currentOffre.contactInfo.mail
-			and !offreController.currentOffre.cacherMailContactInfo}">
-                            <h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
-                                            title="#{msgs['CONTACT.MAIL']}"
-                                            value="../../media/images/email.png" />
-                            <h:outputText
-                                    value=" #{offreController.currentOffre.contactInfo.mail}" />
-                        </h:panelGrid>
-                    </h:panelGrid>
-                </h:panelGrid>
-                <t:htmlTag value="div" style="height: 10px;" />
-                <h:outputText value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.COM']} "
-
-                              rendered="#{not empty offreController.currentOffre.observations}" />
-                <h:panelGrid style="font-size:12px;"
-                             rendered="#{not empty offreController.currentOffre.observations}">
-                    <t:htmlTag value="em">
-                        <h:outputText value="#{msgs['OFFRE.COMOBS']} : " />
-                    </t:htmlTag>
-                    <h:outputText value="#{offreController.currentOffre.observations}"
-                                  escape="false" />
-                </h:panelGrid>
-            </h:panelGrid>
-        </t:div>
-        <t:htmlTag value="div" style="height: 10px;" />
-        <t:div
-                rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}">
-            <h:panelGrid style="font-size:12px;">
-                <h:outputText value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.DOCS']} "
-                />
-                <h:panelGrid
-                        rendered="#{offreController.currentOffre.avecFichier
-							and offreController.currentOffre.idFichier gt 0
-							and not empty offreController.currentOffre.fichier}">
-
-                    <h:panelGrid columns="2">
-                        <h:outputLink
-                                value="get.file?fileId=#{offreController.currentOffre.idFichier}"
-                                target="_blank">
-                            <h:graphicImage alt="#{msgs['GENERAL.FILE']}"
-                                            title="#{msgs['GENERAL.FILE']}"
-                                            value="../../media/images/docu.png" />
-                        </h:outputLink>
-                        <h:outputLink
-                                value="get.file?fileId=#{offreController.currentOffre.idFichier}"
-                                target="_blank">
-                            <h:outputText
-                                    value="#{offreController.currentOffre.fichier.nomFichier}"
-                                    rendered="#{empty offreController.currentOffre.fichier.nomReel}" />
-                            <h:outputText
-                                    value="#{offreController.currentOffre.fichier.nomReel}"
-                                    rendered="#{not empty offreController.currentOffre.fichier.nomReel}" />
-                        </h:outputLink>
-                    </h:panelGrid>
-                </h:panelGrid>
-                <h:panelGrid rendered="#{offreController.currentOffre.avecLien}">
-                    <h:panelGrid columns="2">
-                        <h:outputLink value="#{offreController.currentOffre.lienAttache}"
-                                      target="_blank">
-                            <h:graphicImage alt="#{msgs['GENERAL.CLIQUEZICI']}"
-                                            title="#{msgs['GENERAL.CLIQUEZICI']}"
-                                            value="../../media/images/lien.png" />
-                        </h:outputLink>
-                        <h:outputLink value="#{offreController.currentOffre.lienAttache}"
-                                      target="_blank">
-                            <h:outputText value="#{offreController.currentOffre.lienAttache}"
-                                          title="#{offreController.currentOffre.lienAttache}">
-                                <f:converter binding="#{limitCharactersShownUpTo50Converter}" />
-                            </h:outputText>
-                        </h:outputLink>
-                    </h:panelGrid>
-                </h:panelGrid>
-            </h:panelGrid>
-        </t:div>
-    </h:panelGrid>
-
-    <h:panelGrid
-            columns="5" styleClass="fz09"
-            style="float:right;">
-        <h:outputText
-                value="#{msgs['OFFRE.ID']} #{offreController.currentOffre.idOffre},
-		#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.DERNIEREMODIF']}" />
+    <t:div styleClass="fz09 floatRight">
+        <h:outputText value="#{msgs['OFFRE.ID']} #{offreController.currentOffre.idOffre}, #{msgs['RECHERCHEOFFRE.RECAPETUDIANT.DERNIEREMODIF']}" />
         <h:outputText value="#{offreController.currentOffre.dateModif}"
                       rendered="#{not empty offreController.currentOffre.dateModif}">
             <f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
@@ -451,5 +22,291 @@
                 rendered="#{not empty offreController.currentOffre.dateFinDiffusion}" />
         <h:outputText value="#{offreController.currentOffre.dateFinDiffusion}"
                       rendered="#{not empty offreController.currentOffre.dateFinDiffusion}" />
-    </h:panelGrid>
+    </t:div>
+
+    <h:outputText value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.POSTE']} : " styleClass="fontBold fz13"/>
+
+    <t:div styleClass="ml40">
+        <h:outputText value="#{msgs['OFFRE.DESCRIPTION']} : " styleClass="fontBold" />
+        <h:outputText value="#{offreController.currentOffre.description}"
+                      escape="false" />
+
+        <t:div styleClass="mt5" rendered="#{not empty offreController.currentOffre.fapN1}">
+            <h:outputText value="#{msgs['OFFRE.DOMAINE']} : " styleClass="fontBold" />
+            <h:outputText value="#{offreController.currentOffre.fapN1.libelle}" />
+        </t:div>
+
+        <t:div styleClass="mt5" rendered="#{not empty offreController.currentOffre.typeOffre}">
+            <h:outputText value="#{msgs['OFFRE.TYPEOFFRE']} : " styleClass="fontBold" />
+            <h:outputText value="#{offreController.currentOffre.typeOffre.libelle}" />
+        </t:div>
+
+        <t:div styleClass="mt5" rendered="#{not empty offreController.currentOffre.contratOffre}">
+            <h:outputText value="#{msgs['OFFRE.CONTRATOFFRE']} : " styleClass="fontBold" />
+            <h:outputText value="#{offreController.currentOffre.contratOffre.libelle}" />
+        </t:div>
+        <t:div styleClass="mt5">
+            <h:outputText value="#{msgs['OFFRE.ANNEEU']}" styleClass="fontBold" />
+            <h:outputText value="#{offreController.currentOffre.anneeUniversitaire}" styleClass="mlf5" />
+        </t:div>
+
+        <t:div styleClass="mt5" rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}">
+            <h:outputText value="#{msgs['OFFRE.DEBUT']} : " styleClass="fontBold" />
+            <h:outputText value="#{offreController.currentOffre.moisDebut}" styleClass="mrf5"
+                          rendered="#{not empty offreController.currentOffre.moisDebut}" />
+            <h:outputText value="#{offreController.currentOffre.anneeDebut}" styleClass="mrf5"
+                          rendered="#{not empty offreController.currentOffre.anneeDebut}" />
+            <h:outputText value="#{offreController.currentOffre.precisionDebut}"
+                          rendered="#{not empty offreController.currentOffre.precisionDebut}" />
+
+            <t:div style="height: 5px;" />
+
+            <t:div rendered="#{(offreController.currentOffre.contratOffre==beanUtils.cdd ||
+							offreController.currentOffre.typeOffre==beanUtils.stage ||
+							offreController.currentOffre.typeOffre==beanUtils.alternance ||
+							offreController.currentOffre.typeOffre==beanUtils.vieVia)
+							and offreController.currentOffre.duree gt 0}">
+                <h:outputText value="#{msgs['OFFRE.DUREE']} : " styleClass="fontBold" />
+
+                <h:outputText value="#{offreController.currentOffre.duree}" styleClass="mrf5" />
+                <h:outputText value="#{offreController.currentOffre.uniteDuree.libelle}" />
+            </t:div>
+        </t:div>
+    </t:div>
+
+    <t:div style="height: 10px;" />
+
+    <h:outputText value="#{msgs['OFFRE.LIEU']} : " styleClass="fontBold fz13" />
+    <t:div styleClass="ml40">
+        <t:div rendered="#{not empty offreController.currentOffre.lieuCodePostal}">
+            <h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']} : " styleClass="fontBold" />
+            <h:outputText
+                    value="#{offreController.currentOffre.lieuCodePostal}" />
+        </t:div>
+        <t:div styleClass="mt5" rendered="#{not empty offreController.currentOffre.lieuCommune}">
+            <h:outputText value="#{msgs['STRUCTURE.COMMUNE']} : " styleClass="fontBold" />
+            <h:outputText value="#{offreController.currentOffre.lieuCommune}" />
+        </t:div>
+        <t:div styleClass="mt5"
+               rendered="#{not empty offreController.currentOffre.lieuPays}">
+            <h:outputText value="#{msgs['STRUCTURE.PAYS']} : " styleClass="fontBold" />
+            <h:graphicImage id="flagO"
+                            value="../../media/images/flags/#{offreController.currentOffre.lieuPays.iso2}.png"
+                            alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+                            title="#{offreController.currentOffre.lieuPays.libelle}" />
+            <h:outputText value="#{offreController.currentOffre.lieuPays.libelle}" />
+        </t:div>
+    </t:div>
+    <t:div style="height: 10px;" />
+
+    <h:outputText value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.CANDIDAT']} : " styleClass="fontBold fz13"/>
+    <t:div styleClass="ml40"
+           rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}">
+        <t:div styleClass="mt5">
+            <h:outputText value="#{msgs['OFFRE.DEPLACEMENT']} " styleClass="fontBold" />
+            <h:outputText value="#{msgs['FORM.OUI']}"
+                          rendered="#{offreController.currentOffre.deplacement}" />
+            <h:outputText value="#{msgs['FORM.NON']}"
+                          rendered="#{!offreController.currentOffre.deplacement}" />
+        </t:div>
+
+        <t:div styleClass="mt5">
+            <h:outputText value="#{msgs['OFFRE.PERMIS']} " styleClass="fontBold" />
+            <h:outputText value="#{msgs['FORM.OUI']}"
+                          rendered="#{offreController.currentOffre.permis}" />
+            <h:outputText value="#{msgs['FORM.NON']}"
+                          rendered="#{!offreController.currentOffre.permis}" />
+        </t:div>
+
+        <t:div styleClass="mt5">
+            <h:outputText value="#{msgs['OFFRE.INDEMNITE']} " styleClass="fontBold" />
+            <h:outputText value="#{msgs['FORM.OUI']}"
+                          rendered="#{offreController.currentOffre.remuneration}" />
+            <h:outputText value="#{msgs['FORM.NON']}"
+                          rendered="#{!offreController.currentOffre.remuneration}" />
+        </t:div>
+
+        <t:div styleClass="mt5">
+            <h:outputText value="#{msgs['OFFRE.INDEMNITE_PRECISIONS']} : " styleClass="fontBold"
+                          rendered="#{offreController.currentOffre.remuneration}" />
+            <h:outputText value="#{offreController.currentOffre.precisionRemuneration}"
+                          rendered="#{offreController.currentOffre.remuneration}" />
+        </t:div>
+
+        <t:div styleClass="mt5" rendered="#{not empty offreController.currentOffre.avantages}">
+            <h:outputText value="#{msgs['OFFRE.AVANTAGES']} : " styleClass="fontBold" />
+            <h:outputText value="#{offreController.currentOffre.avantages}" />
+        </t:div>
+
+        <t:div styleClass="mt5" rendered="#{not empty offreController.currentOffre.tempsTravail}">
+            <h:outputText value="#{msgs['OFFRE.TEMPSTRAVAIL']} : " styleClass="fontBold" />
+            <h:outputText value="#{offreController.currentOffre.tempsTravail.libelle}" />
+        </t:div>
+
+        <t:div styleClass="mt5" rendered="#{not empty offreController.currentOffre.quotiteTravail
+                    and offreController.currentOffre.tempsTravail==beanUtils.tempsPartiel}">
+            <h:outputText value="#{msgs['OFFRE.QUOTITETRAVAIL']} : " styleClass="fontBold"/>
+            <h:outputText value="#{offreController.currentOffre.quotiteTravail} %" />
+        </t:div>
+
+        <t:div styleClass="mt5" rendered="#{not empty offreController.currentOffre.commentaireTempsTravail}">
+            <h:outputText value="#{msgs['OFFRE.COMTPSTRAVAIL']} : " styleClass="fontBold" />
+            <h:outputText value="#{offreController.currentOffre.commentaireTempsTravail}" />
+        </t:div>
+    </t:div>
+    <t:div styleClass="ml40">
+        <t:div styleClass="mt5" rendered="#{not empty offreController.currentOffre.niveauFormation}">
+            <h:outputText value="#{msgs['OFFRE.NIVEAUFORMATION']} : " styleClass="fontBold" />
+            <h:outputText value="#{offreController.currentOffre.niveauFormation.libelle}" />
+        </t:div>
+        <t:div styleClass="mt5" rendered="#{not empty offreController.currentOffre.competences}">
+            <h:outputText value="#{msgs['OFFRE.COMPSOUHAITEES']} : " styleClass="fontBold" />
+            <h:outputText value="#{offreController.currentOffre.competences}"
+                          escape="false" />
+        </t:div>
+    </t:div>
+
+    <t:htmlTag value="div" style="height: 20px;" />
+
+    <h:outputText value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.POSTULER']} : " styleClass="fontBold fz13"/>
+    <t:div styleClass="ml40">
+        <t:div styleClass="mt5"
+               rendered="#{not empty offreController.currentOffre.referenceOffreEtablissement}">
+            <h:outputText value="#{msgs['OFFRE.REFOFFRE']}" styleClass="fontBold"/>
+            <h:outputText value="#{offreController.currentOffre.referenceOffreEtablissement}" />
+        </t:div>
+
+        <t:div rendered="#{not empty offreController.currentOffre.modesCandidature}">
+            <h:outputText value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.MODALITESREP']} " styleClass="fontBold" />
+            <p:dataList var="mode"
+                        value="#{offreController.currentOffre.modesCandidature}" rows="10">
+                <h:outputText value="#{mode.libelle}" style="white-space: nowrap;" />
+            </p:dataList>
+        </t:div>
+
+        <t:htmlTag value="ul" styleClass="formUL columns-2">
+            <t:div styleClass="column autoWidth"
+                   rendered="#{offreController.currentOffre.idContactCand gt 0 and not empty offreController.currentOffre.contactCand}">
+                <t:htmlTag value="li">
+                    <h:outputText value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.CONTACTCAND']}"
+                                  styleClass="fontBold" />
+                    <t:div styleClass="ml20">
+                        <t:div style="word-break: break-all;" rendered="#{!offreController.currentOffre.cacherNomContactCand}">
+                            <h:outputText value="#{offreController.currentOffre.contactCand.civilite.libelle} "
+                                          rendered="#{not empty offreController.currentOffre.contactCand.civilite}" />
+                            <h:outputText value="#{offreController.currentOffre.contactCand.nom} " />
+                            <h:outputText value="#{offreController.currentOffre.contactCand.prenom}"
+                                          styleClass="mlf5" />
+                        </t:div>
+
+                        <t:div rendered="#{not empty offreController.currentOffre.contactCand.fonction}">
+                            <h:outputText value="#{msgs['CONTACT.FONCTION']} : "
+                                          styleClass="fontBold" />
+                            <h:outputText value="#{offreController.currentOffre.contactCand.fonction}" />
+                        </t:div>
+
+                        <t:div rendered="#{not empty offreController.currentOffre.contactCand.tel
+			            and !offreController.currentOffre.cacherTelContactCand}">
+                            <t:htmlTag value="i" styleClass="fa fa-phone fz13 fontBlue2 noPointer"/>
+                            <h:outputText value=" #{offreController.currentOffre.contactCand.tel}" />
+                        </t:div>
+                        <t:div rendered="#{not empty offreController.currentOffre.contactCand.fax
+			            and !offreController.currentOffre.cacherFaxContactCand}">
+                            <t:htmlTag value="i" styleClass="fa fa-print fz13" />
+                            <h:outputText value=" #{offreController.currentOffre.contactCand.fax}" />
+                        </t:div>
+                        <t:div rendered="#{not empty offreController.currentOffre.contactCand.mail
+			            and !offreController.currentOffre.cacherMailContactCand}">
+                            <t:htmlTag value="i" styleClass="fa fa-envelope-o fz13" />
+                            <h:outputText value=" #{offreController.currentOffre.contactCand.mail}" />
+                        </t:div>
+                    </t:div>
+                </t:htmlTag>
+            </t:div>
+
+            <t:div styleClass="column autoWidth"
+                   rendered="#{offreController.currentOffre.idContactInfo gt 0 and not empty offreController.currentOffre.contactInfo}">
+                <t:htmlTag value="li">
+                    <h:outputText value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.CONTACTINFO']}" styleClass="fontBold" />
+                    <t:div styleClass="ml20">
+                        <t:div style="word-break: break-all;" rendered="#{!offreController.currentOffre.cacherNomContactInfo}">
+                            <h:outputText
+                                    value="#{offreController.currentOffre.contactInfo.civilite.libelle} "
+                                    rendered="#{not empty offreController.currentOffre.contactInfo.civilite}" />
+                            <h:outputText
+                                    value="#{offreController.currentOffre.contactInfo.nom} " />
+                            <h:outputText
+                                    value="#{offreController.currentOffre.contactInfo.prenom}" />
+                        </t:div>
+                        <t:div styleClass="fontItalic" rendered="#{not empty offreController.currentOffre.contactInfo.fonction}">
+                            <h:outputText value="#{msgs['CONTACT.FONCTION']} : " />
+                            <h:outputText value="#{offreController.currentOffre.contactInfo.fonction}" />
+                        </t:div>
+                        <t:div rendered="#{not empty offreController.currentOffre.contactInfo.tel
+			                    and !offreController.currentOffre.cacherTelContactInfo}">
+                            <t:htmlTag value="i" styleClass="fa fa-phone fz13 fontBlue2 noPointer"/>
+                            <h:outputText value=" #{offreController.currentOffre.contactInfo.tel}" />
+                        </t:div>
+                        <t:div rendered="#{not empty offreController.currentOffre.contactInfo.fax
+			                    and !offreController.currentOffre.cacherFaxContactInfo}">
+                            <t:htmlTag value="i" styleClass="fa fa-print fz13" />
+                            <h:outputText
+                                    value=" #{offreController.currentOffre.contactInfo.fax}" />
+                        </t:div>
+                        <t:div rendered="#{not empty offreController.currentOffre.contactInfo.mail
+			                    and !offreController.currentOffre.cacherMailContactInfo}">
+                            <t:htmlTag value="i" styleClass="fa fa-envelope-o fz13" />
+                            <h:outputText value=" #{offreController.currentOffre.contactInfo.mail}" />
+                        </t:div>
+                    </t:div>
+                </t:htmlTag>
+            </t:div>
+        </t:htmlTag>
+    </t:div>
+
+    <t:htmlTag value="div" style="height: 10px;" styleClass="clearFloat" />
+    <h:outputText value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.COM']} "
+                  rendered="#{not empty offreController.currentOffre.observations}" />
+    <t:div rendered="#{not empty offreController.currentOffre.observations}">
+        <h:outputText value="#{msgs['OFFRE.COMOBS']} : " styleClass="fontBold" />
+        <h:outputText value="#{offreController.currentOffre.observations}"
+                      escape="false" />
+    </t:div>
+
+    <t:div styleClass="ml40" rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}">
+        <t:div rendered="#{offreController.currentOffre.avecFichier
+							and offreController.currentOffre.idFichier gt 0
+							and not empty offreController.currentOffre.fichier}">
+            <h:outputLink
+                    value="get.file?fileId=#{offreController.currentOffre.idFichier}"
+                    target="_blank">
+                <t:htmlTag value="i" styleClass="fa fa-file-text-o fontBlue2 fz20" />
+            </h:outputLink>
+            <h:outputLink
+                    value="get.file?fileId=#{offreController.currentOffre.idFichier}"
+                    target="_blank">
+                <h:outputText
+                        value="#{offreController.currentOffre.fichier.nomFichier}"
+                        rendered="#{empty offreController.currentOffre.fichier.nomReel}" />
+                <h:outputText
+                        value="#{offreController.currentOffre.fichier.nomReel}"
+                        rendered="#{not empty offreController.currentOffre.fichier.nomReel}" />
+            </h:outputLink>
+        </t:div>
+        <t:div rendered="#{offreController.currentOffre.avecLien}">
+            <h:outputLink value="#{offreController.currentOffre.lienAttache}"
+                          target="_blank">
+                <h:graphicImage alt="#{msgs['GENERAL.CLIQUEZICI']}"
+                                title="#{msgs['GENERAL.CLIQUEZICI']}"
+                                value="../../media/images/lien.png" />
+            </h:outputLink>
+            <h:outputLink value="#{offreController.currentOffre.lienAttache}"
+                          target="_blank">
+                <h:outputText value="#{offreController.currentOffre.lienAttache}"
+                              title="#{offreController.currentOffre.lienAttache}">
+                    <f:converter binding="#{limitCharactersShownUpTo50Converter}" />
+                </h:outputText>
+            </h:outputLink>
+        </t:div>
+    </t:div>
 </ui:composition>

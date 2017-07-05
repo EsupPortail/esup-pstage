@@ -55,7 +55,7 @@ public class ComposanteCachingLdapEntityServiceImpl extends SimpleComposanteLdap
 	/**
 	 * A logger.
 	 */
-	private final Logger logger = new LoggerImpl(getClass());
+	private final transient Logger logger = new LoggerImpl(getClass());
 	/**
 	 * the number of requests made.
 	 */

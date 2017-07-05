@@ -28,7 +28,9 @@
                                              update="@form"
                                              rendered="#{(not empty conventionController.convention and !conventionController.conventionValide) and (welcomeController.superAdmin
 									|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
-									|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture || welcomeController.etudiant)}" />
+									|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+									|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP
+									|| welcomeController.etudiant)}" />
                         </t:div>
                     </t:div>
                 </t:fieldset>

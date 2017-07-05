@@ -2,6 +2,7 @@ package org.esupportail.pstage.web.servlet;
 
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.faces.context.ExternalContext;
@@ -17,7 +18,7 @@ public class ExportConventionsServlet extends HttpServlet{
 	
 	private static final long serialVersionUID = 1L;
 
-	Logger log = Logger.getLogger(ExportConventionsServlet.class);
+	private final transient Logger logger = Logger.getLogger(this.getClass());
 
 	/** 
 	 * 
@@ -26,10 +27,6 @@ public class ExportConventionsServlet extends HttpServlet{
 		super();
 	}
 
-	/**
-	 * @param req HTTP request object 
-	 * @param resp HTTP response object
-	 */
 	public String doGet(ByteArrayOutputStream baosXLS, String XlsFileName) throws javax.servlet.ServletException, java.io.IOException {
 
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
@@ -57,12 +54,17 @@ public class ExportConventionsServlet extends HttpServlet{
 			baosXLS.close();
 
 		} catch (Exception e){
+			logger.info(e);
 			resp.setContentType("text/html");
-			PrintWriter writer = resp.getWriter();
-			writer.println(this.getClass().getName() 
-					+ " caught an exception: " 
-					+ e.getClass().getName()
-					+ "<br>");
+			try {
+				PrintWriter writer = resp.getWriter();
+				writer.println(this.getClass().getName()
+						+ " caught an exception: "
+						+ e.getClass().getName()
+						+ "<br>");
+			} catch (IOException ioe){
+				logger.error(ioe);
+			}
 		} finally {
 			if (baosXLS != null){
 				baosXLS.reset();

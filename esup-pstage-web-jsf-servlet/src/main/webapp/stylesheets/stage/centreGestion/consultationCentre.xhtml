@@ -1,45 +1,45 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<h:outputStylesheet>
-			label {
-		    	font-weight: bold;
-			}
-		</h:outputStylesheet>
-		<p:panel rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <h:outputStylesheet>
+            label {
+                font-weight: bold;
+            }
+        </h:outputStylesheet>
+        <p:panel rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
 						|| welcomeController.personnel) and centreController.centre != null}">
-			<f:facet name="header">
-				<h:outputText styleClass="fontBold" value="#{msgs['CENTRE.CONSULTATION']} "
-					for="nomCentre" />
-				<h:outputText id="nomCentre"
-					value="#{centreController.centre.nomCentre}" />
-			</f:facet>
+            <f:facet name="header">
+                <h:outputText styleClass="fontBold" value="#{msgs['CENTRE.CONSULTATION']} "
+                              for="nomCentre" />
+                <h:outputText id="nomCentre"
+                              value="#{centreController.centre.nomCentre}" />
+            </f:facet>
 
-			<ui:include src="_menu_centre.xhtml" />
+            <ui:include src="_menu_centre.xhtml" />
 
-			<t:div id="divConsultation" styleClass="block ml40">
-				<ui:include
-					src="/stylesheets/stage/centreGestion/#{sessionController.consultationCentreCurrentPage}.xhtml" />
-			</t:div>
+            <t:div id="divConsultation" styleClass="block ml40">
+                <ui:include
+                        src="/stylesheets/stage/centreGestion/#{sessionController.consultationCentreCurrentPage}.xhtml" />
+            </t:div>
 
-			<h:form>
-				<p:commandButton id="back" value="#{msgs['CENTRE.RETOUR_LISTE']}"
-					action="listeCentres" immediate="true" />
-			</h:form>
-		</p:panel>
-		<t:div
-			rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
+            <h:form>
+                <p:commandButton id="back" value="#{msgs['CENTRE.RETOUR_LISTE']}"
+                                 action="listeCentres" immediate="true" />
+            </h:form>
+        </p:panel>
+        <t:div
+                rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
 		|| welcomeController.personnel)}">
-			<ui:include src="../_redirection_droitsInsuffisants.xhtml" />
-		</t:div>
-		<t:div
-			rendered="#{(welcomeController.superAdmin || welcomeController.enseignant || welcomeController.personnel)
+            <ui:include src="../_redirection_droitsInsuffisants.xhtml" />
+        </t:div>
+        <t:div
+                rendered="#{(welcomeController.superAdmin || welcomeController.enseignant || welcomeController.personnel)
 		and centreController.centre == null}">
-			<ui:include src="../_redirection_accesDirectImpossible.xhtml" />
-		</t:div>
-	</ui:define>
+            <ui:include src="../_redirection_accesDirectImpossible.xhtml" />
+        </t:div>
+    </ui:define>
 </ui:composition>

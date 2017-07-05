@@ -1,119 +1,119 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:t="http://myfaces.apache.org/tomahawk"
-				xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
 
-				template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<p:panel rendered="#{welcomeController.superAdmin
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel rendered="#{welcomeController.superAdmin
 								|| welcomeController.admin
 								|| welcomeController.writer}">
-			<f:facet name="header">
-				<h:outputText
-						value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.HEADER']}" />
-			</f:facet>
-				<h:form id="formRechConvention" styleClass="ml40 block">
-					<p:fieldset legend="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE']}">
-						<ui:include src="/stylesheets/stage/_limitesResultats.xhtml" />
-						<t:htmlTag value="div" style="height: 10px;" />
-						<t:div styleClass="textCenter mb10">
-							<p:commandButton
-									value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.BTN_TUTEUR']}"
-									disabled="#{conventionController.ongletCourant == 1}"
-									update="formRechConvention" styleClass="mr10"
-									action="#{conventionController.ongletTuteur}" />
-							<p:commandButton
-									value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.BTN_UFR']}"
-									disabled="#{conventionController.ongletCourant == 2}"
-									update="formRechConvention" styleClass="mr10"
-									action="#{conventionController.ongletUfr}" />
-							<p:commandButton
-									value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.BTN_ETAPE']}"
-									disabled="#{conventionController.ongletCourant == 3}"
-									update="formRechConvention"
-									action="#{conventionController.ongletEtape}" />
-						</t:div>
-						<h:outputText escape="false"
-									  rendered="#{!sessionController.validationPedagogique}"
-									  value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.INFO']}">
-							<t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
-						</h:outputText>
-						<t:htmlTag value="span" styleClass="legendLabel">
-							<t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
-							<h:outputText value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.INFO_PEDAGO']}" />
-						</t:htmlTag>
-							<t:div id="panelTuteur" styleClass="mt10"
-								   rendered="#{conventionController.ongletCourant == 1}">
-								<p:fieldset legend="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.LIBELLE_TUTEUR']}" toggleable="false">
-									<t:htmlTag value="ul" styleClass="formUL columns-2">
-										<t:div styleClass="column">
-											<t:htmlTag value="li">
-												<p:outputLabel value="#{msgs['CONVENTION.NOM']}"
-															   for="nomEnseignant" />
-												<p:inputText id="nomEnseignant" size="50" maxlength="30"
-															 style="text-transform:uppercase;"
-															 value="#{conventionController.critereRechercheConvention.nomEnseignant}">
-													<f:converter binding="#{sansAccentEnMAJConverter}" />
-												</p:inputText>
-											</t:htmlTag>
-										</t:div>
-										<t:div styleClass="column">
-											<t:htmlTag value="li">
-												<p:outputLabel value="#{msgs['CONVENTION.PRENOM']}"
-															   for="prenomEnseignant" />
-												<p:inputText id="prenomEnseignant" size="50" maxlength="30"
-															 style="text-transform:uppercase;"
-															 value="#{conventionController.critereRechercheConvention.prenomEnseignant}">
-													<f:converter binding="#{sansAccentEnMAJConverter}" />
-												</p:inputText>
-											</t:htmlTag>
-										</t:div>
-									</t:htmlTag>
-								</p:fieldset>
-							</t:div>
+            <f:facet name="header">
+                <h:outputText
+                        value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.HEADER']}" />
+            </f:facet>
+            <h:form id="formRechConvention" styleClass="ml40 block">
+                <p:fieldset legend="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE']}">
+                    <ui:include src="/stylesheets/stage/_limitesResultats.xhtml" />
+                    <t:htmlTag value="div" style="height: 10px;" />
+                    <t:div styleClass="textCenter mb10">
+                        <p:commandButton
+                                value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.BTN_TUTEUR']}"
+                                disabled="#{conventionController.ongletCourant == 1}"
+                                update="formRechConvention" styleClass="mr10"
+                                action="#{conventionController.ongletTuteur}" />
+                        <p:commandButton
+                                value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.BTN_UFR']}"
+                                disabled="#{conventionController.ongletCourant == 2}"
+                                update="formRechConvention" styleClass="mr10"
+                                action="#{conventionController.ongletUfr}" />
+                        <p:commandButton
+                                value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.BTN_ETAPE']}"
+                                disabled="#{conventionController.ongletCourant == 3}"
+                                update="formRechConvention"
+                                action="#{conventionController.ongletEtape}" />
+                    </t:div>
+                    <t:div id="panelTuteur" styleClass="mt10"
+                           rendered="#{conventionController.ongletCourant == 1}">
+                        <p:fieldset legend="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.LIBELLE_TUTEUR']}" toggleable="false">
+                            <t:htmlTag value="ul" styleClass="formUL columns-2">
+                                <t:div styleClass="column">
+                                    <t:htmlTag value="li">
+                                        <p:outputLabel value="#{msgs['CONVENTION.NOM']}"
+                                                       for="nomEnseignant" />
+                                        <p:inputText id="nomEnseignant" size="50" maxlength="30"
+                                                     style="text-transform:uppercase;"
+                                                     value="#{conventionController.critereRechercheConvention.nomEnseignant}">
+                                            <f:converter binding="#{sansAccentEnMAJConverter}" />
+                                        </p:inputText>
+                                    </t:htmlTag>
+                                </t:div>
+                                <t:div styleClass="column">
+                                    <t:htmlTag value="li">
+                                        <p:outputLabel value="#{msgs['CONVENTION.PRENOM']}"
+                                                       for="prenomEnseignant" />
+                                        <p:inputText id="prenomEnseignant" size="50" maxlength="30"
+                                                     style="text-transform:uppercase;"
+                                                     value="#{conventionController.critereRechercheConvention.prenomEnseignant}">
+                                            <f:converter binding="#{sansAccentEnMAJConverter}" />
+                                        </p:inputText>
+                                    </t:htmlTag>
+                                </t:div>
+                            </t:htmlTag>
+                        </p:fieldset>
+                    </t:div>
+                    <h:outputText escape="false"
+                                  rendered="#{!sessionController.validationPedagogique}"
+                                  value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.INFO']}">
+                        <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+                    </h:outputText>
+                    <t:htmlTag value="span" styleClass="legendLabel">
+                        <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+                        <h:outputText value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.INFO_PEDAGO']}" />
+                    </t:htmlTag>
 
-							<t:div id="panelUfr" styleClass="mt10"
-								   rendered="#{conventionController.ongletCourant == 2}">
-								<p:fieldset legend="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.LIBELLE_UFR']}" toggleable="false">
-									<p:selectManyMenu filter="true" filterMatchMode="contains" styleClass="customPstage fix-selectOneMenu" style="width: auto;"
-											value="#{conventionController.critereRechercheConvention.idsUfrs}"
-											rendered="#{not empty conventionController.rechUfrs}">
-										<f:selectItems value="#{conventionController.rechUfrs}" />
-									</p:selectManyMenu>
-									<h:outputText rendered="#{empty conventionController.rechUfrs}"
-												  value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.UFR_VIDE']}" />
-								</p:fieldset>
-							</t:div>
+                    <t:div id="panelUfr" styleClass="mt10"
+                           rendered="#{conventionController.ongletCourant == 2}">
+                        <p:fieldset legend="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.LIBELLE_UFR']}" toggleable="false">
+                            <p:selectManyMenu filter="true" filterMatchMode="contains" styleClass="customPstage fix-selectOneMenu" style="width: auto;"
+                                              value="#{conventionController.critereRechercheConvention.idsUfrs}"
+                                              rendered="#{not empty conventionController.rechUfrs}">
+                                <f:selectItems value="#{conventionController.rechUfrs}" />
+                            </p:selectManyMenu>
+                            <h:outputText rendered="#{empty conventionController.rechUfrs}"
+                                          value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.UFR_VIDE']}" />
+                        </p:fieldset>
+                    </t:div>
 
-							<t:div id="panelEtape" styleClass="mt10"
-								   rendered="#{conventionController.ongletCourant == 3}">
-								<p:fieldset legend="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.LIBELLE_ETAPE']}" toggleable="false">
-									<p:selectManyMenu filter="true" filterMatchMode="contains" styleClass="customPstage fix-selectOneMenu" style="width: auto;"
-											value="#{conventionController.critereRechercheConvention.idsEtapes}"
-											rendered="#{not empty conventionController.rechEtapes}">
-										<f:selectItems value="#{conventionController.rechEtapes}" />
-									</p:selectManyMenu>
-									<h:outputText
-											rendered="#{empty conventionController.rechEtapes}"
-											value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.ETAPE_VIDE']}" />
-								</p:fieldset>
-							</t:div>
-						<t:div styleClass="textCenter">
-							<p:commandButton id="recherche" status="statusRechercheMasse" styleClass="mt10"
-											 action="#{conventionController.rechercherMasseConvention}"
-											 value="#{msgs['RECHERCHECONVENTION.RECHERCHER']}"
-                                             icon="fa fa-search" onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
-						</t:div>
-						<p:messages escape="false" autoUpdate="true"/>
-					</p:fieldset>
-				</h:form>
-		</p:panel>
-		<t:div
-				rendered="#{!(welcomeController.superAdmin
+                    <t:div id="panelEtape" styleClass="mt10"
+                           rendered="#{conventionController.ongletCourant == 3}">
+                        <p:fieldset legend="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.LIBELLE_ETAPE']}" toggleable="false">
+                            <p:selectManyMenu filter="true" filterMatchMode="contains" styleClass="customPstage fix-selectOneMenu" style="width: auto;"
+                                              value="#{conventionController.critereRechercheConvention.idsEtapes}"
+                                              rendered="#{not empty conventionController.rechEtapes}">
+                                <f:selectItems value="#{conventionController.rechEtapes}" />
+                            </p:selectManyMenu>
+                            <h:outputText
+                                    rendered="#{empty conventionController.rechEtapes}"
+                                    value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.ETAPE_VIDE']}" />
+                        </p:fieldset>
+                    </t:div>
+                    <t:div styleClass="textCenter">
+                        <p:commandButton id="recherche" status="statusRechercheMasse" styleClass="mt10"
+                                         action="#{conventionController.rechercherMasseConvention}"
+                                         value="#{msgs['RECHERCHECONVENTION.RECHERCHER']}"
+                                         icon="fa fa-search" onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+                    </t:div>
+                    <p:messages escape="false" autoUpdate="true"/>
+                </p:fieldset>
+            </h:form>
+        </p:panel>
+        <t:div
+                rendered="#{!(welcomeController.superAdmin
 								|| welcomeController.admin
 								|| welcomeController.writer)}">
-			<ui:include src="./_redirection_droitsInsuffisants.xhtml" />
-		</t:div>
-	</ui:define>
+            <ui:include src="./_redirection_droitsInsuffisants.xhtml" />
+        </t:div>
+    </ui:define>
 </ui:composition>

@@ -281,7 +281,7 @@ body {
 }
 #SIDEBAR_CONTAINER #SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-header *:first-child {
   background: transparent;
-  font-family: FontAwesome;
+  font-family: FontAwesome, sans-serif;
   text-indent: 0;
 }
 #SIDEBAR_CONTAINER #SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-header *:first-child:before {
@@ -1033,7 +1033,7 @@ select.customPstage.fix-selectOneMenu {
   padding-right: 28px;
 }
 .ui-fieldset.legendWarning .ui-fieldset-legend {
-  font-family: FontAwesome;
+  font-family: FontAwesome, sans-serif;
   font-size: 1.3rem;
   color: #DD3333;
 }

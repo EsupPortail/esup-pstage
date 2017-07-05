@@ -43,7 +43,7 @@ PersonalDataRepositoryDao {
 	/**
 	 * 
 	 */
-	final Logger logger = Logger.getLogger(PersonalDataRepositoryDaoWS.class);
+	final transient Logger logger = Logger.getLogger(PersonalDataRepositoryDaoWS.class);
 
 	/**
 	 * see {@link LdapUserService}.
@@ -228,7 +228,6 @@ PersonalDataRepositoryDao {
 			//dans ce cas on construit le filtre sur chaqu'un des attributs
 			StringTokenizer valeursNonTuteurs = new StringTokenizer(ldapFacultyNonTuteur,",");
 			while(valeursNonTuteurs.hasMoreTokens()) {
-				//TODO cas ou la chaine contient un accent , filtre encode mal 
 				String uneValeurNonTuteur = valeursNonTuteurs.nextToken();
 				StringTokenizer stmt = new StringTokenizer(memberTypes,",");
 				while (stmt.hasMoreTokens()){
@@ -272,7 +271,6 @@ PersonalDataRepositoryDao {
 			OrFilter filtreOuT = new OrFilter();
 
 			while(valeursTuteurs.hasMoreTokens()) {
-				//TODO cas ou la chaine contient un accent , filtre encode mal 
 				filtreOuT.or(new EqualsFilter(ldapAttributes.getLdapUid(),valeursTuteurs.nextToken()));
 			}
 			filterEmployeeTutor.and(filtreOuT);

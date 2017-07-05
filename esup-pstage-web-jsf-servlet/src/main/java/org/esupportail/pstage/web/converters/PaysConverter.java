@@ -52,7 +52,7 @@ public class PaysConverter implements Serializable, Converter {
 					"object " + value + " is not a PaysDTO.");
 		}
 		PaysDTO p = (PaysDTO) value;
-		return ""+p.getId();
+		return Integer.toString(p.getId());
 	}
 	
 	/**

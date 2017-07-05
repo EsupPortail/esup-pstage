@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.esupportail</groupId>
     <artifactId>esup-pstage</artifactId>
-    <version>2.2.5-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <description>A Blank Application to start your project</description>
+    <description>Application de gestion des conventions et offres de stage</description>
     <repositories>
         <repository>
             <id>esup-snapshots</id>
@@ -96,6 +96,11 @@
 					</webAppConfig>
 				</configuration>
             </plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.2</version>
+			</plugin>
         </plugins>
     </build>
     <properties>

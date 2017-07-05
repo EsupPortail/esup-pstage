@@ -52,7 +52,7 @@ public class NiveauCentreConverter implements Serializable, Converter {
 					"object " + value + " is not a NiveauCentreDTO.");
 		}
 		NiveauCentreDTO n = (NiveauCentreDTO) value;
-		return ""+n.getId();
+		return Integer.toString(n.getId());
 	}
 	
 	/**
@@ -64,7 +64,7 @@ public class NiveauCentreConverter implements Serializable, Converter {
 			final FacesContext context, 
 			final UIComponent component, 
 			final String value) {
-		if (value == null || !StringUtils.hasText(value.toString()) 
+		if (value == null || !StringUtils.hasText(value)
 				|| !Utils.isNumber(value)) {
 			return null;
 		}

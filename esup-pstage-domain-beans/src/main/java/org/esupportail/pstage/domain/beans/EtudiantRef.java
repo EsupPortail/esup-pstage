@@ -140,12 +140,17 @@ public class EtudiantRef extends EtudiantDTO implements Serializable{
 	/**
 	 * administrationApogee
 	 */
-	private AdministrationApogee administrationApogee;		
-	
-	/* **
-	 * Objets
+	private AdministrationApogee administrationApogee;
+
+	/**
+	 * liste des annees d'inscription disponibles
 	 */
 	private List<String> listeAnneesUniv;
+
+	/**
+	 * volumeHoraire de l'etape d'inscription choisie
+	 */
+	private String volumeHoraireFormation= "";
 
 
 	
@@ -587,6 +592,14 @@ public class EtudiantRef extends EtudiantDTO implements Serializable{
 		this.listeAnneesUniv = listeAnneesUniv;
 	}
 
+
+	public String getVolumeHoraireFormation() {
+		return volumeHoraireFormation;
+	}
+
+	public void setVolumeHoraireFormation(String volumeHoraireFormation) {
+		this.volumeHoraireFormation = volumeHoraireFormation;
+	}
 
 	
 	

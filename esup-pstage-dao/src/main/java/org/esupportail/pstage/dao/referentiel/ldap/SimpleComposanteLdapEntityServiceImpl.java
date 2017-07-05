@@ -48,7 +48,7 @@ public class SimpleComposanteLdapEntityServiceImpl  implements LdapEntityService
 	/**
 	 * A logger.
 	 */
-	private final Logger logger = new LoggerImpl(getClass());
+	private final transient Logger logger = new LoggerImpl(getClass());
 
 	/**
 	 * A LdapTemplate instance, to perform LDAP operations.

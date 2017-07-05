@@ -1,58 +1,62 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
-	<h:panelGrid >
-		<ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
-		<h:outputLabel for="mdp"
-			value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.MDPACTUEL']} *" />
-		<h:inputSecret id="mdp" size="12" maxlength="12"
-			value="#{etablissementController.mdpActuel}" required="true"
-			requiredMessage="#{requiredMessageController.champObligatoire}"
-			converter="#{passwordConverter}" >
-			<p:ajax event="blur" />
-		</h:inputSecret>
-		<p:message for="mdp">
-			<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-		</p:message>
-		<h:panelGrid columns="2" styleClass="fz09">
-			<h:graphicImage
-				alt="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDP']}"
-				title="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDP']}"
-				value="../../media/images/information.png" />
-			<h:outputText
-				value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDP.AIDE']}" />
-		</h:panelGrid>
-		<h:outputLabel for="mdpNew"
-			value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDP']} *" />
-		<h:inputSecret id="mdpNew" size="12" maxlength="12"
-			value="#{etablissementController.mdpNouveau}" required="true"
-			requiredMessage="#{requiredMessageController.champObligatoire}"
-			validatorMessage="#{requiredMessageController.nouveauMotDePasse}">
-			<f:validateLength minimum="6" maximum="12" />
-			<p:ajax event="blur" />
-		</h:inputSecret>
-		<p:message for="mdpNew">
-			<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-		</p:message>
-		<h:outputLabel for="mdpConfirm"
-			value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDPCONFIRM']} *" />
-		<h:inputSecret id="mdpConfirm" size="12" maxlength="12"
-			value="#{etablissementController.mdpNouveauConfirmation}"
-			required="true" requiredMessage="#{requiredMessageController.champObligatoire}"
-			validatorMessage="#{requiredMessageController.nouveauMotDePasse}">
-			<f:validateLength minimum="6" maximum="12" />
-			<p:ajax event="blur" />
-		</h:inputSecret>
-		<p:message for="mdpConfirm">
-			<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-		</p:message>
-	</h:panelGrid>
-	<p:commandButton
-		update="changementMotDePasse"
-		action="#{etablissementController.changerMotDePasse}"
-		value="#{msgs['FORM.NEXT']}" />
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+
+    <ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
+
+    <t:div style="height:10px;"/>
+
+    <h:outputText styleClass="fontBold"
+                  value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.MDPACTUEL']} *" />
+    <t:div>
+        <p:password id="mdp" maxlength="12" styleClass="autoWidth"
+                    value="#{etablissementController.mdpActuel}"
+                    required="true" converter="#{passwordConverter}"/>
+    </t:div>
+    <p:message id="msgMdp" for="mdp"/>
+
+    <t:div style="height:10px;"/>
+
+    <t:div id="divNewMdp" styleClass="mt10">
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDP']} *" />
+        <t:div>
+            <p:password id="mdpNew" maxlength="12" styleClass="autoWidth"
+                        value="#{etablissementController.mdpNouveau}" required="true"
+                        validatorMessage="#{requiredMessageController.nouveauMotDePasse}">
+                <f:validateLength minimum="6" maximum="12" />
+                <p:ajax event="blur" update="msgMdpNew" />
+            </p:password>
+            <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fontBlue2 ml5" />
+            <h:outputText styleClass="fz09" value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDP.AIDE']}"/>
+        </t:div>
+        <p:message id="msgMdpNew" for="mdpNew"/>
+
+        <t:div style="height:10px;"/>
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDPCONFIRM']} *" />
+        <t:div>
+            <p:password id="mdpConfirm" maxlength="12" styleClass="autoWidth"
+                        value="#{etablissementController.mdpNouveauConfirmation}"
+                        required="true" validatorMessage="#{requiredMessageController.nouveauMotDePasse}">
+                <f:validateLength minimum="6" maximum="12" />
+            </p:password>
+        </t:div>
+        <p:message for="mdpConfirm"/>
+
+        <t:div styleClass="mt20 mb10">
+            <p:commandButton value="#{msgs['FORM.CONFIRMERCONTINUER']}"
+                             action="#{etablissementController.changerMotDePasse}"
+                             update="divNewMdp, msgMdp" />
+        </t:div>
+
+        <t:div style="height:10px;"/>
+
+        <p:message for="changementMotDePasse" />
+    </t:div>
+
 </ui:composition>

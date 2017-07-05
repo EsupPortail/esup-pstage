@@ -49,7 +49,7 @@ public class OffreConverter implements Serializable, Converter {
 					"object " + value + " is not a OffreDTO.");
 		}
 		OffreDTO e = (OffreDTO) value;
-		return ""+e.getIdOffre();
+		return Integer.toString(e.getIdOffre());
 	}
 
 	/**

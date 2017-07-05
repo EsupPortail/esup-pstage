@@ -69,7 +69,7 @@ public class EvaluationController extends AbstractContextAwareController {
 	/**
 	 * Logger.
 	 */
-	private final Logger logger = Logger.getLogger(this.getClass());
+	private final transient Logger logger = Logger.getLogger(this.getClass());
 
 	/**
 	 * ConventionController
@@ -165,7 +165,7 @@ public class EvaluationController extends AbstractContextAwareController {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("conventionEtape13FicheEvaluation.xhtml");
 			}
 		} catch (IOException ioe){
-			logger.error("Erreur lors de la tentative de redirection de page.");
+			logger.error("Erreur lors de la tentative de redirection de page.", ioe);
 			addErrorMessage(null, "Erreur lors de la tentative de redirection de page.");
 		}
 	}
@@ -192,14 +192,14 @@ public class EvaluationController extends AbstractContextAwareController {
 				getFicheEvaluationDomainService().addReponseEvaluation(
 						reponseEvalTmp);
 			} catch (DataAddException ae) {
-				logger.error("DataAddException", ae.getCause());
+				logger.error("DataAddException", ae);
 				addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 			} catch (WebServiceDataBaseException we) {
 				logger.error("WebServiceDataBaseException ",
-						we.getCause());
+						we);
 				addErrorMessage(null,
 						"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
-						we.getMessage());
+						we);
 			}
 			this.conventionController.getConvention().setReponseEvaluation(reponseEvalTmp);
 		}
@@ -252,13 +252,13 @@ public class EvaluationController extends AbstractContextAwareController {
 						reponsesSupplementaires);
 			}
 		} catch (DataAddException ae) {
-			logger.error("DataAddException", ae.getCause());
+			logger.error("DataAddException", ae);
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.getCause());
+			logger.error("WebServiceDataBaseException ", we);
 			addErrorMessage(null,
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
-					we.getMessage());
+					we);
 		}
 
 		return "conventionEtape13FicheEvaluationEtudiant";
@@ -324,12 +324,12 @@ public class EvaluationController extends AbstractContextAwareController {
 							+ reponseEvalTmp.getIdConvention());
 				}
 			} catch (DataUpdateException d) {
-				logger.error("DataUpdateException", d.getCause());
+				logger.error("DataUpdateException", d);
 				addErrorMessage("formFicheEtudiant",
 						"CONVENTION.ETAPE13.ERREUR_AJOUT");
 			} catch (WebServiceDataBaseException w) {
 				logger.error("WebServiceDataBaseException",
-						w.getCause());
+						w);
 				addErrorMessage("formFicheEtudiant",
 						"CONVENTION.ETAPE13.ERREUR_WS");
 			}
@@ -382,8 +382,8 @@ public class EvaluationController extends AbstractContextAwareController {
 				}
 				this.conventionController.getConvention().setQuestionsSupplementaires(list);
 			}
-			String nomDocxsl = "";
-			String fileNameXml = "";
+			String nomDocxsl;
+			String fileNameXml;
 			String fileNameXmlfin = ".xml";
 			String idReponse = this.conventionController.getConvention().getIdConvention().toString();
 			nomDocxsl = "ficheEtudiant" + ".xsl";
@@ -409,7 +409,7 @@ public class EvaluationController extends AbstractContextAwareController {
 						this.conventionController.getConvention().getIdConvention());
 			}
 		} catch (ExportException e) {
-			logger.error("editPdfFicheEtudiant ", e.getCause());
+			logger.error("editPdfFicheEtudiant ", e);
 		}
 	}
 
@@ -418,7 +418,7 @@ public class EvaluationController extends AbstractContextAwareController {
 	 */
 	public void envoiMailEtudiant() {
 		String adresseEtudiant = "";
-		String nomEtu = "";
+		String nomEtu;
 		if (this.conventionController.getConvention().getEtudiant() != null) {
 			nomEtu = this.conventionController.getConvention().getEtudiant().getPrenom() + " "
 					+ this.conventionController.getConvention().getEtudiant().getNom();
@@ -473,9 +473,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					this.conventionController.getConvention().getIdConvention());
 			this.conventionController.reloadRechercheConventionPaginator();
 		} catch (AddressException e) {
-			if (logger.isDebugEnabled()) {
-				e.printStackTrace();
-			}
+			logger.error(e);
 			addErrorMessage("formAccueilFiche:panelMailEtudiant",
 					"CONVENTION.ETAPE13.MAIL.ERREUR_ETUDIANT", adresseEtudiant,
 					nomEtu, this.conventionController.getConvention().getIdConvention());
@@ -502,14 +500,14 @@ public class EvaluationController extends AbstractContextAwareController {
 				getFicheEvaluationDomainService().addReponseEvaluation(
 						reponseEvalTmp);
 			} catch (DataAddException ae) {
-				logger.error("DataAddException", ae.getCause());
+				logger.error("DataAddException", ae);
 				addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 			} catch (WebServiceDataBaseException we) {
 				logger.error("WebServiceDataBaseException ",
-						we.getCause());
+						we);
 				addErrorMessage(null,
 						"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
-						we.getMessage());
+						we);
 			}
 			this.conventionController.getConvention().setReponseEvaluation(reponseEvalTmp);
 		}
@@ -549,13 +547,13 @@ public class EvaluationController extends AbstractContextAwareController {
 						reponsesSupplementaires);
 			}
 		} catch (DataAddException ae) {
-			logger.error("DataAddException", ae.getCause());
+			logger.error("DataAddException", ae);
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.getCause());
+			logger.error("WebServiceDataBaseException ", we);
 			addErrorMessage(null,
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
-					we.getMessage());
+					we);
 		}
 
 		return "conventionEtape13FicheEvaluationEnseignant";
@@ -612,12 +610,12 @@ public class EvaluationController extends AbstractContextAwareController {
 							+ reponseEvalTmp.getIdConvention());
 				}
 			} catch (DataUpdateException d) {
-				logger.error("DataUpdateException", d.getCause());
+				logger.error("DataUpdateException", d);
 				addErrorMessage("formFicheEnseignant",
 						"CONVENTION.ETAPE13.ERREUR_AJOUT");
 			} catch (WebServiceDataBaseException w) {
 				logger.error("WebServiceDataBaseException",
-						w.getCause());
+						w);
 				addErrorMessage("formFicheEnseignant",
 						"CONVENTION.ETAPE13.ERREUR_WS");
 			}
@@ -657,8 +655,8 @@ public class EvaluationController extends AbstractContextAwareController {
 				}
 				this.conventionController.getConvention().setQuestionsSupplementaires(list);
 			}
-			String nomDocxsl = "";
-			String fileNameXml = "";
+			String nomDocxsl ;
+			String fileNameXml;
 			String fileNameXmlfin = ".xml";
 			String idReponse = this.conventionController.getConvention().getIdConvention().toString();
 			nomDocxsl = "ficheEnseignant" + ".xsl";
@@ -686,7 +684,7 @@ public class EvaluationController extends AbstractContextAwareController {
 						this.conventionController.getConvention().getIdConvention());
 			}
 		} catch (ExportException e) {
-			logger.error("editPdfFicheEnseignant ", e.getCause());
+			logger.error("editPdfFicheEnseignant ", e);
 		}
 	}
 
@@ -695,8 +693,8 @@ public class EvaluationController extends AbstractContextAwareController {
 	 * l'etudiant
 	 */
 	public void envoiMailEnseignant() {
-		String adresseTuteurPedago = "";
-		String nomTuteur = "";
+		String adresseTuteurPedago;
+		String nomTuteur;
 		String libelleEtu = "";
 		if (this.conventionController.getConvention().getEnseignant() != null
 				&& this.conventionController.getConvention().getEnseignant().getMail() != null
@@ -754,9 +752,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					adresseTuteurPedago, this.conventionController.getConvention().getIdConvention());
 			this.conventionController.reloadRechercheConventionPaginator();
 		} catch (AddressException e) {
-			if (logger.isDebugEnabled()) {
-				e.printStackTrace();
-			}
+			logger.error(e);
 			addErrorMessage("formAccueilFiche:panelMailEnseignant",
 					"CONVENTION.ETAPE13.MAIL.ERREUR_ENSEIGNANT",
 					adresseTuteurPedago, nomTuteur,
@@ -811,14 +807,14 @@ public class EvaluationController extends AbstractContextAwareController {
 				getFicheEvaluationDomainService().addReponseEvaluation(
 						reponseEvalTmp);
 			} catch (DataAddException ae) {
-				logger.error("DataAddException", ae.getCause());
+				logger.error("DataAddException", ae);
 				addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 			} catch (WebServiceDataBaseException we) {
 				logger.error("WebServiceDataBaseException ",
-						we.getCause());
+						we);
 				addErrorMessage(null,
 						"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
-						we.getMessage());
+						we);
 			}
 			this.conventionController.getConvention().setReponseEvaluation(reponseEvalTmp);
 		}
@@ -872,13 +868,13 @@ public class EvaluationController extends AbstractContextAwareController {
 						reponsesSupplementaires);
 			}
 		} catch (DataAddException ae) {
-			logger.error("DataAddException", ae.getCause());
+			logger.error("DataAddException", ae);
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.getCause());
+			logger.error("WebServiceDataBaseException ", we);
 			addErrorMessage(null,
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
-					we.getMessage());
+					we);
 		}
 	}
 
@@ -974,11 +970,11 @@ public class EvaluationController extends AbstractContextAwareController {
 			}
 
 		} catch (DataUpdateException d) {
-			logger.error("DataUpdateException", d.getCause());
+			logger.error("DataUpdateException", d);
 			addErrorMessage("formFicheEntreprise",
 					"CONVENTION.ETAPE13.ERREUR_AJOUT");
 		} catch (WebServiceDataBaseException w) {
-			logger.error("WebServiceDataBaseException", w.getCause());
+			logger.error("WebServiceDataBaseException", w);
 			addErrorMessage("formFicheEntreprise",
 					"CONVENTION.ETAPE13.ERREUR_WS");
 		}
@@ -1028,8 +1024,8 @@ public class EvaluationController extends AbstractContextAwareController {
 				}
 				conventionTmp.setQuestionsSupplementaires(list);
 			}
-			String nomDocxsl = "";
-			String fileNameXml = "";
+			String nomDocxsl;
+			String fileNameXml;
 			String fileNameXmlfin = ".xml";
 			String idReponse = conventionTmp.getIdConvention().toString();
 			nomDocxsl = "ficheEntreprise" + ".xsl";
@@ -1056,7 +1052,7 @@ public class EvaluationController extends AbstractContextAwareController {
 						conventionTmp.getIdConvention());
 			}
 		} catch (ExportException e) {
-			logger.error("editPdfFicheEntreprise ", e.getCause());
+			logger.error("editPdfFicheEntreprise ", e);
 		}
 	}
 
@@ -1073,8 +1069,8 @@ public class EvaluationController extends AbstractContextAwareController {
 				+ "/stylesheets/evaluationStage/index.xhtml" + "?id="
 				+ idEncode;
 
-		String adresseTuteurPro = "";
-		String nomTuteurPro = "";
+		String adresseTuteurPro;
+		String nomTuteurPro;
 		if (this.conventionController.getConvention().getContact() != null
 				&& this.conventionController.getConvention().getContact().getMail() != null
 				&& !this.conventionController.getConvention().getContact().getMail().isEmpty()) {
@@ -1145,9 +1141,7 @@ public class EvaluationController extends AbstractContextAwareController {
 								this.conventionController.getConvention().getReponseEvaluation());
 			}
 		} catch (AddressException e) {
-			if (logger.isDebugEnabled()) {
-				e.printStackTrace();
-			}
+			logger.error(e);
 			addErrorMessage("formAccueilFiche:panelMailEntreprise",
 					"CONVENTION.ETAPE13.MAIL.ERREUR_ENTREPRISE",
 					adresseTuteurPro, nomTuteurPro,
@@ -1281,11 +1275,11 @@ public class EvaluationController extends AbstractContextAwareController {
 			if (this.getSessionController().getCurrentAuthEnseignant()
 					.getUidEnseignant() != null) {
 				EnseignantDTO tmpEns = getEnseignantDomainService().getEnseignantFromUid(
-								this.getSessionController().getCurrentAuthEnseignant().getUidEnseignant(),
-								getSessionController().getCodeUniversite());
+						this.getSessionController().getCurrentAuthEnseignant().getUidEnseignant(),
+						getSessionController().getCodeUniversite());
 				if (tmpEns != null) {
 					this.conventionController.setResultatsRechercheConvention(getConventionDomainService().getConventionsByEnseignant(tmpEns.getId(),
-									getBeanUtils().getAnneeUniversitaireCourante(new Date())));
+							getBeanUtils().getAnneeUniversitaireCourante(new Date())));
 
 					if (this.conventionController.getResultatsRechercheConvention() != null
 							&& !this.conventionController.getResultatsRechercheConvention().isEmpty()) {
@@ -1486,6 +1480,7 @@ public class EvaluationController extends AbstractContextAwareController {
 								Thread.sleep(300);
 							} catch (InterruptedException e) {
 								logger.warn(e);
+								Thread.currentThread().interrupt();
 							}
 						}
 					}
@@ -1525,6 +1520,7 @@ public class EvaluationController extends AbstractContextAwareController {
 								Thread.sleep(300);
 							} catch (InterruptedException e) {
 								logger.warn(e);
+								Thread.currentThread().interrupt();
 							}
 						}
 					}
@@ -1565,6 +1561,7 @@ public class EvaluationController extends AbstractContextAwareController {
 								Thread.sleep(300);
 							} catch (InterruptedException e) {
 								logger.warn(e);
+								Thread.currentThread().interrupt();
 							}
 						}
 					}
@@ -1776,7 +1773,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 			// initialisation des variables
 			ReponseEvaluationDTO reponseTmp;
-			ConventionDTO convention = new ConventionDTO();
+			ConventionDTO convention;
 			int j = 0;
 			HSSFRow row;
 			HSSFCell cell;
@@ -1809,7 +1806,8 @@ public class EvaluationController extends AbstractContextAwareController {
 				if (reponseTmp != null && reponseTmp.isValidationEtudiant()) {
 
 					int cpt = 0;
-					String reponse = "";
+					String reponse;
+					StringBuilder reponseBuilder;
 					row = sheet.getRow(cpt);
 					cell = row.createCell(j + 1); // j = colonne (0 = header, 1 = 1ere colonne de donnees)
 
@@ -1922,19 +1920,20 @@ public class EvaluationController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEtuI4()) {
 						row = sheet.getRow(cpt);
 						cell = row.createCell(j + 1);
-						reponse = "";
+						reponseBuilder = new StringBuilder("");
 						if (reponseTmp.isReponseEtuI4a())
-							reponse += getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL");
+							reponseBuilder.append(getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL"));
 						if (reponseTmp.isReponseEtuI4b())
-							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE"));
+							reponseBuilder.append(" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE"));
 						if (reponseTmp.isReponseEtuI4c())
-							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.COURRIER"));
+							reponseBuilder.append(" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.COURRIER"));
 						if (reponseTmp.isReponseEtuI4d())
-							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.PROSPECTION"));
-						if (reponse == "") {
-							reponse = "NÉANT";
+							reponseBuilder.append(" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.PROSPECTION"));
+
+						if ("".equals(reponseBuilder.toString())) {
+							reponseBuilder.append("NÉANT");
 						}
-						cell.setCellValue(reponse);
+						cell.setCellValue(reponseBuilder.toString());
 						cell.setCellStyle(cellStyle);
 						cpt++;
 					}
@@ -2055,11 +2054,11 @@ public class EvaluationController extends AbstractContextAwareController {
 							cell = row.createCell(j + 1);
 							if (question.getTypeQuestion() != null ){
 								// On evalue le type de la question pour savoir ce qu'il faut récupérer dans l'objet reponse (int, txt ou bool).
-								if (question.getTypeQuestion().equalsIgnoreCase("TXT")){
+								if ("TXT".equalsIgnoreCase(question.getTypeQuestion())){
 									reponse = reponseSup.getReponseTxt();
-								} else if (question.getTypeQuestion().equalsIgnoreCase("INT")){
+								} else if ("INT".equalsIgnoreCase(question.getTypeQuestion())){
 									if (reponseSup.getReponseInt() != null) reponse = recupLibelleNotation(reponseSup.getReponseInt());
-								} else if (question.getTypeQuestion().equalsIgnoreCase("BOOL")){
+								} else if ("BOOL".equalsIgnoreCase(question.getTypeQuestion())){
 									if (reponseSup.isReponseBool()) {
 										reponse = "Oui";
 									} else {
@@ -2209,11 +2208,11 @@ public class EvaluationController extends AbstractContextAwareController {
 							cell = row.createCell(j + 1);
 							if (question.getTypeQuestion() != null && reponseSup != null){
 								// On evalue le type de la question pour savoir ce qu'il faut récupérer dans l'objet reponse (int, txt ou bool).
-								if (question.getTypeQuestion().equalsIgnoreCase("TXT")){
+								if ("TXT".equalsIgnoreCase(question.getTypeQuestion())){
 									reponse = reponseSup.getReponseTxt();
-								} else if (question.getTypeQuestion().equalsIgnoreCase("INT")){
+								} else if ("INT".equalsIgnoreCase(question.getTypeQuestion())){
 									if (reponseSup.getReponseInt() != null) reponse = recupLibelleNotation(reponseSup.getReponseInt());
-								} else if (question.getTypeQuestion().equalsIgnoreCase("BOOL")){
+								} else if ("BOOL".equalsIgnoreCase(question.getTypeQuestion())){
 									if (reponseSup.isReponseBool()) {
 										reponse = "Oui";
 									} else {
@@ -2305,19 +2304,19 @@ public class EvaluationController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEtuIII5()) {
 						row = sheet.getRow(cpt);
 						cell = row.createCell(j + 1);
-						reponse = "";
+						reponseBuilder = new StringBuilder();
 						if (reponseTmp.isReponseEtuIII5a())
-							reponse += getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.1");
+							reponseBuilder.append(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.1"));
 						if (reponseTmp.isReponseEtuIII5b())
-							reponse += (" "
+							reponseBuilder.append(" "
 									+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.2")
 									+ " : " + reponseTmp.getReponseEtuIII5bis());
 						if (reponseTmp.isReponseEtuIII5c())
-							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.3"));
-						if (reponse == "") {
-							reponse = "NÉANT";
+							reponseBuilder.append(" " + getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.3"));
+						if ("".equals(reponseBuilder.toString())) {
+							reponseBuilder.append("NÉANT");
 						}
-						cell.setCellValue(reponse);
+						cell.setCellValue(reponseBuilder.toString());
 						cell.setCellStyle(cellStyle);
 						cpt++;
 					}
@@ -2473,11 +2472,11 @@ public class EvaluationController extends AbstractContextAwareController {
 							cell = row.createCell(j + 1);
 							if (question.getTypeQuestion() != null ){
 								// On evalue le type de la question pour savoir ce qu'il faut récupérer dans l'objet reponse (int, txt ou bool).
-								if (question.getTypeQuestion().equalsIgnoreCase("TXT")){
+								if ("TXT".equalsIgnoreCase(question.getTypeQuestion())){
 									reponse = reponseSup.getReponseTxt();
-								} else if (question.getTypeQuestion().equalsIgnoreCase("INT")){
+								} else if ("INT".equalsIgnoreCase(question.getTypeQuestion())){
 									if (reponseSup.getReponseInt() != null) reponse = recupLibelleNotation(reponseSup.getReponseInt());
-								} else if (question.getTypeQuestion().equalsIgnoreCase("BOOL")){
+								} else if ("BOOL".equalsIgnoreCase(question.getTypeQuestion())){
 									if (reponseSup.isReponseBool()) {
 										reponse = "Oui";
 									} else {
@@ -2516,7 +2515,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 			} catch (Exception e) {
 				logger.error("exportFichesEtudiant() - Exception lors de la tentative d'ecriture du baosXLS : "
-						+ e.getMessage());
+						+ e);
 			}
 		} else {
 			addErrorMessage("formRechEvaluation", "EXPORTEVALUATION.VIDE");
@@ -2620,7 +2619,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 			// initialisation des variables
 			ReponseEvaluationDTO reponseTmp;
-			ConventionDTO convention = new ConventionDTO();
+			ConventionDTO convention;
 			HSSFRow row;
 			HSSFCell cell;
 			// Style general
@@ -2652,7 +2651,8 @@ public class EvaluationController extends AbstractContextAwareController {
 				if (reponseTmp != null && reponseTmp.isValidationEnseignant()) {
 
 					int cpt = 0;
-					String reponse = "";
+					String reponse;
+					StringBuilder reponseBuilder;
 					row = sheet.getRow(cpt);
 					cell = row.createCell(j + 1); // j = colonne (0 = header, 1 = 1ere colonne de donnees)
 
@@ -2687,18 +2687,18 @@ public class EvaluationController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEnsI1()) {
 						row = sheet.getRow(cpt);
 						cell = row.createCell(j + 1);
-						reponse = "";
+						reponseBuilder = new StringBuilder("");
 						if (reponseTmp.isReponseEnsI1a())
-							reponse += getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL");
+							reponseBuilder.append(getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL"));
 						if (reponseTmp.isReponseEnsI1b())
-							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE"));
+							reponseBuilder.append(" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE"));
 						if (reponseTmp.isReponseEnsI1c())
-							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.RENCONTRE"));
+							reponseBuilder.append(" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.RENCONTRE"));
 
-						if (reponse == "") {
-							reponse = "NÉANT";
+						if ("".equals(reponseBuilder.toString())){
+							reponseBuilder.append("NÉANT");
 						}
-						cell.setCellValue(reponse);
+						cell.setCellValue(reponseBuilder.toString());
 						cell.setCellStyle(cellStyle);
 						cpt++;
 					}
@@ -2707,18 +2707,18 @@ public class EvaluationController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEnsI2()) {
 						row = sheet.getRow(cpt);
 						cell = row.createCell(j + 1);
-						reponse = "";
+						reponseBuilder = new StringBuilder("");
 						if (reponseTmp.isReponseEnsI2a())
-							reponse += getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL");
+							reponseBuilder.append(getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL"));
 						if (reponseTmp.isReponseEnsI2b())
-							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE"));
+							reponseBuilder.append(" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE"));
 						if (reponseTmp.isReponseEnsI2c())
-							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.RENCONTRE"));
+							reponseBuilder.append(" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.RENCONTRE"));
 
-						if (reponse == "") {
-							reponse = "NÉANT";
+						if ("".equals(reponseBuilder.toString())) {
+							reponseBuilder.append("NÉANT");
 						}
-						cell.setCellValue(reponse);
+						cell.setCellValue(reponseBuilder.toString());
 						cell.setCellStyle(cellStyle);
 						cpt++;
 					}
@@ -2744,11 +2744,11 @@ public class EvaluationController extends AbstractContextAwareController {
 							cell = row.createCell(j + 1);
 							if (question.getTypeQuestion() != null ){
 								// On evalue le type de la question pour savoir ce qu'il faut récupérer dans l'objet reponse (int, txt ou bool).
-								if (question.getTypeQuestion().equalsIgnoreCase("TXT")){
+								if ("TXT".equalsIgnoreCase(question.getTypeQuestion())){
 									reponse = reponseSup.getReponseTxt();
-								} else if (question.getTypeQuestion().equalsIgnoreCase("INT")){
+								} else if ("INT".equalsIgnoreCase(question.getTypeQuestion())){
 									if (reponseSup.getReponseInt() != null) reponse = recupLibelleNotation(reponseSup.getReponseInt());
-								} else if (question.getTypeQuestion().equalsIgnoreCase("BOOL")){
+								} else if ("BOOL".equalsIgnoreCase(question.getTypeQuestion())){
 									if (reponseSup.isReponseBool()) {
 										reponse = "Oui";
 									} else {
@@ -2884,11 +2884,11 @@ public class EvaluationController extends AbstractContextAwareController {
 							cell = row.createCell(j + 1);
 							if (question.getTypeQuestion() != null && reponseSup != null){
 								// On evalue le type de la question pour savoir ce qu'il faut récupérer dans l'objet reponse (int, txt ou bool).
-								if (question.getTypeQuestion().equalsIgnoreCase("TXT")){
+								if ("TXT".equalsIgnoreCase(question.getTypeQuestion())){
 									reponse = reponseSup.getReponseTxt();
-								} else if (question.getTypeQuestion().equalsIgnoreCase("INT")){
+								} else if ("INT".equalsIgnoreCase(question.getTypeQuestion())){
 									if (reponseSup.getReponseInt() != null) reponse = recupLibelleNotation(reponseSup.getReponseInt());
-								} else if (question.getTypeQuestion().equalsIgnoreCase("BOOL")){
+								} else if ("BOOL".equalsIgnoreCase(question.getTypeQuestion())){
 									if (reponseSup.isReponseBool()) {
 										reponse = "Oui";
 									} else {
@@ -2927,7 +2927,7 @@ public class EvaluationController extends AbstractContextAwareController {
 				edit.doGet(baosXLS, XlsFileName);
 			} catch (Exception e) {
 				logger.error("exportConvention() - Exception lors de la tentative d'ecriture du baosXLS : "
-						+ e.getMessage());
+						+ e);
 			}
 		} else {
 			addErrorMessage("formRechEvaluation", "EXPORTEVALUATION.VIDE");
@@ -2948,7 +2948,7 @@ public class EvaluationController extends AbstractContextAwareController {
 			HSSFWorkbook classeur = new HSSFWorkbook();
 			HSSFSheet sheet = classeur.createSheet("exportFichesEntreprise");
 
-			HSSFRow row = sheet.createRow(0);
+			HSSFRow row;
 			sheet.setColumnWidth(0, 256 * 52);
 
 			List<String> header = new ArrayList<String>();
@@ -3051,7 +3051,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 			// initialisation des variables
 			ReponseEvaluationDTO reponseTmp;
-			ConventionDTO convention = new ConventionDTO();
+			ConventionDTO convention;
 			int j = 0;
 			HSSFCell cell;
 			// Style general
@@ -3086,7 +3086,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 				if (reponseTmp != null && reponseTmp.isValidationEntreprise()) {
 					int cpt = 0;
-					String reponse = "";
+					String reponse;
 					row = sheet.getRow(cpt);
 					cell = row.createCell(j + 1); // j = colonne (0 = header, 1 = 1ere colonne de donnees)
 
@@ -3225,11 +3225,11 @@ public class EvaluationController extends AbstractContextAwareController {
 							cell = row.createCell(j + 1);
 							if (question.getTypeQuestion() != null ){
 								// On evalue le type de la question pour savoir ce qu'il faut récupérer dans l'objet reponse (int, txt ou bool).
-								if (question.getTypeQuestion().equalsIgnoreCase("TXT")){
+								if ("TXT".equalsIgnoreCase(question.getTypeQuestion())){
 									reponse = reponseSup.getReponseTxt();
-								} else if (question.getTypeQuestion().equalsIgnoreCase("INT")){
+								} else if ("INT".equalsIgnoreCase(question.getTypeQuestion())){
 									if (reponseSup.getReponseInt() != null) reponse = recupLibelleNotation(reponseSup.getReponseInt());
-								} else if (question.getTypeQuestion().equalsIgnoreCase("BOOL")){
+								} else if ("BOOL".equalsIgnoreCase(question.getTypeQuestion())){
 									if (reponseSup.isReponseBool()) {
 										reponse = "Oui";
 									} else {
@@ -3312,11 +3312,11 @@ public class EvaluationController extends AbstractContextAwareController {
 							cell = row.createCell(j + 1);
 							if (question.getTypeQuestion() != null ){
 								// On evalue le type de la question pour savoir ce qu'il faut récupérer dans l'objet reponse (int, txt ou bool).
-								if (question.getTypeQuestion().equalsIgnoreCase("TXT")){
+								if ("TXT".equalsIgnoreCase(question.getTypeQuestion())){
 									reponse = reponseSup.getReponseTxt();
-								} else if (question.getTypeQuestion().equalsIgnoreCase("INT")){
+								} else if ("INT".equalsIgnoreCase(question.getTypeQuestion())){
 									if (reponseSup.getReponseInt() != null) reponse = recupLibelleNotation(reponseSup.getReponseInt());
-								} else if (question.getTypeQuestion().equalsIgnoreCase("BOOL")){
+								} else if ("BOOL".equalsIgnoreCase(question.getTypeQuestion())){
 									if (reponseSup.isReponseBool()) {
 										reponse = "Oui";
 									} else {
@@ -3401,11 +3401,11 @@ public class EvaluationController extends AbstractContextAwareController {
 							cell = row.createCell(j + 1);
 							if (question.getTypeQuestion() != null ){
 								// On evalue le type de la question pour savoir ce qu'il faut récupérer dans l'objet reponse (int, txt ou bool).
-								if (question.getTypeQuestion().equalsIgnoreCase("TXT")){
+								if ("TXT".equalsIgnoreCase(question.getTypeQuestion())){
 									reponse = reponseSup.getReponseTxt();
-								} else if (question.getTypeQuestion().equalsIgnoreCase("INT")){
+								} else if ("INT".equalsIgnoreCase(question.getTypeQuestion())){
 									if (reponseSup.getReponseInt() != null) reponse = recupLibelleNotation(reponseSup.getReponseInt());
-								} else if (question.getTypeQuestion().equalsIgnoreCase("BOOL")){
+								} else if ("BOOL".equalsIgnoreCase(question.getTypeQuestion())){
 									if (reponseSup.isReponseBool()) {
 										reponse = "Oui";
 									} else {
@@ -3444,7 +3444,7 @@ public class EvaluationController extends AbstractContextAwareController {
 				edit.doGet(baosXLS, XlsFileName);
 			} catch (Exception e) {
 				logger.error("exportConvention() - Exception lors de la tentative d'ecriture du baosXLS : "
-						+ e.getMessage());
+						+ e);
 			}
 		} else {
 			addErrorMessage("formRechEvaluation", "EXPORTEVALUATION.VIDE");

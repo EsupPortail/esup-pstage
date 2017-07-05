@@ -44,7 +44,7 @@ public class StatistiquesOffresController extends AbstractContextAwareController
 
 	private HashMap<String, List<StatisticItemDTO>> map;
 
-	List<StatisticItemDTO> statsItemList;
+	transient List<StatisticItemDTO> statsItemList;
 
 	private Integer idCentreGestion;
 	private String libelle;
@@ -198,18 +198,19 @@ public class StatistiquesOffresController extends AbstractContextAwareController
 	}
 
 	public String ValueToKeyForCritere (LinkedHashMap<String,String> map, String critere ) {
-		String cle="";
-		String valeur="";
+		String cle;
+		String valeur;
+		String value=critere;
 
 		for(Entry<String, String> entry : map.entrySet()) {
 			cle = entry.getKey();
 			valeur = entry.getValue();
 			if(critere.equals(valeur)){
-				critere=cle;
+				value=cle;
 				break;
 			}
 		}//fin boucle
-		return critere;
+		return value;
 	}
 
 	//arrondir le double x à n décimales : pour que le pourcentage n'est que 2 décimales
@@ -236,66 +237,66 @@ public class StatistiquesOffresController extends AbstractContextAwareController
 		String uneAnnee = this.annee_scolaire;
 
 		//Critere 1 et critere 2 vides
-		if(critereUnCle.equals("") && critereDeuxCle.equals("")){
+		if("".equals(critereUnCle) && "".equals(critereDeuxCle)){
 			uneAnnee = "all";
 			statsItemList = statistiquesDomainService.getNumberOfOffers(idCentreGestion, etat);
 			message = getString("OFFRES.STATS.ANNEE");
 		}
 		else {
-			validation = critereUnCle.equals("VAL");
-			publication = critereUnCle.equals("PUB");
+			validation = "VAL".equals(critereUnCle);
+			publication = "PUB".equals(critereUnCle);
 
 			//Appel de la fonction selon le critere 2
-			if (critereDeuxCle.equals("TYP")){
+			if ("TYP".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfOffersByType(idCentreGestion, uneAnnee, etat, validation, publication);
 				message = getString("OFFRES.STATS.TYP");
 			}
-			else if (critereDeuxCle.equals("FON")){
+			else if ("FON".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfOffersByFunction(idCentreGestion, uneAnnee, etat, validation, publication);
 				message = getString("OFFRES.STATS.FON");
 			}
-			else if (critereDeuxCle.equals("FOR")){
+			else if ("FOR".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfOffersByFormation(idCentreGestion, uneAnnee, etat, validation, publication);
 				message = getString("OFFRES.STATS.FOR");
 			}
-			else if (critereDeuxCle.equals("NIV")){
+			else if ("NIV".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfOffersByLevel(idCentreGestion, uneAnnee, etat, validation, publication);
 				message = getString("OFFRES.STATS.NIV");
 			}
-			else if (critereDeuxCle.equals("ENT")){
+			else if ("ENT".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfOffersByStructure(idCentreGestion, uneAnnee, etat, validation, publication);
 				message = getString("OFFRES.STATS.ENT");
 			}
-			else if (critereDeuxCle.equals("DOM")){
+			else if ("DOM".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfOffersByActivity(idCentreGestion, uneAnnee, etat, validation, publication);
 				message = getString("OFFRES.STATS.DOM");
 			}
-			else if (critereDeuxCle.equals("JUR")){
+			else if ("JUR".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfOffersByStructureType(idCentreGestion, uneAnnee, etat, validation, publication);
 				message = getString("OFFRES.STATS.JUR");
 			}
-			else if (critereDeuxCle.equals("SIZE")){
+			else if ("SIZE".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfOffersByStructureSize(idCentreGestion, uneAnnee, etat, validation, publication);
 				message = getString("OFFRES.STATS.SIZE");
 			}
-			else if (critereDeuxCle.equals("DEPGEO")){
+			else if ("DEPGEO".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfOffersByStructureDep(idCentreGestion, uneAnnee, etat, validation, publication);
 				message = getString("OFFRES.STATS.DEPGEO");
 			}
-			else if (critereDeuxCle.equals("PAYS")){
+			else if ("PAYS".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfOffersByStructureCountry(idCentreGestion, uneAnnee, etat, validation, publication);
 				message = getString("OFFRES.STATS.PAYS");
 			}
-			else if (critereDeuxCle.equals("POURVU")){
+			else if ("POURVU".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfOffersByCandidateFound(idCentreGestion, uneAnnee, etat, validation, publication);
 				message = getString("OFFRES.STATS.POURVU");
 			}
-			else if (critereDeuxCle.equals("ORI")){
+			else if ("ORI".equals(critereDeuxCle)){
 				statsItemList = statistiquesDomainService.getNumberOfOffersByLocalStudent(idCentreGestion, uneAnnee, etat, validation, publication);
 				message = getString("OFFRES.STATS.ORI");
 			}
 
-			else if (critereDeuxCle.equals("")){
+			else if ("".equals(critereDeuxCle)){
 				if(validation){
 					statsItemList = statistiquesDomainService.getNumberOfOffersByValidation(idCentreGestion, uneAnnee, etat);
 					message = getString("OFFRES.STATS.VAL.SEUL");
@@ -308,16 +309,14 @@ public class StatistiquesOffresController extends AbstractContextAwareController
 
 			//Complete le message par validation ou publication
 			if (validation ){
-				if (!critereDeuxCle.equals("")){
+				if (!"".equals(critereDeuxCle)){
 					message = message + getString("OFFRES.STATS.VAL.ET");
 				}
 
 			}
 			else{
-				if (publication){
-					if (!critereDeuxCle.equals("")){
+				if (publication && !"".equals(critereDeuxCle)){
 						message = message + getString("OFFRES.STATS.PUB.ET");
-					}
 				}
 			}
 
@@ -336,7 +335,11 @@ public class StatistiquesOffresController extends AbstractContextAwareController
 			//connaitre le pourcentage de conventions ramenés
 			pourcentage=0;
 			for (StatisticItemDTO unItem : statsItemList){
-				pourcentage = (unItem.getNumber()*100)/total;
+				if (total != 0) {
+					pourcentage = (unItem.getNumber() * 100) / total;
+				} else {
+					pourcentage = 0;
+				}
 				//pourcentage = arrondiNDecimales(pourcentage,2);
 				unItem.setPercentage(pourcentage);
 				//System.out.println("pourcentage="+pourcentage);

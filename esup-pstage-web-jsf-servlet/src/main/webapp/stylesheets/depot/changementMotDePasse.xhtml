@@ -1,26 +1,27 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	 template="../_basicTemplate.xhtml">
-	<ui:define name="content">
-		<h:panelGrid
-			rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
-			<p:panel>
-				<f:facet name="header">
-					<h:outputText
-						value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.TITRE']}" />
-				</f:facet>
-				<h:form id="changementMotDePasse"
-					rendered="#{not empty sessionController.currentAuthContact 
-			and not sessionController.adminPageAuthorized}">
-					<ui:include src="/stylesheets/depot/#{sessionController.modifMdpCurrentPage}.xhtml" />
-				</h:form>
-				<h:outputText value="#{msgs['MENU.MODIFMDP.BLOCK']}"
-					style="font-weight:bold;color:red;"
-					rendered="#{sessionController.adminPageAuthorized}" />
-			</p:panel>
-		</h:panelGrid>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="../_basicTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
+            <f:facet name="header">
+                <h:outputText
+                        value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.TITRE']}" />
+            </f:facet>
+            <p:fieldset styleClass="block">
+                <t:div styleClass="mt10 ml30">
+                    <h:form id="changementMotDePasse"
+                            rendered="#{not empty sessionController.currentAuthContact
+			    and not sessionController.adminPageAuthorized}">
+                        <ui:include src="/stylesheets/depot/#{sessionController.modifMdpCurrentPage}.xhtml" />
+                    </h:form>
+                    <h:outputText value="#{msgs['MENU.MODIFMDP.BLOCK']}"
+                                  styleClass="fontBold fontRed"
+                                  rendered="#{sessionController.adminPageAuthorized}" />
+                </t:div>
+            </p:fieldset>
+        </p:panel>
+    </ui:define>
 </ui:composition>

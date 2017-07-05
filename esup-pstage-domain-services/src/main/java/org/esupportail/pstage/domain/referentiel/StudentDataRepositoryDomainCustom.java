@@ -26,7 +26,7 @@ public class StudentDataRepositoryDomainCustom implements
 	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtudiantRef(java.lang.String, java.lang.String)
 	 */
 	public EtudiantRef getEtudiantRef(String universityCode, String id) {
-		throw new UnsupportedOperationException(Configuration.getString("method.nom.implementee"));
+		throw new UnsupportedOperationException(Configuration.getString("method.non.implementee"));
 	}
 
 	
@@ -34,7 +34,7 @@ public class StudentDataRepositoryDomainCustom implements
 	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtudiantRefByNum(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	public EtudiantRef getEtudiantRefByNum(String universityCode, String id, String annee) {
-		throw new UnsupportedOperationException(Configuration.getString("method.nom.implementee"));
+		throw new UnsupportedOperationException(Configuration.getString("method.non.implementee"));
 	}
 
 
@@ -43,14 +43,14 @@ public class StudentDataRepositoryDomainCustom implements
 	 */
 	public List<EtudiantRef> getEtudiantsRefByName(String universityCode,
 			String name, String firstName) {
-		throw new UnsupportedOperationException(Configuration.getString("method.nom.implementee"));
+		throw new UnsupportedOperationException(Configuration.getString("method.non.implementee"));
 	}
 
 	/**
-	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtapesByEtudiantAndAnnee(java.lang.String, java.lang.String)
+	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtapesByEtudiantAndAnnee(String, String, String)
 	 */
-	public ApogeeMap getEtapesByEtudiantAndAnnee(String cod, String anneeScolaire){
-		throw new UnsupportedOperationException(Configuration.getString("method.nom.implementee"));
+	public ApogeeMap getEtapesByEtudiantAndAnnee(String cod, String anneeScolaire,String codeUniversite){
+		throw new UnsupportedOperationException(Configuration.getString("method.non.implementee"));
 	}
 
 

@@ -6,8 +6,7 @@ import java.util.ResourceBundle;
 public class Configuration {
 
 	private static final String BUNDLE_NAME = "properties/esup-pstageMessages";//$NON-NLS-1$
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
-			.getBundle(BUNDLE_NAME);
+	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
 	private Configuration() { //singleton, pas de constructeur public
 	}

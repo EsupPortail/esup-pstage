@@ -28,6 +28,7 @@
         <t:div styleClass="ml30 mt5 mb5 fz13">
             <p:commandButton action="#{welcomeController.connect}"
                              value="#{msgs['GENERAL.CONNEXION']}"
+                             onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
                              update="@form"/>
         </t:div>
 

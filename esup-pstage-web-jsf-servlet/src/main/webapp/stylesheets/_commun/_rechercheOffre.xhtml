@@ -133,9 +133,9 @@
         </t:htmlTag>
     </p:fieldset>
 
-    <p:fieldset toggleable="false" legend="Divers" styleClass="mt10">
-        <t:htmlTag value="ul" styleClass="formUL columns-2 verticalCenter" rendered="#{sessionController.adminPageAuthorized || welcomeController.superAdmin
+    <p:fieldset toggleable="false" legend="Divers" styleClass="mt10" rendered="#{sessionController.adminPageAuthorized || welcomeController.superAdmin
 			|| welcomeController.admin}">
+        <t:htmlTag value="ul" styleClass="formUL columns-2 verticalCenter">
             <t:div styleClass="column">
                 <t:htmlTag value="li">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.TYPESTRUCTURE']}"

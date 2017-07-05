@@ -52,7 +52,7 @@ public class CiviliteConverter implements Serializable, Converter {
 					"object " + value + " is not a CiviliteDTO.");
 		}
 		CiviliteDTO c = (CiviliteDTO) value;
-		return ""+c.getId();
+		return Integer.toString(c.getId());
 	}
 	
 	/**

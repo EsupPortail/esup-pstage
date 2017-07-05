@@ -41,7 +41,7 @@ public class AvenantController extends AbstractContextAwareController {
 	/**
 	 * Logger.
 	 */
-	private final Logger logger = Logger.getLogger(this.getClass());
+	private final transient Logger logger = Logger.getLogger(this.getClass());
 
 	/**
 	 * ListeServices
@@ -441,12 +441,12 @@ public class AvenantController extends AbstractContextAwareController {
 				}
 
 			} catch (DataAddException ae) {
-				logger.error("DataAddException", ae.getCause());
+				logger.error("DataAddException", ae);
 				addErrorMessage("formConfirmCreaAvenant", "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 				return null;
 			} catch (WebServiceDataBaseException we) {
-				logger.error("WebServiceDataBaseException ", we.getCause());
-				addErrorMessage("formConfirmCreaAvenant", "CONVENTION.CREERCONVENTION.ENSEIGNANT.ERREUR", we.getMessage());
+				logger.error("WebServiceDataBaseException ", we);
+				addErrorMessage("formConfirmCreaAvenant", "CONVENTION.CREERCONVENTION.ENSEIGNANT.ERREUR", we);
 				return null;
 			}
 		}
@@ -506,15 +506,15 @@ public class AvenantController extends AbstractContextAwareController {
 				logger.debug("idAvenant : " + idAvenant);
 			}
 		} catch (DataAddException d){
-			logger.error("DataAddException",d.getCause());
+			logger.error("DataAddException",d);
 			addErrorMessage("formConfirmCreaAvenant","CONVENTION.ETAPE11.ERREUR_AJOUT");
 			return null;
 		} catch (WebServiceDataBaseException w){
-			logger.error("WebServiceDataBaseException", w.getCause());
+			logger.error("WebServiceDataBaseException", w);
 			addErrorMessage("formConfirmCreaAvenant", "CONVENTION.ETAPE11.ERREUR_WS");
 			return null;
 		}catch (AddressException ade){
-			logger.error("AddressException", ade.getCause());
+			logger.error("AddressException", ade);
 			addErrorMessage("formConfirmCreaAvenant", "GENERAL.ERREUR_MAIL");
 		}
 		this.avenant = new AvenantDTO();
@@ -554,12 +554,12 @@ public class AvenantController extends AbstractContextAwareController {
 				}
 
 			} catch (DataAddException ae) {
-				logger.error("DataAddException", ae.getCause());
+				logger.error("DataAddException", ae);
 				addErrorMessage("formModifAvenant:erreurModifAvenant", "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 				return null;
 			} catch (WebServiceDataBaseException we) {
-				logger.error("WebServiceDataBaseException ", we.getCause());
-				addErrorMessage("formModifAvenant:erreurModifAvenant", "CONVENTION.CREERCONVENTION.ENSEIGNANT.ERREUR", we.getMessage());
+				logger.error("WebServiceDataBaseException ", we);
+				addErrorMessage("formModifAvenant:erreurModifAvenant", "CONVENTION.CREERCONVENTION.ENSEIGNANT.ERREUR", we);
 				return null;
 			}
 		}
@@ -606,15 +606,15 @@ public class AvenantController extends AbstractContextAwareController {
 			}
 
 		} catch (DataUpdateException d){
-			logger.error("DataUpdateException",d.getCause());
+			logger.error("DataUpdateException",d);
 			addErrorMessage("formModifAvenant:erreurModifAvenant","CONVENTION.ETAPE11.ERREUR_MODIF");
 			return null;
 		} catch (WebServiceDataBaseException w){
-			logger.error("WebServiceDataBaseException", w.getCause());
+			logger.error("WebServiceDataBaseException", w);
 			addErrorMessage("formModifAvenant:erreurModifAvenant", "CONVENTION.ETAPE11.ERREUR_WS");
 			return null;
 		}catch (AddressException ade){
-			logger.error("AddressException", ade.getCause());
+			logger.error("AddressException", ade);
 			addErrorMessage("formModifAvenant:erreurModifAvenant", "GENERAL.ERREUR_MAIL");
 		}
 
@@ -635,12 +635,12 @@ public class AvenantController extends AbstractContextAwareController {
 				this.conventionController.getListeAvenants().remove(this.avenant);
 
 			}catch (DataDeleteException de) {
-				logger.error("DataDeleteException ",de.getCause());
-				addErrorMessage("formSupprAvenant:erreurSupprAvenant", "CONVENTION.ETAPE11.ERREUR_SUPPRESSION", de.getMessage());
+				logger.error("DataDeleteException ",de);
+				addErrorMessage("formSupprAvenant:erreurSupprAvenant", "CONVENTION.ETAPE11.ERREUR_SUPPRESSION", de);
 				return null;
 			}catch (WebServiceDataBaseException we) {
-				logger.error("WebServiceDataBaseException ",we.getCause());
-				addErrorMessage("formSupprAvenant:erreurSupprAvenant", "CONVENTION.ETAPE11.ERREUR_WS", we.getMessage());
+				logger.error("WebServiceDataBaseException ",we);
+				addErrorMessage("formSupprAvenant:erreurSupprAvenant", "CONVENTION.ETAPE11.ERREUR_WS", we);
 				return null;
 			}
 			this.avenant = new AvenantDTO();
@@ -673,15 +673,15 @@ public class AvenantController extends AbstractContextAwareController {
 							sujet,text,text);
 				}
 			}catch (DataDeleteException d) {
-				logger.error("DataUpdateException ",d.getCause());
-				addErrorMessage("formDetailsAvenant:erreurValidAvenant", "CONVENTION.ETAPE11.ERREUR_VALIDATION", d.getMessage());
+				logger.error("DataUpdateException ",d);
+				addErrorMessage("formDetailsAvenant:erreurValidAvenant", "CONVENTION.ETAPE11.ERREUR_VALIDATION", d);
 				return null;
 			}catch (WebServiceDataBaseException we) {
-				logger.error("WebServiceDataBaseException ",we.getCause());
-				addErrorMessage("formDetailsAvenant:erreurValidAvenant", "CONVENTION.ETAPE11.ERREUR_WS", we.getMessage());
+				logger.error("WebServiceDataBaseException ",we);
+				addErrorMessage("formDetailsAvenant:erreurValidAvenant", "CONVENTION.ETAPE11.ERREUR_WS", we);
 				return null;
 			}catch (AddressException ade){
-				logger.error("AddressException", ade.getCause());
+				logger.error("AddressException", ade);
 				addErrorMessage("formDetailsAvenant:erreurValidAvenant", "GENERAL.ERREUR_MAIL");
 			}
 		}
@@ -703,12 +703,12 @@ public class AvenantController extends AbstractContextAwareController {
 				this.avenant.setValidationAvenant(false);
 				getAvenantDomainService().updateAvenant(this.avenant);
 			}catch (DataDeleteException d) {
-				logger.error("DataUpdateException ",d.getCause());
-				addErrorMessage("formDetailsAvenant:erreurDevalidAvenant", "CONVENTION.ETAPE11.ERREUR_VALIDATION", d.getMessage());
+				logger.error("DataUpdateException ",d);
+				addErrorMessage("formDetailsAvenant:erreurDevalidAvenant", "CONVENTION.ETAPE11.ERREUR_VALIDATION", d);
 				return null;
 			}catch (WebServiceDataBaseException we) {
-				logger.error("WebServiceDataBaseException ",we.getCause());
-				addErrorMessage("formDetailsAvenant:erreurDevalidAvenant", "CONVENTION.ETAPE11.ERREUR_WS", we.getMessage());
+				logger.error("WebServiceDataBaseException ",we);
+				addErrorMessage("formDetailsAvenant:erreurDevalidAvenant", "CONVENTION.ETAPE11.ERREUR_WS", we);
 				return null;
 			}
 		}
@@ -719,7 +719,7 @@ public class AvenantController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String editPdfAvenantFr() {
-		String retour = null;
+		String retour;
 		this.editAvFR = true;
 		retour = editPdfAvenant();
 		return retour;
@@ -736,8 +736,8 @@ public class AvenantController extends AbstractContextAwareController {
 			 **  Methodes de creation des documents PDF selon l'edition demandee
 			 **/
 			//StringBuffer sbFilename = new StringBuffer();
-			String nomDocxsl = "";
-			String fileNameXml = "";
+			String nomDocxsl;
+			String fileNameXml;
 			String fileNameXmlfin = ".xml";
 			//String xslXmlPath = castorService.getXslXmlPath();
 			String language = "fr";
@@ -768,8 +768,8 @@ public class AvenantController extends AbstractContextAwareController {
 			addInfoMessage(null, "CONVENTION.IMPRESSION.CONFIRMATION");
 			this.editAvFR = false;
 		} catch (ExportException e) {
-			logger.error("ExportException ", e.getCause());
-			addErrorMessage(null, "CONVENTION.EDIT.CONVENTION.ERREUR", e.getMessage());
+			logger.error("ExportException ", e);
+			addErrorMessage(null, "CONVENTION.EDIT.CONVENTION.ERREUR", e);
 		}
 		return retour;
 	}
@@ -798,7 +798,7 @@ public class AvenantController extends AbstractContextAwareController {
 	 */
 	public List<ContactDTO> getListeSalaries() {
 		List<ContactDTO> l = new ArrayList<ContactDTO>();
-		List<Integer> idsCentreGestion = new ArrayList<Integer>();
+		List<Integer> idsCentreGestion;
 		
 		idsCentreGestion = getSessionController().getCurrentIdsCentresGestion();
 		if(idsCentreGestion != null && !idsCentreGestion.contains(conventionController.getConvention().getIdCentreGestion())){

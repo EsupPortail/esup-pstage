@@ -1,29 +1,24 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	>
-	<h:column>
-		<h:panelGrid>
-			<h:outputText
-				value="#{msgs['CONTACT.GESTION.COMPTE.SUPPRESSION.QUESTION']}"
-				escape="false" />
-			<p:dataTable value="#{etablissementController.formContact}"
-                         reflow="true" tableStyle="table-layout: auto;">
-				<ui:include src="/stylesheets/_commun/_contactColumns.xhtml" />
-			</p:dataTable>
-		</h:panelGrid>
-		<h:panelGrid columns="3">
-			<p:commandButton
-				action="#{etablissementController.supprimerCompte}"
-				value="#{msgs['FORM.SUPPRIMER']}"
-				update="@form" />
-<!-- 				update="opContactsDataTable" /> -->
-			<t:htmlTag value="div" style="width:150px;"/>
-			<p:commandButton value="#{msgs['FORM.ANNULER']}"
-				onclick="PF('supprCompteContact').hide();"
-				immediate="true" />
-		</h:panelGrid>
-	</h:column>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:outputText value="#{msgs['CONTACT.GESTION.COMPTE.SUPPRESSION.QUESTION']}"
+                  escape="false" />
+
+    <p:dataTable value="#{etablissementController.formContact}" styleClass="mt10"
+                 reflow="true" tableStyle="table-layout: auto;">
+        <ui:include src="/stylesheets/_commun/_contactColumns.xhtml" />
+    </p:dataTable>
+
+    <t:div styleClass="textCenter mt20 mb20">
+        <p:commandButton action="#{etablissementController.supprimerCompte}"
+                         value="#{msgs['FORM.SUPPRIMER']}"
+                         update="@form" />
+
+        <p:commandButton value="#{msgs['FORM.ANNULER']}" styleClass="ml40"
+                         onclick="PF('supprCompteContact').hide();"
+                         immediate="true" />
+    </t:div>
 </ui:composition>

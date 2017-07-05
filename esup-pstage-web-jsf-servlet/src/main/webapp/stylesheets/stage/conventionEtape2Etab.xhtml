@@ -28,7 +28,8 @@
                                              rendered="#{not empty conventionController.convention.structure and !conventionController.conventionValide
                                 and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
                                 || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)
                                 || (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
                                 (!sessionController.autoriserEtudiantAModifierEntreprise
                                 and ((empty conventionController.convention.structure.loginModif and
@@ -45,7 +46,8 @@
                                              rendered="#{not empty conventionController.convention.structure and !conventionController.conventionValide
                                         and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
                                         || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-                                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}" />
+                                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+                                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)}" />
                         </t:div>
 
                         <t:htmlTag value="div" style="height:15px;" />

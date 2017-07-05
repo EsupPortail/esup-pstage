@@ -39,10 +39,10 @@ public class EditStatisticsXls {
 		}
 
 		//insertion des titres de colonnes sur la 1ere ligne 
-		HSSFRow row= sheet.createRow(0);
+		HSSFRow row;
 		row= sheet.createRow(1);
 
-		if (statType.equals("stage")){
+		if ("stage".equals(statType)){
 
 			row.createCell(0).setCellValue("Ann\u00E9e universitaire");
 			row.createCell(1).setCellValue(criteria.getFirstLevelStatCriteriumLibForConvention(critere1));
@@ -89,7 +89,7 @@ public class EditStatisticsXls {
 
 		}//fin statType=stage
 		else{
-			if (statType.equals("offre")){
+			if ("offre".equals(statType)){
 				row.createCell(0).setCellValue("Ann\u00E9e universitaire");						
 				row.createCell(1).setCellValue(criteria.getFirstLevelStatCriteriaForOffer().get(critere1));
 				row.createCell(2).setCellValue(criteria.getSecondLevelStatCriteriaForOffer().get(critere2));

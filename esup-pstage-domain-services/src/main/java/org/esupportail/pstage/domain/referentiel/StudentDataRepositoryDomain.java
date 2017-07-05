@@ -36,6 +36,6 @@ public List<EtudiantRef> getEtudiantsRefByName(String universityCode, String nam
  * @param anneeScolaire
  * @return ApogeeMap
  */
-public ApogeeMap getEtapesByEtudiantAndAnnee(String cod, String anneeScolaire);
+public ApogeeMap getEtapesByEtudiantAndAnnee(String cod, String anneeScolaire, String codeUniversite);
 
 }

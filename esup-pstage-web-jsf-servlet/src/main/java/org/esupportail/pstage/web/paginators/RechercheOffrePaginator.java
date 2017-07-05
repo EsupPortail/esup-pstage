@@ -18,7 +18,7 @@ public class RechercheOffrePaginator extends ListPaginator<OffreDTO> {
 	/**
 	 * Liste
 	 */
-	private List<OffreDTO> liste=null;
+	private List<OffreDTO> liste;
 	
 	/**
 	 * Constructeur
@@ -35,9 +35,6 @@ public class RechercheOffrePaginator extends ListPaginator<OffreDTO> {
 		super();
 	}
 
-	/**
-	 * @see org.esupportail.commons.web.beans.ListPaginator#getData()
-	 */
 	@Override
 	protected ArrayList<OffreDTO> getData() {
 		if(this.liste!=null && !this.liste.isEmpty()){

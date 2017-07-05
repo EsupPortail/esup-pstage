@@ -68,7 +68,7 @@ public class OffreController extends AbstractContextAwareController {
 	/**
 	 * Logger
 	 */
-	private final Logger logger = Logger.getLogger(this.getClass());
+	private final transient Logger logger = Logger.getLogger(this.getClass());
 	/**
 	 * Page de retour après une modification ou suppression d'offre
 	 */
@@ -153,7 +153,7 @@ public class OffreController extends AbstractContextAwareController {
 	/**
 	 * Liste des centres établissement
 	 */
-	private List<CentreGestionDTO> listesCGEtab=null;
+	private List<CentreGestionDTO> listesCGEtab;
 
 	/**
 	 * Id du centre établissement sélectionné
@@ -437,21 +437,24 @@ public class OffreController extends AbstractContextAwareController {
 
 		//Chargement contacts uniquement pour le centre sélectionné
 		ArrayList<CentreGestionDTO> curCentresTmp = (ArrayList<CentreGestionDTO>) getSessionController().getCurrentCentresGestion();
-		ArrayList<CentreGestionDTO> centreContacts = new ArrayList<CentreGestionDTO>();
+		ArrayList<CentreGestionDTO> centreContacts = new ArrayList<>();
 
 		CentreGestionDTO cgTmp = new CentreGestionDTO();
 		cgTmp.setIdCentreGestion(this.formOffre.getIdCentreGestion());
 		cgTmp.setNomCentre("");
-		if(curCentresTmp!=null && !curCentresTmp.isEmpty() && curCentresTmp.indexOf(cgTmp)>=0){
+		if(curCentresTmp != null
+				&& !curCentresTmp.isEmpty()
+				&& curCentresTmp.indexOf(cgTmp) >= 0){
 			centreContacts.add(curCentresTmp.get(curCentresTmp.indexOf(cgTmp)));
 		}
-		if(centreGestionDepotAnonyme!=null && centreGestionDepotAnonyme.getIdCentreGestion()>0){
-			centreContacts=new ArrayList<CentreGestionDTO>();
+		if(centreGestionDepotAnonyme!=null
+				&& centreGestionDepotAnonyme.getIdCentreGestion() > 0){
+			centreContacts = new ArrayList<>();
 			centreContacts.add(centreGestionDepotAnonyme);
 		}
-		if (centreContacts != null) {
-			getSessionController().setCentreGestionRattachement(centreContacts.get(0));
-		}
+
+		getSessionController().setCentreGestionRattachement(centreContacts.get(0));
+
 		this.etablissementController.loadContactsServices();
 		//Indemnités à vrai par défaut
 		this.formOffre.setRemuneration(true);
@@ -617,7 +620,7 @@ public class OffreController extends AbstractContextAwareController {
 		else this.formOffre.setIdNiveauFormation(0);
 		this.formOffre.setAnneeUniversitaire(getBeanUtils().getAnneeUniversitaireCourante(new Date()));
 		this.formOffre.setCentreGestion(getCentreGestionDomainService().getCentreGestion(this.formOffre.getIdCentreGestion()));
-		int idOffreAjoutee=0;
+		int idOffreAjoutee;
 		if(this.avecFichierOuLien){
 			this.formOffre.setIdTempsTravail(0);
 			this.formOffre.setIdUniteDuree(0);
@@ -644,7 +647,7 @@ public class OffreController extends AbstractContextAwareController {
 							addInfoMessage(null, "OFFRE.CREATION.CONFIRMATION", this.formOffre.getIdOffre());
 //							mailAjout();
 						}catch (DataAddException|WebServiceDataBaseException e) {
-							logger.error(e.getCause());
+							logger.error(e);
 						}
 					}else{
 						addErrorMessage("formCreationOffre", "OFFRE.SELECTIONFICHIER.OBLIGATOIRE");
@@ -665,7 +668,7 @@ public class OffreController extends AbstractContextAwareController {
 						addInfoMessage(null, "OFFRE.CREATION.CONFIRMATION", this.formOffre.getIdOffre());
 						mailAjout();
 					}catch (DataAddException|WebServiceDataBaseException e) {
-						logger.error(e.getCause());
+						logger.error(e);
 						addErrorMessage(null, "OFFRE.CREATION.ERREURAJOUT");
 					}
 					break;
@@ -700,7 +703,7 @@ public class OffreController extends AbstractContextAwareController {
 					addInfoMessage(null, "OFFRE.CREATION.CONFIRMATION", this.formOffre.getIdOffre());
 					mailAjout();
 				}catch (DataAddException|WebServiceDataBaseException e) {
-					logger.error(e.getCause());
+					logger.error(e);
 					addErrorMessage(null, "OFFRE.CREATION.ERREURAJOUT");
 				}
 			}else{
@@ -743,7 +746,7 @@ public class OffreController extends AbstractContextAwareController {
 							""
 					);
 				} catch (AddressException e) {
-					//
+					logger.info(e);
 				}
 			}
 		}else if(getSessionController().isMailingListEntrMailAvertissementAjoutOffre() && StringUtils.hasText(getSessionController().getMailingListEntr())
@@ -955,7 +958,7 @@ public class OffreController extends AbstractContextAwareController {
 							this.formOffre.setFichier(o);
 							getSessionController().getOffreFileUploadBean().setPrefix(idFichier);
 						} catch (DataAddException|WebServiceDataBaseException e) {
-							logger.error(e.getCause());
+							logger.error(e);
 						}
 					}
 					break;
@@ -1102,7 +1105,7 @@ public class OffreController extends AbstractContextAwareController {
 							addInfoMessage(null, "OFFRE.MODIFICATION.CONFIRMATION", this.formOffre.getIdOffre());
 							mailModif();
 						}catch (DataAddException|WebServiceDataBaseException e) {
-							logger.error(e.getCause());
+							logger.error(e);
 						}
 					}else{
 						addErrorMessage("formModificationOffre:opUploadFile:uploadFile", "OFFRE.SELECTIONFICHIER.OBLIGATOIRE");
@@ -1137,14 +1140,14 @@ public class OffreController extends AbstractContextAwareController {
 								}
 								getOffreDomainService().deleteFichier(this.currentOffre.getIdFichier());
 							}catch (DataDeleteException|WebServiceDataBaseException e) {
-								logger.warn(e.getCause());
+								logger.warn(e);
 							}
 						}
 						mailModif();
 						ret="_modificationOffreEtape4Confirmation";
 						addInfoMessage(null, "OFFRE.MODIFICATION.CONFIRMATION", this.formOffre.getIdOffre());
 					}catch (DataAddException|WebServiceDataBaseException e) {
-						logger.error(e.getCause());
+						logger.error(e);
 						addErrorMessage(null, "OFFRE.MODIFICATION.ERREURAJOUT");
 						return null;
 					}
@@ -1202,7 +1205,7 @@ public class OffreController extends AbstractContextAwareController {
 								}
 								getOffreDomainService().deleteFichier(this.currentOffre.getIdFichier());
 							}catch (DataDeleteException|WebServiceDataBaseException e) {
-								logger.warn(e.getCause());
+								logger.warn(e);
 							}
 						}
 					}
@@ -1211,7 +1214,7 @@ public class OffreController extends AbstractContextAwareController {
 					mailModif();
 				}catch (DataUpdateException|WebServiceDataBaseException e) {
 //					ret="_modificationOffreEtape4Confirmation";
-					logger.error(e.getCause());
+					logger.error(e);
 					addErrorMessage(null, "OFFRE.MODIFICATION.ERREURMODIF");
 					return null;
 				}
@@ -1268,7 +1271,7 @@ public class OffreController extends AbstractContextAwareController {
 			}
 			addInfoMessage(null, "OFFRE.SUPPR.CONFIRMATION");
 		}catch (DataUpdateException|WebServiceDataBaseException e) {
-			logger.error(e.getCause());
+			logger.error(e);
 			addErrorMessage(null, "OFFRE.SUPPR.ERREUR");
 		}
 	}
@@ -1384,10 +1387,10 @@ public class OffreController extends AbstractContextAwareController {
 					checkListeResultats();
 				}
 			}catch (DataUpdateException|WebServiceDataBaseException e) {
-				logger.error(e.getCause());
+				logger.error(e);
 				addErrorMessage(null, "OFFRE.GESTION.DIFFUSION.ERREUR");
 			}catch (AddressException ade){
-				logger.error("AddressException", ade.getCause());
+				logger.error("AddressException", ade);
 				addErrorMessage(null, "GENERAL.ERREUR_MAIL");
 			}
 		}
@@ -1419,7 +1422,7 @@ public class OffreController extends AbstractContextAwareController {
 					checkListeResultats();
 				}
 			}catch (DataUpdateException|WebServiceDataBaseException e) {
-				logger.error(e.getCause());
+				logger.error(e);
 				addErrorMessage(null, "OFFRE.GESTION.STOPDIFFUSION.ERREUR");
 			}
 		}
@@ -1454,7 +1457,7 @@ public class OffreController extends AbstractContextAwareController {
 				if(this.currentOffre.isEstPourvue())addInfoMessage(null, "OFFRE.GESTION.POURVOIROFFRE.CONFIRMATION");
 				if(!this.currentOffre.isEstPourvue())addInfoMessage(null, "OFFRE.GESTION.POURVOIROFFRE.CONFIRMATIONNON");
 			}catch (DataUpdateException|WebServiceDataBaseException e) {
-				logger.error(e.getCause());
+				logger.error(e);
 				addErrorMessage(null, "OFFRE.GESTION.POURVOIROFFRE.ERREUR");
 			}
 		}
@@ -1548,7 +1551,7 @@ public class OffreController extends AbstractContextAwareController {
 						addInfoMessage(null, "OFFRE.GESTION.DIFFUSIONCENTRE.CONFIRMATION");
 					}
 				}catch (DataDeleteException|WebServiceDataBaseException|DataAddException e) {
-					logger.error(e.getCause());
+					logger.error(e);
 					addErrorMessage(null, "OFFRE.GESTION.DIFFUSIONCENTRE.ERREUR");
 				}
 			} else if(this.dualListCiblageCentres.getTarget()!=null
@@ -1566,7 +1569,7 @@ public class OffreController extends AbstractContextAwareController {
 					getOffreDomainService().addOffreDiffusion(l);
 					addInfoMessage(null, "OFFRE.GESTION.DIFFUSIONCENTRE.CONFIRMATION");
 				}catch (DataDeleteException|WebServiceDataBaseException|DataAddException e) {
-					logger.error(e.getCause());
+					logger.error(e);
 					addErrorMessage(null, "OFFRE.GESTION.DIFFUSIONCENTRE.ERREUR");
 				}
 			}
@@ -1601,13 +1604,13 @@ public class OffreController extends AbstractContextAwareController {
 				}
 				addInfoMessage(null, "OFFRE.GESTION.TRANSFERT.CONFIRMATION");
 			}catch (DataUpdateException e) {
-				logger.error(e.getCause());
+				logger.error(e);
 				addErrorMessage(null, "OFFRE.GESTION.TRANSFERT.ERREUR");
 			}catch (WebServiceDataBaseException e) {
-				logger.error(e.getCause());
+				logger.error(e);
 				addErrorMessage(null, "OFFRE.GESTION.TRANSFERT.ERREUR");
 			}catch (Exception e) {
-				logger.error(e.getCause());
+				logger.error(e);
 				addErrorMessage(null, "OFFRE.GESTION.TRANSFERT.ERREUR");
 			}
 		}
@@ -1659,19 +1662,10 @@ public class OffreController extends AbstractContextAwareController {
 	 */
 	public CritereRechercheOffreDTO initCritereRechercheOffre(){
 		CritereRechercheOffreDTO c;
-		if(getBeanUtils()!=null){
-			c=new CritereRechercheOffreDTO();
-			//			c.setLieuPays(getBeanUtils().getFrance());
-			c.setLieuPays(null);
-		}else{
-			c=new CritereRechercheOffreDTO();
-			//			PaysDTO p = new PaysDTO();
-			//			p.setLibelle("FRANCE");
-			//			p.setCog(DonneesStatic.FRANCE_COG);
-			//			p.setCrpay(DonneesStatic.FRANCE_TERRITOIRE_CRPAY);
-			//			c.setLieuPays(p);
-			c.setLieuPays(null);
-		}
+
+		c = new CritereRechercheOffreDTO();
+		c.setLieuPays(null);
+
 		return c;
 	}
 
@@ -1700,15 +1694,15 @@ public class OffreController extends AbstractContextAwareController {
 		String ret="resultatsRechercheOffre";
 		// Si on est partie entreprise
 		if (getSessionController().isAdminPageAuthorized()){
-			List<CentreGestionDTO> l = new ArrayList<CentreGestionDTO>();
-			l = getCentreGestionDomainService().getCentreFromUid(getSessionController().getCurrentAuthAdminStructure().getLogin(),getSessionController().getCodeUniversite());
+			List<CentreGestionDTO> l = getCentreGestionDomainService().getCentreFromUid(getSessionController().getCurrentAuthAdminStructure().getLogin(),
+					getSessionController().getCodeUniversite());
 			l.add(getCentreGestionDomainService().getCentreEntreprise());
 			getSessionController().setCurrentCentresGestion(l);
 		}
 
 		List<Integer> idCG = getSessionController().getCurrentIdsCentresGestion();
 
-		if (idCG == null) idCG = new ArrayList<Integer>();
+		if (idCG == null) idCG = new ArrayList<>();
 
 		boolean trouveCGEtab = false;
 		//		if(getSessionController().getCurrentAuthEtudiant()!=null){
@@ -1924,7 +1918,7 @@ public class OffreController extends AbstractContextAwareController {
 			if(getSessionController().getCurrentIdsCentresGestion()==null){
 				getSessionController().setCurrentCentresGestion(new ArrayList<CentreGestionDTO>());
 				getSessionController().getCurrentCentresGestion().add(cgEntr);
-			}else if(!getSessionController().getCurrentIdsCentresGestion().contains(cgEntr)){
+			}else if(!getSessionController().getCurrentIdsCentresGestion().contains(cgEntr.getIdCentreGestion())){
 				getSessionController().getCurrentCentresGestion().add(cgEntr);
 			}
 			if(getSessionController().getCurrentIdsCentresGestion()!=null
@@ -1950,7 +1944,7 @@ public class OffreController extends AbstractContextAwareController {
 			if(getSessionController().getCurrentIdsCentresGestion()==null){
 				getSessionController().setCurrentCentresGestion(new ArrayList<CentreGestionDTO>());
 				getSessionController().getCurrentCentresGestion().add(cgEntr);
-			}else if(!getSessionController().getCurrentIdsCentresGestion().contains(cgEntr)){
+			}else if(!getSessionController().getCurrentIdsCentresGestion().contains(cgEntr.getIdCentreGestion())){
 				getSessionController().getCurrentCentresGestion().add(cgEntr);
 			}
 			if(getSessionController().getCurrentIdsCentresGestion()!=null
@@ -2013,16 +2007,19 @@ public class OffreController extends AbstractContextAwareController {
 				// On le recupere donc pour le renommer
 				String directory = getSessionController().getUploadFilesOffresPath()+ File.separator;
 				File fichier = new File(directory + f.getNomFichier());
-				fichier.renameTo(new File(directory+ idFichier +"_"+f.getNomFichier()));
+				boolean b = fichier.renameTo(new File(directory+ idFichier +"_"+f.getNomFichier()));
 
+				if (b == false){
+					addErrorMessage("panelUpload","Erreur lors de la tentative de renommage du fichier.");
+				}
 			} catch (DataAddException e) {
-				logger.error(e.fillInStackTrace());
+				logger.error(e);
 				addErrorMessage("panelUpload",e.getMessage());
 			} catch (DataUpdateException e) {
-				logger.error(e.fillInStackTrace());
+				logger.error(e);
 				addErrorMessage("panelUpload",e.getMessage());
 			} catch (WebServiceDataBaseException e) {
-				logger.error(e.fillInStackTrace());
+				logger.error(e);
 				addErrorMessage("panelUpload",e.getMessage());
 			}
 		}
@@ -2042,7 +2039,7 @@ public class OffreController extends AbstractContextAwareController {
 			try {
 				getOffreDomainService().updateFichier(this.formOffre.getFichier());
 			} catch (DataAddException|WebServiceDataBaseException e) {
-				logger.error(e.getCause());
+				logger.error(e);
 			}
 			this.formOffre.setIdFichier(this.formOffre.getFichier().getIdFichier());
 		}
@@ -2062,7 +2059,7 @@ public class OffreController extends AbstractContextAwareController {
 				}
 				getOffreDomainService().deleteFichier(this.formOffre.getIdFichier());
 			}catch (DataDeleteException|WebServiceDataBaseException e) {
-				logger.error(e.getCause());
+				logger.error(e);
 			}
 		}
 		this.formOffre.setFichier(null);
@@ -2345,7 +2342,7 @@ public class OffreController extends AbstractContextAwareController {
 			}
 
 		} catch (ExportException e) {
-			logger.error("editPdfRecap ", e.getCause());
+			logger.error("editPdfRecap ", e);
 			addErrorMessage(null, "CONVENTION.EDIT.RECAP.ERREUR", e.getMessage());
 		}
 		return ret;
@@ -2375,7 +2372,7 @@ public class OffreController extends AbstractContextAwareController {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("recapitulatifOffreCentre.xhtml");
 			}
 		} catch (IOException ioe){
-			logger.error("Erreur lors de la tentative de redirection de page.");
+			logger.error("Erreur lors de la tentative de redirection de page.", ioe);
 			addErrorMessage(null, "Erreur lors de la tentative de redirection de page.");
 		}
 	}
@@ -2392,7 +2389,7 @@ public class OffreController extends AbstractContextAwareController {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("recapitulatifOffreEtabCentre.xhtml");
 			}
 		} catch (IOException ioe){
-			logger.error("Erreur lors de la tentative de redirection de page.");
+			logger.error("Erreur lors de la tentative de redirection de page.", ioe);
 			addErrorMessage(null, "Erreur lors de la tentative de redirection de page.");
 		}
 	}
@@ -2409,7 +2406,7 @@ public class OffreController extends AbstractContextAwareController {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("recapitulatifOffreEtab.xhtml");
 			}
 		} catch (IOException ioe){
-			logger.error("Erreur lors de la tentative de redirection de page.");
+			logger.error("Erreur lors de la tentative de redirection de page.", ioe);
 			addErrorMessage(null, "Erreur lors de la tentative de redirection de page.");
 		}
 	}
@@ -2428,7 +2425,7 @@ public class OffreController extends AbstractContextAwareController {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("recapitulatifOffre.xhtml");
 			}
 		} catch (IOException ioe){
-			logger.error("Erreur lors de la tentative de redirection de page.");
+			logger.error("Erreur lors de la tentative de redirection de page.", ioe);
 			addErrorMessage(null, "Erreur lors de la tentative de redirection de page.");
 		}
 	}
@@ -2443,7 +2440,7 @@ public class OffreController extends AbstractContextAwareController {
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().redirect("creationCentreEtabOffre.xhtml");
 		} catch (IOException ioe){
-			logger.error("Erreur lors de la tentative de redirection de page.");
+			logger.error("Erreur lors de la tentative de redirection de page.", ioe);
 			addErrorMessage(null, "Erreur lors de la tentative de redirection de page.");
 		}
 	}

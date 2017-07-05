@@ -54,7 +54,7 @@ public class AccordController extends AbstractContextAwareController {
 	/**
 	 * Logger
 	 */
-	private final Logger logger = Logger.getLogger(this.getClass());
+	private final transient Logger logger = Logger.getLogger(this.getClass());
 
 	/**
 	 * preAccord
@@ -95,7 +95,7 @@ public class AccordController extends AbstractContextAwareController {
 	/**
 	 * Liste dynamique mise à jour en fonction du type de structure
 	 */
-	private List<SelectItem> statutsJuridiquesListening=null;
+	private List<SelectItem> statutsJuridiquesListening;
 	/**
 	 * CommuneDTO
 	 */
@@ -280,8 +280,9 @@ public class AccordController extends AbstractContextAwareController {
 		this.goToFormulaireAccord();
 
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("/stylesheets/depot/accord.xhtml");
+			FacesContext.getCurrentInstance().getExternalContext().redirect(getSessionController().getBaseUrl()+"/stylesheets/depot/accord.xhtml");
 		} catch (IOException ioe){
+			logger.error(ioe);
 			addErrorMessage(null, "Erreur lors de la tentative de redirection de page.");
 		}
 	}
@@ -370,7 +371,7 @@ public class AccordController extends AbstractContextAwareController {
 	 * @return List<SelectItem>
 	 */
 	public List<SelectItem> getStatutsJuridiquesFromIdTypeStructure(int id){
-		List<SelectItem> ls = null;
+		List<SelectItem> ls;
 		List<StatutJuridiqueDTO> l = getNomenclatureDomainService().getStatutsJuridiquesFromIdTypeStructure(id);
 		ls = new ArrayList<SelectItem>();
 		if (l != null) {
@@ -485,36 +486,44 @@ public class AccordController extends AbstractContextAwareController {
 				this.accord.setIdStructure(structureTmp.getIdStructure());
 				this.accord.setIdContact(contactTmp.getId());
 				this.accord.setLoginCreation("auto:NouvelAccord");
+
+				AccordPartenariatDTO accordTmp;
+				accordTmp = getStructureDomainService().getAccordFromIdStructure(this.accord.getIdStructure());
+				if(accordTmp!=null){
+					throw new AccordAlreadyExistingForStructureException("Accord déjà existant pour cette structure : "+accord.getIdStructure());
+				}
+				accordTmp = getStructureDomainService().getAccordFromIdContact(this.accord.getIdContact());
+				if(accordTmp!=null){
+					throw new AccordAlreadyExistingForContactException("Accord déjà existant pour ce contact : "+accord.getIdContact());
+				}
+
 				this.accord.setIdAccordPartenariat(this.getStructureDomainService().addAccord(this.accord));
+
 				if(logger.isInfoEnabled()){
 					logger.info("Ajout accord : "+this.accord);
 				}
+
 				accordEnregistre=true;
+
 			}catch (DataAddException d) {
-				logger.error("DataAddException", d.getCause());
+				logger.error("DataAddException", d);
 				addErrorMessage(null, "ACCORD.ERREUR");
 				//Suppression des éléments ajoutés en base
 				if(contactTmp.getId()>0){
-					if(logger.isInfoEnabled()){
-						logger.info("Suppression Contact : " +contactTmp);
-					}
+					logger.info("Suppression Contact : " +contactTmp);
 					this.getStructureDomainService().deleteContact(contactTmp.getId());
 				}
 				if(serviceTmp.getIdService()>0){
-					if(logger.isInfoEnabled()){
-						logger.info("Suppression Service : " +serviceTmp);
-					}
+					logger.info("Suppression Service : " +serviceTmp);
 					this.getStructureDomainService().deleteService(serviceTmp.getIdService());
 				}
 				if(structureTmp.getIdStructure()>0){
-					if(logger.isInfoEnabled()){
-						logger.info("Suppression Structure : " +structureTmp);
-					}
+					logger.info("Suppression Structure : " +structureTmp);
 					this.getStructureDomainService().deleteStructureBase(structureTmp.getIdStructure());
 				}
 			}catch (WebServiceDataBaseException w){
 				try {
-					logger.error("WebServiceDataBaseException", w.getCause());
+					logger.error("WebServiceDataBaseException", w);
 					addErrorMessage(null, "ACCORD.ERREUR");
 					//Suppression des éléments ajoutés en base
 					if(contactTmp.getId()>0){
@@ -536,31 +545,31 @@ public class AccordController extends AbstractContextAwareController {
 						this.getStructureDomainService().deleteStructureBase(structureTmp.getIdStructure());
 					}
 				} catch (WebServiceDataBaseException wb) {
+					logger.error(wb);
 					addErrorMessage(null, "ACCORD.ERREUR");
 				}
 			}catch (StructureNumSiretException se){
-				if(logger.isInfoEnabled()){
-					logger.info("Structure déjà existante pour ce numéro siret "+structureTmp+", redirection vers _accordEtape1FormulaireAccord");
-				}
+				logger.info("Structure déjà existante pour ce numéro siret "+structureTmp+", redirection vers _accordEtape1FormulaireAccord");
+				logger.info(se);
 				goToPreAccord();//Reset des objets Accord
 				getSessionController().setCreationAccordCurrentPage("_accordEtape1FormulaireAccord");
 
 			}catch (UnvalidNumSiretException ue) {
-				if(logger.isInfoEnabled()){
-					logger.info("Numéro siret invalide pour "+structureTmp+", redirection vers _accordEtape1FormulaireAccord");
-				}
+				logger.info("Numéro siret invalide pour "+structureTmp+", redirection vers _accordEtape1FormulaireAccord");
+				logger.info(ue);
 				goToPreAccord();//Reset des objets Accord
 				getSessionController().setCreationAccordCurrentPage("_accordEtape1FormulaireAccord");
 			}catch (AccordAlreadyExistingForStructureException as) {
-				if(logger.isInfoEnabled()){
-					logger.info("Accord déjà existant pour la structure "+structureTmp+", redirection vers _accordEtape4DemandeCompte");
-				}
+				logger.info("Accord déjà existant pour la structure "+structureTmp+", redirection vers _accordEtape4DemandeCompte");
+				logger.info(as);
 				this.accordDejaExistant=true;
 				this.contactDemandeCompte=this.accord.getContact();
 				getSessionController().setCreationAccordCurrentPage("_accordEtape4DemandeCompte");
 			}catch (AccordAlreadyExistingForContactException ac) {
 				// Impossible ici
+				logger.info(ac);
 			}catch (MailAlreadyUsedForStructureException e) {
+				logger.info(e);
 				logger.info("MailAlreadyUsedForStructureException", e.getCause());
 				addErrorMessage("formAccord:mailC", "CONTACT.GESTION.ERREURACCOUNT");
 				getSessionController().setCreationAccordCurrentPage("_accordEtape3FormulaireAccord");
@@ -570,8 +579,6 @@ public class AccordController extends AbstractContextAwareController {
 				if(logger.isInfoEnabled()){
 					logger.info("Accord enregistre.");
 				}
-
-//				addInfoMessage("formAccord", "ACCORD.CONFIRMATION");
 
 				if(StringUtils.hasText(getSessionController().getMailingListEntr())){
 					getSmtpService().send(

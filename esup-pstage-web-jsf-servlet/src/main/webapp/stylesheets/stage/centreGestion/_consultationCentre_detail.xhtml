@@ -74,11 +74,13 @@
 
         <p:fieldset legend="#{msgs['CENTRE.PARAMETRAGE']}">
             <h:outputLabel value="#{msgs['CENTRE.CONFIDENTIALITE']} : "
-                           rendered="#{centreController.centre.confidentialite != null}"
+                           rendered="#{not empty centreController.centre.confidentialite
+                           and not empty centreController.centre.confidentialite.libelle}"
                            for="confidentialite" />
             <h:outputText id="confidentialite"
                           value="#{centreController.centre.confidentialite.libelle}"
-                          rendered="#{centreController.centre.confidentialite != null}" />
+                          rendered="#{not empty centreController.centre.confidentialite
+                          and not empty centreController.centre.confidentialite.libelle}" />
 
             <t:htmlTag value="div" style="height:10px;" />
 
@@ -101,8 +103,7 @@
             <t:htmlTag value="div" style="height: 10px;" />
 
             <h:panelGrid columns="2">
-                <p:selectBooleanCheckbox disabled="true" id="saisieEnLigne"
-                                         required="true"
+                <p:selectBooleanCheckbox id="saisieEnLigne" disabled="true" required="true"
                                          value="#{centreController.centre.saisieTuteurProParEtudiant}" />
                 <h:outputLabel value="#{msgs['CENTRE.SAISIE_EN_LIGNE']}"
                                for="saisieEnLigne" />
@@ -129,6 +130,15 @@
 
             <t:htmlTag value="div" style="height: 10px;" />
 
+            <h:panelGrid columns="2">
+                <p:selectBooleanCheckbox disabled="true" id="visibiliteEvalPro"
+                                         value="#{centreController.centre.visibiliteEvalPro}" />
+                <h:outputLabel value="#{msgs['CENTRE.VISIBILITE_EVAL_TUTEURPRO']}"
+                               for="visibiliteEvalPro" />
+            </h:panelGrid>
+
+            <t:htmlTag value="div" style="height: 10px;" />
+
             <h:panelGrid columns="2"
                          rendered="#{sessionController.validationPedagogique}">
                 <p:selectBooleanCheckbox disabled="true" id="validationPedagogique"
@@ -140,31 +150,24 @@
             <t:htmlTag value="div" style="height: 10px;" />
 
             <h:panelGrid columns="2">
-                <p:selectBooleanCheckbox disabled="true" id="visibiliteEvalPro"
-                                         value="#{centreController.centre.visibiliteEvalPro}" />
-                <h:outputLabel value="#{msgs['CENTRE.VISIBILITE_EVAL_TUTEURPRO']}"
-                               for="visibiliteEvalPro" />
+                <p:selectBooleanCheckbox id="temRecupInsAnneeAnterieure" disabled="true"
+                                         value="#{centreController.centre.recupInscriptionAnterieure}"/>
+                <h:outputLabel id="labelTemRecupInsAnneeAnterieure" styleClass="fontBlue2"
+                               value="#{msgs['CENTRE.VERIFICATION_INSCRIPTION_ANTERIEURE']} *"
+                               for="temRecupInsAnneeAnterieure">
+                    <p:tooltip for="labelTemRecupInsAnneeAnterieure" escape="false"
+                               value="#{msgs['INFOSBULLES.TEMOIN_RECUP_ANNEE_ANT']}"/>
+                </h:outputLabel>
             </h:panelGrid>
-
-            <t:htmlTag value="div" style="height: 10px;" />
-
-            <!-- 						<h:outputLabel value="#{msgs['CENTRE.MOIS_PRECEDENT']} *" -->
-            <!-- 							for="moisPrecedent" /> -->
-            <!-- 						<h:selectOneRadio id="moisPrecedent" -->
-            <!-- 							value="#{centreController.centre.choixAnneeAvantDebutAnnee}"> -->
-            <!-- 							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" /> -->
-            <!-- 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" /> -->
-            <!-- 						</h:selectOneRadio> -->
-
-            <!-- 						<t:htmlTag value="div" style="height: 5px;" /> -->
-
-            <!-- 						<h:outputLabel value="#{msgs['CENTRE.MOIS_SUIVANT']} *" -->
-            <!-- 							for="moisSuivant" /> -->
-            <!-- 						<h:selectOneRadio id="moisSuivant" -->
-            <!-- 							value="#{centreController.centre.choixAnneeApresDebutAnnee}"> -->
-            <!-- 							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" /> -->
-            <!-- 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" /> -->
-            <!-- 						</h:selectOneRadio> -->
+            <t:div styleClass="mlf10 fontItalic" rendered="#{centreController.centre.recupInscriptionAnterieure}">
+                <t:htmlTag value="i" styleClass="fa fa-level-down fontBlue2 fz16 fa-rotate-180" />
+                Limité à une durée de
+                <h:outputText value="#{centreController.centre.dureeRecupInscriptionAnterieure} mois" styleClass="fontBold"/>
+                <h:outputText id="dateBascule" value=" après la date de bascule de l'année universitaire.">
+                    <p:tooltip for="dateBascule" escape="false" trackMouse="true"
+                               value="fixée au #{beanUtils.startYearDay}/#{beanUtils.startYearMonth} selon le fichier de configuration principal de l'application."/>
+                </h:outputText>
+            </t:div>
 
             <p:separator style="width:10%;" />
 
@@ -179,6 +182,7 @@
             </h:panelGrid>
 
             <t:htmlTag value="div" style="height: 5px;" />
+
             <h:panelGrid columns="2">
                 <h:outputLabel for="nomViseur" value="#{msgs['CENTRE.NOM_VISEUR']} "
                                rendered="#{not empty centreController.centre.nomViseur}" />
@@ -205,7 +209,7 @@
         <t:htmlTag value="div" style="height:10px;" />
 
         <t:div styleClass="textCenter fz16"
-                   rendered="#{welcomeController.superAdmin
+               rendered="#{welcomeController.superAdmin
 				|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}">
             <p:commandButton value="#{msgs['FORM.MODIFIER']}"
                              update="divConsultation">

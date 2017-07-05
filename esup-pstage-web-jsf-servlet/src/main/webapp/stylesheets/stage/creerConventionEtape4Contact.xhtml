@@ -14,14 +14,16 @@
                 <ui:include src="_roadmap.xhtml" />
                 <p:fieldset>
                     <t:div styleClass="mt20 ml30 block">
-
                         <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
                         <h:outputText value="#{msgs['CONVENTION.ETAPE4.CHOIXCONTACT.DEMANDE']}" styleClass="ml5" escape="false"/>
-                        <h:outputText styleClass="fontItalic fontGreen fontBold fz09"
-                                      value="#{msgs['GENERAL.LIGNE.SELECTION']}" />
 
                         <t:htmlTag value="div" style="height: 15px;" />
 
+                        <t:div styleClass="textCenter"
+                               rendered="#{not empty etablissementController.listeContacts}">
+                            <h:outputText styleClass="fontItalic fontGreen fontBold fz09"
+                                          value="#{msgs['GENERAL.LIGNE.SELECTION']}" />
+                        </t:div>
                         <p:outputPanel id="opContactsDataTable"
                                        rendered="#{conventionController.saisieTuteurProParEtudiant}">
 
@@ -74,20 +76,20 @@
                                         <h:outputText value="#{msgs['CONTACT.TELFAXMAIL']}" />
                                     </f:facet>
                                     <t:div rendered="#{not empty contact.tel}">
-                                        <b>Tel : </b>
+                                        <t:htmlTag value="b">Tel : </t:htmlTag>
                                         <h:outputText id="telC" value="#{contact.tel}" />
                                     </t:div>
                                     <t:div rendered="#{not empty contact.fax}">
-                                        <b>Fax : </b>
+                                        <t:htmlTag value="b">Fax : </t:htmlTag>
                                         <h:outputText id="faxC" value="#{contact.fax}" />
                                     </t:div>
                                     <t:div rendered="#{not empty contact.mail}">
-                                        <b>Mail : </b>
+                                        <t:htmlTag value="b">Mail : </t:htmlTag>
                                         <h:outputText id="mailC" value="#{contact.mail}" />
                                     </t:div>
                                 </p:column>
 
-                                <p:column style="background-color:#A5A5A5;" styleClass="textCenter" rendered="#{(sessionController.adminPageAuthorized
+                                <p:column styleClass="background-color-grey textCenter" rendered="#{(sessionController.adminPageAuthorized
 								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.etudiant) and empty contact.login and empty contact.mdp)
 								or (sessionController.pageAuthorized and empty contact.login and empty contact.mdp)
 								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==contact.id))
@@ -124,16 +126,8 @@
                                         <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 ml5 fontBlue2"/>
                                         <p:tooltip for="supprC" value="#{msgs['FORM.SUPPRIMER']}" />
                                     </p:commandLink>
-                                    <!--<p:commandButton  id="selC" styleClass="fontBlue2"-->
-                                                      <!--value="#{msgs['FORM.SELECTIONNER']}"-->
-                                                      <!--rendered="#{not empty etablissementController.listeContacts}"-->
-                                                      <!--action="#{conventionController.goToCreerConventionEtape5Stage}">-->
-                                        <!--<f:setPropertyActionListener value="#{contact}"-->
-                                                                     <!--target="#{conventionController.convention.contact}" />-->
-                                        <!--<p:tooltip value="#{msgs['CONVENTION.SELECCONTACT']}" />-->
-                                    <!--</p:commandButton>-->
                                 </p:column>
-                                <p:column styleClass="textCenter" rendered="#{!(sessionController.adminPageAuthorized
+                                <p:column styleClass="background-color-grey textCenter" rendered="#{!(sessionController.adminPageAuthorized
 								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.etudiant) and empty contact.login and empty contact.mdp)
 								or (sessionController.pageAuthorized and empty contact.login and empty contact.mdp)
 								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==contact.id))

@@ -18,8 +18,8 @@
                         <h:outputText styleClass="fontItalic fontGreen fontBold fz09"
                                       value="#{msgs['GENERAL.LIGNE.SELECTION']}" />
                     </t:div>
-                    <p:dataTable id="rechercheOffreDataTable" styleClass="mt5 mb20" dataLocale="en_US"
-                                 value="#{offreController.rechercheOffrePaginator.liste}"
+                    <p:dataTable id="rechercheOffreDataTable" styleClass="mt5 mb20"
+                                 value="#{offreController.rechercheOffrePaginator.visibleItems}"
                                  var="offre" rowKey="#{offre.idOffre}" rows="10" rowHover="true"
                                  paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -35,7 +35,7 @@
 
                     </p:dataTable>
                     <p:dataTable id="rechercheOffreDataTableE" styleClass="mt20 mb20"
-                                 value="#{offreController.rechercheOffrePaginator.liste}"
+                                 value="#{offreController.rechercheOffrePaginator.visibleItems}"
                                  var="offre" rowKey="#{offre.idOffre}" rows="10" rowHover="true"
                                  paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

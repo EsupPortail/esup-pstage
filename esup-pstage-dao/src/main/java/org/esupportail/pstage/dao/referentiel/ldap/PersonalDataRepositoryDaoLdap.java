@@ -191,7 +191,6 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 				//dans ce cas on construit le filtre sur chaqu'un des attributs
 				String[] valeursNonTuteurs = ldapFacultyNonTuteur.split(",");        		
 				for(String unTypeNonTuteur : valeursNonTuteurs) {
-					//TODO cas ou la chaine contient un accent , filtre encode mal 
 					filter.and(new NotFilter(new EqualsFilter(ldapAttributes.getLdapMemberType(), unTypeNonTuteur)));
 				}	
 			}

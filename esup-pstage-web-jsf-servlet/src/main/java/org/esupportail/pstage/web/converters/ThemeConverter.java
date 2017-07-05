@@ -52,7 +52,7 @@ public class ThemeConverter implements Serializable, Converter {
 					"object " + value + " is not a ThemeDTO.");
 		}
 		ThemeDTO e = (ThemeDTO) value;
-		return ""+e.getId();
+		return Integer.toString(e.getId());
 	}
 	
 	/**

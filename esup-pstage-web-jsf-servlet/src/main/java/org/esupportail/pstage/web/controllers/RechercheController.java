@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import org.apache.log4j.Logger;
 import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstage.web.paginators.RechercheStructurePaginator;
@@ -35,6 +36,10 @@ public class RechercheController extends AbstractContextAwareController {
 	 */
 	private static final long serialVersionUID = 3430944955282121430L;
 	/**
+	 * Logger
+	 */
+	private final transient Logger logger = Logger.getLogger(this.getClass());
+	/**
 	 * Numéro de l'onglet courant
 	 */
 	private int ongletCourant=2;
@@ -45,7 +50,7 @@ public class RechercheController extends AbstractContextAwareController {
 	/**
 	 * Résultats d'une recherche (si plusieurs)
 	 */
-	private List<StructureDTO> listeResultatsRechercheStructure=null;
+	private List<StructureDTO> listeResultatsRechercheStructure;
 	/**
 	 * Résultat d'une recherche (si unique)
 	 */
@@ -696,9 +701,10 @@ public class RechercheController extends AbstractContextAwareController {
 
 		try {
 			if (retour != null) {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("/stylesheets/stage/affichageRechercheEtablissement.xhtml");
+				FacesContext.getCurrentInstance().getExternalContext().redirect(getSessionController().getBaseUrl()+"/stylesheets/stage/affichageRechercheEtablissement.xhtml");
 			}
 		} catch (IOException ioe){
+			logger.error(ioe);
 			addErrorMessage(null, "Erreur lors de la tentative de redirection de page.");
 		}
 	}
@@ -718,9 +724,10 @@ public class RechercheController extends AbstractContextAwareController {
 
 		try {
 			if (retour != null) {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("/stylesheets/depot/affichageRechercheEtablissement.xhtml");
+				FacesContext.getCurrentInstance().getExternalContext().redirect(getSessionController().getBaseUrl()+"/stylesheets/depot/affichageRechercheEtablissement.xhtml");
 			}
 		} catch (IOException ioe) {
+			logger.error(ioe);
 			addErrorMessage(null, "Erreur lors de la tentative de redirection de page.");
 		}
 	}
@@ -1057,7 +1064,7 @@ public class RechercheController extends AbstractContextAwareController {
 	}
 
 	public CritereRechercheStructureAdresseDTO initCritereRechercheStructureAdresse(){
-		CritereRechercheStructureAdresseDTO c =null;
+		CritereRechercheStructureAdresseDTO c;
 
 		if(getBeanUtils()!=null){
 			c=new CritereRechercheStructureAdresseDTO();

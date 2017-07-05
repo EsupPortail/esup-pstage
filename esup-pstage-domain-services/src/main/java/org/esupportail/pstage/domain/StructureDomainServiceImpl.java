@@ -242,6 +242,13 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 	public boolean deleteContact(int idContact) throws DataDeleteException,WebServiceDataBaseException, ContactDeleteException{
 		return this.remoteServices.deleteContact(idContact);
 	}
+
+	/**
+	 * @see org.esupportail.pstage.domain.StructureDomainService#deleteComptesContactFromIdService(int)
+	 */
+	public boolean deleteComptesContactFromIdService(int idService) throws DataUpdateException, WebServiceDataBaseException{
+		return this.remoteServices.deleteComptesContactFromIdService(idService);
+	}
 	/* ****************************************************************************
 	 * SERVICE
 	 *****************************************************************************/

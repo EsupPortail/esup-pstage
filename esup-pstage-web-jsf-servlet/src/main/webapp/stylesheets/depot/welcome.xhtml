@@ -109,10 +109,20 @@
                     </t:div>
                 </p:fieldset>
             </t:div>
+
             <t:div rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
                 <p:fieldset styleClass="block">
-                    <t:div styleClass="mt10 ml30">
-                        <ui:include src="_aide.xhtml" />
+                    <t:div styleClass="mt10 ml30 mb20">
+                        <h:outputFormat styleClass="fontBold fz13"
+                                        value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.BIENVENUE']}"
+                                        escape="false">
+                            <f:param value="#{sessionController.applicationNameEntreprise}" />
+                        </h:outputFormat>
+
+                        <t:htmlTag value="div" style="height: 10px;" />
+
+                        <h:outputText value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.ACCUEIL']}"
+                                      escape="false" />
                     </t:div>
                 </p:fieldset>
             </t:div>

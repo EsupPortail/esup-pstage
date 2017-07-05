@@ -103,11 +103,11 @@
                                 || (not empty sessionController.currentAuthEnseignant
                                 and not empty conventionController.convention.enseignant
                                 and sessionController.currentAuthEnseignant.uidEnseignant == conventionController.convention.enseignant.uidEnseignant)}">
-                                <p:commandButton oncomplete="PF('demandeConfirmVerifConvention').show();"
+                                <p:commandButton id="btnValidationPedago" oncomplete="PF('demandeConfirmVerifConvention').show();"
                                                  value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.VERIFIER']}"
                                                  rendered="#{!conventionController.convention.validationPedagogique}" />
 
-                                <p:commandButton oncomplete="PF('demandeConfirmUnVerifConvention').show();"
+                                <p:commandButton id="btnDevalidationPedago" oncomplete="PF('demandeConfirmUnVerifConvention').show();"
                                                  value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.ANNULER_VERIF']}"
                                                  rendered="#{conventionController.convention.validationPedagogique}" />
                             </t:div>

@@ -838,9 +838,16 @@
 							<fo:inline font-weight="bold">
 								:
 							</fo:inline>
-							<fo:inline>
-								............................
-							</fo:inline>
+							<xsl:choose>
+								<xsl:when test="volume-horaire-formation and volume-horaire-formation != '0'">
+									<xsl:value-of select="volume-horaire-formation" />
+								</xsl:when>
+								<xsl:otherwise>
+									<fo:inline>
+										.........................................
+									</fo:inline>
+								</xsl:otherwise>
+							</xsl:choose>
 						</fo:block>
 					</fo:table-cell>
 				</fo:table-row>

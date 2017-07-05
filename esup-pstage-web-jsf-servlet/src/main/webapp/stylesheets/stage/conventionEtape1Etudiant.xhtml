@@ -38,6 +38,15 @@
                             <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.VOTREUFR']}" />
                             <h:outputText id="ufr1"
                                           value="#{conventionController.convention.ufr.code} - #{conventionController.convention.ufr.libelle}" />
+
+                            <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE']}" />
+                            <h:outputText value="#{conventionController.convention.volumeHoraireFormation}"
+                                          rendered="#{not empty conventionController.convention.volumeHoraireFormation
+                              and conventionController.convention.volumeHoraireFormation != '0'}"/>
+                            <h:outputText value="Non saisi"
+                                          rendered="#{empty conventionController.convention.volumeHoraireFormation
+                              or conventionController.convention.volumeHoraireFormation == '0'}"/>
+
                             <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ELP']}" />
                             <h:outputText id="elp"
                                           value="#{conventionController.convention.codeElp} - #{conventionController.convention.creditECTS} credit(s)" />
@@ -76,7 +85,8 @@
                                          rendered="#{not empty conventionController.convention.etudiant and !conventionController.conventionValide
                                 and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
                                 || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}" />
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+							    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)}" />
                     </t:div>
                 </t:fieldset>
             </h:form>

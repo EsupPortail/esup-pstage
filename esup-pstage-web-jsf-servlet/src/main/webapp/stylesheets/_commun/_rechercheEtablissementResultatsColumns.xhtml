@@ -47,15 +47,16 @@
         <f:facet name="header">
             <h:outputText value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
         </f:facet>
-        <h:outputText value="#{varRechercheStructure.raisonSociale}"
-                      title="#{varRechercheStructure.raisonSociale}">
+        <h:outputText value="#{varRechercheStructure.raisonSociale}">
+            <t:htmlTag id="avecAc" value="i" styleClass="fa fa-star #{varRechercheStructure.accordPartenariat.estValide ? 'fontGreen' : 'fontYellow'}"
+                       rendered="#{not empty varRechercheStructure.accordPartenariat and !welcomeController.etudiant}">
+                <p:tooltip for="avecAc" value="#{msgs['STRUCTURE.AVECACCORD.VALIDE']}"
+                           rendered="#{varRechercheStructure.accordPartenariat.estValide}"/>
+                <p:tooltip for="avecAc" value="#{msgs['STRUCTURE.AVECACCORD.AVALIDER']}"
+                           rendered="#{!varRechercheStructure.accordPartenariat.estValide}" />
+            </t:htmlTag>
             <f:converter binding="#{limitCharactersShownUpTo30Converter}" />
         </h:outputText>
-        <h:graphicImage id="avecAc" alt="accord"
-                        value="../../media/images/bullet_green.png"
-                        rendered="#{varRechercheStructure.idAccordPartenariat gt 0 and !welcomeController.etudiant}">
-            <p:tooltip value="#{msgs['STRUCTURE.AVECACCORD']}" />
-        </h:graphicImage>
     </p:column>
     <p:column filterBy="#{varRechercheStructure.numeroSiret}" filterMatchMode="contains">
         <f:facet name="header">

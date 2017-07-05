@@ -38,7 +38,8 @@
                             <t:div styleClass="floatRight"
                                    rendered="#{welcomeController.superAdmin || welcomeController.etudiant
                                 || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP}">
                                 <t:aliasBean alias="#{objet}"
                                              value="#{conventionController.convention}">
                                     <ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />

@@ -111,6 +111,18 @@
                                  rendered="#{not empty centreController.centreEntreprise
                                      and sessionController.moderationActive and sessionController.adminPageAuthorized}"/>
 
+                <p:commandButton id="lmodifMdp" value=" #{msgs['MENU.MODIFMDP']}"
+                                 styleClass="customPstage"
+                                 action="#{etablissementController.goToChangerMotDePasse}"
+                                 icon="fa fa-rotate-right"
+                                 rendered="#{sessionController.pageAuthorized and not empty sessionController.currentAuthContact
+                                and not empty sessionController.currentManageStructure
+                                and sessionController.menuGestionEtab}">
+                    <f:setPropertyActionListener value="_changementMotDePasseEtape1"
+                                                 target="#{sessionController.modifMdpCurrentPage}"  />
+                    <t:htmlTag value="i" styleClass="fa  fontBlue2" />
+                </p:commandButton>
+
                 <p:separator />
 
                 <p:commandButton value=" #{msgs['GENERAL.DECONNEXION']}"

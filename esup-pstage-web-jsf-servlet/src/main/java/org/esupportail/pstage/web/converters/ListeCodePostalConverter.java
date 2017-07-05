@@ -47,14 +47,18 @@ public class ListeCodePostalConverter implements Serializable, Converter {
 			throw new UnsupportedOperationException(
 					"object " + value + " is not a List.");
 		}
-		String rs="";
+		StringBuilder rs = new StringBuilder("");
+
 		List<String> l = (List<String>) value;
 		if(!l.isEmpty()){
 			for(String s : l){
-				if(StringUtils.hasText(s))rs+=s+";";
+				if(StringUtils.hasText(s)){
+					rs.append(s+";");
+				}
 			}
 		}
-		return rs;
+		
+		return rs.toString();
 	}
 	
 	/**

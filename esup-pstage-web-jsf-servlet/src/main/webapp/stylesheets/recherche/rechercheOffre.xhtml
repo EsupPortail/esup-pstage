@@ -1,49 +1,51 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	 template="../_basicTemplate.xhtml">
-	<ui:define name="content">
-		<h:panelGrid>
-			<p:panel>
-				<f:facet name="header">
-					<h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
-				</f:facet>
-				<h:form id="formRechOffre">
-					<ui:include src="/stylesheets/_commun/_rechercheOffre.xhtml" />
-					<h:panelGrid columns="5">
-						<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHER']}"
-							action="#{offreController.rechercherOffrePublic}">
-							<f:setPropertyActionListener value="#{null}"
-								target="#{offreController.critereRechercheOffre.typeStructure}" />
-							<f:setPropertyActionListener value="#{true}"
-								target="#{offreController.critereRechercheOffre.inclureOffresEntreprise}" />
-							<f:setPropertyActionListener value="#{true}"
-								target="#{offreController.critereRechercheOffre.estDiffusee}" />
-							<f:setPropertyActionListener value="#{false}"
-								target="#{offreController.critereRechercheOffre.diffusionTerminee}" />
-							<f:setPropertyActionListener value="#{false}"
-								target="#{offreController.critereRechercheOffre.estSupprimee}" />
-						</h:commandButton>
-						<t:htmlTag value="div" style="width:100px;" />
-						<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHESIMPLE']}"
-							action="#{offreController.rechercheSimpleAvancee}"
-							rendered="#{offreController.rechercheAvancee}" />
-						<h:commandButton
-							value="#{msgs['RECHERCHEOFFRE.RECHERCHEAVANCEE']}"
-							action="#{offreController.rechercheSimpleAvancee}"
-							rendered="#{!offreController.rechercheAvancee}" />
-						<t:htmlTag value="div" style="width: 20px;" />
-						<h:commandButton value="#{msgs['RECHERCHEOFFRE.REINIT']}"
-							action="#{offreController.resetRechercheOffre}" />
-					</h:panelGrid>
-				</h:form>
-				<p:message for="formRechOffre"
-					style="color:red;font-weight:bold;">
-					<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-				</p:message>
-			</p:panel>
-		</h:panelGrid>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="../_basicTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
+            </f:facet>
+            <h:form id="formRechOffre"
+                    onkeypress="if (event.keyCode == 13) { document.getElementById('formRechOffre:rechercherOffre').click(); return false; }">
+
+                <t:div>
+                    <p:selectOneButton value="#{offreController.rechercheAvancee}" styleClass="customRecherche">
+                        <f:selectItem itemLabel="#{msgs['RECHERCHEOFFRE.RECHERCHESIMPLE']}" itemValue="#{false}" />
+                        <f:selectItem itemLabel="#{msgs['RECHERCHEOFFRE.RECHERCHEAVANCEE']}" itemValue="#{true}" />
+                        <p:ajax event="change" update="@form" onstart="PF('statusDialog').show();"
+                                oncomplete="PF('statusDialog').hide();"/>
+                    </p:selectOneButton>
+                    <p:commandButton value="#{msgs['RECHERCHEOFFRE.REINIT']}" ajax="false"
+                                     action="#{offreController.resetRechercheOffre}" styleClass="floatRight"/>
+                </t:div>
+
+                <t:htmlTag value="div" style="height: 10px;" />
+
+                <ui:include src="/stylesheets/_commun/_rechercheOffre.xhtml" />
+
+                <t:div styleClass="mt10 textCenter fz16">
+                    <p:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHER']}"
+                                     action="#{offreController.rechercherOffrePublic}"
+                                     update="@form" icon="fa fa-search fz13"
+                                     onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
+                        <f:setPropertyActionListener value="#{null}"
+                                                     target="#{offreController.critereRechercheOffre.typeStructure}" />
+                        <f:setPropertyActionListener value="#{true}"
+                                                     target="#{offreController.critereRechercheOffre.inclureOffresEntreprise}" />
+                        <f:setPropertyActionListener value="#{true}"
+                                                     target="#{offreController.critereRechercheOffre.estDiffusee}" />
+                        <f:setPropertyActionListener value="#{false}"
+                                                     target="#{offreController.critereRechercheOffre.diffusionTerminee}" />
+                        <f:setPropertyActionListener value="#{false}"
+                                                     target="#{offreController.critereRechercheOffre.estSupprimee}" />
+                    </p:commandButton>
+                </t:div>
+                <p:messages />
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>

@@ -496,15 +496,15 @@
                                                         value="#{msgs['CONVENTION.ETAPE11.SALARIE.TEL_FAX']}" />
                                             </f:facet>
                                             <t:div rendered="#{not empty salarie.tel}">
-                                                <b>Tel : </b>
+                                                <t:htmlTag value="b">Tel : </t:htmlTag>
                                                 <h:outputText id="telC" value="#{salarie.tel}" />
                                             </t:div>
                                             <t:div rendered="#{not empty salarie.fax}">
-                                                <b>Fax : </b>
+                                                <t:htmlTag value="b">Fax : </t:htmlTag>
                                                 <h:outputText id="faxC" value="#{salarie.fax}" />
                                             </t:div>
                                             <t:div rendered="#{not empty salarie.mail}">
-                                                <b>Mail : </b>
+                                                <t:htmlTag value="b">Mail : </t:htmlTag>
                                                 <h:outputText id="mailC" value="#{salarie.mail}" />
                                             </t:div>
                                         </p:column>

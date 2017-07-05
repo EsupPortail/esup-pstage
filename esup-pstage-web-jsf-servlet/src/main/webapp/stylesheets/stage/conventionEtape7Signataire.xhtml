@@ -59,15 +59,15 @@
                                         <h:outputText value="#{msgs['CONTACT.TELFAXMAIL']}" />
                                     </f:facet>
                                     <t:div rendered="#{not empty signataire.tel}">
-                                        <b>Tel : </b>
+                                        <t:htmlTag value="b">Tel : </t:htmlTag>
                                         <h:outputText id="telC" value="#{signataire.tel}" />
                                     </t:div>
                                     <t:div rendered="#{not empty signataire.fax}">
-                                        <b>Fax : </b>
+                                        <t:htmlTag value="b">Fax : </t:htmlTag>
                                         <h:outputText id="faxC" value="#{signataire.fax}" />
                                     </t:div>
                                     <t:div rendered="#{not empty signataire.mail}">
-                                        <b>Mail : </b>
+                                        <t:htmlTag value="b">Mail : </t:htmlTag>
                                         <h:outputText id="mailC" value="#{signataire.mail}" />
                                     </t:div>
                                 </p:column>
@@ -79,7 +79,8 @@
                                                  rendered="#{not empty conventionController.convention.signataire and !conventionController.conventionValide
                                     and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
                                     || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
+                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+							        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)
                                     || (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
                                     (!sessionController.autoriserEtudiantAModifierEntreprise
                                     and ((empty conventionController.convention.contact.loginModif and
@@ -100,7 +101,8 @@
                                         rendered="#{!conventionController.conventionValide
                                     and (welcomeController.superAdmin || welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
                                     || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}">
+                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+							        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)}">
                                     <f:setPropertyActionListener value="#{0}"
                                                                  target="#{etablissementController.idContactSel}" />
                                     <f:setPropertyActionListener value="#{null}"

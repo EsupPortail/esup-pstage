@@ -66,10 +66,10 @@
 						<c:if
 							test="#{list.libPriorCriteria ne libPrec and (!empty libPrec)}">
 							<tr>
-								<td><b><h:outputText value="#{libPrec}" /></b></td>
-								<td><b><h:outputText value="sous-total" /></b></td>
-								<td><b><h:outputText value="#{sousTotal}" /></b></td>
-								<td><b><h:outputText value="#{pourcent} %" /></b></td>
+								<td><h:outputText value="#{libPrec}" styleClass="fontBold"/></td>
+								<td><h:outputText value="sous-total" /></td>
+								<td><h:outputText value="#{sousTotal}" /></td>
+								<td><h:outputText value="#{pourcent} %" /></td>
 							</tr>
 							<tr style="height: 10px;">
 							</tr>
@@ -91,18 +91,17 @@
 					</c:forEach>
 
 					<tr>
-						<td><b><h:outputText value="#{libPrec}" /></b></td>
-						<td><b><h:outputText value="sous-total" /></b></td>
-						<td><b><h:outputText value="#{sousTotal}" /></b></td>
-						<td><b><h:outputText value="#{pourcent} %" /></b></td>
+						<td><h:outputText value="#{libPrec}" styleClass="fontBold"/></td>
+						<td><h:outputText value="sous-total" styleClass="fontBold" /></td>
+						<td><h:outputText value="#{sousTotal}" styleClass="fontBold" /></td>
+						<td><h:outputText value="#{pourcent} %" styleClass="fontBold" /></td>
 					</tr>
 
 					<tr>
-						<td><b><h:outputText
-									value="#{statistiquesOffresController.critereUnLib}" /></b></td>
-						<td><b><h:outputText value="Total" /></b></td>
-						<td><b><h:outputText value="#{total}" /></b></td>
-						<td><b><h:outputText value="100 %" /></b></td>
+						<td><h:outputText value="#{statistiquesOffresController.critereUnLib}" styleClass="fontBold" /></td>
+						<td><h:outputText value="Total" styleClass="fontBold" /></td>
+						<td><h:outputText value="#{total}" styleClass="fontBold" /></td>
+						<td><h:outputText value="100 %" styleClass="fontBold" /></td>
 					</tr>
 				</table>
 

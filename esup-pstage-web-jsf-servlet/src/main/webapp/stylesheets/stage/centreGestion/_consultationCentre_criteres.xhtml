@@ -50,8 +50,7 @@
                                    update="suppressionCritere">
                         <f:setPropertyActionListener value="#{critere}"
                                                      target="#{centreController.critere}" />
-                        <h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}" id="delete"
-                                        value="/media/images/delete.png" />
+                        <t:htmlTag value="i" styleClass="fa fa-trash-o fz13 fontBlue2"/>
                         <p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
                     </p:commandLink>
                 </p:column>

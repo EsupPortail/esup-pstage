@@ -38,7 +38,7 @@ public class ComposanteSearchableLdapServiceImpl  implements LdapGroupService, I
 	/**
 	 * A logger.
 	 */
-	private final Logger logger = new LoggerImpl(getClass());
+	private final transient Logger logger = new LoggerImpl(getClass());
 
 	/**
 	 * The real LDAP entity service to delegate.

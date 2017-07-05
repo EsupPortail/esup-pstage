@@ -52,7 +52,7 @@ public class TempsTravailConverter implements Serializable, Converter {
 					"object " + value + " is not a TempsTravailDTO.");
 		}
 		TempsTravailDTO e = (TempsTravailDTO) value;
-		return ""+e.getId();
+		return Integer.toString(e.getId());
 	}
 	
 	/**

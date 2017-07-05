@@ -44,7 +44,7 @@
         </p:panelGrid>
 
         <t:div
-               rendered="#{conventionController.conventionExistante}">
+                rendered="#{conventionController.conventionExistante}">
             <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fz13 fontYellow"/>
             <h:outputText styleClass="ml5"
                           value="#{msgs['CONVENTION.ETAPE1.AVERTISSEMENT.ETUDIANT.CONVENTION_EXISTANTE']}"
@@ -79,9 +79,7 @@
                 </p:column>
                 <p:column>
                     <p:inputText id="codePostal" maxlength="10" required="true"
-                                 value="#{conventionController.etudiantRef.postalCode}">
-                        <p:ajax event="blur" update="@form"/>
-                    </p:inputText>
+                                 value="#{conventionController.etudiantRef.postalCode}"/>
                 </p:column>
                 <p:column>
                     <p:message for="codePostal"/>
@@ -156,8 +154,8 @@
                 <p:column>
                     <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.MAILINSTITU']}"/>
                 </p:column>
-                <p:column>
-                    <h:outputText id="mailinstitu" maxlength="100"
+                <p:column style="word-break: break-all;">
+                    <h:outputText id="mailinstitu"
                                   value="#{conventionController.etudiantRef.mail}" />
                 </p:column>
                 <p:column>
@@ -174,33 +172,41 @@
         <h:outputText value="#{msgs['CONVENTION.ETAPE1.CHOIXETUDIANT.DEMANDE']}" styleClass="fontBold fontBlue2 fz13 ml5" escape="false"/>
 
         <t:div styleClass="mt5 mb10 ml40">
-            <h:panelGrid columns="3">
-                <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ANNEE']}" />
-                <h:selectOneMenu styleClass="customPstage fix-selectOneMenu" id="choixAnneeUniv" required="true" effect="none"
-                                 value="#{conventionController.selectedAnneeUniv}">
-                    <f:selectItem itemValue="" />
-                    <f:selectItems value="#{conventionController.listeAnneesUniv}" />
-                    <p:ajax event="valueChange" onstart="PF('statusDialog').show();"
-                            oncomplete="PF('statusDialog').hide();"
-                            listener="#{conventionController.loadInfosEtu}"
-                            update="panelInscription" />
-                </h:selectOneMenu>
-                <p:message for="choixAnneeUniv" />
+            <h:panelGrid columns="2">
+                <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ANNEE']} * " />
+                <p:message id="msgChoixAnneeUniv" for="choixAnneeUniv" />
             </h:panelGrid>
-
-            <t:div rendered="#{not empty conventionController.selectedAnneeUniv and !conventionController.blocageCreationEtpOrpheline
-			and !conventionController.blocageAucuneInscription}">
-
+            <h:selectOneMenu id="choixAnneeUniv" styleClass="customPstage fix-selectOneMenu autoWidth ml20"
+                             required="true" effect="none"
+                             value="#{conventionController.selectedAnneeUniv}">
+                <f:selectItem itemValue="" itemLabel=""/>
+                <f:selectItems value="#{conventionController.listeAnneesUniv}" />
+                <p:ajax event="valueChange" onstart="PF('statusDialog').show();"
+                        oncomplete="PF('statusDialog').hide();"
+                        listener="#{conventionController.loadInfosEtu}"
+                        update="panelInscription" />
+            </h:selectOneMenu>
+            <t:div id="divInscription"
+                   rendered="#{not empty conventionController.selectedAnneeUniv and !conventionController.blocageCreationEtpOrpheline
+			            and !conventionController.blocageAucuneInscription}">
                 <t:div rendered="#{!conventionController.etudiantSupUneEtape}">
-                    <t:div style="padding:5px;"
-                           rendered="#{conventionController.etudiantUnElp || conventionController.etudiantSupUnElp}">
-                        <h:outputText styleClass="fontBold" for="elp1" value="#{msgs['CONVENTION.ELP']}" />
-                        <h:selectOneMenu id="choixElp1" effect="none" styleClass="customPstage fix-selectOneMenu"
-                                         value="#{conventionController.selectedCodeElp}" required="true"
-                                         requiredMessage="#{requiredMessageController.champObligatoire}">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputText styleClass="fontBold" for="etape"
+                                      value="#{msgs['CONVENTION.VOTREETAPE']} : " />
+                        <h:outputText id="etape" styleClass="ml5"
+                                      value="#{conventionController.etudiantRef.theCodeEtape} - #{conventionController.etudiantRef.theEtape}" />
+
+                        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.VOTREUFR']} : " />
+                        <h:outputText id="ufr" styleClass="ml5"
+                                      value="#{conventionController.etudiantRef.thecodeUFR} - #{conventionController.etudiantRef.theUfr}" />
+                    </h:panelGrid>
+
+                    <t:div rendered="#{conventionController.etudiantUnElp || conventionController.etudiantSupUnElp}">
+                        <h:outputText styleClass="fontBold" for="elp1" value="#{msgs['CONVENTION.ELP']} : " />
+                        <h:selectOneMenu id="choixElp1" effect="none" styleClass="customPstage fix-selectOneMenu autoWidth"
+                                         value="#{conventionController.selectedCodeElp}" required="true">
                             <f:selectItem itemValue="" />
-                            <f:selectItems
-                                    value="#{conventionController.listeELPEtapesSelectItems}" />
+                            <f:selectItems value="#{conventionController.listeELPEtapesSelectItems}" />
                             <p:ajax event="valueChange"
                                     listener="#{conventionController.rechargeElp}" update="elp1" />
                         </h:selectOneMenu>
@@ -209,69 +215,72 @@
 
                     </t:div>
                     <p:message for="choixElp1"/>
-                    <h:panelGrid columns="2" cellpadding="5">
-                        <h:outputText styleClass="fontBold" for="etape"
-                                      value="#{msgs['CONVENTION.VOTREETAPE']}" />
-                        <h:outputText id="etape" styleClass="ml5"
-                                      value="#{conventionController.etudiantRef.theCodeEtape} - #{conventionController.etudiantRef.theEtape}" />
-
-                        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.VOTREUFR']}" />
-                        <h:outputText id="ufr" styleClass="ml5"
-                                      value="#{conventionController.etudiantRef.thecodeUFR} - #{conventionController.etudiantRef.theUfr}" />
-                    </h:panelGrid>
                 </t:div>
 
-                <t:div rendered="#{conventionController.etudiantSupUneEtape}">
-                    <h:panelGrid columns="3" id="etapes">
-                        <h:outputText styleClass="fontBold" for="etapes"
-                                      value="#{msgs['CONVENTION.VOTREETAPE']}" />
-                        <h:selectOneMenu id="choixEtape" effect="none" required="true" styleClass="customPstage fix-selectOneMenu"
-                                         value="#{conventionController.selectedCodeEtape}">
-                            <f:selectItem itemValue="" />
-                            <f:selectItems
-                                    value="#{conventionController.listeEtapesEtudiant}" />
-                            <p:ajax event="valueChange"
-                                    listener="#{conventionController.rechargeUfr}"
-                                    update="etapes,ufrs,elementPedago,panelElp" />
-                        </h:selectOneMenu>
-                        <p:message for="choixEtape"/>
+                <t:div styleClass="mt5" rendered="#{conventionController.etudiantSupUneEtape}">
+                    <h:panelGrid columns="2">
+                        <h:outputText styleClass="fontBold"
+                                      value="#{msgs['CONVENTION.VOTREETAPE']} *" />
+                        <p:message id="msgEtapes" for="choixEtape"/>
                     </h:panelGrid>
-                    <p:outputPanel id="elementPedago" styleClass="mt5">
-                        <h:panelGrid columns="2"
-                                     rendered="#{conventionController.etudiantUnElp}">
-                            <h:outputText styleClass="fontBold" for="elementPedago"
-                                          value="#{msgs['CONVENTION.ELP']}" />
+                    <h:selectOneMenu id="choixEtape" effect="none" required="true" styleClass="customPstage fix-selectOneMenu autoWidth ml20"
+                                     value="#{conventionController.selectedCodeEtape}">
+                        <f:selectItem itemValue="" />
+                        <f:selectItems
+                                value="#{conventionController.listeEtapesEtudiant}" />
+                        <p:ajax event="valueChange"
+                                listener="#{conventionController.rechargeUfr}"
+                                update="msgEtapes,ufrs,panelElp" />
+                    </h:selectOneMenu>
+                    <p:outputPanel id="ufrs" styleClass="mt5">
+                        <t:div rendered="#{conventionController.choixEtape}">
+                            <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.VOTREUFR']} : " />
+                            <h:outputText styleClass="ml5" value="#{conventionController.etudiantRef.thecodeUFR} - #{conventionController.etudiantRef.theUfr}" />
+                        </t:div>
+                    </p:outputPanel>
+
+                    <p:outputPanel id="panelElp">
+                        <t:div rendered="#{conventionController.etudiantUnElp}" styleClass="mt5">
+                            <h:outputText styleClass="fontBold" for="panelElp"
+                                          value="#{msgs['CONVENTION.ELP']} : " />
                             <h:outputText
                                     value="#{conventionController.etudiantRef.theCodeElp} - #{conventionController.etudiantRef.theLibElp} - #{conventionController.etudiantRef.theCreditECTS} crédit(s)" />
-                        </h:panelGrid>
-                    </p:outputPanel>
-                    <p:outputPanel id="panelElp">
-                        <h:panelGrid columns="3"
-                                     rendered="#{conventionController.etudiantSupUnElp}">
-                            <h:outputText styleClass="fontBold" for="choixElp2" value="#{msgs['CONVENTION.ELP']}" />
+                        </t:div>
+                        <t:div rendered="#{conventionController.etudiantSupUnElp}" styleClass="mt5">
+                            <h:panelGrid columns="2">
+                                <h:outputText styleClass="fontBold" for="choixElp2" value="#{msgs['CONVENTION.ELP']} : " />
+                                <p:message for="choixElp2"/>
+                            </h:panelGrid>
                             <h:selectOneMenu id="choixElp2" effect="none" styleClass="customPstage fix-selectOneMenu"
-                                             value="#{conventionController.selectedCodeElp}" required="true"
-                                             requiredMessage="#{requiredMessageController.champObligatoire}">
+                                             value="#{conventionController.selectedCodeElp}" required="true">
                                 <f:selectItem itemValue="" />
-                                <f:selectItems
-                                        value="#{conventionController.listeELPEtapesSelectItems}" />
+                                <f:selectItems value="#{conventionController.listeELPEtapesSelectItems}" />
                                 <p:ajax event="valueChange"
                                         listener="#{conventionController.rechargeElp}" />
                             </h:selectOneMenu>
-                            <p:message for="choixElp2"/>
-                        </h:panelGrid>
-                    </p:outputPanel>
-                    <p:outputPanel id="ufrs" styleClass="mt5">
-                        <h:panelGrid columns="2"
-                                     rendered="#{conventionController.choixEtape}">
-                            <h:outputText styleClass="fontBold" for="ufr" value="#{msgs['CONVENTION.VOTREUFR']}" />
-                            <h:outputText
-                                    value="#{conventionController.etudiantRef.thecodeUFR} - #{conventionController.etudiantRef.theUfr}" />
-                        </h:panelGrid>
+                        </t:div>
                     </p:outputPanel>
                 </t:div>
+
+                <t:div styleClass="mt10">
+                    <h:panelGrid columns="2">
+                        <h:outputText styleClass="fontBold" escape="false"
+                                      value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE']} * " />
+                        <p:message for="volumeHoraireFormation"/>
+                    </h:panelGrid>
+                    <p:inputText id="volumeHoraireFormation" styleClass="autoWidth ml20" required="true"
+                                 value="#{conventionController.convention.volumeHoraireFormation}"
+                                 validatorMessage="#{requiredMessageController.superieurA0}">
+                        <f:validator binding="#{entierValidator}" />
+                    </p:inputText>
+                    <t:div styleClass="fz09" rendered="#{not empty conventionController.etudiantRef.volumeHoraireFormation
+                    and conventionController.etudiantRef.volumeHoraireFormation != '0'}">
+                        <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fontBlue2 mrf5" />
+                        <h:outputText value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.INFO']} (#{conventionController.etudiantRef.volumeHoraireFormation})" />
+                    </t:div>
+                </t:div>
             </t:div>
-            <p:message for="etape"/>
+            <p:message for="etape" escape="false"/>
 
             <t:div style="margin:10px;"
                    rendered="#{not empty conventionController.selectedAnneeUniv and conventionController.blocageCreationEtpOrpheline}">
@@ -294,7 +303,8 @@
             <h:outputText styleClass="ml5 fontRed fz16"
                           value="#{msgs['CONVENTION.CREERCONVENTION.AUCUNE_INSCRIPTION']}" />
         </t:div>
-        <p:commandButton id="confirmForm" value="#{msgs['FORM.VALIDER']}" update="@form" styleClass="fontGreen"
+        <p:commandButton id="confirmForm" value="#{msgs['FORM.VALIDER']}"
+                         update="@form" styleClass="fontGreen"
                          action="#{conventionController.goToCreerConventionCtrlInfosEtu}"
                          rendered="#{not empty conventionController.listeAnneesUniv}" />
     </t:div>

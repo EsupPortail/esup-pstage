@@ -51,7 +51,7 @@ public class ModeCandidatureConverter implements Serializable, Converter {
 					"object " + value + " is not a ModeCandidatureDTO.");
 		}
 		ModeCandidatureDTO e = (ModeCandidatureDTO) value;
-		return ""+e.getId();
+		return Integer.toString(e.getId());
 	}
 	
 	/**

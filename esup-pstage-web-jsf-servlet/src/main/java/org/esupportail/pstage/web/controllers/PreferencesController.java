@@ -29,7 +29,7 @@ public class PreferencesController extends AbstractContextAwareController {
 	/**
 	 * A logger.
 	 */
-	private final Logger logger = new LoggerImpl(this.getClass());
+	private final transient Logger logger = new LoggerImpl(this.getClass());
 	
 	/**
 	 * A list of JSF components for the locales.
@@ -80,7 +80,7 @@ public class PreferencesController extends AbstractContextAwareController {
 				FacesContext.getCurrentInstance().getApplication().getSupportedLocales();
 			while (iter.hasNext()) {
 				Locale locale = iter.next();
-				StringBuffer buf = new StringBuffer(locale.getLanguage());
+				StringBuilder buf = new StringBuilder(locale.getLanguage());
 				buf.append(" - ").append(locale.getDisplayLanguage(locale));
 				localeItems.add(new SelectItem(locale, buf.toString()));
 			}

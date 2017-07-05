@@ -71,20 +71,20 @@
                                             <h:outputText value="#{msgs['CONTACT.TELFAXMAIL']}" />
                                         </f:facet>
                                         <t:div rendered="#{not empty contact.tel}">
-                                            <b>Tel : </b>
+                                            <t:htmlTag value="b">Tel : </t:htmlTag>
                                             <h:outputText id="telC" value="#{contact.tel}" />
                                         </t:div>
                                         <t:div rendered="#{not empty contact.fax}">
-                                            <b>Fax : </b>
+                                            <t:htmlTag value="b">Fax : </t:htmlTag>
                                             <h:outputText id="faxC" value="#{contact.fax}" />
                                         </t:div>
                                         <t:div rendered="#{not empty contact.mail}">
-                                            <b>Mail : </b>
+                                            <t:htmlTag value="b">Mail : </t:htmlTag>
                                             <h:outputText id="mailC" value="#{contact.mail}" />
                                         </t:div>
                                     </p:column>
 
-                                    <p:column style="background-color:#A5A5A5;" styleClass="textCenter"
+                                    <p:column styleClass="background-color-grey textCenter"
                                               rendered="#{(sessionController.adminPageAuthorized
                                     or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.etudiant) and empty contact.login and empty contact.mdp)
                                     or (sessionController.pageAuthorized and empty contact.login and empty contact.mdp)
@@ -101,28 +101,28 @@
                                             <h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
                                         </f:facet>
                                         <t:div>
-                                        <p:commandLink id="modifC"
-                                                       rendered="#{not empty etablissementController.listeContacts}"
-                                                       oncomplete="PF('modifContact').show();" update="modifContact">
-                                            <f:setPropertyActionListener value="#{contact}"
-                                                                         target="#{etablissementController.formContact}" />
-                                            <f:setPropertyActionListener value="#{false}"
-                                                                         target="#{etablissementController.afficherSelectionCentreContact}" />
-                                            <f:setPropertyActionListener value="_modifContactEtape0"
-                                                                         target="#{sessionController.modifContactCurrentPage}" />
-                                            <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontBlue2"/>
-                                            <p:tooltip for="modifC" value="#{msgs['FORM.MODIFIER']}" />
-                                        </p:commandLink>
-                                        <p:commandLink  id="supprC"
-                                                        rendered="#{not empty etablissementController.listeContacts}"
-                                                        oncomplete="PF('supprContact').show();" update="supprContact">
-                                            <f:setPropertyActionListener value="#{contact}"
-                                                                         target="#{etablissementController.formContact}" />
-                                            <f:setPropertyActionListener value="_supprContactEtape1"
-                                                                         target="#{sessionController.suppressionContactCurrentPage}" />
-                                            <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 ml5 fontBlue2"/>
-                                            <p:tooltip for="supprC" value="#{msgs['FORM.SUPPRIMER']}" />
-                                        </p:commandLink>
+                                            <p:commandLink id="modifC"
+                                                           rendered="#{not empty etablissementController.listeContacts}"
+                                                           oncomplete="PF('modifContact').show();" update="modifContact">
+                                                <f:setPropertyActionListener value="#{contact}"
+                                                                             target="#{etablissementController.formContact}" />
+                                                <f:setPropertyActionListener value="#{false}"
+                                                                             target="#{etablissementController.afficherSelectionCentreContact}" />
+                                                <f:setPropertyActionListener value="_modifContactEtape0"
+                                                                             target="#{sessionController.modifContactCurrentPage}" />
+                                                <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontBlue2"/>
+                                                <p:tooltip for="modifC" value="#{msgs['FORM.MODIFIER']}" />
+                                            </p:commandLink>
+                                            <p:commandLink  id="supprC"
+                                                            rendered="#{not empty etablissementController.listeContacts}"
+                                                            oncomplete="PF('supprContact').show();" update="supprContact">
+                                                <f:setPropertyActionListener value="#{contact}"
+                                                                             target="#{etablissementController.formContact}" />
+                                                <f:setPropertyActionListener value="_supprContactEtape1"
+                                                                             target="#{sessionController.suppressionContactCurrentPage}" />
+                                                <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 ml5 fontBlue2"/>
+                                                <p:tooltip for="supprC" value="#{msgs['FORM.SUPPRIMER']}" />
+                                            </p:commandLink>
                                         </t:div>
                                         <p:commandButton  id="selC" styleClass="fontBlue2"
                                                           value="#{msgs['FORM.SELECTIONNER']}"
@@ -134,7 +134,7 @@
                                             <p:tooltip value="#{msgs['CONVENTION.SELECCONTACT']}" />
                                         </p:commandButton>
                                     </p:column>
-                                    <p:column styleClass="textCenter" rendered="#{!(sessionController.adminPageAuthorized
+                                    <p:column styleClass="background-color-grey textCenter" rendered="#{!(sessionController.adminPageAuthorized
 								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.etudiant) and empty contact.login and empty contact.mdp)
 								or (sessionController.pageAuthorized and empty contact.login and empty contact.mdp)
 								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==contact.id))

@@ -1,10 +1,10 @@
 @import "variables";
 
-.generate-fontColors(@i: 1) when (@i <= length(@Colors)) {
+.generate-fontColors(@i) when (@i <= length(@Colors)) {
   @key: extract(extract(@Colors, @i), 1);
   @value: extract(extract(@Colors, @i), 2);
   .font@{key} { color: @value !important; }
-  .generate-fontColors(@i + 1);
+  .generate-fontColors((@i + 1));
 }
 
 .generate-margins-paddings-by(@by, @n, @i: 0) when (@i =< (@by * @n)) {

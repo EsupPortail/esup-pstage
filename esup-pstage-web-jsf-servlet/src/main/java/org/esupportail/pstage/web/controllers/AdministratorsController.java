@@ -7,6 +7,7 @@ package org.esupportail.pstage.web.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.esupportail.commons.exceptions.UserNotFoundException;
 import org.esupportail.commons.services.ldap.LdapUserService;
 import org.esupportail.commons.services.paginator.Paginator;
@@ -42,6 +43,11 @@ public class AdministratorsController extends AbstractContextAwareController {
      * The paginator.
      */
     private Paginator<User> paginator;
+
+	/**
+	 * Logger
+	 */
+	private final transient Logger logger = Logger.getLogger(this.getClass());
     
 	/**
 	 * Bean constructor.
@@ -156,6 +162,7 @@ public class AdministratorsController extends AbstractContextAwareController {
 			addInfoMessage(null, "ADMINISTRATORS.MESSAGE.ADMIN_ADDED", user.getDisplayName(), user.getId());
 			return "adminAdded";
 		} catch (UserNotFoundException e) {
+			logger.warn(e);
 			addWarnMessage("ldapUid", "_.MESSAGE.USER_NOT_FOUND", ldapUid);
 			return null;
 		}

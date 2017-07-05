@@ -52,7 +52,7 @@ public class NatureTravailConverter implements Serializable, Converter {
 					"object " + value + " is not a NatureTravailDTO.");
 		}
 		NatureTravailDTO e = (NatureTravailDTO) value;
-		return ""+e.getId();
+		return Integer.toString(e.getId());
 	}
 	
 	/**

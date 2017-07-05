@@ -51,7 +51,7 @@ public class TypeOffreConverter implements Serializable, Converter {
 					"object " + value + " is not a TypeOffreDTO.");
 		}
 		TypeOffreDTO e = (TypeOffreDTO) value;
-		return ""+e.getId();
+		return Integer.toString(e.getId());
 	}
 	
 	/**

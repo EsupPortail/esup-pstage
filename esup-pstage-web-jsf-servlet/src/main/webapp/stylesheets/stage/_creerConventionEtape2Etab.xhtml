@@ -5,11 +5,11 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
 
-    <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
-    <h:outputText value="#{msgs['CONVENTION.ETAPE2.RECHERCHE.ETAB']}" styleClass="ml5" escape="false"/>
-
     <t:div id="formResultatsRechEtab" styleClass="mt15 ml30">
         <t:div id="rechercheEtab" rendered="#{!rechercheController.rechercheEtabOk}">
+            <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+            <h:outputText value="#{msgs['CONVENTION.ETAPE2.RECHERCHE.ETAB']}" styleClass="ml5" escape="false"/>
+
             <ui:include src="/stylesheets/_commun/_rechercheEtablissementLiensOnglets.xhtml" />
 
             <ui:include src="/stylesheets/_commun/_rechercheEtablissementOnglets.xhtml" />

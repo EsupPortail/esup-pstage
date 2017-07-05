@@ -23,8 +23,8 @@
                                       value="#{msgs['GENERAL.LIGNE.SELECTION']}" />
                     </t:div>
                     <p:dataTable id="listeCentres" reflow="true" tableStyle="table-layout: auto;"
-                                 value="#{centreController.centresGestion}" var="centre" rows="15"
-                                 rowHover="true" paginator="true" paginatorPosition="bottom"
+                                 value="#{centreController.centresGestion}" var="centre" rows="10"
+                                 rowHover="true" paginator="true" paginatorPosition="bottom" paginatorAlwaysVisible="false"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15,20" rowKey="#{centre.idCentreGestion}"
                                  selectionMode="single" selection="#{centreController.centre}"
@@ -110,29 +110,14 @@
                         <!--value="#{msgs['FORM.NON']}" />-->
                         <!--</p:column>-->
 
-                        <!-- 						<p:column sortBy="#{centre.choixAnneeAvantDebutAnnee}"> -->
-                        <!-- 							<f:facet name="header"> -->
-                        <!-- 								<t:htmlTag value="center"> -->
-                        <!-- 									<h:outputText style="font-weight:bold;" -->
-                        <!-- 										value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_ANNEE']}" /> -->
-                        <!-- 								</t:htmlTag> -->
-                        <!-- 							</f:facet> -->
-                        <!-- 							<t:htmlTag value="center"> -->
-                        <!-- 								<h:outputText -->
-                        <!-- 									rendered="#{centre.choixAnneeAvantDebutAnnee and !centre.choixAnneeApresDebutAnnee}" -->
-                        <!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANT']}" /> -->
-                        <!-- 								<h:outputText -->
-                        <!-- 									rendered="#{centre.choixAnneeApresDebutAnnee and !centre.choixAnneeAvantDebutAnnee}" -->
-                        <!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_APRES']}" /> -->
-                        <!-- 								<h:outputText -->
-                        <!-- 									rendered="#{centre.choixAnneeApresDebutAnnee and centre.choixAnneeAvantDebutAnnee}" -->
-                        <!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANTAPRES']}" /> -->
-                        <!-- 								<h:outputText -->
-                        <!-- 									rendered="#{!centre.choixAnneeAvantDebutAnnee and !centre.choixAnneeApresDebutAnnee}" -->
-                        <!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AUCUN']}" /> -->
-                        <!-- 							</t:htmlTag> -->
-                        <!-- 						</p:column> -->
-
+                        <p:column sortBy="#{centre.confidentialite.libelle}" styleClass="textCenter">
+                            <f:facet name="header">
+                                <h:outputText styleClass="fontBold"
+                                              value="#{msgs['CENTRE.LISTE_CENTRE.METHODE_VALIDATION']}" />
+                            </f:facet>
+                            <h:outputText value="#{msgs['FORM.OUI']}" rendered="#{centre.validationPedagogique}" />
+                            <h:outputText value="#{msgs['FORM.NON']}" rendered="#{!centre.validationPedagogique}" />
+                        </p:column>
                         <p:column sortBy="#{centre.confidentialite.libelle}" styleClass="textCenter">
                             <f:facet name="header">
                                 <h:outputText styleClass="fontBold"

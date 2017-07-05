@@ -25,10 +25,10 @@
                                   value="#{msgs['CENTRE.CRITERE.CRITERES']}" />
                 </t:div>
                 <t:htmlTag value="div" style="height:5px;" />
-                <h:selectManyListbox id="critere" size="20"
+                <p:selectManyMenu id="critere"
                                      value="#{centreController.listeCriteresChoisis}">
                     <f:selectItems value="#{centreController.listeCriteres}" />
-                </h:selectManyListbox>
+                </p:selectManyMenu>
                 <t:div styleClass="fz09">
                     <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
                     <h:outputText value="#{msgs['RECHERCHECONVENTION.ETAPES.AIDE']}"
@@ -38,8 +38,7 @@
                 <t:div styleClass="mt10 mb10 textCenter fontBold fz16">
                     <p:commandButton id="ajouter" value="#{msgs['FORM.AJOUTER']}"
                                      action="#{centreController.ajouterCriteres}"
-                                     oncomplete="PF('ajoutCritere').hide();"
-                                     update="@form"/>
+                                     ajax="false"/>
                 </t:div>
 
                 <p:messages />

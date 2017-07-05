@@ -43,7 +43,12 @@
                                 <t:div styleClass="textCenter mt15">
                                     <p:commandButton id="selC" styleClass="fontBlue2"
                                                      value="#{msgs['CONVENTION.MODIF.SERVICE.BOUTON']}"
-                                                     oncomplete="PF('demandeConfirmModifService').show();"/>
+                                                     oncomplete="PF('demandeConfirmModifService').show();"
+                                                     rendered="#{!conventionController.conventionValide
+                                            and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
+                                            || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                            || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+                                            || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)}"/>
                                 </t:div>
 
                                 <p:dialog id="demandeConfirmModifService"

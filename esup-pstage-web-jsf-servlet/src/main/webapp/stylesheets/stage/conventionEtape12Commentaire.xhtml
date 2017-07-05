@@ -31,8 +31,9 @@
                         <t:div id="divCommentaire" styleClass="mt5 ml20"
                                rendered="#{welcomeController.superAdmin
                                 || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
-                            <t:div rendered="#{conventionController.convention.validationConvention}">
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP}">
+                            <t:div rendered="#{conventionController.conventionValide}">
                                 <p:fieldset>
                                     <h:outputText escape="false"
                                                   value="#{conventionController.convention.commentaireStage}"
@@ -43,7 +44,7 @@
                                 </p:fieldset>
                             </t:div>
                             <t:div styleClass="mt10"
-                                   rendered="#{!conventionController.convention.validationConvention}">
+                                   rendered="#{!conventionController.conventionValide}">
 
                                 <p:fieldset rendered="#{not empty conventionController.convention.commentaireStage}">
                                     <h:outputText value="#{conventionController.convention.commentaireStage}"
@@ -55,7 +56,6 @@
                                                  icon="fa fa-edit"
                                                  update="ajoutCommentaire"
                                                  oncomplete="PF('ajoutCommentaire').show();"/>
-
                             </t:div>
                             <p:dialog id="ajoutCommentaire" widgetVar="ajoutCommentaire" resizable="false" modal="true" position="center">
                                 <f:facet name="header">
