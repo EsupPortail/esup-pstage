@@ -25,7 +25,8 @@
                         <p:message for="@form"/>
                         <t:div styleClass="ml40">
                             <p:commandButton value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.SELECTION']}"
-                                             oncomplete="PF('selectSignataire').show();" styleClass="mt20 mb20"
+                                             oncomplete="PF('selectSignataire').show();"
+                                             update="selectSignataire" styleClass="mt20 mb20"
                                              rendered="#{conventionController.saisieTuteurProParEtudiant}">
                                 <f:setPropertyActionListener value="#{0}"
                                                              target="#{etablissementController.idContactSel}" />

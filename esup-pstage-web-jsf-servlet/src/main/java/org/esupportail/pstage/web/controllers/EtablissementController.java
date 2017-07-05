@@ -1425,6 +1425,10 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	public void ajoutContact() {
 		this.formContact = new ContactDTO();
+
+		if (this.serviceSel != null){
+			this.formService = this.serviceSel;
+		}
 	}
 
 	/**
