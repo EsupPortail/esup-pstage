@@ -164,7 +164,6 @@
             </p:row>
         </p:panelGrid>
     </t:div>
-
     <t:div id="panelInscription"
            rendered="#{not empty conventionController.listeAnneesUniv}">
 
@@ -189,6 +188,12 @@
             <t:div id="divInscription"
                    rendered="#{not empty conventionController.selectedAnneeUniv and !conventionController.blocageCreationEtpOrpheline
 			            and !conventionController.blocageAucuneInscription}">
+                <t:div styleClass="mt10 mb5">
+                    <h:outputText value="Regime d'inscription : " styleClass="fontBold" />
+                    <h:outputText value="Formation Continue" rendered="#{conventionController.creationConventionFormationContinue}" />
+                    <h:outputText value="Formation Initiale" rendered="#{!conventionController.creationConventionFormationContinue}" />
+                </t:div>
+
                 <t:div rendered="#{!conventionController.etudiantSupUneEtape}">
                     <h:panelGrid columns="2" cellpadding="5">
                         <h:outputText styleClass="fontBold" for="etape"
@@ -196,7 +201,7 @@
                         <h:outputText id="etape" styleClass="ml5"
                                       value="#{conventionController.etudiantRef.theCodeEtape} - #{conventionController.etudiantRef.theEtape}" />
 
-                        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.VOTREUFR']} : " />
+                        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.VOTREUFR']} : "/>
                         <h:outputText id="ufr" styleClass="ml5"
                                       value="#{conventionController.etudiantRef.thecodeUFR} - #{conventionController.etudiantRef.theUfr}" />
                     </h:panelGrid>
@@ -208,13 +213,13 @@
                             <f:selectItem itemValue="" />
                             <f:selectItems value="#{conventionController.listeELPEtapesSelectItems}" />
                             <p:ajax event="valueChange"
-                                    listener="#{conventionController.rechargeElp}" update="elp1" />
+                                    listener="#{conventionController.rechargeElp}" update="elp1,msgChoixElp1" />
                         </h:selectOneMenu>
                         <h:outputText id="elp1"
                                       value="#{conventionController.etudiantRef.theCodeElp} - #{conventionController.etudiantRef.theLibElp} - #{conventionController.etudiantRef.theCreditECTS} crédit(s)" />
 
                     </t:div>
-                    <p:message for="choixElp1"/>
+                    <p:message id="msgChoixElp1" for="choixElp1"/>
                 </t:div>
 
                 <t:div styleClass="mt5" rendered="#{conventionController.etudiantSupUneEtape}">

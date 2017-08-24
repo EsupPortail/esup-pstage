@@ -19,7 +19,7 @@
     <t:htmlTag value="div" style="height: 20px;" />
 
     <p:fieldset style="padding:15px;" legend="#{msgs['CONVENTION.IMPRESSION.DOCUMENTS']}"
-                rendered="#{(welcomeController.personnel and conventionController.autorisationImpressionPersonnel)
+                rendered="#{welcomeController.superAdmin || (welcomeController.personnel and conventionController.autorisationImpressionPersonnel)
                 || (welcomeController.personnel and !conventionController.autorisationImpressionPersonnel and conventionController.conventionValide)
                 || (welcomeController.etudiant
 		and conventionController.convention.centreGestion.autoriserImpressionConvention
@@ -101,10 +101,10 @@
         <h:outputText styleClass="fontRed" value="#{msgs['CONVENTION.IMPRESSION.IMPOSSIBLE']}" />
     </t:htmlTag>
     <t:htmlTag value="em"
-               rendered="#{(welcomeController.personnel and !conventionController.autorisationImpressionPersonnel and !conventionController.conventionValide)
+               rendered="#{!welcomeController.superAdmin and ((welcomeController.personnel and !conventionController.autorisationImpressionPersonnel and !conventionController.conventionValide)
                || (welcomeController.etudiant and conventionController.convention.centreGestion.autoriserImpressionConvention and
                sessionController.validationPedagogique and conventionController.convention.centreGestion.validationPedagogique
-		        and !conventionController.convention.validationPedagogique)}">
+		        and !conventionController.convention.validationPedagogique))}">
         <t:htmlTag value="i" styleClass="fa fa-ban fontRed"/>
         <h:outputText styleClass="fontRed" value="#{msgs['CONVENTION.IMPRESSION.BLOCAGE_VALIDATION']}" />
     </t:htmlTag>

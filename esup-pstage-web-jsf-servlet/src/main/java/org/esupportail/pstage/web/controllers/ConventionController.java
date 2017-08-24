@@ -473,6 +473,11 @@ public class ConventionController extends AbstractContextAwareController {
 	private boolean conventionExistante;
 
 	/**
+	 * Indique si la convention en cours de creation sera sur le regime FC
+	 */
+	private boolean creationConventionFormationContinue;
+
+	/**
 	 * Bean constructor.
 	 */
 	public ConventionController() {
@@ -703,6 +708,7 @@ public class ConventionController extends AbstractContextAwareController {
 			this.selectedAnneeUniv = "";
 			this.choixEtape = false;
 			this.blocageCreationEtpOrpheline = false;
+			this.creationConventionFormationContinue = false;
 
 			this.setEtudiantRef(this.resultatEtudiantRef);
 		} else {
@@ -740,7 +746,6 @@ public class ConventionController extends AbstractContextAwareController {
 
 		if (this.selectedAnneeUniv != null && !this.selectedAnneeUniv.isEmpty()) {
 
-
 			ApogeeMap apogeeMap = getStudentDataRepositoryDomain().getEtapesByEtudiantAndAnnee(
 					this.etudiantRef.getNumEtudiant(),
 					this.selectedAnneeUniv,
@@ -765,7 +770,6 @@ public class ConventionController extends AbstractContextAwareController {
 				this.retirerEtapesOrphelines();
 			}
 			if (!blocageCreationEtpOrpheline) {
-
 				// Cas ou l'on n'a qu'une seule composante
 				if (this.etudiantRef.getStudys().size() == 1) {
 					String clef;
@@ -820,6 +824,12 @@ public class ConventionController extends AbstractContextAwareController {
 							this.listeEtapesEtudiant.add(new SelectItem(etp.getCodeEtp() + ";" + etp.getCodVrsVet(),
 									etp.getLibWebVet()));
 						}
+					}
+
+					// Verification si l'on est dans le cas d'une FC
+					if (this.etudiantRef.getAnneesInscriptionFC() != null
+							&& this.etudiantRef.getAnneesInscriptionFC().contains(this.selectedAnneeUniv)){
+						this.creationConventionFormationContinue = true;
 					}
 				} else {
 					this.setBlocageAucuneInscription(true);
@@ -1959,12 +1969,11 @@ public class ConventionController extends AbstractContextAwareController {
 		sequenceEtapeEnum = SequenceEtapeEnum.ETAPE4;
 
 		// si etudiant et centreGestion.saisieTuteurProParEtudiant false
-		// on passe direct à l'étape suivante
-		if (this.getSessionController().getCurrentAuthEtudiant() != null) {
-			if (!this.convention.getCentreGestion().getSaisieTuteurProParEtudiant()) {
-				this.convention.setContact(null);
-				retour = goToCreerConventionEtape5Stage();
-			}
+		// on passe direct à l'étape 5
+		if (this.getSessionController().getCurrentAuthEtudiant() != null
+				&& !this.convention.getCentreGestion().getSaisieTuteurProParEtudiant()) {
+			this.convention.setContact(null);
+			retour = goToCreerConventionEtape5Stage();
 		}
 
 		return retour;
@@ -1995,33 +2004,54 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return boolean
 	 */
 	public boolean conventionCtrlStage(String nomForm) {
-		boolean ctrlInfosOK = true;
-		if (this.convention.isInterruptionStage()) {
-			// date debut interruption obligatoire , si interruption
-			if (this.convention.getDateDebutInterruption() == null) {
-				addErrorMessage(nomForm + ":dateDebutInterruption",
-						"CONVENTION.CREERCONVENTION.DATEDEBINTERRUP.OBLIGATOIRE");
-				ctrlInfosOK = false;
-			}
-			// date fin interruption obligatoire , si interruption
-			if (this.convention.getDateFinInterruption() == null) {
-				addErrorMessage(nomForm + ":dateFinInterruption",
-						"CONVENTION.CREERCONVENTION.DATEFININTERRUP.OBLIGATOIRE");
-				ctrlInfosOK = false;
-			}
-		}
-		// date de fin de stage doit etre <= date de debut
+
+		// la date de fin de stage doit etre <= date de debut
 		if (this.convention.getDateDebutStage() != null
 				&& this.convention.getDateFinStage() != null) {
 			if (this.convention.getDateFinStage().before(
 					this.convention.getDateDebutStage())) {
 				addErrorMessage(nomForm + ":dateFinStage",
 						"CONVENTION.CREERCONVENTION.DATEFIN.FINAVANTDEBUT");
-				ctrlInfosOK = false;
+				return false;
+			}
+
+			// Controle des dates d'interruption
+			if (this.convention.isInterruptionStage()) {
+				// date debut interruption obligatoire , si interruption
+				if (this.convention.getDateDebutInterruption() == null) {
+					addErrorMessage(nomForm + ":dateDebutInterruption",
+							"CONVENTION.CREERCONVENTION.DATEDEBINTERRUP.OBLIGATOIRE");
+					return false;
+				}
+				// date fin interruption obligatoire , si interruption
+				if (this.convention.getDateFinInterruption() == null) {
+					addErrorMessage(nomForm + ":dateFinInterruption",
+							"CONVENTION.CREERCONVENTION.DATEFININTERRUP.OBLIGATOIRE");
+					return false;
+				}
+
+				// Interruption AU COURS du stage
+				if (this.convention.getDateDebutInterruption().before(this.convention.getDateDebutStage())
+						|| this.convention.getDateDebutInterruption().after(this.convention.getDateFinStage())) {
+					addErrorMessage(nomForm + ":dateDebutInterruption",
+							"CONVENTION.CREERCONVENTION.DATEINTERRUP.ERREUR");
+					return false;
+				}
+				if (this.convention.getDateFinInterruption().before(this.convention.getDateDebutStage())
+						|| this.convention.getDateFinInterruption().after(this.convention.getDateFinStage())) {
+					addErrorMessage(nomForm + ":dateFinInterruption",
+							"CONVENTION.CREERCONVENTION.DATEINTERRUP.ERREUR");
+					return false;
+				}
+				if (this.convention.getDateFinInterruption().before(this.convention.getDateDebutInterruption())) {
+					addErrorMessage(nomForm + ":dateFinInterruption",
+							"CONVENTION.CREERCONVENTION.DATEFININTERRUP.FINAVANTDEBUT");
+					return false;
+				}
 			}
 		}
-		// pourcentage de quotite obligatoire , si travail en temps partiel -
-		// codectrl=TPART
+
+		// pourcentage de quotite obligatoire , si travail en temps partiel - codectrl=TPART
 		if (selTempsTravail != null) {
 			if (selTempsTravail.getCodeCtrl().equals(
 					DonneesStatic.TEMPS_TRAVAIL_CODE_CTRL_PARTIEL)) {
@@ -2029,47 +2059,38 @@ public class ConventionController extends AbstractContextAwareController {
 						|| this.convention.getQuotiteTravail() == 0) {
 					addErrorMessage(nomForm + ":quotiteTravail",
 							"CONVENTION.CREERCONVENTION.QUOTITE.OBLIGATOIRE");
-					ctrlInfosOK = false;
+					return false;
 				}
 			}
 		}
-		// unite de la duree exceptionnelle obligatoire, si saisie duree
-		// exceptionnelle
-		// if (StringUtils.hasText(this.convention.getDureeExceptionnelle())) {
-		// if (selUniteDureeExceptionnelle == null) {
-		// addErrorMessage(nomForm+":uniteDureeExceptionnelle",
-		// "CONVENTION.CREERCONVENTION.UNITEDUREEEXCEPTIONNELLE.OBLIGATOIRE");
-		// ctrlInfosOK = false;
-		// }
-		// }
+
 		// Montant de la gratification obligatoire, si indemnisation
 		if (selIndemnisation != null) {
-			if (selIndemnisation.getLibelle().equalsIgnoreCase(
-					DonneesStatic.OUI)) {
+			if (selIndemnisation.getLibelle().equalsIgnoreCase(DonneesStatic.OUI)) {
 				// unite du montant obligatoire, si montant
 				if (StringUtils.hasText(this.convention
 						.getMontantGratification())) {
 					if (selUniteDureeGratification == null) {
 						addErrorMessage(nomForm + ":montantGratification",
 								"CONVENTION.CREERCONVENTION.UNITEDUREEGRATIFICATION.OBLIGATOIRE");
-						ctrlInfosOK = false;
+						return false;
 					} else if (selUniteGratification == null) {
 						// unite duree gratif obligatoire
 						addErrorMessage(nomForm + ":montantGratification",
 								"CONVENTION.CREERCONVENTION.UNITEGRATIFICATION.OBLIGATOIRE");
-						ctrlInfosOK = false;
+						return false;
 					}
 				}
 				if (selModeVersGratification == null) {
 					addErrorMessage(nomForm + ":modeVersGratification",
 							"CONVENTION.CREERCONVENTION.MODEVERSGRATIFICATION.OBLIGATOIRE");
-					ctrlInfosOK = false;
+					return false;
 				}
 				if (selModeVersGratification != null
 						&& "".equals(selModeVersGratification.getLibelle())) {
 					addErrorMessage(nomForm + ":modeVersGratification",
 							"CONVENTION.CREERCONVENTION.MODEVERSGRATIFICATION.OBLIGATOIRE");
-					ctrlInfosOK = false;
+					return false;
 				}
 				if (this.selMonnaieGratification != null
 						&& this.selMonnaieGratification != "autre"){
@@ -2082,7 +2103,8 @@ public class ConventionController extends AbstractContextAwareController {
 				this.selModeVersGratification = null;
 			}
 		}
-		return ctrlInfosOK;
+
+		return true;
 	}
 
 	/**
@@ -2105,13 +2127,11 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 		if (selUniteDureeGratification != null) {
 			convention.setUniteDureeGratification(selUniteDureeGratification);
-			convention.setIdUniteDureeGratification(selUniteDureeGratification
-					.getId());
+			convention.setIdUniteDureeGratification(selUniteDureeGratification.getId());
 		}
 		convention.setModeVersGratification(selModeVersGratification);
 		if (selModeVersGratification != null) {
-			convention.setIdModeVersGratification(selModeVersGratification
-					.getId());
+			convention.setIdModeVersGratification(selModeVersGratification.getId());
 		}
 		convention.setOrigineStage(selOrigineStage);
 		if (selOrigineStage != null) {
@@ -2119,19 +2139,16 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 		if (selUniteDureeExceptionnelle != null) {
 			convention.setUniteDuree(selUniteDureeExceptionnelle);
-			convention.setIdUniteDureeExceptionnelle(selUniteDureeExceptionnelle
-					.getId());
+			convention.setIdUniteDureeExceptionnelle(selUniteDureeExceptionnelle.getId());
 		}
 		convention.setNatureTravail(selNatureTravail);
 		convention.setIdNatureTravail(selNatureTravail.getId());
 		// Passage du mode de validation par le centre de gestion
 		if (this.convention.getCentreGestion().getModeValidationStage() != null) {
-			this.selModeValidationStage = this.convention.getCentreGestion()
-					.getModeValidationStage();
+			this.selModeValidationStage = this.convention.getCentreGestion().getModeValidationStage();
 		}
 		convention.setModeValidationStage(this.selModeValidationStage);
-		convention
-				.setIdModeValidationStage(this.selModeValidationStage.getId());
+		convention.setIdModeValidationStage(this.selModeValidationStage.getId());
 		convention.setLangueConvention(selLangueConvention);
 		convention.setCodeLangueConvention(selLangueConvention.getCode());
 	}
@@ -2982,7 +2999,12 @@ public class ConventionController extends AbstractContextAwareController {
 			if (this.editConvFR) {
 				language = "fr";
 			}
-			nomDocxsl = "convention" + "_" + language + ".xsl";
+			if (DonneesStatic.TYPE_CONVENTION_CODE_CTRL_FC.equalsIgnoreCase(this.convention.getTypeConvention().getCodeCtrl())){
+				nomDocxsl = "conventionFormationContinue_fr.xsl";
+			} else {
+				nomDocxsl = "convention" + "_" + language + ".xsl";
+			}
+
 			if (etudiant != null) {
 				fileNameXml = fileNameXml
 						+ ("_" + etudiant.getPrenom() + "_" + etudiant.getNom());
@@ -3466,6 +3488,10 @@ public class ConventionController extends AbstractContextAwareController {
 
 				// renseignement des zones de selections a partir de la convention
 				setSelTypeConvention(conventionTmp.getTypeConvention());
+				if (DonneesStatic.TYPE_CONVENTION_CODE_CTRL_FC.equalsIgnoreCase(conventionTmp.getTypeConvention().getCodeCtrl())){
+					this.creationConventionFormationContinue = true;
+				}
+
 				setSelTheme(conventionTmp.getTheme());
 				setSelTempsTravail(conventionTmp.getTempsTravail());
 				setSelIndemnisation(conventionTmp.getIndemnisation());
@@ -3892,8 +3918,7 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public void retirerEtapesOrphelines() {
 		this.blocageCreationEtpOrpheline = false;
-		List<EtapeInscription> listEtapes = this.etudiantRef
-				.getListeEtapeInscriptions();
+		List<EtapeInscription> listEtapes = this.etudiantRef.getListeEtapeInscriptions();
 
 		List<String> list = new ArrayList<String>();
 		String code;
@@ -7133,5 +7158,13 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public boolean isConventionExistante() {
 		return this.conventionExistante;
+	}
+
+	public boolean isCreationConventionFormationContinue() {
+		return creationConventionFormationContinue;
+	}
+
+	public void setCreationConventionFormationContinue(boolean creationConventionFormationContinue) {
+		this.creationConventionFormationContinue = creationConventionFormationContinue;
 	}
 }

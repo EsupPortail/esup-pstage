@@ -82,6 +82,10 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 	 */
 	private LdapAttributes ldapAttributes;
 
+	/**
+	 * Codes correspondants aux regimes d'inscription de la Formation Continue
+	 */
+	private String codesRegimeInscriptionFC;
 
 	/**
 	 * @see org.esupportail.pstage.dao.referentiel.StudentDataRepositoryDao#getEtudiantRef(java.lang.String, java.lang.String)
@@ -550,13 +554,31 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			}
 
 			List<String> listeAnneesUniv = new ArrayList<String>();
-
+			// Recuperation des codes renseignées en parametre pour detecter la FC
+			String [] codesFC = this.codesRegimeInscriptionFC.split(";");
 			String [] annees = serviceAdministratif.recupererAnneesIa(etudiant.getCodEtu().toString(), "E");
+			List<String> anneesInscriptionFC = new ArrayList<>();
+
 			// INSCRIPTION SUR L'ANNEE PRECEDENTE ?
 			if (temRecupAnneeAntecedente) {
 				if (Arrays.asList(annees).contains(anneePrecedente)) {
 					logger.debug("Inscription trouvee sur l'annee precedente (" + anneePrecedente + ")");
 					listeAnneesUniv.add(anneePrecedente);
+
+					// Recuperation du regime d'inscription pour l'etudiant a partir de l'annee
+					for (InsAdmAnuDTO2 insAdmAnu : serviceAdministratif.recupererIAAnnuelles_v2(etudiant.getCodEtu().toString(), anneePrecedente, "E")) {
+						// Libelle CPAM
+						if (insAdmAnu.getCpam() != null && insAdmAnu.getCpam().getLibCpam() != null) {
+							logger.debug("Libelle CPAM : " + insAdmAnu.getCpam().getLibCpam());
+							libelleCPAM = insAdmAnu.getCpam().getLibCpam();
+						}
+						// Regime d'inscription
+						if (insAdmAnu.getRegimeIns() != null
+								&& Arrays.asList(codesFC).contains(insAdmAnu.getRegimeIns().getCodRgi())){
+							anneesInscriptionFC.add(anneePrecedente);
+						}
+					}
+
 				} else {
 					logger.debug("Pas d'inscription pour l'etudiant " + etudiant.getCodEtu().toString() + " sur l'annee " + anneePrecedente);
 				}
@@ -566,6 +588,19 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			if (Arrays.asList(annees).contains(anneeCourante)){
 				logger.debug("Inscription trouvee sur l'annee courante ("+anneeCourante+")");
 				listeAnneesUniv.add(anneeCourante);
+
+				// Recuperation du libelle CPAM et du regime d'inscription pour l'etudiant a partir de l'annee
+				for (InsAdmAnuDTO2 insAdmAnu : serviceAdministratif.recupererIAAnnuelles_v2(etudiant.getCodEtu().toString(), anneeCourante, "E")) {
+					// Libelle CPAM
+					if (insAdmAnu.getCpam() != null && insAdmAnu.getCpam().getLibCpam() != null) {
+						logger.debug("Libelle CPAM : " + insAdmAnu.getCpam().getLibCpam());
+						libelleCPAM = insAdmAnu.getCpam().getLibCpam();
+					}
+					// Regime d'inscription
+					if (insAdmAnu.getRegimeIns() != null && Arrays.asList(codesFC).contains(insAdmAnu.getRegimeIns().getCodRgi())){
+						anneesInscriptionFC.add(anneeCourante);
+					}
+				}
 			} else {
 				logger.debug("Pas d'inscription pour l'etudiant "+ etudiant.getCodEtu().toString()+" sur l'annee "+anneeCourante);
 			}
@@ -574,22 +609,22 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			if (Arrays.asList(annees).contains(anneeSuivante)){
 				logger.debug("Inscription trouvee sur l'annee suivante ("+anneeSuivante+")");
 				listeAnneesUniv.add(anneeSuivante);
+
+				// Recuperation du regime d'inscription pour l'etudiant a partir de l'annee
+				for (InsAdmAnuDTO2 insAdmAnu : serviceAdministratif.recupererIAAnnuelles_v2(etudiant.getCodEtu().toString(), anneeSuivante, "E")) {
+					// Libelle CPAM
+					if (libelleCPAM == "" && insAdmAnu.getCpam() != null && insAdmAnu.getCpam().getLibCpam() != null) {
+						logger.debug("Libelle CPAM : " + insAdmAnu.getCpam().getLibCpam());
+						libelleCPAM = insAdmAnu.getCpam().getLibCpam();
+					}
+					// Regime d'inscription
+					if (insAdmAnu.getRegimeIns() != null && Arrays.asList(codesFC).contains(insAdmAnu.getRegimeIns().getCodRgi())){
+						anneesInscriptionFC.add(anneeSuivante);
+					}
+				}
 			} else {
 				logger.debug("Pas d'inscription pour l'etudiant "+ etudiant.getCodEtu().toString()+" sur l'annee "+anneeSuivante);
 			}
-
-			// Recuperation du libelle CPAM a partir de l'IA sur l'annee courante
-			for (InsAdmAnuDTO2 insAdmAnu : serviceAdministratif.recupererIAAnnuelles_v2(etudiant.getCodEtu().toString(), anneeCourante, "E")) {
-				if (insAdmAnu.getCpam() != null) {
-					if (logger.isDebugEnabled()) {
-						logger.debug("Libelle CPAM : "+insAdmAnu.getCpam().getLibCpam());
-					}
-					if (insAdmAnu.getCpam().getLibCpam() != null) {
-						libelleCPAM = insAdmAnu.getCpam().getLibCpam();
-					}
-				}
-			}
-
 
 			studentApogee.setIdentEtudiant(id);
 			studentApogee.setNumEtudiant(etudiant.getCodEtu().toString());
@@ -612,6 +647,13 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 
 			// ajout du libelle CPAM
 			studentApogee.setLibelleCPAM(libelleCPAM);
+
+			// ajout de l'eventuelle liste des inscriptions FC
+			if (anneesInscriptionFC != null && !anneesInscriptionFC.isEmpty()){
+				studentApogee.setAnneesInscriptionFC(anneesInscriptionFC);
+			} else {
+				studentApogee.setAnneesInscriptionFC(null);
+			}
 
 			studentApogee.setAdministrationApogee(adminApogee);
 
@@ -726,6 +768,10 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			s.setLibelleCPAM(studentApogee.getLibelleCPAM());
 			//Code Etu
 			s.setNumEtudiant(studentApogee.getNumEtudiant());
+			// Volume horaire
+			s.setVolumeHoraireFormation(studentApogee.getVolumeHoraireFormation());
+			//anneesInscriptionFC
+			s.setAnneesInscriptionFC(studentApogee.getAnneesInscriptionFC());
 
 			if (studentApogee.getListeAnneesUniv() != null && !studentApogee.getListeAnneesUniv().isEmpty()){
 				s.setListeAnneesUniv(studentApogee.getListeAnneesUniv());
@@ -1176,4 +1222,12 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 		this.ldapAttributes = ldapAttributes;
 	}
 
+
+	public String getCodesRegimeInscriptionFC() {
+		return codesRegimeInscriptionFC;
+	}
+
+	public void setCodesRegimeInscriptionFC(String codesRegimeInscriptionFC) {
+		this.codesRegimeInscriptionFC = codesRegimeInscriptionFC;
+	}
 }

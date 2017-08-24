@@ -14,6 +14,7 @@ import javax.faces.model.SelectItem;
 
 import gouv.education.apogee.commun.transverse.dto.geographie.CommuneDTO;
 import org.apache.log4j.Logger;
+import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstagedata.domain.dto.AssuranceDTO;
 import org.esupportail.pstagedata.domain.dto.CaisseRegimeDTO;
@@ -1737,6 +1738,37 @@ public class NomenclatureController extends AbstractContextAwareController {
 		if(l!=null){
 			for(TypeConventionDTO o : l){
 				ls.add(new SelectItem(o,o.getLibelle()));
+			}
+		}
+		return ls;
+	}
+	/**
+	 * @return the typeConventions
+	 */
+	public List<SelectItem> getTypeConventionsFC() {
+		List<SelectItem> ls = new ArrayList<>();
+		List<TypeConventionDTO> l = getNomenclatureDomainService().getTypeConventions();
+		if(l!=null){
+			for(TypeConventionDTO t : l){
+				if (DonneesStatic.TYPE_CONVENTION_CODE_CTRL_FC.equalsIgnoreCase(t.getCodeCtrl())) {
+					ls.add(new SelectItem(t, t.getLibelle()));
+				}
+			}
+		}
+		return ls;
+	}
+
+	/**
+	 * @return the typeConventions
+	 */
+	public List<SelectItem> getTypeConventionsFI() {
+		List<SelectItem> ls = new ArrayList<>();
+		List<TypeConventionDTO> l = getNomenclatureDomainService().getTypeConventions();
+		if(l!=null){
+			for(TypeConventionDTO t : l){
+				if (DonneesStatic.TYPE_CONVENTION_CODE_CTRL_FI.equalsIgnoreCase(t.getCodeCtrl())) {
+					ls.add(new SelectItem(t, t.getLibelle()));
+				}
 			}
 		}
 		return ls;

@@ -152,8 +152,12 @@ public class EtudiantRef extends EtudiantDTO implements Serializable{
 	 */
 	private String volumeHoraireFormation= "";
 
+	/**
+	 * Liste des eventuelles années d'inscription en FC pour l'etudiant
+	 */
+	private List<String> anneesInscriptionFC;
 
-	
+
 	/**
 	 * Constructeur
 	 */
@@ -601,7 +605,11 @@ public class EtudiantRef extends EtudiantDTO implements Serializable{
 		this.volumeHoraireFormation = volumeHoraireFormation;
 	}
 
-	
-	
+	public List<String> getAnneesInscriptionFC() {
+		return anneesInscriptionFC;
+	}
 
+	public void setAnneesInscriptionFC(List<String> anneesInscriptionFC) {
+		this.anneesInscriptionFC = anneesInscriptionFC;
+	}
 }

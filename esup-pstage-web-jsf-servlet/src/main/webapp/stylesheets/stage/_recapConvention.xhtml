@@ -432,6 +432,16 @@
         <p:row>
             <p:column style="text-align:right;">
                 <h:outputText styleClass="fontBold"
+                              value="#{msgs['CONVENTION.TYPEPRESENCE']}" />
+            </p:column>
+            <p:column>
+                <h:outputText
+                        value="#{conventionController.convention.typePresence}" />
+            </p:column>
+        </p:row>
+        <p:row>
+            <p:column style="text-align:right;">
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.TEMPSTRAVAIL']}" />
             </p:column>
             <p:column>

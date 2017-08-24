@@ -24,8 +24,7 @@
 
                         <t:div styleClass="mt10 ml40">
                             <p:commandButton id="modifStage" value="#{msgs['FORM.MODIFIER']}"
-                                             action="conventionEtape5ModifStage"
-                                             update="@form"
+                                             action="conventionEtape5ModifStage" update="@form"
                                              rendered="#{(not empty conventionController.convention and !conventionController.conventionValide) and (welcomeController.superAdmin
 									|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 									|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture

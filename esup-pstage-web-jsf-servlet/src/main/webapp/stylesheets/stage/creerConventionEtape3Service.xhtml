@@ -30,17 +30,33 @@
                                           styleClass="ml5" escape="false" />
                         </t:div>
 
-                        <t:div rendered="#{not empty etablissementController.listeServices}" styleClass=" ml40">
+                        <t:div rendered="#{not empty etablissementController.listeServices}" styleClass="ml40">
                             <h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
                                           escape="false" />
-                            <h:selectOneMenu id="sOMService" styleClass="customPstage mt5"
+                            <h:selectOneMenu id="sOMService" styleClass="customPstage mt5 autoWidth"
                                              value="#{etablissementController.idServiceSel}"
                                              converter="#{intConverter}"
                                              valueChangeListener="#{etablissementController.valueIdServiceChanged}">
                                 <f:selectItems value="#{etablissementController.servicesItems}" />
                                 <p:ajax event="valueChange" update="@form" />
                             </h:selectOneMenu>
+                        </t:div>
 
+                        <t:div styleClass="mt10 ml40">
+                            <h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" styleClass="fontItalic"/>
+                            <p:commandButton id="ajout" icon="fa fa-plus fz13" styleClass="ml5" style="font-size :11px;"
+                                             value="#{msgs['STRUCTURE.AJOUT.CREER_2']}"
+                                             action="#{etablissementController.ajoutService}"
+                                             oncomplete="PF('ajoutService').show();"
+                                             update="ajoutService">
+                                <f:setPropertyActionListener value="#{true}"
+                                                             target="#{etablissementController.memeAdresseStructure}" />
+                                <f:setPropertyActionListener value="_ajoutServiceEtape0"
+                                                             target="#{sessionController.ajoutServiceCurrentPage}" />
+                            </p:commandButton>
+                        </t:div>
+
+                        <t:div rendered="#{not empty etablissementController.listeServices}" styleClass=" ml40">
                             <t:div id="actionsService" styleClass="mt10"
                                    rendered="#{not empty etablissementController.idServiceSel
                                         and etablissementController.idServiceSel != 0}">
@@ -123,20 +139,6 @@
                             <p:commandButton id="selC" styleClass="fontGreen"
                                              value="#{msgs['FORM.CONFIRMERCONTINUER']}"
                                              action="#{conventionController.goToCreerConventionEtape4Contact}"/>
-                        </t:div>
-
-                        <t:div styleClass="mt20 ml40">
-                            <h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" styleClass="fontItalic"/>
-                            <p:commandButton id="ajout" icon="fa fa-plus fz13" styleClass="ml5" style="font-size :11px;"
-                                             value="#{msgs['STRUCTURE.AJOUT.CREER_2']}"
-                                             action="#{etablissementController.ajoutService}"
-                                             oncomplete="PF('ajoutService').show();"
-                                             update="ajoutService">
-                                <f:setPropertyActionListener value="#{true}"
-                                                             target="#{etablissementController.memeAdresseStructure}" />
-                                <f:setPropertyActionListener value="_ajoutServiceEtape0"
-                                                             target="#{sessionController.ajoutServiceCurrentPage}" />
-                            </p:commandButton>
                         </t:div>
 
                         <p:commandButton value="#{msgs['FORM.PREVIOUS']}"

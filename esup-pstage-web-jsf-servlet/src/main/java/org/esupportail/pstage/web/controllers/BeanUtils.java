@@ -841,4 +841,17 @@ public class BeanUtils extends AbstractDomainAwareBean {
 	public void setStartYearMonth(String startYearMonth) {
 		this.startYearMonth = startYearMonth;
 	}
+
+	/**
+	 * Retourne le code correspondant à donneesStatic.TYPE_CONVENTION_CODE_CTRL_FC
+	 */
+	public String getCodeCtrlFC(){
+		return DonneesStatic.TYPE_CONVENTION_CODE_CTRL_FC;
+	}
+	/**
+	 * Retourne le code correspondant à donneesStatic.TYPE_CONVENTION_CODE_CTRL_FI
+	 */
+	public String getCodeCtrlFI(){
+		return DonneesStatic.TYPE_CONVENTION_CODE_CTRL_FI;
+	}
 }

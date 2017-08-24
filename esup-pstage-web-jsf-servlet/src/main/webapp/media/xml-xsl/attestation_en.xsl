@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <xsl:stylesheet version="2.0"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format"
-	xmlns:java="http://xml.apache.org/xalan/java" xmlns:str="http://exslt.org/strings"
-	exclude-result-prefixes="java">
+				xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format"
+				xmlns:java="http://xml.apache.org/xalan/java" xmlns:str="http://exslt.org/strings"
+				exclude-result-prefixes="java">
 
 	<!-- definition du noeud convention -->
 	<xsl:template match="convention-dTO">
@@ -21,15 +21,15 @@
 
 	<xsl:template match="/">
 		<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format"
-			xmlns:fox="http://xml.apache.org/fo/extensions">
+				 xmlns:fox="http://xml.apache.org/fo/extensions">
 			<fo:layout-master-set>
 				<fo:simple-page-master master-name="all"
-					border="" page-height="29.699cm" page-width="20.999cm"
-					margin-right="1cm" margin-left="0.9cm" margin-bottom="0.4cm"
-					margin-top="0.794cm">
+									   border="" page-height="29.699cm" page-width="20.999cm"
+									   margin-right="1cm" margin-left="0.9cm" margin-bottom="0.4cm"
+									   margin-top="0.794cm">
 					<fo:region-body margin-bottom="0cm" />
 					<fo:region-after display-align="after"
-						space-before="0cm" extent="0.55cm" />
+									 space-before="0cm" extent="0.55cm" />
 				</fo:simple-page-master>
 			</fo:layout-master-set>
 
@@ -37,7 +37,7 @@
 				<fo:static-content flow-name="xsl-footnote-separator">
 					<fo:block>
 						<fo:leader rule-thickness="0.5pt" rule-style="solid"
-							leader-length="100%" leader-pattern="rule" />
+								   leader-length="100%" leader-pattern="rule" />
 					</fo:block>
 				</fo:static-content>
 				<fo:flow flow-name="xsl-region-body">
@@ -51,30 +51,30 @@
 
 	<xsl:template name="Attestation">
 		<fo:block margin-right="1.5cm" margin-left="1.5cm"
-			margin-bottom="1.09cm" font-family="Times New Roman,serif"
-			padding-top="1cm">
+				  margin-bottom="1.09cm" font-family="Times New Roman,serif"
+				  padding-top="1cm">
 			<fo:block text-align="center">
 				<fo:inline hyphenate="false" language="fr" country="FR"
-					font-weight="bold" font-size="18pt">
+						   font-weight="bold" font-size="18pt">
 					INTERNSHIP CERTIFICATE
 				</fo:inline>
 			</fo:block>
 			<fo:block text-align="center">
 				<fo:inline hyphenate="false" language="fr" country="FR"
-					font-size="10pt" font-style="italic">
+						   font-size="10pt" font-style="italic">
 					(ATTESTATION DE STAGE )
 				</fo:inline>
 			</fo:block>
 			<fo:block text-align="center" padding-top="5pt">
 				<fo:inline hyphenate="false" language="fr" country="FR"
-					font-weight="bold" font-size="16pt" font-style="italic">
+						   font-weight="bold" font-size="16pt" font-style="italic">
 					to be issued to the
 					intern upon the conclusion of the internship
 				</fo:inline>
 			</fo:block>
 			<fo:block text-align="center">
 				<fo:inline hyphenate="false" language="fr" country="FR"
-					font-size="10pt" font-style="italic">
+						   font-size="10pt" font-style="italic">
 					(à remettre au
 					stagiaire à l'issue du
 					stage)
@@ -82,15 +82,15 @@
 			</fo:block>
 			<fo:block padding-top="10pt">
 				<fo:table border="0.018cm solid #000000" padding="3pt"
-					width="100%" table-layout="fixed">
+						  width="100%" table-layout="fixed">
 					<fo:table-column column-width="proportional-column-width(1)" />
 					<fo:table-body>
 						<fo:table-row>
 							<fo:table-cell border="1" margin-left="0.2cm"
-								padding-top="0.2cm">
+										   padding-top="0.2cm">
 								<fo:block>
 									<fo:inline font-weight="bold" text-decoration="underline"
-										font-size="9pt">
+											   font-size="9pt">
 										THE HOST ORGANIZATION
 									</fo:inline>
 									<fo:inline font-size="8pt" font-style="italic">
@@ -99,13 +99,13 @@
 									</fo:inline>
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
+										  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
 									<fo:leader />
 								</fo:block>
 								<fo:block line-height="150%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">
 										Name or company name
 									</fo:inline>
@@ -121,9 +121,9 @@
 									</fo:inline>
 								</fo:block>
 								<fo:block line-height="150%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">Address
 									</fo:inline>
 									<fo:inline font-size="8pt" font-style="italic">(Adresse)
@@ -144,9 +144,9 @@
 								</fo:block>
 
 								<fo:block line-height="150%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">Phone : </fo:inline>
 									<xsl:value-of select="structure/telephone" />
 								</fo:block>
@@ -164,15 +164,15 @@
 					</fo:inline>
 				</fo:block>
 				<fo:table border="0.018cm solid #000000" padding="3pt"
-					width="100%" table-layout="fixed">
+						  width="100%" table-layout="fixed">
 					<fo:table-column column-width="proportional-column-width(1)" />
 					<fo:table-body>
 						<fo:table-row>
 							<fo:table-cell border="1" margin-left="0.2cm"
-								padding-top="0.2cm">
+										   padding-top="0.2cm">
 								<fo:block font-size="9pt">
 									<fo:inline font-weight="bold" font-size="9pt"
-										text-decoration="underline">
+											   text-decoration="underline">
 										THE INTERN
 									</fo:inline>
 									<fo:inline font-size="8pt" font-style="italic">
@@ -181,13 +181,13 @@
 									</fo:inline>
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif">
 									<fo:leader />
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">
 										Last name
 									</fo:inline>
@@ -237,18 +237,18 @@
 									</fo:inline>
 									<fo:inline>
 										<xsl:value-of
-											select="concat(substring(./etudiant/date-nais,9,2),'/',substring(./etudiant/date-nais,6,2), '/',substring(./etudiant/date-nais,1,4))" />
+												select="concat(substring(./etudiant/date-nais,9,2),'/',substring(./etudiant/date-nais,6,2), '/',substring(./etudiant/date-nais,1,4))" />
 									</fo:inline>
 								</fo:block>
 							</fo:table-cell>
 						</fo:table-row>
 						<fo:table-row>
 							<fo:table-cell border="1" margin-left="0.2cm"
-								padding-top="0.2cm">
+										   padding-top="0.2cm">
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">
 										Address
 									</fo:inline>
@@ -272,15 +272,15 @@
 						</fo:table-row>
 						<fo:table-row>
 							<fo:table-cell border="1" margin-left="0.2cm"
-								padding-top="0.2cm">
+										   padding-top="0.2cm">
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline line-height="110%" hyphenate="false"
-										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-										padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-										padding-bottom="0.035cm">
+											   language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+											   padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+											   padding-bottom="0.035cm">
 										<fo:inline font-weight="bold">
 											Phone :
 										</fo:inline>
@@ -288,9 +288,9 @@
 									</fo:inline>
 									<xsl:text>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</xsl:text>
 									<fo:inline line-height="110%" hyphenate="false"
-										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-										padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-										padding-bottom="0.035cm">
+											   language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+											   padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+											   padding-bottom="0.035cm">
 										<fo:inline font-weight="bold">
 											Portable :
 										</fo:inline>
@@ -298,9 +298,9 @@
 									</fo:inline>
 									<xsl:text>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</xsl:text>
 									<fo:inline line-height="110%" hyphenate="false"
-										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-										padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-										padding-bottom="0.035cm">
+											   language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+											   padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+											   padding-bottom="0.035cm">
 										<fo:inline font-weight="bold">
 											email :
 										</fo:inline>
@@ -311,11 +311,11 @@
 						</fo:table-row>
 						<fo:table-row>
 							<fo:table-cell border="1" margin-left="0.2cm"
-								padding-top="0.2cm">
+										   padding-top="0.2cm">
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold" font-size="11pt">
 										A
 										STUDENT OF
@@ -326,9 +326,9 @@
 									</fo:inline>
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-style="italic" font-size="8pt">
 										(ETUDIANT
 										EN(intitulé de la formation ou du cursus de
@@ -337,20 +337,20 @@
 									</fo:inline>
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<xsl:value-of select="etape/libelle" />
 								</fo:block>
 							</fo:table-cell>
 						</fo:table-row>
 						<fo:table-row>
 							<fo:table-cell border="1" margin-left="0.2cm"
-								padding-top="0.2cm">
+										   padding-top="0.2cm">
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold" font-size="11pt">
 										AT
 									</fo:inline>
@@ -395,16 +395,16 @@
 					</fo:inline>
 				</fo:block>
 				<fo:table table-layout="fixed" width="100%"
-					border="0.018cm solid #000000">
+						  border="0.018cm solid #000000">
 					<fo:table-column column-width="proportional-column-width(1)" />
 					<fo:table-body>
 						<fo:table-row>
 							<fo:table-cell>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									margin-left="0.5cm" padding-top="0.3cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  margin-left="0.5cm" padding-top="0.3cm">
 									<fo:inline font-size="9pt" font-weight="bold"
-										text-decoration="underline">
+											   text-decoration="underline">
 										INTERNSHIP DURATION
 									</fo:inline>
 									<fo:inline font-size="8pt" font-style="italic">
@@ -417,9 +417,9 @@
 						<fo:table-row>
 							<fo:table-cell padding-top="0.2cm">
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">
 										Internship start and end dates
 									</fo:inline>
@@ -433,9 +433,9 @@
 									</fo:inline>
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">
 										From
 									</fo:inline>
@@ -481,9 +481,9 @@
 						<fo:table-row>
 							<fo:table-cell padding-top="0.2cm">
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">
 										Representing a total duration
 										of
@@ -494,9 +494,9 @@
 									</fo:inline>
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm" font-style="italic">
+										  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm" font-style="italic">
 									(Représentant une durée
 									totale de ...
 									Nombre de Mois
@@ -506,233 +506,237 @@
 								</fo:block>
 							</fo:table-cell>
 						</fo:table-row>
-						<fo:table-row>
-							<fo:table-cell padding-top="0.2cm">
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm" margin-left="0.5cm" text-align="justify">
-									The
-									total duration of the internship is assessed in consideration
-									of the actual presence of the student
-									within the organization,
-									subject any authorized time off and
-									leaves of absence granted,
-									as provided
-									under article L.124-13 of the education code (art.
-									L.124-18 of
-									the education code). Each period of
-									at least 7 hours
-									of presence, whether consecutive or otherwise,
-									is
-									considered
-									equivalent to one day of
-									internship work, and each period equal
-									to at least 22 days of presence,
-									consecutive or otherwise, is
-									considered
-									equivalent to one month.
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									margin-left="0.5cm" text-align="justify" font-style="italic"
-									background-color="#E6E6E6">
-									(La durée totale du stage
-									est appréciée en
-									tenant compte de la
-									présence effective du
-									stagiaire dans
-									l'organisme, sous réserve
-									des droits à congés et
-									autorisations
-									d'absence prévus à
-									l'article L.124-13 du code de
-									l'éducation
-									(art. L.124-18 du code
-									de l'éducation). Chaque
-									période au moins
-									égale à 7 heures de
-									présence consécutives ou
-									non est considérée
-									comme équivalente à
-									un jour de stage et
-									chaque période au moins
-									égale à 22 jours de
-									présence
-									consécutifs
-									ou non est considérée
-									comme équivalente à
-									un mois.)
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
-						<fo:table-row>
-							<fo:table-cell padding-top="0.2cm" border-top="0.018cm solid #000000">
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
-									<fo:leader />
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									margin-left="0.5cm">
-									<fo:inline font-weight="bold" text-decoration="underline">
-										TOTAL
-										AMOUNT OF STIPEND PAID TO THE INTERN :
-									</fo:inline>
-									<fo:inline font-size="8pt">
-										(MONTANT DE LA GRATIFICATION
-										VERSÉE AU STAGIAIRE)
-									</fo:inline>
-								</fo:block>
-								<!-- <fo:block line-height="110%" language="fr" country="FR" -->
-								<!-- font-size="9pt" font-family="Times New Roman,serif" -->
-								<!-- padding-top="0.2cm"> -->
-								<!-- <fo:inline> -->
-								<!-- Le stagiaire a perçu une gratification de stage pour un -->
-								<!-- montant total de -->
-								<!-- <xsl:variable name="nb-montant-gratification" -->
-								<!-- select="montant-gratification" /> -->
-								<!-- <xsl:choose> -->
-								<!-- <xsl:when test='$nb-montant-gratification=""'> -->
-								<!-- .................................. &#8364; -->
-								<!-- </xsl:when> -->
-								<!-- <xsl:otherwise> -->
-								<!-- <fo:inline font-weight="bold"> -->
-								<!-- <xsl:value-of select="montant-gratification" /> -->
-								<!-- </fo:inline> -->
-								<!-- euros -->
-								<!-- <xsl:text> </xsl:text> -->
-								<!-- <xsl:value-of select="unite-gratification/libelle" /> -->
-								<!-- par mois -->
-								<!-- </xsl:otherwise> -->
-								<!-- </xsl:choose> -->
-								<!-- </fo:inline> -->
-								<!-- </fo:block> -->
-								<fo:block line-height="110%" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									padding-top="0.2cm">
-									The intern has received an internship stipend
-									<fo:inline font-weight="bold"> totaling
-									</fo:inline>
-									..................................
-									&#8364;
-								</fo:block>
-								<fo:block line-height="110%" language="fr" country="FR"
-									font-size="8pt" font-family="Times New Roman,serif" font-style="italic">
-									(Le stagiaire a perçu une
-									gratification de stage
-									pour un
-									montant
-									total de)
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
-									<fo:leader />
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
+						<xsl:if test="type-convention/code-ctrl != 'FC'">
+							<fo:table-row>
+								<fo:table-cell padding-top="0.2cm">
+									<fo:block line-height="110%" hyphenate="false"
+											  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+											  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+											  padding-bottom="0.035cm" margin-left="0.5cm" text-align="justify">
+										The
+										total duration of the internship is assessed in consideration
+										of the actual presence of the student
+										within the organization,
+										subject any authorized time off and
+										leaves of absence granted,
+										as provided
+										under article L.124-13 of the education code (art.
+										L.124-18 of
+										the education code). Each period of
+										at least 7 hours
+										of presence, whether consecutive or otherwise,
+										is
+										considered
+										equivalent to one day of
+										internship work, and each period equal
+										to at least 22 days of presence,
+										consecutive or otherwise, is
+										considered
+										equivalent to one month.
+									</fo:block>
+									<fo:block line-height="110%" hyphenate="false"
+											  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+											  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+											  margin-left="0.5cm" text-align="justify" font-style="italic"
+											  background-color="#E6E6E6">
+										(La durée totale du stage
+										est appréciée en
+										tenant compte de la
+										présence effective du
+										stagiaire dans
+										l'organisme, sous réserve
+										des droits à congés et
+										autorisations
+										d'absence prévus à
+										l'article L.124-13 du code de
+										l'éducation
+										(art. L.124-18 du code
+										de l'éducation). Chaque
+										période au moins
+										égale à 7 heures de
+										présence consécutives ou
+										non est considérée
+										comme équivalente à
+										un jour de stage et
+										chaque période au moins
+										égale à 22 jours de
+										présence
+										consécutifs
+										ou non est considérée
+										comme équivalente à
+										un mois.)
+									</fo:block>
+								</fo:table-cell>
+							</fo:table-row>
+							<fo:table-row>
+								<fo:table-cell padding-top="0.2cm" border-top="0.018cm solid #000000">
+									<fo:block line-height="110%" hyphenate="false"
+											  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
+										<fo:leader />
+									</fo:block>
+									<fo:block line-height="110%" hyphenate="false"
+											  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+											  margin-left="0.5cm">
+										<fo:inline font-weight="bold" text-decoration="underline">
+											TOTAL
+											AMOUNT OF STIPEND PAID TO THE INTERN :
+										</fo:inline>
+										<fo:inline font-size="8pt">
+											(MONTANT DE LA GRATIFICATION
+											VERSÉE AU STAGIAIRE)
+										</fo:inline>
+									</fo:block>
+									<!-- <fo:block line-height="110%" language="fr" country="FR" -->
+									<!-- font-size="9pt" font-family="Times New Roman,serif" -->
+									<!-- padding-top="0.2cm"> -->
+									<!-- <fo:inline> -->
+									<!-- Le stagiaire a perçu une gratification de stage pour un -->
+									<!-- montant total de -->
+									<!-- <xsl:variable name="nb-montant-gratification" -->
+									<!-- select="montant-gratification" /> -->
+									<!-- <xsl:choose> -->
+									<!-- <xsl:when test='$nb-montant-gratification=""'> -->
+									<!-- .................................. &#8364; -->
+									<!-- </xsl:when> -->
+									<!-- <xsl:otherwise> -->
+									<!-- <fo:inline font-weight="bold"> -->
+									<!-- <xsl:value-of select="montant-gratification" /> -->
+									<!-- </fo:inline> -->
+									<!-- euros -->
+									<!-- <xsl:text> </xsl:text> -->
+									<!-- <xsl:value-of select="unite-gratification/libelle" /> -->
+									<!-- par mois -->
+									<!-- </xsl:otherwise> -->
+									<!-- </xsl:choose> -->
+									<!-- </fo:inline> -->
+									<!-- </fo:block> -->
+									<fo:block line-height="110%" language="fr" country="FR"
+											  font-size="10pt" font-family="Times New Roman,serif"
+											  padding-top="0.2cm">
+										The intern has received an internship stipend
+										<fo:inline font-weight="bold"> totaling
+										</fo:inline>
+										..................................
+										&#8364;
+									</fo:block>
+									<fo:block line-height="110%" language="fr" country="FR"
+											  font-size="8pt" font-family="Times New Roman,serif" font-style="italic">
+										(Le stagiaire a perçu une
+										gratification de stage
+										pour un
+										montant
+										total de)
+									</fo:block>
+									<fo:block line-height="110%" hyphenate="false"
+											  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
+										<fo:leader />
+									</fo:block>
+								</fo:table-cell>
+							</fo:table-row>
+						</xsl:if>
 					</fo:table-body>
 				</fo:table>
 
 
 				<fo:table table-layout="fixed" width="100%" margin-left="0cm"
-					padding-top="0.5cm">
+						  padding-top="0.5cm">
 					<fo:table-column column-width="proportional-column-width(1)" />
 					<fo:table-column column-width="proportional-column-width(1)" />
 					<fo:table-body>
 						<fo:table-row>
 							<fo:table-cell>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm" font-style="italic" text-align="justify">
-									<fo:inline font-weight="bold">
-										The course certificate
-									</fo:inline>
-									is an indispensable element, for consideration, subject to
-									the
-									payment of a fee, of the internship
-									work in determining
-									retirement benefits. Retirement pensions
-									legislation (Law No.
-									2014-40 of January 20, 2014)
-									grants students
-									<fo:inline font-weight="bold">
-										whose internship work is
-										allocated a stipend
-									</fo:inline>
-									the possibility of having such work validated
-									<fo:inline font-weight="bold">within two calendar quarters,
-									</fo:inline>
-									subject to the
-									<fo:inline font-weight="bold">payment of a fee.
-									</fo:inline>
-									The
-									<fo:inline font-weight="bold">The application is to be made
-										by the student within the two years
-									</fo:inline>
-									of the end of the internship, and
-									<fo:inline font-weight="bold">requires the presentation of
-										the internship certificate
-									</fo:inline>
-									indicating the total duration of the internship
-									and the total
-									amount of the
-									stipends paid. Specific information
-									regarding
-									the
-									fee to be paid and the
-									procedure to follow may be requested from
-									the
-									Social Security administration
-									(Social Security Code, art.
-									L.351-17 -
-									Education Code, art. D.124-9).
-								</fo:block>
+								<xsl:if test="type-convention/code-ctrl != 'FC'">
+									<fo:block line-height="110%" hyphenate="false"
+											  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+											  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+											  padding-bottom="0.035cm" font-style="italic" text-align="justify">
+										<fo:inline font-weight="bold">
+											The course certificate
+										</fo:inline>
+										is an indispensable element, for consideration, subject to
+										the
+										payment of a fee, of the internship
+										work in determining
+										retirement benefits. Retirement pensions
+										legislation (Law No.
+										2014-40 of January 20, 2014)
+										grants students
+										<fo:inline font-weight="bold">
+											whose internship work is
+											allocated a stipend
+										</fo:inline>
+										the possibility of having such work validated
+										<fo:inline font-weight="bold">within two calendar quarters,
+										</fo:inline>
+										subject to the
+										<fo:inline font-weight="bold">payment of a fee.
+										</fo:inline>
+										The
+										<fo:inline font-weight="bold">The application is to be made
+											by the student within the two years
+										</fo:inline>
+										of the end of the internship, and
+										<fo:inline font-weight="bold">requires the presentation of
+											the internship certificate
+										</fo:inline>
+										indicating the total duration of the internship
+										and the total
+										amount of the
+										stipends paid. Specific information
+										regarding
+										the
+										fee to be paid and the
+										procedure to follow may be requested from
+										the
+										Social Security administration
+										(Social Security Code, art.
+										L.351-17 -
+										Education Code, art. D.124-9).
+									</fo:block>
 
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="7pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm" font-style="italic" text-align="justify"
-									background-color="#E6E6E6">
-									(L'attestation de stage est indispensable pour
-									pouvoir, sous
-									réserve du versement d'une
-									cotisation, faire
-									prendre en compte
-									le stage dans les droits à
-									retraite. La
-									législation sur les
-									retraites (loi n°2014-40 du 20
-									Janvier 2014)
-									ouvre aux étudiants
-									dont le stage a été gratifié, la possibilité
-									de faire valider
-									celui-ci dans la limite de deux trimestres,
-									sous réserve du
-									versement d'une cotisation. La demande est à
-									faire par
-									l'étudiant dans les deux années
-									suivant la fin du stage
-									et sur
-									présentation obligatoire de l'attestation de stage
-									mentionnant
-									la durée totale du stage et le montant total de la
-									gratification perçue. Les informations
-									précises sur la
-									cotisation à verser et sur la procédure à suivre
-									sont à demander
-									auprès de la Sécurité sociale (code de la sécurité sociale art.
-									L.351-17 - code de
-									l'éducation art.D.124-9).)
-								</fo:block>
+									<fo:block line-height="110%" hyphenate="false"
+											  language="fr" country="FR" font-size="7pt" font-family="Times New Roman,serif"
+											  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+											  padding-bottom="0.035cm" font-style="italic" text-align="justify"
+											  background-color="#E6E6E6">
+										(L'attestation de stage est indispensable pour
+										pouvoir, sous
+										réserve du versement d'une
+										cotisation, faire
+										prendre en compte
+										le stage dans les droits à
+										retraite. La
+										législation sur les
+										retraites (loi n°2014-40 du 20
+										Janvier 2014)
+										ouvre aux étudiants
+										dont le stage a été gratifié, la possibilité
+										de faire valider
+										celui-ci dans la limite de deux trimestres,
+										sous réserve du
+										versement d'une cotisation. La demande est à
+										faire par
+										l'étudiant dans les deux années
+										suivant la fin du stage
+										et sur
+										présentation obligatoire de l'attestation de stage
+										mentionnant
+										la durée totale du stage et le montant total de la
+										gratification perçue. Les informations
+										précises sur la
+										cotisation à verser et sur la procédure à suivre
+										sont à demander
+										auprès de la Sécurité sociale (code de la sécurité sociale art.
+										L.351-17 - code de
+										l'éducation art.D.124-9).)
+									</fo:block>
+								</xsl:if>
 							</fo:table-cell>
 							<fo:table-cell>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold" font-size="11pt">
 										MADE IN
 									</fo:inline>
@@ -743,9 +747,9 @@
 								</fo:block>
 
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.1cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.1cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold" font-size="11pt">
 										THIS DAY THE
 									</fo:inline>
@@ -756,16 +760,16 @@
 								</fo:block>
 
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.3cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.3cm"
+										  padding-bottom="0.035cm">
 									Name, position and signature of the
 									representative of the host organization
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.1cm"
-									padding-bottom="0.035cm" font-style="italic">
+										  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.1cm"
+										  padding-bottom="0.035cm" font-style="italic">
 									(Nom, fonction et signature
 									du représentant de
 									l'organisme
@@ -773,15 +777,15 @@
 								</fo:block>
 
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-top="90pt" text-align="center">
+										  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+										  padding-top="90pt" text-align="center">
 									Date of printing :
 									<xsl:value-of
-										select="java:format (java:java.text.SimpleDateFormat.new('dd-MM-yyyy kk:mm:ss'), java:java.util.Date.new())" />
+											select="java:format (java:java.text.SimpleDateFormat.new('dd-MM-yyyy kk:mm:ss'), java:java.util.Date.new())" />
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="7pt" font-family="Times New Roman,serif"
-									text-align="center" font-style="italic">
+										  language="fr" country="FR" font-size="7pt" font-family="Times New Roman,serif"
+										  text-align="center" font-style="italic">
 									(Date d'impression : ...)
 								</fo:block>
 							</fo:table-cell>
@@ -794,9 +798,9 @@
 
 	<!-- mises en majuscules -->
 	<xsl:variable name='lowers'
-		select='"abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ"' />
+				  select='"abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ"' />
 	<xsl:variable name='uppers'
-		select='"ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß"' />
+				  select='"ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß"' />
 	<!-- majuscule pour 1er lettre de chaque terme (cas prenom composés) -->
 	<xsl:template name="start_upper">
 		<xsl:param name="prenom" />
@@ -810,9 +814,9 @@
 		<xsl:variable name="clean-temp-prenom">
 			<xsl:choose>
 				<xsl:when
-					test="substring($temp-prenom, string-length($temp-prenom),  string-length($temp-prenom) +1  ) = '-'">
+						test="substring($temp-prenom, string-length($temp-prenom),  string-length($temp-prenom) +1  ) = '-'">
 					<xsl:value-of
-						select='substring($temp-prenom,1, string-length($temp-prenom)-1 )' />
+							select='substring($temp-prenom,1, string-length($temp-prenom)-1 )' />
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:value-of select='$temp-prenom' />
@@ -821,7 +825,7 @@
 		</xsl:variable>
 		<xsl:for-each select='str:split($clean-temp-prenom, " ")'>
 			<xsl:value-of
-				select='concat(
+					select='concat(
           translate(substring(., 1, 1), $lowers, $uppers),
           substring(., 2),
           " "
@@ -832,7 +836,7 @@
 		<xsl:param name="prenom" />
 		<xsl:for-each select='str:split($prenom, "-")'>
 			<xsl:value-of
-				select='concat(
+					select='concat(
           translate(substring(., 1, 1), $lowers, $uppers),
           translate(substring(., 2),$uppers,$lowers),
           "-"
