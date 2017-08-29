@@ -98,7 +98,7 @@
                         <h:selectOneMenu id="rechTypeStructure" required="true" styleClass="customPstage fix-selectOneMenu"
                                          value="#{rechercheController.rechTypeEtablissement}"
                                          converter="#{typeStructureConverter}">
-                            <f:selectItems value="#{nomenclatureController.typesStructure}" />
+                            <f:selectItems value="#{nomenclatureController.typesStructureSansSiret}" />
                         </h:selectOneMenu>
                         <p:message for="rechTypeStructure"/>
                     </t:htmlTag>

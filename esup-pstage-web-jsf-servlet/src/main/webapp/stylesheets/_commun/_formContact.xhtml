@@ -25,7 +25,6 @@
                     <h:selectOneMenu id="civilite" effect="none" styleClass="customPstage fix-selectOneMenu"
                                      value="#{etablissementController.formContact.civilite}"
                                      converter="#{civiliteConverter}" required="true">
-                        <f:selectItem itemValue="" />
                         <f:selectItems value="#{nomenclatureController.civilites}" />
                         <p:ajax event="valueChange" update="msgCiv" />
                     </h:selectOneMenu>

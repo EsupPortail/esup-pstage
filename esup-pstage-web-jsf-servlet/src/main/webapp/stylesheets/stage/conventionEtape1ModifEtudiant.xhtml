@@ -291,7 +291,7 @@
                                 </t:div>
                                 <t:div styleClass="fz09" rendered="#{not empty conventionController.etudiantRef.volumeHoraireFormation
                                     and conventionController.etudiantRef.volumeHoraireFormation != '0'}">
-                                    <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fontBlue2 mrf5" />
+                                    <t:htmlTag value="i" styleClass="fa fa-info-circle fontBlue2 mrf5" />
                                     <h:outputText value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.INFO']} (#{conventionController.etudiantRef.volumeHoraireFormation})" />
                                 </t:div>
 
@@ -311,6 +311,22 @@
                                                   value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.AUCUNE_INSCRIPTION_PAYEE']}" />
                                 </t:div>
                             </t:div>
+
+                            <p:outputPanel id="opFCE">
+                                <t:div styleClass="textCenter mb10" rendered="#{facesContext.maximumSeverity != null}">
+                                    <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
+                                    <h:outputText value="#{msgs['FORM.FORMERROR']}" styleClass="fontBold mr5 ml5"/>
+                                    <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
+                                </t:div>
+                            </p:outputPanel>
+
+                            <t:div styleClass="mt20 textCenter">
+                                <p:commandButton id="modifEtudiant"
+                                                 value="#{msgs['FORM.MODIFIER']}"
+                                                 action="#{conventionController.modifierEtudiantDetail}"
+                                                 rendered="#{not empty conventionController.convention.etudiant}"
+                                                 update="@form" />
+                            </t:div>
                         </t:div>
 
                         <t:div styleClass="textCenter mt20 mb30"
@@ -318,22 +334,6 @@
                             <t:htmlTag value="i" styleClass="fa fa-ban fz16 fontRed"/>
                             <h:outputText styleClass="ml5 fontRed fz16"
                                           value="#{msgs['CONVENTION.CREERCONVENTION.AUCUNE_INSCRIPTION']}" />
-                        </t:div>
-
-                        <p:outputPanel id="opFCE">
-                            <t:div styleClass="textCenter mb10" rendered="#{facesContext.maximumSeverity != null}">
-                                <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
-                                <h:outputText value="#{msgs['FORM.FORMERROR']}" styleClass="fontBold mr5 ml5"/>
-                                <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
-                            </t:div>
-                        </p:outputPanel>
-
-                        <t:div styleClass="mt20 textCenter">
-                            <p:commandButton id="modifEtudiant"
-                                             value="#{msgs['FORM.MODIFIER']}"
-                                             action="#{conventionController.modifierEtudiantDetail}"
-                                             rendered="#{not empty conventionController.convention.etudiant}"
-                                             update="@form" />
                         </t:div>
 
                         <t:div styleClass="mt20 mb20">

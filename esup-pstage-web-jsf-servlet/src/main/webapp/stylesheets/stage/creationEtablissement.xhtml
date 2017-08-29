@@ -17,7 +17,7 @@
                 <p:message for="formAjoutEtab"/>
 
                 <t:div styleClass="textCenter mt10">
-                    <p:commandButton value="#{msgs['FORM.CREER']}"
+                    <p:commandButton value="#{msgs['FORM.CREER']}" update="@form"
                                      action="#{etablissementController.ajouterEtablissement}" />
                 </t:div>
 

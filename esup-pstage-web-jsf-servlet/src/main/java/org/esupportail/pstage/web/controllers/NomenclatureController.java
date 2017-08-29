@@ -1820,6 +1820,21 @@ public class NomenclatureController extends AbstractContextAwareController {
 
 		return ls;
 	}
+
+	/**
+	 * @return List<SelectItem>
+	 */
+	public List<SelectItem> getTypesStructureSansSiret(){
+		List<SelectItem> ls = new ArrayList<>();
+		List<TypeStructureDTO> l = getNomenclatureDomainService().getTypesStructure();
+		if(l!=null){
+			for(TypeStructureDTO o : l){
+				ls.add(new SelectItem(o,o.getLibelle()));
+			}
+		}
+
+		return ls;
+	}
 	
 	/**
 	 * @return List<SelectItem>

@@ -22,12 +22,12 @@
 
                                 <t:div style="height:10px;" />
 
-                                <p:fieldset legend="General" styleClass="mt10">
+                                <p:fieldset legend="#{msgs['GENERAL']}" styleClass="mt10">
                                     <t:htmlTag value="ul" styleClass="formUL columns-2">
                                         <t:div styleClass="column">
                                             <t:htmlTag value="li">
                                                 <t:div>
-                                                    <t:htmlTag id="infoBulleRs" value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2">
+                                                    <t:htmlTag id="infoBulleRs" value="i" styleClass="fa fa-info-circle fz13 fontBlue2">
                                                         <p:tooltip for="infoBulleRs" value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
                                                     </t:htmlTag>
                                                     <h:outputText value="#{msgs['STRUCTURE.RAISON_SOCIALE']} *"
@@ -122,7 +122,7 @@
                                     <t:htmlTag value="ul" styleClass="formUL columns-2">
                                         <t:div styleClass="column">
                                             <t:htmlTag value="li">
-                                                <t:htmlTag id="infoBulleApe" value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2">
+                                                <t:htmlTag id="infoBulleApe" value="i" styleClass="fa fa-info-circle fz13 fontBlue2">
                                                     <p:tooltip for="infoBulleApe" value="#{msgs['INFOSBULLES.CODE_APE']}" escape="false"/>
                                                 </t:htmlTag>
                                                 <h:outputText value="#{msgs['STRUCTURE.CODE_NAF']}"
@@ -368,7 +368,7 @@
                                 </p:fieldset>
 
                                 <t:div styleClass="mt10 mb10">
-                                    <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fontBlue2" />
+                                    <t:htmlTag value="i" styleClass="fa fa-info-circle fontBlue2" />
                                     <h:outputText id="dateCreationAccord" styleClass="fontBold mlf5"
                                                   value="#{msgs['ACCORD.DATECREATION']}" escape="false" />
                                     <h:outputText value="#{adminController.structureAccord.accordPartenariat.dateCreation}">

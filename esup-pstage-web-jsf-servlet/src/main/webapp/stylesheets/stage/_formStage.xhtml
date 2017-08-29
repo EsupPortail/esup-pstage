@@ -4,7 +4,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
-    <p:fieldset legend="#{msgs['CONVENTION.LANGUECONVENTION']}">
+    <p:fieldset legend="#{msgs['CONVENTION.LANGUECONVENTION']}"
+                rendered="#{!conventionController.creationConventionFormationContinue}">
         <t:div styleClass="mt10 mb10">
             <h:selectOneMenu id="langueConvention" required="true"
                              effect="none" styleClass="customPstage fix-selectOneMenu"
@@ -121,8 +122,8 @@
                     <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.INTERRUPTION']} " />
                     <p:selectOneRadio id="interruptionStage"
                                       value="#{conventionController.convention.interruptionStage}">
-                        <f:selectItem itemLabel="oui" itemValue="true" />
-                        <f:selectItem itemLabel="non" itemValue="false" />
+                        <f:selectItem itemLabel="Oui" itemValue="true" />
+                        <f:selectItem itemLabel="Non" itemValue="false" noSelectionOption="true" />
                         <p:ajax event="valueChange" update="interruptPanel" />
                     </p:selectOneRadio>
                     <p:message for="interruptionStage"/>

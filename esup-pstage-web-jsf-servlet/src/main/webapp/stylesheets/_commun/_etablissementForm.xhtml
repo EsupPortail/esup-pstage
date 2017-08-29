@@ -7,7 +7,7 @@
 
     <ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
 
-    <p:fieldset legend="General" styleClass="mt10">
+    <p:fieldset legend="#{msgs['GENERAL']}" styleClass="mt10">
         <t:htmlTag value="ul" styleClass="formUL columns-2">
             <t:div styleClass="column">
                 <t:htmlTag value="li">
@@ -309,7 +309,7 @@
                                          value="#{etablissementController.formStructureTmpPays}"
                                          converter="#{paysConverter}">
                             <p:ajax event="valueChange"
-                                    update="opFlagNC, opSiretOblig, opCodePostal, opCommune, olSiret, siret, arrows, olActprinc, msgPaysNC" />
+                                    update="opFlagNC, opSiretOblig, opCodePostal, opCommune, olSiret, siret, arrows, olActprinc, msgPaysNC, msgSiret" />
                             <f:selectItem itemValue="" />
                             <f:selectItems value="#{nomenclatureController.pays}" />
                         </h:selectOneMenu>

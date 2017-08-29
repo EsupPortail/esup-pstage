@@ -22,17 +22,17 @@
                     <h:outputFormat value="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
                                     rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1}"
                                     escape="false" styleClass="ml5">
-                        <f:param
-                                value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
+                        <f:param value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
                     </h:outputFormat>
                     <h:outputText styleClass="fontItalic fontGreen fontBold fz09"
                                   value="#{msgs['GENERAL.LIGNE.SELECTION']}" />
 
-                    <p:dataTable id="rechercheConventionDataTable"
+                    <p:dataTable id="rechercheConventionDataTable" widgetVar="rechercheConventionDataTable"
                                  value="#{conventionController.rechercheConventionPaginator.liste}"
                                  var="convention" rows="10" rowHover="true" styleClass="mt5"  paginator="true" tableStyle="table-layout:auto"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15,20" reflow="true" paginatorAlwaysVisible="false"
+                                 multiViewState="true"
                                  rowKey="#{convention.idConvention}" paginatorPosition="bottom"
                                  selectionMode="single" selection="#{conventionController.currentConvention}"
                                  rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer
@@ -107,10 +107,22 @@
                             <f:facet name="header">
                                 <h:outputText value="#{msgs['RECHERCHECONVENTION.VALIDATION']}" />
                             </f:facet>
-                            <h:outputText value="#{msgs['FORM.NON']}"
-                                          rendered="#{convention.validationConvention == false}" />
-                            <h:outputText value="#{msgs['FORM.OUI']}"
-                                          rendered="#{convention.validationConvention == true}" />
+
+                            <t:div styleClass="textCenter">
+                                <p:commandLink id="validConvention"
+                                               action="#{conventionController.goToValidConvention}"
+                                               style="opacity: 1;"
+                                               disabled="#{!welcomeController.enseignantTuteur}" styleClass="ml5">
+                                    <h:outputText value="#{msgs['FORM.OUI']}"
+                                                  rendered="#{convention.validationConvention}" />
+                                    <h:outputText value="#{msgs['FORM.NON']}"
+                                                  rendered="#{!convention.validationConvention}" />
+                                    <f:setPropertyActionListener value="#{convention}"
+                                                                 target="#{conventionController.currentConvention}" />
+                                    <p:tooltip for="validConvention" value="#{msgs['RECHERCHECONVENTION.INFOS.TUTEUR.VALIDATION']}"
+                                               rendered="#{welcomeController.enseignantTuteur}"  />
+                                </p:commandLink>
+                            </t:div>
                         </p:column>
 
                         <p:column sortBy="#{convention.nbAvenant}" sortFunction="#{conventionController.sortyByNbAvenant}"
@@ -130,22 +142,6 @@
                             </f:facet>
                             <h:outputText value="#{convention.annee}"
                                           rendered="#{not empty convention.annee}" />
-                        </p:column>
-
-                        <p:column styleClass="background-color-grey textCenter">
-                            <f:facet name="header">
-                                <h:outputText value="#{msgs['RECHERCHECONVENTION.VALIDATION']}" />
-                            </f:facet>
-                            <t:div styleClass="textCenter">
-                                <p:commandLink id="validConvention"
-                                               rendered="#{welcomeController.enseignantTuteur and sessionController.validationPedagogique and !convention.validationPedagogique}"
-                                               action="#{conventionController.goToValidConvention}" styleClass="ml5">
-                                    <t:htmlTag value="i" styleClass="fa fa-check fz16 fontBlue2"/>
-                                    <f:setPropertyActionListener value="#{convention}"
-                                                                 target="#{conventionController.currentConvention}" />
-                                    <p:tooltip for="validConvention" value="#{msgs['RECHERCHECONVENTION.INFOS.TUTEUR.VALIDATION']}" />
-                                </p:commandLink>
-                            </t:div>
                         </p:column>
                     </p:dataTable>
                     <t:div styleClass="mt20">

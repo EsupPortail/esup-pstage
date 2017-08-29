@@ -2004,6 +2004,7 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return boolean
 	 */
 	public boolean conventionCtrlStage(String nomForm) {
+		boolean ctrlInfosStage = true;
 
 		// la date de fin de stage doit etre <= date de debut
 		if (this.convention.getDateDebutStage() != null
@@ -2012,7 +2013,7 @@ public class ConventionController extends AbstractContextAwareController {
 					this.convention.getDateDebutStage())) {
 				addErrorMessage(nomForm + ":dateFinStage",
 						"CONVENTION.CREERCONVENTION.DATEFIN.FINAVANTDEBUT");
-				return false;
+				ctrlInfosStage = false;
 			}
 
 			// Controle des dates d'interruption
@@ -2021,13 +2022,13 @@ public class ConventionController extends AbstractContextAwareController {
 				if (this.convention.getDateDebutInterruption() == null) {
 					addErrorMessage(nomForm + ":dateDebutInterruption",
 							"CONVENTION.CREERCONVENTION.DATEDEBINTERRUP.OBLIGATOIRE");
-					return false;
+					ctrlInfosStage = false;
 				}
 				// date fin interruption obligatoire , si interruption
 				if (this.convention.getDateFinInterruption() == null) {
 					addErrorMessage(nomForm + ":dateFinInterruption",
 							"CONVENTION.CREERCONVENTION.DATEFININTERRUP.OBLIGATOIRE");
-					return false;
+					ctrlInfosStage = false;
 				}
 
 				// Interruption AU COURS du stage
@@ -2035,18 +2036,18 @@ public class ConventionController extends AbstractContextAwareController {
 						|| this.convention.getDateDebutInterruption().after(this.convention.getDateFinStage())) {
 					addErrorMessage(nomForm + ":dateDebutInterruption",
 							"CONVENTION.CREERCONVENTION.DATEINTERRUP.ERREUR");
-					return false;
+					ctrlInfosStage = false;
 				}
 				if (this.convention.getDateFinInterruption().before(this.convention.getDateDebutStage())
 						|| this.convention.getDateFinInterruption().after(this.convention.getDateFinStage())) {
 					addErrorMessage(nomForm + ":dateFinInterruption",
 							"CONVENTION.CREERCONVENTION.DATEINTERRUP.ERREUR");
-					return false;
+					ctrlInfosStage = false;
 				}
 				if (this.convention.getDateFinInterruption().before(this.convention.getDateDebutInterruption())) {
 					addErrorMessage(nomForm + ":dateFinInterruption",
 							"CONVENTION.CREERCONVENTION.DATEFININTERRUP.FINAVANTDEBUT");
-					return false;
+					ctrlInfosStage = false;
 				}
 			}
 		}
@@ -2059,7 +2060,7 @@ public class ConventionController extends AbstractContextAwareController {
 						|| this.convention.getQuotiteTravail() == 0) {
 					addErrorMessage(nomForm + ":quotiteTravail",
 							"CONVENTION.CREERCONVENTION.QUOTITE.OBLIGATOIRE");
-					return false;
+					ctrlInfosStage = false;
 				}
 			}
 		}
@@ -2073,24 +2074,24 @@ public class ConventionController extends AbstractContextAwareController {
 					if (selUniteDureeGratification == null) {
 						addErrorMessage(nomForm + ":montantGratification",
 								"CONVENTION.CREERCONVENTION.UNITEDUREEGRATIFICATION.OBLIGATOIRE");
-						return false;
+						ctrlInfosStage = false;
 					} else if (selUniteGratification == null) {
 						// unite duree gratif obligatoire
 						addErrorMessage(nomForm + ":montantGratification",
 								"CONVENTION.CREERCONVENTION.UNITEGRATIFICATION.OBLIGATOIRE");
-						return false;
+						ctrlInfosStage = false;
 					}
 				}
 				if (selModeVersGratification == null) {
 					addErrorMessage(nomForm + ":modeVersGratification",
 							"CONVENTION.CREERCONVENTION.MODEVERSGRATIFICATION.OBLIGATOIRE");
-					return false;
+					ctrlInfosStage = false;
 				}
 				if (selModeVersGratification != null
 						&& "".equals(selModeVersGratification.getLibelle())) {
 					addErrorMessage(nomForm + ":modeVersGratification",
 							"CONVENTION.CREERCONVENTION.MODEVERSGRATIFICATION.OBLIGATOIRE");
-					return false;
+					ctrlInfosStage = false;
 				}
 				if (this.selMonnaieGratification != null
 						&& this.selMonnaieGratification != "autre"){
@@ -2104,7 +2105,7 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 		}
 
-		return true;
+		return ctrlInfosStage;
 	}
 
 	/**
@@ -2149,6 +2150,11 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 		convention.setModeValidationStage(this.selModeValidationStage);
 		convention.setIdModeValidationStage(this.selModeValidationStage.getId());
+
+		// En cas de creation "FC", nous n'avons pas de modele etranger, on met donc FR par defaut
+		if (this.creationConventionFormationContinue){
+			this.selLangueConvention = getNomenclatureDomainService().getLangueConventionDTOFromId("fr");
+		}
 		convention.setLangueConvention(selLangueConvention);
 		convention.setCodeLangueConvention(selLangueConvention.getCode());
 	}
@@ -4402,6 +4408,8 @@ public class ConventionController extends AbstractContextAwareController {
 				this.convention.setValidationConvention(true);
 				this.convention.setLoginValidation(getSessionController().getCurrentLogin());
 				this.convention.setDateValidation(new Date());
+				// reload du paginator de convention pour mettre a jour l'affichage dans la liste
+				this.reloadRechercheConventionPaginator();
 				// Envoi de mail - Verification de la propriete et de
 				// l'activation ou non de la validation pedagogique (pas d'envoi
 				// si c'est le cas)
@@ -4456,6 +4464,8 @@ public class ConventionController extends AbstractContextAwareController {
 			if (this.getConventionDomainService().updateConventionValidation(
 					conventionTmp)) {
 				this.convention.setValidationConvention(false);
+				// reload du paginator de convention pour mettre a jour l'affichage dans la liste
+				this.reloadRechercheConventionPaginator();
 				addWarnMessage("formSelConvention:validationConvention", "CONVENTION.INVALIDER.CONFIRMATION", this.convention.getIdConvention());
 			}
 		} catch (DataUpdateException ae) {

@@ -23,7 +23,8 @@
 
                         <t:htmlTag value="div" style="height:10px;" />
 
-                        <p:dataTable id="rechercheStructureDataTable" reflow="true"
+                        <p:dataTable id="rechercheStructureDataTable" widgetVar="rechercheStructureDataTable"
+                                     reflow="true"
                                      value="#{rechercheController.listeResultatsRechercheStructure}"
                                      var="varRechercheStructure" rows="15" rowHover="true"
                                      paginator="true" tableStyle="table-layout: auto;" paginatorPosition="bottom"
@@ -50,6 +51,7 @@
 
                         <p:commandButton value="#{msgs['GENERAL.RETOUR']}"
                                          immediate="true" update="@form"
+                                         onclick="PF('rechercheStructureDataTable').clearFilters()"
                                          styleClass="mt20 mb20">
                             <f:setPropertyActionListener value="false" target="#{rechercheController.rechercheEtabOk}"/>
                         </p:commandButton>

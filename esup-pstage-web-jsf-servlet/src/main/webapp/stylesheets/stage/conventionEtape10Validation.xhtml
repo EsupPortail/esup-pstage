@@ -256,6 +256,11 @@
                         </p:fieldset>
                     </t:div>
                 </t:fieldset>
+                <t:div rendered="#{conventionController.retourListe}" styleClass="mt20">
+                    <p:commandButton ajax="false"
+                                     value="#{msgs['RECHERCHECONVENTION.RETOURLISTE']}"
+                                     action="#{conventionController.goToRetourAction}" />
+                </t:div>
             </h:form>
         </p:panel>
     </ui:define>

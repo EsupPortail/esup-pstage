@@ -16,7 +16,9 @@
             <h:form id="formRechConvention" styleClass="ml40 block">
                 <p:fieldset legend="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE']}">
                     <ui:include src="/stylesheets/stage/_limitesResultats.xhtml" />
+
                     <t:htmlTag value="div" style="height: 10px;" />
+
                     <t:div styleClass="textCenter mb10">
                         <p:commandButton
                                 value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.BTN_TUTEUR']}"
@@ -33,6 +35,18 @@
                                 disabled="#{conventionController.ongletCourant == 3}"
                                 update="formRechConvention"
                                 action="#{conventionController.ongletEtape}" />
+                    </t:div>
+                    <t:div styleClass="legendLabel"
+                           rendered="#{!sessionController.validationPedagogique}">
+                        <h:outputText escape="false"
+                                      value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.INFO']}">
+                            <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+                        </h:outputText>
+                    </t:div>
+                    <t:div styleClass="legendLabel"
+                           rendered="#{sessionController.validationPedagogique}">
+                        <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+                        <h:outputText value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.INFO_PEDAGO']}" />
                     </t:div>
                     <t:div id="panelTuteur" styleClass="mt10"
                            rendered="#{conventionController.ongletCourant == 1}">
@@ -63,15 +77,6 @@
                             </t:htmlTag>
                         </p:fieldset>
                     </t:div>
-                    <h:outputText escape="false"
-                                  rendered="#{!sessionController.validationPedagogique}"
-                                  value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.INFO']}">
-                        <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
-                    </h:outputText>
-                    <t:htmlTag value="span" styleClass="legendLabel">
-                        <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
-                        <h:outputText value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.INFO_PEDAGO']}" />
-                    </t:htmlTag>
 
                     <t:div id="panelUfr" styleClass="mt10"
                            rendered="#{conventionController.ongletCourant == 2}">

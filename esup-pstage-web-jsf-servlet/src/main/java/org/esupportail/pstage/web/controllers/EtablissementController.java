@@ -647,8 +647,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Mise � jour de la liste Statut juridique en fonction de la liste Type de
-	 * Structure
+	 * Mise a jour de la liste Statut juridique en fonction de la liste Type de Structure
 	 *
 	 * @param event
 	 */
@@ -667,8 +666,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	public List<SelectItem> getStatutsJuridiquesFromIdTypeStructure(int id) {
 		List<SelectItem> ls = null;
-		List<StatutJuridiqueDTO> l = getNomenclatureDomainService()
-				.getStatutsJuridiquesFromIdTypeStructure(id);
+		List<StatutJuridiqueDTO> l = getNomenclatureDomainService().getStatutsJuridiquesFromIdTypeStructure(id);
 		if (l != null && !l.isEmpty()) {
 			ls = new ArrayList<SelectItem>();
 			for (StatutJuridiqueDTO o : l) {
