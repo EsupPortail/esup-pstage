@@ -3846,7 +3846,7 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String goToConventionModifEtudiant() {
-		String ret;
+		String ret = null;
 
 		// On met l'annee de la convention en selected
 		String[] anneeUniv = this.convention.getAnnee().split("/");
@@ -3857,36 +3857,50 @@ public class ConventionController extends AbstractContextAwareController {
 				this.convention.getEtudiant().getNumEtudiant(),
 				this.selectedAnneeUniv);
 		this.etudiantRef = this.resultatEtudiantRef;
-		// On conserve le volume horaire pour l'assigner a nouveau apres car, en tout cas pour
-		// la modification, il prévaut sur la récupération d'apogee (et loadInfos va l'ecraser avec cette valeur).
-		String volumeHoraireTmp = this.convention.getVolumeHoraireFormation();
-		this.loadInfosEtu();
-		this.convention.setVolumeHoraireFormation(volumeHoraireTmp);
 
-		this.etudiantRef.setThecodeUFR(this.convention.getUfr().getCode());
-		this.etudiantRef.setTheUfr(this.convention.getUfr().getLibelle());
+		if (this.etudiantRef != null) {
+			// On conserve le volume horaire pour l'assigner a nouveau apres car, en tout cas pour
+			// la modification, il prévaut sur la récupération d'apogee (et loadInfos va l'ecraser avec cette valeur).
+			String volumeHoraireTmp = this.convention.getVolumeHoraireFormation();
+			this.loadInfosEtu();
+			this.convention.setVolumeHoraireFormation(volumeHoraireTmp);
 
-		this.etudiantRef.setTheCodeEtape(this.convention.getEtape().getCode());
-		this.etudiantRef.setTheCodeVersionEtape(this.convention.getEtape().getCodeVersionEtape());
-		this.etudiantRef.setTheEtape(this.convention.getEtape().getLibelle());
+			this.etudiantRef.setThecodeUFR(this.convention.getUfr().getCode());
+			this.etudiantRef.setTheUfr(this.convention.getUfr().getLibelle());
 
-		this.etudiantRef.setTheCodeElp(this.convention.getCodeElp());
-		this.etudiantRef.setTheLibElp(this.convention.getLibelleELP());
-		this.etudiantRef.setTheCreditECTS(this.convention.getCreditECTS());
+			this.etudiantRef.setTheCodeEtape(this.convention.getEtape().getCode());
+			this.etudiantRef.setTheCodeVersionEtape(this.convention.getEtape().getCodeVersionEtape());
+			this.etudiantRef.setTheEtape(this.convention.getEtape().getLibelle());
 
-		this.selectedUfr = this.convention.getUfr().getCode();
-		this.selectedCodeElp = this.convention.getCodeElp();
+			this.etudiantRef.setTheCodeElp(this.convention.getCodeElp());
+			this.etudiantRef.setTheLibElp(this.convention.getLibelleELP());
+			this.etudiantRef.setTheCreditECTS(this.convention.getCreditECTS());
 
-		for (EtapeInscription etape : this.etudiantRef.getListeEtapeInscriptions()){
-			// Du a l'ajout des version etapes qui n'etait pas fait pour les anciennes conventions
-			// On doit retrouver le codeVersionEtape via la liste des etapes d'inscription
-			// de l'etudiant et non directement sur la convention
-			if (etape.getCodeEtp().equals(this.etudiantRef.getTheCodeEtape())){
-				this.selectedCodeEtape = (this.convention.getEtape().getCode()+";"+etape.getCodVrsVet());
+			this.selectedUfr = this.convention.getUfr().getCode();
+			this.selectedCodeElp = this.convention.getCodeElp();
+
+			for (EtapeInscription etape : this.etudiantRef.getListeEtapeInscriptions()) {
+				// Du a l'ajout des version etapes qui n'etait pas fait pour les anciennes conventions
+				// On doit retrouver le codeVersionEtape via la liste des etapes d'inscription
+				// de l'etudiant et non directement sur la convention
+				if (etape.getCodeEtp().equals(this.etudiantRef.getTheCodeEtape())) {
+					this.selectedCodeEtape = (this.convention.getEtape().getCode() + ";" + etape.getCodVrsVet());
+				}
 			}
+
+			// On rempli la liste des annees en selectItems
+			this.listeAnneesUniv = new ArrayList<>();
+			if (this.etudiantRef.getListeAnneesUniv() != null
+					&& !this.etudiantRef.getListeAnneesUniv().isEmpty()) {
+				for (String annee : this.etudiantRef.getListeAnneesUniv()) {
+					int anneeInt = Integer.parseInt(annee);
+					this.listeAnneesUniv.add(new SelectItem(anneeInt, anneeInt + "/"
+							+ (anneeInt + 1)));
+				}
+			}
+			ret = "conventionEtape1ModifEtudiant";
 		}
 
-		ret = "conventionEtape1ModifEtudiant";
 		return ret;
 	}
 
