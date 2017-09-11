@@ -271,7 +271,7 @@
         <t:htmlTag value="ul" styleClass="formUL columns-2 mt10">
             <t:div styleClass="column">
                 <t:htmlTag value="li">
-                    <h:outputLabel value="#{msgs['OFFRE.INDEMNITE']} *" for="indemnite" styleClass="fontBold"/>
+                    <h:outputLabel value="#{msgs['OFFRE.INDEMNITE']} : *" for="indemnite" styleClass="fontBold"/>
                     <p:selectOneRadio id="indemnite" styleClass="customPstage fix-selectOneMenu"
                                       value="#{offreController.formOffre.remuneration}" required="true">
                         <f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />

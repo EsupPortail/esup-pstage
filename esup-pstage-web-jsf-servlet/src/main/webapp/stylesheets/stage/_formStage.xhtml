@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
     <p:fieldset legend="#{msgs['CONVENTION.LANGUECONVENTION']}"
-                rendered="#{!conventionController.creationConventionFormationContinue}">
+                rendered="#{!conventionController.conventionFormationContinue}">
         <t:div styleClass="mt10 mb10">
             <h:selectOneMenu id="langueConvention" required="true"
                              effect="none" styleClass="customPstage fix-selectOneMenu"
@@ -21,7 +21,7 @@
         <t:htmlTag value="ul" styleClass="formUL columns-2">
             <t:div styleClass="column">
                 <t:htmlTag value="li">
-                    <t:div rendered="#{!conventionController.creationConventionFormationContinue}">
+                    <t:div rendered="#{!conventionController.conventionFormationContinue}">
                         <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.TYPECONVENTION']} #{msgs['CONVENTION.ETOILE']}" />
                         <h:selectOneMenu id="typeConventionFI" effect="none" styleClass="mt5 customPstage"
                                          value="#{conventionController.selTypeConvention}"
@@ -29,7 +29,7 @@
                             <f:selectItems value="#{nomenclatureController.typeConventionsFI}" />
                         </h:selectOneMenu>
                     </t:div>
-                    <t:div rendered="#{conventionController.creationConventionFormationContinue}">
+                    <t:div rendered="#{conventionController.conventionFormationContinue}">
                         <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.TYPECONVENTION']} #{msgs['CONVENTION.ETOILE']}" />
                         <h:selectOneMenu id="typeConventionFC" effect="none" styleClass="mt5 customPstage"
                                          value="#{conventionController.selTypeConvention}"
@@ -63,7 +63,7 @@
                 <t:htmlTag value="li">
                     <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.FONCTION']} #{msgs['CONVENTION.ETOILE']}" />
                     <h:outputText id="cptFonctionsEtTaches" styleClass="fontItalic"/>
-                    <p:inputTextarea id="fonctionsEtTaches" maxlength="140"
+                    <p:inputTextarea id="fonctionsEtTaches" maxlength="140" lang="html"
                                      value="#{conventionController.convention.fonctionsEtTaches}"
                                      counter="cptFonctionsEtTaches" counterTemplate="({0} caractères restants.)"
                                      required="true">
@@ -78,7 +78,7 @@
                     </t:htmlTag>
                     <h:outputText styleClass="fontBold ml5" value="#{msgs['CONVENTION.COMPETENCES']} #{msgs['CONVENTION.ETOILE']}" />
                     <h:outputText id="cptCompetences" styleClass="fontItalic"/>
-                    <p:inputTextarea id="competences" maxlength="140"
+                    <p:inputTextarea id="competences" maxlength="140" lang="html"
                                      value="#{conventionController.convention.competences}"
                                      counter="cptCompetences" counterTemplate="({0} caractères restants.)"
                                      required="true">
@@ -213,7 +213,7 @@
                     </h:selectOneMenu>
                     <p:message for="tempsTravail"/>
                 </t:htmlTag>
-                <t:htmlTag value="li" rendered="#{conventionController.creationConventionFormationContinue}">
+                <t:htmlTag value="li" rendered="#{conventionController.conventionFormationContinue}">
                     <h:outputText value="#{msgs['CONVENTION.TYPEPRESENCE']} *" styleClass="fontBold" />
                     <h:selectOneMenu id="typePresence" effect="none"
                                      required="true" styleClass="mt5 customPstage"
@@ -272,13 +272,14 @@
         </t:htmlTag>
     </p:fieldset>
 
-    <p:fieldset legend="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.GRATIFICATION']}" styleClass="mt10">
+    <p:fieldset legend="#{conventionController.conventionFormationContinue ? msgs['OFFRE.INDEMNITE'] : msgs['CONVENTION.ETAPE5.CHOIXSTAGE.GRATIFICATION']}" styleClass="mt10">
         <t:div styleClass="ml40 verticalAlignDiv">
-            <t:htmlTag id="infoGratification" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
+            <t:htmlTag id="infoGratification" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer"
+                       rendered="#{!conventionController.conventionFormationContinue}">
                 <p:tooltip for="infoGratification" value="#{msgs['INFOSBULLES.GRATIFICATION']}" escape="false"/>
             </t:htmlTag>
             <h:outputText styleClass="fontBold ml5"
-                          value="#{msgs['CONVENTION.INDEMNISATION']} #{msgs['CONVENTION.ETOILE']}" />
+                          value="#{conventionController.conventionFormationContinue ? 'Les stage offre-t-il une indemnisation ?' : msgs['CONVENTION.INDEMNISATION']+msgs['CONVENTION.ETOILE']}" />
             <h:selectOneMenu id="indemnisation" required="true"
                              styleClass="ml5 customPstage autoWidth"
                              value="#{conventionController.selIndemnisation}"

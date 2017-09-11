@@ -390,7 +390,20 @@ public class SessionController extends AbstractDomainAwareBean {
 	private String smtpHost;
 	private String smtpUser;
 	private String smtpPassword;
-	
+
+	/**
+	 * Detection d'un etudiant FC connecté pour changer son affichage
+	 */
+	private boolean etudiantFC;
+
+	public boolean isEtudiantFC() {
+		return etudiantFC;
+	}
+
+	public void setEtudiantFC(boolean etudiantFC) {
+		this.etudiantFC = etudiantFC;
+	}
+
 	/* ***************************************************************
 	 * Variables de navigation
 	 ****************************************************************/

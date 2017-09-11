@@ -8,7 +8,10 @@
     <ui:define name="content">
         <p:panel>
             <f:facet name="header">
-                <h:outputText value="#{msgs['MENU.ACCUEIL']}" />
+                <h:outputText value="#{msgs['MENU.ACCUEIL']}"
+                              rendered="#{!welcomeController.etudiant || (welcomeController.etudiant and !sessionController.etudiantFC)}" />
+                <h:outputText value=" #{msgs['MENU.FORMATION_CONTINUE']}"
+                              rendered="#{welcomeController.etudiant and sessionController.etudiantFC}" />
             </f:facet>
             <t:fieldset style="padding:20px;">
                 <h:outputText escape="false"
@@ -21,14 +24,14 @@
 
                 <t:div styleClass="mt5 ml30"
                        style="font-weight:bold; text-decoration:underline;">
-                    <h:outputLink
-                            value="#{sessionController.mediaPath}/docs/Notice_Convention_Stage.pdf">
+                    <h:outputLink rendered="#{!welcomeController.etudiant || (welcomeController.etudiant and !sessionController.etudiantFC)}"
+                                  value="#{sessionController.mediaPath}/docs/Notice_Convention_Stage.pdf">
                         <h:graphicImage alt="notice" value="../../media/images/docs.gif"/>
                         Notice Convention de stage
                     </h:outputLink>
                     <t:htmlTag value="div" style="height:5px;"/>
-                    <h:outputLink
-                            value="#{sessionController.mediaPath}/docs/Notice_Convention_Stage_FC.pdf">
+                    <h:outputLink rendered="#{!welcomeController.etudiant || (welcomeController.etudiant and sessionController.etudiantFC)}"
+                                  value="#{sessionController.mediaPath}/docs/Notice_Convention_Stage_FC.pdf">
                         <h:graphicImage alt="noticeFC" value="../../media/images/docs.gif"/>
                         Notice Convention de stage pour la Formation Continue
                     </h:outputLink>

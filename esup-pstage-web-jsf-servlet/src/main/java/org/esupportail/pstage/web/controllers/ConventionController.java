@@ -475,7 +475,7 @@ public class ConventionController extends AbstractContextAwareController {
 	/**
 	 * Indique si la convention en cours de creation sera sur le regime FC
 	 */
-	private boolean creationConventionFormationContinue;
+	private boolean conventionFormationContinue;
 
 	/**
 	 * Bean constructor.
@@ -708,7 +708,7 @@ public class ConventionController extends AbstractContextAwareController {
 			this.selectedAnneeUniv = "";
 			this.choixEtape = false;
 			this.blocageCreationEtpOrpheline = false;
-			this.creationConventionFormationContinue = false;
+			this.conventionFormationContinue = false;
 
 			this.setEtudiantRef(this.resultatEtudiantRef);
 		} else {
@@ -829,7 +829,9 @@ public class ConventionController extends AbstractContextAwareController {
 					// Verification si l'on est dans le cas d'une FC
 					if (this.etudiantRef.getAnneesInscriptionFC() != null
 							&& this.etudiantRef.getAnneesInscriptionFC().contains(this.selectedAnneeUniv)){
-						this.creationConventionFormationContinue = true;
+						this.conventionFormationContinue = true;
+					} else {
+						this.conventionFormationContinue = false;
 					}
 				} else {
 					this.setBlocageAucuneInscription(true);
@@ -856,8 +858,9 @@ public class ConventionController extends AbstractContextAwareController {
 			ctrlInfosOK = false;
 		}
 
-		if(!Utils.isNumber(this.convention.getVolumeHoraireFormation())
-				|| "0".equals(this.convention.getVolumeHoraireFormation())){
+		if(!this.conventionFormationContinue
+				&&(!Utils.isNumber(this.convention.getVolumeHoraireFormation())
+				|| "0".equals(this.convention.getVolumeHoraireFormation()))){
 			ctrlInfosOK = false;
 			addErrorMessage("formConvention:volumeHoraireFormation", "CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.ZERO");
 		}
@@ -1075,8 +1078,9 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 		}
 
-		if(!Utils.isNumber(this.convention.getVolumeHoraireFormation())
-				|| "0".equals(this.convention.getVolumeHoraireFormation())){
+		if(!this.conventionFormationContinue
+				&&(!Utils.isNumber(this.convention.getVolumeHoraireFormation())
+				|| "0".equals(this.convention.getVolumeHoraireFormation()))){
 			ctrlInfosOK = false;
 			addErrorMessage("formSelConvention:volumeHoraireFormation", "CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.ZERO");
 		}
@@ -2152,7 +2156,7 @@ public class ConventionController extends AbstractContextAwareController {
 		convention.setIdModeValidationStage(this.selModeValidationStage.getId());
 
 		// En cas de creation "FC", nous n'avons pas de modele etranger, on met donc FR par defaut
-		if (this.creationConventionFormationContinue){
+		if (this.conventionFormationContinue){
 			this.selLangueConvention = getNomenclatureDomainService().getLangueConventionDTOFromId("fr");
 		}
 		convention.setLangueConvention(selLangueConvention);
@@ -2563,10 +2567,8 @@ public class ConventionController extends AbstractContextAwareController {
 		// }
 		// }
 
-		conventionTmp
-				.setLoginCreation(getSessionController().getCurrentLogin());
-		EtabRef etabRef = getStudentComponentRepositoryDomain().getEtabRef(
-				getSessionController().getCodeUniversite());
+		conventionTmp.setLoginCreation(getSessionController().getCurrentLogin());
+		EtabRef etabRef = getStudentComponentRepositoryDomain().getEtabRef(getSessionController().getCodeUniversite());
 		if (etabRef != null) {
 			if (etabRef.getAdresseEtabRef() != null) {
 				conventionTmp.setAdresseEtabRef(etabRef.getAdresseEtabRef());
@@ -2586,9 +2588,8 @@ public class ConventionController extends AbstractContextAwareController {
 		// recherche du signataire de la composante
 
 		if (conventionTmp.getUfr() != null) {
-			SignataireRef sigRef = getStudentComponentRepositoryDomain()
-					.getSigCompoRef(getSessionController().getCodeUniversite(),
-							conventionTmp.getUfr().getCode());
+			SignataireRef sigRef = getStudentComponentRepositoryDomain().getSigCompoRef(getSessionController().getCodeUniversite(),
+					conventionTmp.getUfr().getCode());
 			if (sigRef != null) {
 				if (sigRef.getNomSignataireComposante() != null) {
 					conventionTmp.setNomSignataireComposante(sigRef
@@ -2599,8 +2600,7 @@ public class ConventionController extends AbstractContextAwareController {
 					}
 				}
 				if (sigRef.getQualiteSignataire() != null) {
-					conventionTmp.setQualiteSignataire(sigRef
-							.getQualiteSignataire());
+					conventionTmp.setQualiteSignataire(sigRef.getQualiteSignataire());
 				}
 
 			}
@@ -2836,8 +2836,7 @@ public class ConventionController extends AbstractContextAwareController {
 						// Envoi d'une alerte aux personnels du centre gestion
 						// configurés pour les recevoir
 						List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService()
-								.getPersonnelCentreGestionList(
-										this.convention.getIdCentreGestion());
+								.getPersonnelCentreGestionList(this.convention.getIdCentreGestion());
 
 						if (listePersonnels != null) {
 							for (PersonnelCentreGestionDTO personnel : listePersonnels) {
@@ -3491,11 +3490,12 @@ public class ConventionController extends AbstractContextAwareController {
 			if (conventionTmp != null) {
 
 				this.convention = conventionTmp;
-
 				// renseignement des zones de selections a partir de la convention
 				setSelTypeConvention(conventionTmp.getTypeConvention());
-				if (DonneesStatic.TYPE_CONVENTION_CODE_CTRL_FC.equalsIgnoreCase(conventionTmp.getTypeConvention().getCodeCtrl())){
-					this.creationConventionFormationContinue = true;
+				if (DonneesStatic.TYPE_CONVENTION_CODE_CTRL_FC.equalsIgnoreCase(this.convention.getTypeConvention().getCodeCtrl())){
+					this.conventionFormationContinue = true;
+				} else {
+					this.conventionFormationContinue = false;
 				}
 
 				setSelTheme(conventionTmp.getTheme());
@@ -7175,8 +7175,6 @@ public class ConventionController extends AbstractContextAwareController {
 	public void setListeAvenants(List<AvenantDTO> listeAvenants) {
 		this.listeAvenants = listeAvenants;
 	}
-
-
 	/**
 	 * @return boolean
 	 */
@@ -7184,11 +7182,11 @@ public class ConventionController extends AbstractContextAwareController {
 		return this.conventionExistante;
 	}
 
-	public boolean isCreationConventionFormationContinue() {
-		return creationConventionFormationContinue;
+	public boolean isConventionFormationContinue() {
+		return conventionFormationContinue;
 	}
 
-	public void setCreationConventionFormationContinue(boolean creationConventionFormationContinue) {
-		this.creationConventionFormationContinue = creationConventionFormationContinue;
+	public void setConventionFormationContinue(boolean conventionFormationContinue) {
+		this.conventionFormationContinue = conventionFormationContinue;
 	}
 }

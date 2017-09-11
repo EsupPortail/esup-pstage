@@ -33,7 +33,7 @@
     </t:htmlTag>
     <t:htmlTag value="ul" styleClass="formUL mt10">
         <t:htmlTag value="li" styleClass="autoWidth">
-            <p:fieldset legend="#{msgs['OFFRE.SELECTIONCONTACTCAND']}">
+            <p:fieldset legend="#{msgs['OFFRE.SELECTIONCONTACTCAND']}" escape="false">
                 <t:div styleClass="textCenter mt10 mb20">
                     <p:commandButton update="selectContactCand"
                                      oncomplete="PF('selectContactCand').show();"
@@ -187,7 +187,7 @@
         </t:htmlTag>
 
         <t:htmlTag value="li" styleClass="autoWidth">
-            <p:fieldset legend="#{msgs['OFFRE.SELECTIONCONTACTINFO']}">
+            <p:fieldset legend="#{msgs['OFFRE.SELECTIONCONTACTINFO']}" escape="false">
                 <t:div styleClass="textCenter mt10 mb20">
                     <p:commandButton update="selectContactInfo"
                                      oncomplete="PF('selectContactInfo').show();"

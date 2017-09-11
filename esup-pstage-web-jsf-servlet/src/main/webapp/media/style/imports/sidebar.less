@@ -19,7 +19,7 @@
   -o-transition: transform 0.7s;
   transition: transform 0.7s;
 
-  @media (min-device-width: @MediaTablet) {
+  @media (min-width: @MediaTablet) {
     width: @SidebarTabletWidth;
     left: 0;
     top: 0;
@@ -35,7 +35,7 @@
     transform: translateX(0%) !important;
   }
 
-  @media (min-device-width: @MediaPC) {
+  @media (min-width: @MediaPC) {
     width: @SidebarPCWidth;
     left: 0;
     top: 0;
@@ -61,18 +61,18 @@
     z-index: 500;
     border: 0;
 
-    @media (min-device-width: @MediaTablet) {
+    @media (min-width: @MediaTablet) {
       width: @SidebarTabletWidth + 17;
     }
 
-    @media (min-device-width: @MediaPC) {
+    @media (min-width: @MediaPC) {
       width: @SidebarPCWidth + 17;
     }
 
     #SIDEBAR_LOGO {
       display: none;
 
-      @media (min-device-width: @MediaTablet) {
+      @media (min-width: @MediaTablet) {
         display: block;
       }
 
@@ -86,7 +86,7 @@
         height: 90px;
         padding: 5px 0;
         margin: 0 0 0 (@SidebarTabletWidth / 2);
-        @media (min-device-width: @MediaPC) {
+        @media (min-width: @MediaPC) {
           margin: 0 0 0 (@SidebarPCWidth / 2);
         }
         -webkit-transform: translateX(-50%);
@@ -115,19 +115,19 @@
         font-weight: bold;
         font-family: @FontFamily;
 
-        @media (min-device-width: @MediaTablet) and (max-device-width: @MediaPC) {
+        @media (min-width: @MediaTablet) and (max-width: @MediaPC) {
           height: @SidebarItemHeightTablet;
           margin: 0 0 10px 0;
           padding: 0;
         }
 
-        @media (min-device-width: @MediaPC) {
+        @media (min-width: @MediaPC) {
           height: @SidebarItemHeightPC;
           margin: 0 0 10px 0;
         }
 
         & > .ui-button-icon-left {
-          @media (min-device-width: @MediaTablet) and (max-device-width: @MediaPC) {
+          @media (min-width: @MediaTablet) and (max-width: @MediaPC) {
             //width: @SidebarItemHeightTablet;
             height: @SidebarItemHeightTablet;
             font-size: (@SidebarTabletWidth / 2) - 10;
@@ -142,7 +142,7 @@
 
         & > .ui-button-text {
           display: block;
-          @media (min-device-width: @MediaTablet) and (max-device-width: @MediaPC) {
+          @media (min-width: @MediaTablet) and (max-width: @MediaPC) {
             font-size: 0.8em;
             margin-top: 40px;
             padding: 0;
@@ -192,7 +192,7 @@
           margin: 0;
           height: @SidebarItemHeightPhone;
 
-          @media (min-device-width: @MediaTablet) {
+          @media (min-width: @MediaTablet) {
             height: @SidebarItemHeightPC;
             margin: 0 0 10px 0;
           }
@@ -228,7 +228,7 @@
             line-height: @SidebarItemHeightPhone;
             padding: 0 0 0 27px;
 
-            @media (min-device-width: @MediaTablet) {
+            @media (min-width: @MediaTablet) {
               line-height: @SidebarItemHeightPC;
             }
 
@@ -260,7 +260,7 @@
                 padding-bottom: 0;
                 height: (@SidebarItemHeightPhone * 0.75);
 
-                @media (min-device-width: @MediaTablet) {
+                @media (min-width: @MediaTablet) {
                   height: (@SidebarItemHeightPC * 0.92);
                   line-height: (@SidebarItemHeightPC * 0.92);
                 }

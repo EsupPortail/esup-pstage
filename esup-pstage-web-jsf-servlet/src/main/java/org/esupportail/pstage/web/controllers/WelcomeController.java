@@ -743,6 +743,12 @@ public class WelcomeController extends AbstractContextAwareController {
 							// puis on recupere toutes les infos d'inscription ufr/etape/elp de l'etudiant pour l'annee prealablement recuperee
 							this.conventionController.setEtudiantRef(e);
 							this.conventionController.loadInfosEtu();
+							// Si l'annee en cours est en regime d'inscription FC, on assigne le flag du sessionController en consequence
+							if (this.conventionController.isConventionFormationContinue()){
+								getSessionController().setEtudiantFC(true);
+							} else {
+								getSessionController().setEtudiantFC(false);
+							}
 						}
 						
 						/* 

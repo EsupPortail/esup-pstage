@@ -3863,6 +3863,9 @@
 								</fo:inline>
 
 								<fo:inline font-weight="bold">
+									<xsl:value-of select="nature-travail/libelle" />
+								</fo:inline>,
+								<fo:inline font-weight="bold">
 									<xsl:value-of select="mode-validation-stage/libelle" />
 								</fo:inline>
 							</fo:block>
@@ -3980,6 +3983,9 @@
 									pédagogiques
 								</fo:inline>
 								:
+								<fo:inline font-weight="bold">
+									<xsl:value-of select="nature-travail/libelle" />
+								</fo:inline>,
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="mode-validation-stage/libelle" />
 								</fo:inline>

@@ -10,15 +10,15 @@
 .generate-margins-paddings-by(@by, @n, @i: 0) when (@i =< (@by * @n)) {
   .mt@{i} { margin-top: ~"@{i}px" !important; }
   .mlf@{i} { margin-left: ~"@{i}px" !important; }
-  .ml@{i} { margin-left: 0 !important; @media (min-device-width: @MediaTablet) { margin-left: ~"@{i}px" !important;}}
+  .ml@{i} { margin-left: 0 !important; @media (min-width: @MediaTablet) { margin-left: ~"@{i}px" !important;}}
   .mrf@{i} { margin-right: ~"@{i}px" !important; }
-  .mr@{i} { margin-right: 0 !important; @media (min-device-width: @MediaTablet) { margin-right: ~"@{i}px" !important;}}
+  .mr@{i} { margin-right: 0 !important; @media (min-width: @MediaTablet) { margin-right: ~"@{i}px" !important;}}
   .mb@{i} { margin-bottom: ~"@{i}px" !important; }
   .pt@{i} { padding-top: ~"@{i}px" !important; }
   .plf@{i} { padding-left: ~"@{i}px" !important; }
-  .pl@{i} { padding-left: 0 !important; @media (min-device-width: @MediaTablet) { padding-left: ~"@{i}px" !important;}}
+  .pl@{i} { padding-left: 0 !important; @media (min-width: @MediaTablet) { padding-left: ~"@{i}px" !important;}}
   .prf@{i} { padding-right: ~"@{i}px" !important; }
-  .pr@{i} { padding-right: 0 !important; @media (min-device-width: @MediaTablet) { padding-right: ~"@{i}px" !important;}}
+  .pr@{i} { padding-right: 0 !important; @media (min-width: @MediaTablet) { padding-right: ~"@{i}px" !important;}}
   .pb@{i} { padding-bottom: ~"@{i}px" !important; }
   .generate-margins-paddings-by(@by, @n, (@i + @by));
 }
@@ -26,7 +26,7 @@
 .floatLeft {
   float: none;
 
-  @media (min-device-width: @MediaTablet) {
+  @media (min-width: @MediaTablet) {
     float: left;
   }
 }
@@ -34,7 +34,7 @@
 .floatRight {
   float: none;
 
-  @media (min-device-width: @MediaTablet) {
+  @media (min-width: @MediaTablet) {
     float: right;
   }
 }

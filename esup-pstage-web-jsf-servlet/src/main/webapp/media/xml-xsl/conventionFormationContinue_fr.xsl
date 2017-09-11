@@ -222,7 +222,7 @@
 				  padding-bottom="0.3cm" font-style="italic">
 			Nota : pour faciliter la
 			lecture du
-			document, les mots "stagiaire", "enseignant référent",
+			document, les mots "stagiaire", "référent",
 			"tuteur de
 			stage", "représentant légal", et "étudiant" sont utilisés
 			au masculin.
@@ -965,8 +965,7 @@
 								  country="FR" font-size="9pt" font-family="Times New Roman,serif"
 								  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 								  padding-bottom="0.035cm" font-weight="bold">
-							Nom et prénom de
-							l'enseignant référent :
+							Nom et prénom du référent :
 						</fo:block>
 						<fo:block line-height="130%" hyphenate="false" language="fr"
 								  country="FR" font-size="9pt" font-family="Times New Roman,serif"
@@ -1162,7 +1161,7 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  text-align="justify">
-								Le programme du stage établi par l'enseignant référent du stagiaire de l'établissement d'enseignement
+								Le programme du stage établi par le référent du stagiaire de l'établissement d'enseignement
 								et le tuteur nommé par l'organisme d'accueil, en accord avec le stagiaire est le suivant :
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
@@ -1237,7 +1236,7 @@
 									  padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 									  font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
 								Toute difficulté survenue dans la réalisation et le déroulement du stage,
-								qu'elle soit constatée par le stagiaire, par l'enseignant référent ou par le tuteur de
+								qu'elle soit constatée par le stagiaire, par le référent ou par le tuteur de
 								stage, doit être portée à la connaissance de l'ensemble des parties afin d'être résolue
 								au plus vite.
 							</fo:block>
@@ -1636,7 +1635,7 @@
 								Toute sanction disciplinaire ne peut être décidée que
 								par l'établissement d'enseignement. Dans ce cas, l'organisme
 								d'accueil informe
-								l'enseignant référent et l'établissement des
+								les tuteurs de stage et l'établissement d'enseignement des
 								manquements et
 								fournit éventuellement les éléments constitutifs.
 							</fo:block>
@@ -1699,7 +1698,7 @@
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  padding-top="2pt">
 								Toute interruption temporaire du stage doit être signalée aux autres
-								parties à la convention et à l'enseignant référent.
+								parties à la convention et au référent.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif">
@@ -1874,9 +1873,9 @@
 									stagiaire
 								</fo:inline>
 								: à l'issue du stage, l'organisme d'accueil renseigne une fiche d'évaluation de
-								l'activité du stagiaire qu'il retourne à l'enseignant référent
+								l'activité du stagiaire qu'il retourne au référent
 								(ou préciser si fiche annexe ou modalités d'évaluation préalablement
-								définis en accord avec l'enseignant référent).
+								définis en accord avec le référent).
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -1886,6 +1885,9 @@
 									pédagogiques
 								</fo:inline>
 								:
+								<fo:inline font-weight="bold">
+									<xsl:value-of select="nature-travail/libelle" />
+								</fo:inline>,
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="mode-validation-stage/libelle" />
 								</fo:inline>

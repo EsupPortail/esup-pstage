@@ -15,8 +15,7 @@
                     <t:htmlTag value="br" />
                     <t:htmlTag value="div" style="height: 5px;" />
                     <h:panelGrid columns="2">
-                        <h:graphicImage alt="#{msgs['RECHERCHEEVALUATION.AUCUNRESULTAT']}"
-                                        value="/media/images/script.png" />
+                        <t:htmlTag value="i" styleClass="fa fa-file-text-o" />
                         <h:outputText value="#{msgs['RECHERCHEEVALUATION.AUCUNRESULTAT']}"
                                       escape="false" />
                     </h:panelGrid>
@@ -25,9 +24,8 @@
                 <t:div rendered="#{not empty conventionController.rechercheConventionPaginator.liste}">
                     <t:htmlTag value="div" style="height:10px;" />
                     <t:div>
-                        <h:graphicImage alt="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
-                                        value="/media/images/script.png"
-                                        rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1}" />
+                        <t:htmlTag value="i" styleClass="fa fa-file-text-o"
+                                   rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1}" />
                         <h:outputFormat value="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
                                         rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1}"
                                         escape="false">
@@ -356,19 +354,19 @@
                         </p:column>
 
                         <!--<p:column styleClass="background-color-grey">-->
-                            <!--<f:facet name="header">-->
-                                <!--<h:outputText value="#{msgs['GENERAL.ACTIONS']}" />-->
-                            <!--</f:facet>-->
-                            <!--<p:commandLink id="accesEval"-->
-                                           <!--action="#{evaluationController.goToEvalConvention}"-->
-                                           <!--update="@form">-->
-                                <!--<t:htmlTag value="i" styleClass="fa fa-search fz16" />-->
-                                <!--<f:setPropertyActionListener value="#{convention}"-->
-                                                             <!--target="#{conventionController.currentConvention}" />-->
-                                <!--<f:setPropertyActionListener value="#{true}"-->
-                                                             <!--target="#{evaluationController.retourEvaluation}" />-->
-                                <!--<p:tooltip for="accesEval" value="#{msgs['RECHERCHEEVALUATION.BOUTON_ACCES']}" />-->
-                            <!--</p:commandLink>-->
+                        <!--<f:facet name="header">-->
+                        <!--<h:outputText value="#{msgs['GENERAL.ACTIONS']}" />-->
+                        <!--</f:facet>-->
+                        <!--<p:commandLink id="accesEval"-->
+                        <!--action="#{evaluationController.goToEvalConvention}"-->
+                        <!--update="@form">-->
+                        <!--<t:htmlTag value="i" styleClass="fa fa-search fz16" />-->
+                        <!--<f:setPropertyActionListener value="#{convention}"-->
+                        <!--target="#{conventionController.currentConvention}" />-->
+                        <!--<f:setPropertyActionListener value="#{true}"-->
+                        <!--target="#{evaluationController.retourEvaluation}" />-->
+                        <!--<p:tooltip for="accesEval" value="#{msgs['RECHERCHEEVALUATION.BOUTON_ACCES']}" />-->
+                        <!--</p:commandLink>-->
                         <!--</p:column>-->
                     </p:dataTable>
                     <t:htmlTag value="div" style="height:30px;" />
@@ -376,15 +374,15 @@
                     <t:htmlTag value="ul" styleClass="formUL columns-2 verticalCenter block centerBlock">
                         <t:div styleClass="column textCenter">
                             <p:commandButton icon="fa fa-envelope fz13"
-                                    styleClass="fontBlue2" style="font-size: 18px;"
-                                    rendered="#{welcomeController.superAdmin
+                                             styleClass="fontBlue2" style="font-size: 18px;"
+                                             rendered="#{welcomeController.superAdmin
 							|| (not empty sessionController.droitsEvaluationEtudiantMap
 							|| not empty sessionController.droitsEvaluationEnseignantMap
 							|| not empty sessionController.droitsEvaluationEntrepriseMap)}"
-                                    value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL']}"
-                                    action="#{evaluationController.avantEnvoiMailEval}"
-                                    oncomplete="PF('envoiMailEvalPanel').show();"
-                                    update="envoiMailEvalPanel">
+                                             value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL']}"
+                                             action="#{evaluationController.avantEnvoiMailEval}"
+                                             oncomplete="PF('envoiMailEvalPanel').show();"
+                                             update="envoiMailEvalPanel">
                                 <f:setPropertyActionListener value="_envoiMailEval_etape1"
                                                              target="#{sessionController.envoiMailEvalCurrentPage}" />
                             </p:commandButton>

@@ -94,10 +94,10 @@
                                 </p:row>
                                 <p:row>
                                     <p:column>
-                                        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.COMMUNE']}"/>
+                                        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.COMMUNE']} * "/>
                                     </p:column>
                                     <p:column>
-                                        <p:inputText id="commune" maxlength="80"
+                                        <p:inputText id="commune" maxlength="80" required="true"
                                                      value="#{conventionController.convention.villeEtudiant}"/>
                                     </p:column>
                                     <p:column>
@@ -196,6 +196,11 @@
 
                                 <t:div rendered="#{!conventionController.blocageCreationEtpOrpheline
 			                and !conventionController.blocageAucuneInscription}">
+                                    <t:div styleClass="mt10 mb5">
+                                        <h:outputText value="Regime d'inscription : " styleClass="fontBold" />
+                                        <h:outputText value="Formation Continue" rendered="#{conventionController.conventionFormationContinue}" />
+                                        <h:outputText value="Formation Initiale" rendered="#{!conventionController.conventionFormationContinue}" />
+                                    </t:div>
 
                                     <t:div rendered="#{!conventionController.etudiantSupUneEtape}">
                                         <t:div style="padding:5px;"

@@ -20,15 +20,18 @@
 
                         <ui:include src="/stylesheets/stage/_detailsEnseignant.xhtml" />
 
-                        <p:commandButton id="modifEnseigant"
-                                         value="#{msgs['CONVENTION.ETAPE6.MODIF.ENSEIGNANT']}"
-                                         action="#{conventionController.goToConventionModifEnseignant}"
-                                         styleClass="mt15 ml40"
-                                         rendered="#{!conventionController.conventionValide
+                        <t:div styleClass="textCenter">
+                            <p:commandButton id="modifEnseigant"
+                                             value="#{msgs['CONVENTION.ETAPE6.MODIF.ENSEIGNANT']}"
+                                             action="#{conventionController.goToConventionModifEnseignant}"
+                                             styleClass="mt15 ml40"
+                                             rendered="#{!conventionController.conventionValide
                                              and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
                                             || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
                                             || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
                                             || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)}" />
+
+                        </t:div>
 
                         <p:messages />
 

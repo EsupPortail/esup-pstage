@@ -16,31 +16,31 @@ body {
 
 .phoneOnly {
 	display: block !important;
-	@media (min-device-width: @MediaTablet) {
+	@media (min-width: @MediaTablet) {
 		display: none !important;
 	}
 }
 
 .tabletOnly {
 	display: none !important;
-	@media (min-device-width: @MediaTablet) and (max-device-width: @MediaPC) {
+	@media (min-width: @MediaTablet) and (max-width: @MediaPC) {
 		display: block !important;
 	}
 }
 
 .PCOnly {
 	display: none;
-	@media (min-device-width: @MediaPC) {
+	@media (min-width: @MediaPC) {
 		display: block !important;
 	}
 }
 
 .noTablet {
 	display: block !important;
-	@media (min-device-width: @MediaTablet) {
+	@media (min-width: @MediaTablet) {
 		display: none !important;
 	}
-	@media (min-device-width: @MediaPC) {
+	@media (min-width: @MediaPC) {
 		display: block !important;
 	}
 }

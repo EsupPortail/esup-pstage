@@ -11,9 +11,7 @@
         #{conventionController.convention.langueConvention.libelle}
     </t:div>
 
-    <p:separator style="height:2px; width:200px;" styleClass="mr30 ml30"/>
-
-    <h:panelGrid styleClass="blueHover mt5 ml40" columns="2" cellspacing="5">
+    <h:panelGrid styleClass="blueHover mt5 ml40" style="border-top:solid 1px; border-bottom:solid 1px;" columns="2" cellspacing="5">
         <h:outputText styleClass="fontBold"
                       value="#{msgs['CONVENTION.TYPECONVENTION']}" />
         <h:outputText id="typeConvention1"
@@ -46,8 +44,6 @@
         <h:outputText id="details1"
                       value="#{conventionController.convention.details}" escape="false" />
     </h:panelGrid>
-
-    <p:separator style="height:2px; width:200px;" styleClass="mr30 ml30"/>
 
     <h:panelGrid styleClass="blueHover mt5 ml40" columns="2" cellspacing="5">
         <h:outputText styleClass="fontBold"
@@ -151,9 +147,7 @@
                       escape="false" />
     </h:panelGrid>
 
-    <p:separator style="height:2px; width:200px;" styleClass="mr30 ml30"/>
-
-    <h:panelGrid styleClass="blueHover mt5 ml40" columns="2" cellspacing="5">
+    <h:panelGrid styleClass="blueHover mt5 ml40" style="border-top:solid 1px; border-bottom:solid 1px;" columns="2" cellspacing="5">
         <h:outputText styleClass="fontBold"
                       value="#{msgs['CONVENTION.INDEMNISATION']}" />
         <h:outputText id="indemnisation1"
@@ -174,8 +168,6 @@
                       rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" />
 
     </h:panelGrid>
-
-    <p:separator style="height:2px; width:200px;" styleClass="mr30 ml30"/>
 
     <h:panelGrid styleClass="blueHover mt5 ml40" columns="2" cellspacing="5">
         <h:outputText styleClass="fontBold"
