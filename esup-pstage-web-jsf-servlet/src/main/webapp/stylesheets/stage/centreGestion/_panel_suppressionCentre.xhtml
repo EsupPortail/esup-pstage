@@ -11,8 +11,8 @@
         </f:facet>
         <p:panel style="border:none">
             <t:div styleClass="textCenter">
-                <h:outputLabel value="#{centreController.centre.nomCentre}"
-                               for="suppressionCentre" />
+                <h:outputText value="#{centreController.centre.nomCentre}"
+                              styleClass="fontBold"/>
                 <h:panelGrid columns="2">
                     <h:outputText value="#{centreController.centre.voie}" />
                     <h:outputText value="#{centreController.centre.batimentResidence}" />
@@ -21,44 +21,37 @@
                     <h:outputText value="#{centreController.centre.codePostal}" />
                     <h:outputText value="#{centreController.centre.commune}" />
                 </h:panelGrid>
-                <t:htmlTag value="div" style="height:5px;" />
                 <t:div rendered="#{centreController.nbCriteres != 0 || centreController.nbPersonnels != 0 || centreController.nbContacts != 0
 				|| centreController.nbConventions != 0 || centreController.nbOffres != 0}">
-                    <h:outputLabel value="#{msgs['CENTRE.SUPPRESSION.ELEMENTS']}"
-                                   for="suppressionCentre" />
-                    <h:panelGrid columns="2"
-                                 rendered="#{centreController.nbCriteres != 0}">
-                        <h:outputText value="#{centreController.nbCriteres}" />
-                        <h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CRITERES']}" />
+                    <h:panelGrid columns="2">
+                        <h:panelGrid columns="2"
+                                     rendered="#{centreController.nbCriteres != 0}">
+                            <h:outputText value="#{centreController.nbCriteres}" />
+                            <h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CRITERES']}" />
+                        </h:panelGrid>
+                        <h:panelGrid columns="2"
+                                     rendered="#{centreController.nbPersonnels != 0}">
+                            <h:outputText value="#{centreController.nbPersonnels}" />
+                            <h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_PERSONNES']}" />
+                        </h:panelGrid>
+                        <h:panelGrid columns="2"
+                                     rendered="#{centreController.nbConventions != 0}">
+                            <h:outputText value="#{centreController.nbConventions}" />
+                            <h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CONVENTIONS']}" />
+                        </h:panelGrid>
+                        <h:panelGrid columns="2"
+                                     rendered="#{centreController.nbOffres != 0}">
+                            <h:outputText value="#{centreController.nbOffres}" />
+                            <h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_OFFRES']}" />
+                        </h:panelGrid>
+                        <h:panelGrid columns="2"
+                                     rendered="#{centreController.nbContacts != 0}">
+                            <h:outputText value="#{centreController.nbContacts}" />
+                            <h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CONTACTS']}" />
+                        </h:panelGrid>
                     </h:panelGrid>
-                    <t:htmlTag value="div" style="height:3px;" />
-                    <h:panelGrid columns="2"
-                                 rendered="#{centreController.nbPersonnels != 0}">
-                        <h:outputText value="#{centreController.nbPersonnels}" />
-                        <h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_PERSONNES']}" />
-                    </h:panelGrid>
-                    <t:htmlTag value="div" style="height:3px;" />
-                    <h:panelGrid columns="2"
-                                 rendered="#{centreController.nbConventions != 0}">
-                        <h:outputText value="#{centreController.nbConventions}" />
-                        <h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CONVENTIONS']}" />
-                    </h:panelGrid>
-                    <t:htmlTag value="div" style="height:3px;" />
-                    <h:panelGrid columns="2"
-                                 rendered="#{centreController.nbOffres != 0}">
-                        <h:outputText value="#{centreController.nbOffres}" />
-                        <h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_OFFRES']}" />
-                    </h:panelGrid>
-                    <t:htmlTag value="div" style="height:3px;" />
-                    <h:panelGrid columns="2"
-                                 rendered="#{centreController.nbContacts != 0}">
-                        <h:outputText value="#{centreController.nbContacts}" />
-                        <h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CONTACTS']}" />
-                    </h:panelGrid>
-                    <t:htmlTag value="div" style="height:3px;" />
                 </t:div>
-                <t:div
-                        rendered="#{centreController.nbCriteres == 0 and centreController.nbPersonnels == 0 and centreController.nbContacts == 0
+                <t:div rendered="#{centreController.nbCriteres == 0 and centreController.nbPersonnels == 0 and centreController.nbContacts == 0
 				and centreController.nbConventions == 0 and centreController.nbOffres == 0}">
                     <h:outputText value="#{msgs['CENTRE.SUPPRESSION.ELEMENTS.VIDES']}" />
                 </t:div>
@@ -68,13 +61,11 @@
                             <h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
                                             value="/media/images/warning_20px.png" />
                         </legend>
-                        <h:panelGrid>
-                            <t:htmlTag value="center">
-                                <h:outputText value="#{msgs['CENTRE.SUPPRESSION.RAPPEL']}" />
-                            </t:htmlTag>
+                        <t:div>
+                            <h:outputText value="#{msgs['CENTRE.SUPPRESSION.RAPPEL']}" />
                             <t:htmlTag value="div" style="height:2px;" />
                             <h:outputText value="#{msgs['CENTRE.SUPPRESSION.RAPPEL_BIS']}" />
-                        </h:panelGrid>
+                        </t:div>
                     </fieldset>
                 </t:div>
                 <t:htmlTag value="div" style="height:15px;" />
@@ -86,7 +77,7 @@
             <t:div styleClass="textCenter mt10">
                 <p:commandButton action="#{centreController.supprimerCentre}"
                                  value="#{msgs['FORM.OUI']}" update="erreurSupprCentre" />
-                <p:commandButton value="#{msgs['FORM.NON']}" styleClass="mlf40"
+                <p:commandButton value="#{msgs['FORM.NON']}" styleClass="ml40"
                                  onclick="PF('suppressionCentre').hide();" />
             </t:div>
             <t:htmlTag value="div" style="height:10px;" />

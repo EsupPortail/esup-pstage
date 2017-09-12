@@ -1742,8 +1742,10 @@ public class ConventionController extends AbstractContextAwareController {
 
 		this.recupFacesMessagesEtablissement();
 
-		if (ret != null && this.etablissementController.getFormStructure() != null
+		if (ret != null
+				&& this.etablissementController.getFormStructure() != null
 				&& this.convention != null) {
+			this.retourAction="_creerConventionEtape2Etab";
 			this.convention.setStructure(this.etablissementController.getFormStructure());
 			getSessionController().setCurrentManageStructure(this.etablissementController.getFormStructure());
 			getSessionController().setMenuGestionEtab(false);

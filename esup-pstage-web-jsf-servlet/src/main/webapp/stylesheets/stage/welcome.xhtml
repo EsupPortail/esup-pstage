@@ -8,10 +8,7 @@
     <ui:define name="content">
         <p:panel>
             <f:facet name="header">
-                <h:outputText value="#{msgs['MENU.ACCUEIL']}"
-                              rendered="#{!welcomeController.etudiant || (welcomeController.etudiant and !sessionController.etudiantFC)}" />
-                <h:outputText value=" #{msgs['MENU.FORMATION_CONTINUE']}"
-                              rendered="#{welcomeController.etudiant and sessionController.etudiantFC}" />
+                <h:outputText value="#{msgs['MENU.ACCUEIL']}"/>
             </f:facet>
             <t:fieldset style="padding:20px;">
                 <h:outputText escape="false"
@@ -48,7 +45,7 @@
                         Information sur les stages a l'etranger
                     </h:outputLink>
                     <t:htmlTag value="div" style="height:5px;"/>
-                    <h:outputLink
+                    <h:outputLink rendered="#{!welcomeController.etudiant || (welcomeController.etudiant and !sessionController.etudiantFC)}"
                             value="#{sessionController.mediaPath}/docs/Notices_bilingues.zip">
                         <h:graphicImage alt="noticesBilingues" value="../../media/images/docs.gif"/>
                         Notices bilingues Convention de stage (Anglais - Espagnol - Allemand - Italien)
