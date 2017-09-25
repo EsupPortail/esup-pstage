@@ -5,7 +5,7 @@
 
     <p:messages />
 
-    <t:div styleClass="textCenter">
+    <t:div styleClass="textCenter" rendered="#{offreController.creationOffre != 'creationOffreAnon'}">
         <p:commandButton value="#{msgs['OFFRE.RECAPITULATIF']}" update="@form"
                          action="#{offreController.goToRecapitulatifOffrePostCreation}"
                          onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" />

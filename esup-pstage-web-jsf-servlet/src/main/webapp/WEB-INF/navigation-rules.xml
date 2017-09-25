@@ -1405,9 +1405,20 @@
 			FIN PARTIE ENTREPRISE
 			*************************************************************************
 		-->
+		<from-view-id>/stylesheets/depotAnonyme/*</from-view-id>
 		<navigation-case>
-			<from-outcome>depotAnonyme</from-outcome>
-			<to-view-id>/stylesheets/depotAnonyme/</to-view-id>
+			<from-outcome>creationOffre</from-outcome>
+			<to-view-id>/stylesheets/depotAnonyme/creationOffreAnon.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creationCentreEtabOffre</from-outcome>
+			<to-view-id>/stylesheets/depotAnonyme/creationOffreAnon.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creationOffreAnon</from-outcome>
+			<to-view-id>/stylesheets/depotAnonyme/creationOffreAnon.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 		<!--

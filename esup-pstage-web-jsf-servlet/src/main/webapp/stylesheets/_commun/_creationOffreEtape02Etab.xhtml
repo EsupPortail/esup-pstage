@@ -68,7 +68,7 @@
     <p:commandButton value="#{msgs['FORM.PREVIOUS']}"
                      styleClass="mt20 mb20"
                      immediate="true"
-                     rendered="#{!rechercheController.rechercheEtabOk}"
+                     rendered="#{!rechercheController.rechercheEtabOk and offreController.creationOffre != 'creationOffreAnon'}"
                      update="formCreationOffre">
         <f:setPropertyActionListener value="_creationOffreEtape01Centre"
                                      target="#{sessionController.creationOffreStageCurrentPage}" />

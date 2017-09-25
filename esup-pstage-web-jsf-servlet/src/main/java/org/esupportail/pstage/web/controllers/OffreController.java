@@ -327,6 +327,14 @@ public class OffreController extends AbstractContextAwareController {
 	}
 
 	/**
+	 * permet de recharger la page courante de l'enchainement d'offre
+	 * @return String
+	 */
+	public String goToCreationOffre() {
+		return this.creationOffre;
+	}
+
+	/**
 	 * Etape 01 : Sélection du centre de gestion
 	 *
 	 * @return String
@@ -373,10 +381,9 @@ public class OffreController extends AbstractContextAwareController {
 					.setResultatRechercheStructure(
 							this.etablissementController.getFormStructure());
 			this.etablissementController.setFormStructure(null);
-//			ret = "_creationOffreEtape04DetailsEtab";
+
 			getSessionController().setCreationOffreStageCurrentPage("_creationOffreEtape04DetailsEtab");
 		}
-		//		return ret;
 	}
 
 	/**
@@ -565,7 +572,6 @@ public class OffreController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String goToCreationOffreEtape3(){
-
 		getSessionController().setCreationOffreCurrentPage("_creationOffreEtape3");
 		getSessionController().setCreationOffreStageCurrentPage("_creationOffreEtape3");
 
@@ -2255,29 +2261,59 @@ public class OffreController extends AbstractContextAwareController {
 	 * DEPOT ANONYME
 	 *****************************************************************************/
 
+	private String codeAccesDepotAnonyme;
+
+	private String urlAccesDepotAnonyme;
+
+	public String getCodeAccesDepotAnonyme() {
+		return codeAccesDepotAnonyme;
+	}
+
+	public void setCodeAccesDepotAnonyme(String codeAccesDepotAnonyme) {
+		this.codeAccesDepotAnonyme = codeAccesDepotAnonyme;
+	}
+
+	public String getUrlAccesDepotAnonyme() {
+		return urlAccesDepotAnonyme;
+	}
+
+	public void setUrlAccesDepotAnonyme(String urlAccesDepotAnonyme) {
+		this.urlAccesDepotAnonyme = urlAccesDepotAnonyme;
+	}
+
 	/**
-	 * Envoi vers le depot anonyme du centre concern� 
-	 * si celui-ci � autoris� le depot anonyme 
-	 * @param depot
-	 * @param id
+	 * code d'acces au depot anonyme pour une entreprise
+	 */
+	public void genererUrlDepotAnonyme() {
+		// chiffrage de l'id de la convention via blowfish
+		String idEncode = getBlowfishUtils().encode(
+				"" + getCentreGestionDomainService().getCentreEntreprise().getIdCentreGestion());
+
+		this.urlAccesDepotAnonyme =  getSessionController().getBaseUrl()
+				+ "/stylesheets/depotAnonyme/welcome.xhtml" + "?id="
+				+ idEncode;
+	}
+
+	/**
+	 * Envoi vers l'enchainement de creation d'offre anonyme
 	 * @return String
 	 */
-	public String goToDepotAnonyme(String depot,String id){
-		String ret="depotAnonyme";
-		this.centreGestionDepotAnonyme=null;
-		if(Utils.isNumber(id)){
-			int idCG = Utils.convertStringToInt(id);
-			if(idCG>0){
-				String depotMD5 = Utils.encodageIdCgMd5(idCG);
-				if(depot.equals(depotMD5)){
-					CentreGestionDTO cgTmp = getCentreGestionDomainService().getCentreGestion(idCG);
-					if(cgTmp!=null && cgTmp.isDepotAnonyme()){
-						this.centreGestionDepotAnonyme=cgTmp;
-						this.formOffre=new OffreDTO();
-						this.formOffre.setIdCentreGestion(this.centreGestionDepotAnonyme.getIdCentreGestion());
-					}
-				}
+	public String goToDepotAnonyme(){
+		String ret=null;
+		this.centreGestionDepotAnonyme = getCentreGestionDomainService().getCentreEntreprise();
+		if (this.centreGestionDepotAnonyme != null) {
+			int idDecode = Utils.convertStringToInt(getBlowfishUtils().decode(this.codeAccesDepotAnonyme));
+			if(idDecode == this.centreGestionDepotAnonyme.getIdCentreGestion()){
+				this.formOffre=new OffreDTO();
+				this.formOffre.setIdCentreGestion(idDecode);
+				ret = "creationOffreAnon";
+				this.creationOffre = "creationOffreAnon";
+				getSessionController().setCreationOffreStageCurrentPage("_creationOffreEtape02Etab");
+			} else {
+				addErrorMessage("formAccueilDepotAnon","DEPOTANONYME.UNAUTHORIZED");
 			}
+		} else {
+			addErrorMessage("formAccueilDepotAnon","DEPOTANONYME.CENTRE_ENTR_VIDE");
 		}
 		return ret;
 	}
@@ -2438,7 +2474,11 @@ public class OffreController extends AbstractContextAwareController {
 		this.goToCreationOffreDetailsEtab();
 
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("creationCentreEtabOffre.xhtml");
+			if (this.creationOffre.equalsIgnoreCase("creationOffreAnon")){
+				FacesContext.getCurrentInstance().getExternalContext().redirect(getSessionController().getBaseUrl()+"/stylesheets/depotAnonyme/creationOffreAnon.xhtml");
+			} else {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("creationCentreEtabOffre.xhtml");
+			}
 		} catch (IOException ioe){
 			logger.error("Erreur lors de la tentative de redirection de page.", ioe);
 			addErrorMessage(null, "Erreur lors de la tentative de redirection de page.");

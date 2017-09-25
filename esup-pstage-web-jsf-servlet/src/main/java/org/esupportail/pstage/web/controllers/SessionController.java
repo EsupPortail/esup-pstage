@@ -2585,4 +2585,5 @@ public class SessionController extends AbstractDomainAwareBean {
 	public void setCurrentPage(String currentPage) {
 		this.currentPage = currentPage;
 	}
+
 }

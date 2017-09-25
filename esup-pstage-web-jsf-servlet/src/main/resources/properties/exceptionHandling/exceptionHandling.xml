@@ -15,8 +15,7 @@
 	<bean 
 		id="exceptionServiceFactory" 
 		class="org.esupportail.commons.services.exceptionHandling.CachingEmailExceptionServiceFactoryImpl"
-		parent="abstractApplicationAwareBean"
-		>
+		parent="abstractApplicationAwareBean">
 		<property name="authenticationService" ref="${auth.bean}" />
 		<property name="smtpService" ref="smtpService" />
 		<property name="recipientEmail" value="${exceptionHandling.email}" />

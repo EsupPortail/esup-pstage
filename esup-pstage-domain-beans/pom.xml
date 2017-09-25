@@ -22,14 +22,16 @@
 			<artifactId>esup-pstagedata-3.0.0.jar</artifactId>
 			<version>3.0.0</version>
 			<scope>system</scope>
-			<systemPath>C:/workspace_pstage/esup-pstage/esup-pstage-web-jsf-servlet/src/main/webapp/WEB-INF/lib/esup-pstagedata-3.0.0.jar</systemPath>
+			<!--<systemPath>C:/workspace_pstage/esup-pstage/esup-pstage-web-jsf-servlet/src/main/webapp/WEB-INF/lib/esup-pstagedata-3.0.0.jar</systemPath>-->
+			<systemPath>${basedir}/../esup-pstage-web-jsf-servlet/src/main/webapp/WEB-INF/lib/esup-pstagedata-3.0.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>local</groupId>
 			<artifactId>apo-webservicesclient.jar</artifactId>
 			<version>1.0.0</version>
 			<scope>system</scope>
-			<systemPath>C:/workspace_pstage/esup-pstage/esup-pstage-web-jsf-servlet/src/main/webapp/WEB-INF/lib/apo-webservicesclient490lba.jar</systemPath>
+			<!--<systemPath>C:/workspace_pstage/esup-pstage/esup-pstage-web-jsf-servlet/src/main/webapp/WEB-INF/lib/apo-webservicesclient490lba.jar</systemPath>-->
+			<systemPath>${basedir}/../esup-pstage-web-jsf-servlet/src/main/webapp/WEB-INF/lib/apo-webservicesclient490lba.jar</systemPath>
 		</dependency>
 	</dependencies>
 </project>

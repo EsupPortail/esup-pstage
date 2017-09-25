@@ -41,7 +41,7 @@
         </t:div>
 
         <p:commandButton value="#{msgs['FORM.PREVIOUS']}"  immediate="true"
-                         action="creationCentreEtabOffre"
+                         action="#{offreController.goToCreationOffre}"
                          styleClass="mt20 mb20">
             <f:setPropertyActionListener value="#{null}"
                                          target="#{rechercheController.resultatRechercheStructure}" />

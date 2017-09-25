@@ -1,12 +1,12 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	template="../_connexionTemplate.xhtml">
-	<ui:define name="content">
-		<h:form id="casForm" style="visibility:hidden;">
-			<h:commandButton id="submitCAS"
-				action="#{welcomeController.connectCas}" value="Continuer" />
-			<h:inputText id="idLienDirect"
-				value="#{welcomeController.idLienDirect}" />
-		</h:form>
-	</ui:define>
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="../_connexionTemplate.xhtml">
+    <ui:define name="content">
+        <h:form id="casForm" style="visibility:hidden;">
+            <h:commandButton id="submitCAS"
+                             action="#{welcomeController.connectCas}" value="Continuer" />
+            <h:inputText id="idLienDirect"
+                         value="#{welcomeController.idLienDirect}" />
+        </h:form>
+    </ui:define>
 </ui:composition>

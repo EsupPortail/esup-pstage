@@ -1,0 +1,53 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="../_basicTemplate.xhtml">
+    <f:metadata>
+        <f:viewParam name="id" value="#{offreController.codeAccesDepotAnonyme}" />
+    </f:metadata>
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['DEPOTANONYME.ACCUEIL']} " />
+            </f:facet>
+            <h:form id="formAccueilDepotAnon" styleClass="block">
+
+
+                <t:div styleClass="ml20" rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
+                    <t:htmlTag value="i" styleClass="fa fa-interrogation-circle fz13 fontBlue2" />
+                    <h:outputText value="#{msgs['DEPOTANONYME.AIDE']}" escape="false" />
+
+                    <t:div styleClass="mt10 ml20">
+                        <p:commandButton value="#{msgs['DEPOTANONYME.BTN_ANON']}"
+                                         action="#{offreController.goToDepotAnonyme}"
+                                         update="@form"/>
+                    </t:div>
+                </t:div>
+
+                <t:div rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+                    <h:outputText value="#{msgs['DEPOTANONYME.ACCUEIL.GEST']}" />
+                    <t:div styleClass="mt10 ml20">
+                        <p:commandButton value="#{msgs['DEPOTANONYME.BTN_GEST']}" action="#{offreController.genererUrlDepotAnonyme}"
+                                         oncomplete="PF('urlDepotAnonDialog').show();"
+                                         update="urlDepotAnonDialog"/>
+                    </t:div>
+
+                    <p:dialog id="urlDepotAnonDialog" widgetVar="urlDepotAnonDialog" resizable="false" modal="true">
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs['DEPOTANONYME.URL_ACCES']}" />
+                        </f:facet>
+                        <t:div styleClass="mt15 textCenter">
+                            <h:outputText value="#{offreController.urlAccesDepotAnonyme}" />
+                        </t:div>
+                        <t:div styleClass="mt20 mb20 textCenter">
+                            <p:commandButton value="#{msgs['GENERAL.OK']}" onclick="PF('urlDepotAnonDialog').hide();"/>
+                        </t:div>
+                    </p:dialog>
+                </t:div>
+                <p:messages for="formAccueilDepotAnon" />
+            </h:form>
+        </p:panel>
+    </ui:define>
+</ui:composition>

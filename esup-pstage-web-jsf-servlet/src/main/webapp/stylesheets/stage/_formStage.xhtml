@@ -170,7 +170,7 @@
                         <p:outputPanel id="alerte6mois">
                             <t:htmlTag value="li">
                                 <t:div styleClass="textCenter"
-                                       rendered="#{conventionController.dureeSuperieureA6mois}">
+                                       rendered="#{!conventionController.conventionFormationContinue and conventionController.dureeSuperieureA6mois}">
                                     <t:htmlTag value="i" styleClass="fa fa-warning fz13 fontBlue2 noPointer" />
                                     <h:outputText styleClass="ml5" value="#{msgs['CONVENTION.CREERCONVENTION.DUREEMAX']}" />
                                 </t:div>
@@ -279,7 +279,7 @@
                 <p:tooltip for="infoGratification" value="#{msgs['INFOSBULLES.GRATIFICATION']}" escape="false"/>
             </t:htmlTag>
             <h:outputText styleClass="fontBold ml5"
-                          value="#{conventionController.conventionFormationContinue ? 'Les stage offre-t-il une indemnisation ?' : msgs['CONVENTION.INDEMNISATION']+msgs['CONVENTION.ETOILE']}" />
+                          value="#{conventionController.conventionFormationContinue ? msgs['CONVENTION.INDEMNISATION.FORMATION_CONTINUE'] : msgs['CONVENTION.INDEMNISATION']} #{msgs['CONVENTION.ETOILE']}" />
             <h:selectOneMenu id="indemnisation" required="true"
                              styleClass="ml5 customPstage autoWidth"
                              value="#{conventionController.selIndemnisation}"
@@ -298,7 +298,7 @@
                 <t:htmlTag value="ul" styleClass="formUL columns-2">
                     <t:div styleClass="column">
                         <t:htmlTag value="li">
-                            <h:outputText value="#{msgs['CONVENTION.SIMTGRATIFICATION']}"
+                            <h:outputText value="#{conventionController.conventionFormationContinue ? msgs['CONVENTION.SIMTGRATIFICATION.FORMATION_CONTINUE'] : msgs['CONVENTION.SIMTGRATIFICATION']}"
                                           styleClass="fontBold" style="white-space: nowrap;"/>
                             <t:div styleClass="mt5 verticalAlignDiv">
                                 <p:inputText id="montantGratification" size="4" styleClass="autoWidth"
