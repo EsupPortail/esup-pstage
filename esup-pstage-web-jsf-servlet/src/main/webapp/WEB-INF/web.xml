@@ -119,14 +119,14 @@
 		</listener-class>
 	</listener>
 
-	<!-- <context-param> -->
-	<!-- <param-name>javax.faces.PROJECT_STAGE</param-name> -->
-	<!-- <param-value>Production</param-value> -->
-	<!-- </context-param> -->
-	<context-param>
-		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Development</param-value>
-	</context-param>
+	 <context-param>
+	 <param-name>javax.faces.PROJECT_STAGE</param-name>
+	 <param-value>Production</param-value>
+	 </context-param>
+	<!--<context-param>-->
+		<!--<param-name>javax.faces.PROJECT_STAGE</param-name>-->
+		<!--<param-value>Development</param-value>-->
+	<!--</context-param>-->
 
 
 	<!--BEGIN CAS -->
@@ -200,11 +200,11 @@
 		</servlet-class>
 		<init-param>
 			<param-name>uploadLogoEntreprisePath</param-name>
-			<param-value>C:/esup-pstage-files/logosEntreprise</param-value>
+			<param-value>/usr/local/src/esup-pstage-files/logosEntreprise</param-value>
 		</init-param>
 		<init-param>
 			<param-name>uploadLogoCentrePath</param-name>
-			<param-value>C:/esup-pstage-files/logosCentre</param-value>
+			<param-value>/usr/local/src/esup-pstage-files/logosCentre</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -218,7 +218,7 @@
 		</servlet-class>
 		<init-param>
 			<param-name>uploadFilesPath</param-name>
-			<param-value>C:/esup-pstage-files/offresEntreprise</param-value>
+			<param-value>/usr/local/src/esup-pstage-files/offresEntreprise</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>

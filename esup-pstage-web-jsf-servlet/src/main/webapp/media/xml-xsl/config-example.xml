@@ -16,13 +16,14 @@
 	<hauteurLogoCentre>1cm</hauteurLogoCentre>
 	<largeurLogoCentre>3cm</largeurLogoCentre>
 	
-	<!-- Répertoire de stockage des logos des centres de gestion avec / , renseigne au moment du deploy-->
-	<uploadFiles.logosCentre.path>${uploadFiles.logosCentre.path}/</uploadFiles.logosCentre.path>
+	<!-- Correspond à la propriété uploadLogoCentrePath déjà saisie dans web.xml : répertoire de stockage des logos des centres de gestion (avec / à la fin) -->
+	<uploadFiles.logosCentre.path>/usr/local/src/esup-pstage-files/logosCentre</uploadFiles.logosCentre.path>
 	
 	<!-- Paramètrage pour l'offre -->
 	<!-- Logo de l'université : /!\ Doit se situer dans le sous-dossier images /!\ -->
 	<logoUniversiteOffre>square2.jpg</logoUniversiteOffre>
-		<!-- Paramètrage pour triptik page 6 convention francaise -->
-		<!-- si parametre présent edition triptik.xsl  -->
+
+	<!-- Paramètrage pour triptik page 6 convention francaise -->
+	<!-- si parametre présent edition triptik.xsl  -->
 	<!--   <triptik></triptik> -->
 </config>
