@@ -1333,6 +1333,29 @@
 		*************************************************************************
 	-->
 
+	<!--
+		*********************************************************************
+		PARTIE DEPOT ANONYME
+		*************************************************************************
+	-->
+	<navigation-rule>
+		<from-view-id>/stylesheets/depotAnonyme/*</from-view-id>
+		<navigation-case>
+			<from-outcome>creationOffre</from-outcome>
+			<to-view-id>/stylesheets/depotAnonyme/creationOffreAnon.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creationCentreEtabOffre</from-outcome>
+			<to-view-id>/stylesheets/depotAnonyme/creationOffreAnon.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creationOffreAnon</from-outcome>
+			<to-view-id>/stylesheets/depotAnonyme/creationOffreAnon.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
 	<!-- Règles de navigation générales -->
 	<navigation-rule>
 		<!--
@@ -1405,22 +1428,6 @@
 			FIN PARTIE ENTREPRISE
 			*************************************************************************
 		-->
-		<from-view-id>/stylesheets/depotAnonyme/*</from-view-id>
-		<navigation-case>
-			<from-outcome>creationOffre</from-outcome>
-			<to-view-id>/stylesheets/depotAnonyme/creationOffreAnon.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>creationCentreEtabOffre</from-outcome>
-			<to-view-id>/stylesheets/depotAnonyme/creationOffreAnon.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>creationOffreAnon</from-outcome>
-			<to-view-id>/stylesheets/depotAnonyme/creationOffreAnon.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
 		<!--
 			*********************************************************************
 			PARTIE MOTEUR OFFRE PUBLIC

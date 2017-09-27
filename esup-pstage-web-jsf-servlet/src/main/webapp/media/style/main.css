@@ -609,7 +609,6 @@ body {
   margin: 0;
 }
 .formUL label {
-  display: block;
   margin-bottom: 2px;
 }
 .formUL input,

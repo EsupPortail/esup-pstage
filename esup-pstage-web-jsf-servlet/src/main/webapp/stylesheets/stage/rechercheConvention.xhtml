@@ -126,7 +126,7 @@
                                                  value="#{conventionController.critereRechercheConvention.tempsTravail}"
                                                  converter="#{tempsTravailConverter}">
                                     <f:selectItem itemValue="" />
-                                    <f:selectItems value="#{nomenclatureController.tempsTravail}" />
+                                    <f:selectItems value="#{nomenclatureController.tempsTravailEnServ}" />
                                 </h:selectOneMenu>
                             </t:htmlTag>
                         </t:div>
@@ -318,7 +318,7 @@
                                                  value="#{conventionController.critereRechercheConvention.effectif}"
                                                  converter="#{effectifConverter}">
                                     <f:selectItem itemValue="" />
-                                    <f:selectItems value="#{nomenclatureController.effectifs}" />
+                                    <f:selectItems value="#{nomenclatureController.effectifsEnServ}" />
                                 </h:selectOneMenu>
                             </t:htmlTag>
                             <t:htmlTag value="li">

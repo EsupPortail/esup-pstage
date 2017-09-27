@@ -462,14 +462,14 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	public List<ContratOffreDTO> getContratsOffreFromIdTypeOffre(int id){
 		List<ContratOffreDTO> l = null;
 		if(id>0){
-			l = new ArrayList<ContratOffreDTO>();
+			l = new ArrayList<>();
 			for(ContratOffreDTO ff : getContrats()){
-				if(ff.getIdParent()==id && ff.getTemEnServ() == "O"){
+				if(ff.getIdParent() == id && "O".equalsIgnoreCase(ff.getTemEnServ())) {
 					l.add(ff);
 				}
 			}
 			if(l.isEmpty()){
-				l=null;
+				l = null;
 			}
 		}
 		return l;

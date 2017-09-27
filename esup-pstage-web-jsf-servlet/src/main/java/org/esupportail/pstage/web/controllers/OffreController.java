@@ -530,7 +530,7 @@ public class OffreController extends AbstractContextAwareController {
 		//Màj liste des contrats
 		List<ContratOffreDTO> l = getNomenclatureDomainService().getContratsOffreFromIdTypeOffre(this.formOffre.getIdTypeOffre());
 		if(l!=null && !l.isEmpty()){
-			this.contratsListening=new ArrayList<SelectItem>();
+			this.contratsListening=new ArrayList<>();
 			for(ContratOffreDTO c : l){
 				this.contratsListening.add(new SelectItem(c,c.getLibelle()));
 			}
@@ -985,7 +985,7 @@ public class OffreController extends AbstractContextAwareController {
 		//Màj liste des contrats
 		List<ContratOffreDTO> l = getNomenclatureDomainService().getContratsOffreFromIdTypeOffre(this.formOffre.getIdTypeOffre());
 		if(l!=null && !l.isEmpty()){
-			this.contratsListening=new ArrayList<SelectItem>();
+			this.contratsListening=new ArrayList<>();
 			for(ContratOffreDTO c : l){
 				this.contratsListening.add(new SelectItem(c,c.getLibelle()));
 			}

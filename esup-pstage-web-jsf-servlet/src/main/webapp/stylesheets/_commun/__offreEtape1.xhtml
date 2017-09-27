@@ -23,7 +23,7 @@
                                      value="#{offreController.formOffre.typeOffre}"
                                      converter="#{typeOffreConverter}" required="true">
                         <f:selectItem itemValue="" />
-                        <f:selectItems value="#{nomenclatureController.typesOffre}" />
+                        <f:selectItems value="#{nomenclatureController.typesOffreEnServ}" />
                         <p:ajax event="valueChange" update="msgTypeOffre"/>
                     </h:selectOneMenu>
                     <p:message id="msgTypeOffre" for="typeOffre" />

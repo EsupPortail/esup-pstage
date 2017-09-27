@@ -114,7 +114,7 @@
                                      value="#{offreController.critereRechercheOffre.niveauFormation}"
                                      converter="#{niveauFormationConverter}">
                         <f:selectItem itemValue="" />
-                        <f:selectItems value="#{nomenclatureController.niveauxFormation}" />
+                        <f:selectItems value="#{nomenclatureController.niveauxFormationEnServ}" />
                     </h:selectOneMenu>
                 </t:htmlTag>
                 <t:htmlTag value="li" rendered="#{offreController.rechercheAvancee}">
@@ -144,7 +144,7 @@
                                      value="#{offreController.critereRechercheOffre.typeStructure}"
                                      converter="#{typeStructureConverter}">
                         <f:selectItem itemValue="" />
-                        <f:selectItems value="#{nomenclatureController.typesStructure}" />
+                        <f:selectItems value="#{nomenclatureController.typesStructureEnServ}" />
                     </h:selectOneMenu>
                 </t:htmlTag>
                 <t:htmlTag value="li"

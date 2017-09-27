@@ -106,7 +106,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 	@SuppressWarnings("unused")
 	private List<SelectItem> datesStage;
 	/**
-	 * Nomenclature des effectifs
+	 * Nomenclature des droitsAdmin
 	 */
 	@SuppressWarnings("unused")
 	private List<SelectItem> droitsAdmin;
@@ -271,8 +271,8 @@ public class NomenclatureController extends AbstractContextAwareController {
 	 */
 	private int indexMenu;
 
-	
-	
+
+
 	/**
 	 * Bean constructor.
 	 */
@@ -318,7 +318,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 		this.contratOffreCurrentPage = "table";
 		this.effectifCurrentPage = "table";
 		this.modeValidationStageCurrentPage = "table";
-		
+
 		return "gestionNomenclatures";
 	}
 
@@ -337,7 +337,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 		this.contratOffre = new ContratOffreDTO();
 		this.effectif = new EffectifDTO();
 		this.modeValidationStage = new ModeValidationStageDTO();
-	}	
+	}
 
 	/**
 	 * Navigation
@@ -464,7 +464,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 	 * @return
 	 */
 	public void addNiveauFormation(){
-		try{			
+		try{
 			getNomenclatureDomainService().addNiveauFormation(this.niveauFormation);
 			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
 			this.niveauFormationCurrentPage="table";
@@ -530,7 +530,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 	 * @return
 	 */
 	public void addTempsTravail(){
-		try{			
+		try{
 			getNomenclatureDomainService().addTempsTravail(this.tpsTravail);
 			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
 			this.tempsTravailCurrentPage="table";
@@ -595,7 +595,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 	 * @return
 	 */
 	public void addOrigineStage(){
-		try{			
+		try{
 			getNomenclatureDomainService().addOrigineStage(this.origineStage);
 			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
 			this.origineStageCurrentPage="table";
@@ -660,7 +660,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 	 * @return
 	 */
 	public void addTypeConvention(){
-		try{			
+		try{
 			getNomenclatureDomainService().addTypeConvention(this.typeConvention);
 			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
 			this.typeConventionCurrentPage="table";
@@ -710,7 +710,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 	 * @return
 	 */
 	public void addTypeStructure(){
-		try{			
+		try{
 			getNomenclatureDomainService().addTypeStructure(this.typeStructure);
 			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
 			this.typeStructureCurrentPage="table";
@@ -854,7 +854,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 	 * @return
 	 */
 	public void addTypeOffre(){
-		try{			
+		try{
 			getNomenclatureDomainService().addTypeOffre(this.typeOffre);
 			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
 			this.typeOffreCurrentPage="table";
@@ -999,7 +999,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 	 * @return
 	 */
 	public void addEffectif(){
-		try{			
+		try{
 			getNomenclatureDomainService().addEffectif(this.effectif);
 			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
 			this.effectifCurrentPage="table";
@@ -1064,7 +1064,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 	 * @return
 	 */
 	public void addModeValidationStage(){
-		try{			
+		try{
 			getNomenclatureDomainService().addModeValidationStage(this.modeValidationStage);
 			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
 			this.modeValidationStageCurrentPage="table";
@@ -1271,7 +1271,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * @param id 
+	 * @param id
 	 * @return List<SelectItem>
 	 */
 	public List<SelectItem> getContratOffreFromIdTypeOffre(int id){
@@ -1323,6 +1323,22 @@ public class NomenclatureController extends AbstractContextAwareController {
 	/**
 	 * @return List<SelectItem>
 	 */
+	public List<SelectItem> getEffectifsEnServ(){
+		List<SelectItem> ls = new ArrayList<>();
+		List<EffectifDTO> l = getNomenclatureDomainService().getEffectifs();
+		if(l!=null){
+			for(EffectifDTO o : l){
+				if ("O".equalsIgnoreCase(o.getTemEnServ())) {
+					ls.add(new SelectItem(o, o.getLibelle()));
+				}
+			}
+		}
+		return ls;
+	}
+
+	/**
+	 * @return List<SelectItem>
+	 */
 	public List<SelectItem> getFapN1(){
 		List<SelectItem> ls = new ArrayList<>();
 		List<FapN1DTO> l = getNomenclatureDomainService().getFapN1();
@@ -1347,7 +1363,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 		return ls;
 	}
 	/**
-	 * @param code 
+	 * @param code
 	 * @return List<SelectItem>
 	 */
 	public List<SelectItem> getFapN2FromCodeFapN1(String code){
@@ -1372,7 +1388,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 		return ls;
 	}
 	/**
-	 * @param code 
+	 * @param code
 	 * @return List<SelectItem>
 	 */
 	public List<SelectItem> getFapN3FromCodeFapN2(String code){
@@ -1384,7 +1400,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 		return ls;
 	}
 	/**
-	 * @param num 
+	 * @param num
 	 * @return List<SelectItem>
 	 */
 	public List<SelectItem> getFapN3FromNumQualif(int num){
@@ -1412,7 +1428,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 		return ls;
 	}
 	/**
-	 * @param id 
+	 * @param id
 	 * @return List<SelectItem>
 	 */
 	public List<SelectItem> getFapQualificationFromNumQualifSimplifiee(int id){
@@ -1490,7 +1506,23 @@ public class NomenclatureController extends AbstractContextAwareController {
 		List<ModeValidationStageDTO> l = getNomenclatureDomainService().getModeValidationStages();
 		if(l!=null){
 			for(ModeValidationStageDTO o : l){
-				ls.add(new SelectItem(o,o.getLibelle()));
+				ls.add(new SelectItem(o, o.getLibelle()));
+			}
+		}
+		return ls;
+	}
+
+	/**
+	 * @return the ModeValidationStages
+	 */
+	public List<SelectItem> getModeValidationStagesEnServ() {
+		List<SelectItem> ls = new ArrayList<>();
+		List<ModeValidationStageDTO> l = getNomenclatureDomainService().getModeValidationStages();
+		if(l!=null){
+			for(ModeValidationStageDTO o : l){
+				if ("O".equalsIgnoreCase(o.getTemEnServ())) {
+					ls.add(new SelectItem(o, o.getLibelle()));
+				}
 			}
 		}
 		return ls;
@@ -1563,7 +1595,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 		return ls;
 	}
 	/**
-	 * @param code 
+	 * @param code
 	 * @return List<SelectItem>
 	 */
 	public List<SelectItem> getNafN5FromCodeNafN1(String code){
@@ -1615,6 +1647,21 @@ public class NomenclatureController extends AbstractContextAwareController {
 		}
 		return ls;
 	}
+	/**
+	 * @return List<SelectItem>
+	 */
+	public List<SelectItem> getNiveauxFormationEnServ(){
+		List<SelectItem> ls = new ArrayList<>();
+		List<NiveauFormationDTO> l = getNomenclatureDomainService().getNiveauxFormation();
+		if(l!=null){
+			for(NiveauFormationDTO o : l){
+				if ("O".equalsIgnoreCase(o.getTemEnServ())) {
+					ls.add(new SelectItem(o, o.getLibelle()));
+				}
+			}
+		}
+		return ls;
+	}
 
 	/**
 	 * @return the origineStages
@@ -1629,6 +1676,23 @@ public class NomenclatureController extends AbstractContextAwareController {
 		}
 		return ls;
 	}
+
+	/**
+	 * @return the origineStages en service
+	 */
+	public List<SelectItem> getOrigineStagesEnServ() {
+		List<SelectItem> ls = new ArrayList<>();
+		List<OrigineStageDTO> l = getNomenclatureDomainService().getOrigineStages();
+		if(l!=null){
+			for(OrigineStageDTO o : l){
+				if ("O".equalsIgnoreCase(o.getTemEnServ())) {
+					ls.add(new SelectItem(o, o.getLibelle()));
+				}
+			}
+		}
+		return ls;
+	}
+
 	/**
 	 * @return List<SelectItem>
 	 */
@@ -1643,9 +1707,9 @@ public class NomenclatureController extends AbstractContextAwareController {
 		}
 		return ls;
 	}
-	
 
-	
+
+
 	/**
 	 * @return List<SelectItem>
 	 */
@@ -1661,8 +1725,8 @@ public class NomenclatureController extends AbstractContextAwareController {
 		return ls;
 	}
 	/**
-	 * @param id 
-	 * @param ajouterChampVide 
+	 * @param id
+	 * @param ajouterChampVide
 	 * @return List<SelectItem>
 	 */
 	public List<SelectItem> getStatutsJuridiquesFromIdTypeStructure(int id, boolean ajouterChampVide){
@@ -1706,6 +1770,21 @@ public class NomenclatureController extends AbstractContextAwareController {
 		return ls;
 	}
 
+	/**
+	 * @return List<SelectItem>
+	 */
+	public List<SelectItem> getTempsTravailEnServ(){
+		List<SelectItem> ls = new ArrayList<>();
+		List<TempsTravailDTO> l = getNomenclatureDomainService().getTempsTravail();
+		if(l!=null){
+			for(TempsTravailDTO o : l){
+				if ("O".equalsIgnoreCase(o.getTemEnServ())) {
+					ls.add(new SelectItem(o, o.getLibelle()));
+				}
+			}
+		}
+		return ls;
+	}
 
 	/**
 	 * @return the themes
@@ -1787,6 +1866,23 @@ public class NomenclatureController extends AbstractContextAwareController {
 		}
 		return ls;
 	}
+
+	/**
+	 * @return List<SelectItem>
+	 */
+	public List<SelectItem> getTypesOffreEnServ(){
+		List<SelectItem> ls = new ArrayList<>();
+		List<TypeOffreDTO> l = getNomenclatureDomainService().getTypesOffre();
+		if(l!=null){
+			for(TypeOffreDTO o : l){
+				if ("O".equalsIgnoreCase(o.getTemEnServ())) {
+					ls.add(new SelectItem(o, o.getLibelle()));
+				}
+			}
+		}
+		return ls;
+	}
+
 	/**
 	 * @return List<SelectItem>
 	 */
@@ -1824,18 +1920,39 @@ public class NomenclatureController extends AbstractContextAwareController {
 	/**
 	 * @return List<SelectItem>
 	 */
-	public List<SelectItem> getTypesStructureSansSiret(){
+	public List<SelectItem> getTypesStructureEnServ(){
 		List<SelectItem> ls = new ArrayList<>();
 		List<TypeStructureDTO> l = getNomenclatureDomainService().getTypesStructure();
 		if(l!=null){
 			for(TypeStructureDTO o : l){
-				ls.add(new SelectItem(o,o.getLibelle()));
+				if ("O".equalsIgnoreCase(o.getTemEnServ())) {
+					String lib = "";
+					lib += o.getLibelle() + " (SIRET " + (o.isSiretObligatoire() ? "Obligatoire" : "Non obligatoire") + ")";
+					ls.add(new SelectItem(o, lib));
+				}
 			}
 		}
 
 		return ls;
 	}
-	
+
+	/**
+	 * @return List<SelectItem>
+	 */
+	public List<SelectItem> getTypesStructureSansSiret(){
+		List<SelectItem> ls = new ArrayList<>();
+		List<TypeStructureDTO> l = getNomenclatureDomainService().getTypesStructure();
+		if(l!=null){
+			for(TypeStructureDTO o : l){
+				if ("O".equalsIgnoreCase(o.getTemEnServ())) {
+					ls.add(new SelectItem(o, o.getLibelle()));
+				}
+			}
+		}
+
+		return ls;
+	}
+
 	/**
 	 * @return List<SelectItem>
 	 */
@@ -1848,7 +1965,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 			}
 		}
 		return ls;
-	}	
+	}
 	/**
 	 * @return the UniteGratifications
 	 */
@@ -2194,7 +2311,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 	public void setIndexMenu(int indexMenu) {
 		this.indexMenu = indexMenu;
 	}
-	
-	
-	
+
+
+
 }

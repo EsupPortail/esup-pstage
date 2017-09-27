@@ -13,7 +13,7 @@
             <t:htmlTag value="ul" styleClass="formUL textCenter">
                 <p:commandButton action="#{rechercheController.rechercheEtabSiret}"
                                  value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
-                                 update="@form" styleClass="ml5 floatRight"
+                                 update="@form" styleClass="ml5 floatRight"  icon="fa fa-search"
                                  onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
                 <t:div style="overflow: hidden;">
                     <p:inputText id="rechNumeroSiret" size="20" maxlength="14"
@@ -29,7 +29,7 @@
             <t:htmlTag value="ul" styleClass="formUL textCenter">
                 <p:commandButton action="#{rechercheController.rechercheEtabSiren}"
                                  value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
-                                 update="@form" styleClass="ml5 floatRight"
+                                 update="@form" styleClass="ml5 floatRight" icon="fa fa-search"
                                  onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
                 <t:div style="overflow: hidden;">
                     <p:inputText id="rechNumeroSiren" size="20" maxlength="9"
@@ -86,6 +86,7 @@
                 <p:commandButton id="confirmForm" update="@form"
                                  action="#{rechercheController.rechercheRaisonSociale}"
                                  value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+                                 icon="fa fa-search"
                                  onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
             </t:div>
         </t:div>
@@ -128,7 +129,7 @@
 
             <t:div styleClass="textCenter clearFloat">
                 <p:commandButton action="#{rechercheController.rechercheActivite}"
-                                 value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+                                 value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" icon="fa fa-search"
                                  update="@form" onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
             </t:div>
         </t:div>
@@ -139,7 +140,7 @@
             <t:htmlTag value="ul" styleClass="formUL">
                 <p:commandButton action="#{rechercheController.rechercheTel}"
                                  value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
-                                 update="@form" styleClass="ml5 floatRight"
+                                 update="@form" styleClass="ml5 floatRight" icon="fa fa-search"
                                  onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
                 <t:div style="overflow: hidden;">
                     <p:inputText id="rechTelephone" size="20" maxlength="20"
@@ -153,7 +154,7 @@
             <t:htmlTag value="ul" styleClass="formUL">
                 <p:commandButton action="#{rechercheController.rechercheFax}"
                                  value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
-                                 update="@form" styleClass="ml5 floatRight"
+                                 update="@form" styleClass="ml5 floatRight" icon="fa fa-search"
                                  onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
                 <t:div style="overflow: hidden;">
                     <p:inputText id="rechFax" size="20" maxlength="20"
@@ -207,7 +208,7 @@
             <t:div styleClass="mt20 textCenter clearFloat">
                 <p:commandButton action="#{rechercheController.rechercheAdresse}"
                                  value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
-                                 update="@form"
+                                 update="@form" icon="fa fa-search"
                                  onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
             </t:div>
         </t:div>
@@ -238,7 +239,7 @@
 
             <t:div styleClass="textCenter mt15 clearFloat">
                 <p:commandButton action="#{rechercheController.rechercheService}"
-                                 update="@form"
+                                 update="@form" icon="fa fa-search"
                                  value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
                                  onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
             </t:div>
@@ -300,7 +301,7 @@
             <t:div styleClass="textCenter">
                 <p:commandButton action="#{rechercheController.rechercheAccord}"
                                  value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
-                                 update="@form"
+                                 update="@form" icon="fa fa-search"
                                  onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
             </t:div>
         </t:div>

@@ -54,7 +54,7 @@
 						converter="#{effectifConverter}" required="true"
 						requiredMessage="#{requiredMessageController.champObligatoire}">
 						<f:selectItem itemValue="" />
-						<f:selectItems value="#{nomenclatureController.effectifs}" />
+						<f:selectItems value="#{nomenclatureController.effectifsEnServ}" />
 						<p:ajax event="valueChange" />
 					</h:selectOneMenu>
 					<p:message for="effectif">
@@ -74,7 +74,7 @@
 							valueChangeListener="#{etablissementController.valueTypeStructureChanged}"
 							requiredMessage="#{requiredMessageController.champObligatoire}">
 							<f:selectItem itemValue="" />
-							<f:selectItems value="#{nomenclatureController.typesStructure}" />
+							<f:selectItems value="#{nomenclatureController.typesStructureEnServ}" />
 							<p:ajax event="valueChange"
 								update="opStatutJuridique, siret, olSiret" />
 						</h:selectOneMenu>

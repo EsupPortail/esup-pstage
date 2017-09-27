@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import gouv.education.apogee.commun.transverse.dto.administratif.CursusExterneDTO;
+import gouv.education.apogee.commun.transverse.dto.administratif.CursusExternesEtTransfertsDTO;
 import org.apache.log4j.Logger;
 import org.esupportail.commons.services.ldap.LdapUser;
 import org.esupportail.commons.services.ldap.LdapUserService;
@@ -610,8 +612,13 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 				logger.debug("Inscription trouvee sur l'annee suivante ("+anneeSuivante+")");
 				listeAnneesUniv.add(anneeSuivante);
 
+
 				// Recuperation du regime d'inscription pour l'etudiant a partir de l'annee
 				for (InsAdmAnuDTO2 insAdmAnu : serviceAdministratif.recupererIAAnnuelles_v2(etudiant.getCodEtu().toString(), anneeSuivante, "E")) {
+
+					insAdmAnu.getAutreEtbAnneeEnCours().getCodeEtb();
+
+
 					// Libelle CPAM
 					if (libelleCPAM == "" && insAdmAnu.getCpam() != null && insAdmAnu.getCpam().getLibCpam() != null) {
 						logger.debug("Libelle CPAM : " + insAdmAnu.getCpam().getLibCpam());

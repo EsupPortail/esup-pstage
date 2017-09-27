@@ -45,10 +45,12 @@
                                  value="#{offreController.formOffre.typeOffre}"
                                  converter="#{typeOffreConverter}" required="true"
                                  disabled="true" style="opacity: 0.50;">
-                    <f:selectItems value="#{nomenclatureController.typesOffre}" />
+                    <f:selectItems value="#{nomenclatureController.typesOffreEnServ}" />
                 </h:selectOneMenu>
 
-                <h:outputLabel value="#{msgs['OFFRE.CONTRATOFFRE']} *" for="contrat" styleClass="fontBold mt10"
+                <t:htmlTag value="div" style="height:10px;" />
+
+                <h:outputLabel value="#{msgs['OFFRE.CONTRATOFFRE']} *" for="contrat" styleClass="fontBold"
                                rendered="#{not empty offreController.contratsListening}" />
                 <h:selectOneMenu id="contrat" styleClass="customPstage fix-selectOneMenu"
                                  value="#{offreController.formOffre.contratOffre}"
@@ -84,7 +86,7 @@
                                  value="#{offreController.formOffre.niveauFormation}"
                                  converter="#{niveauFormationConverter}" required="true">
                     <f:selectItem itemValue="" />
-                    <f:selectItems value="#{nomenclatureController.niveauxFormation}" />
+                    <f:selectItems value="#{nomenclatureController.niveauxFormationEnServ}" />
                 </h:selectOneMenu>
                 <p:message for="niveauFormationF" />
             </t:div>
@@ -314,7 +316,7 @@
                                      value="#{offreController.formOffre.tempsTravail}"
                                      converter="#{tempsTravailConverter}" required="true">
                         <f:selectItem itemValue="" />
-                        <f:selectItems value="#{nomenclatureController.tempsTravail}" />
+                        <f:selectItems value="#{nomenclatureController.tempsTravailEnServ}" />
                         <p:ajax event="valueChange" update="opQuotiteTravail, msgTpsTravail"/>
                     </h:selectOneMenu>
                     <p:message id="msgTpsTravail" for="tempsTravail" />
@@ -362,7 +364,7 @@
                                      value="#{offreController.formOffre.niveauFormation}"
                                      converter="#{niveauFormationConverter}" required="true">
                         <f:selectItem itemValue="" />
-                        <f:selectItems value="#{nomenclatureController.niveauxFormation}" />
+                        <f:selectItems value="#{nomenclatureController.niveauxFormationEnServ}" />
                         <p:ajax event="valueChange" />
                     </h:selectOneMenu>
                     <p:message for="niveauFormation"/>

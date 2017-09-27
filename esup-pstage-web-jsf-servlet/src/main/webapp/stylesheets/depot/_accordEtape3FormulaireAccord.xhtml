@@ -54,7 +54,7 @@
                                      disabled="#{accordController.structureDejaExistante}"
                                      style="opacity: #{accordController.structureDejaExistante ? 0.50 : 1};">
                         <f:selectItem itemValue="" />
-                        <f:selectItems value="#{nomenclatureController.effectifs}" />
+                        <f:selectItems value="#{nomenclatureController.effectifsEnServ}" />
                     </h:selectOneMenu>
                     <p:message for="effectif" />
                 </t:htmlTag>
@@ -99,7 +99,7 @@
                                      disabled="#{accordController.structureDejaExistante}"
                                      style="opacity: #{accordController.structureDejaExistante ? 0.50 : 1};">
                         <f:selectItem itemValue="" />
-                        <f:selectItems value="#{nomenclatureController.typesStructure}" />
+                        <f:selectItems value="#{nomenclatureController.typesStructureEnServ}" />
                         <p:ajax event="valueChange" update="msgTypeStruct, opStatutJuridique" />
                     </h:selectOneMenu>
                     <p:message id="msgTypeStruct" for="typeStructure"/>

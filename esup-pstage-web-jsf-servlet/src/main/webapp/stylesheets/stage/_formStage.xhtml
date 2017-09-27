@@ -209,7 +209,7 @@
                     <h:selectOneMenu id="tempsTravail" effect="none" styleClass="mt5 customPstage"
                                      value="#{conventionController.selTempsTravail}"
                                      converter="#{tempsTravailConverter}">
-                        <f:selectItems value="#{nomenclatureController.tempsTravail}" />
+                        <f:selectItems value="#{nomenclatureController.tempsTravailEnServ}" />
                     </h:selectOneMenu>
                     <p:message for="tempsTravail"/>
                 </t:htmlTag>
@@ -377,7 +377,7 @@
                                      value="#{conventionController.selOrigineStage}"
                                      converter="#{origineStageConverter}" required="true">
                         <f:selectItem itemValue="" />
-                        <f:selectItems value="#{nomenclatureController.origineStages}" />
+                        <f:selectItems value="#{nomenclatureController.origineStagesEnServ}" />
                         <p:ajax event="valueChange" update="msgOrigineStage" />
                     </h:selectOneMenu>
                     <p:message id="msgOrigineStage" for="origineStage"/>
@@ -414,7 +414,7 @@
                                          value="#{conventionController.selModeValidationStage}"
                                          converter="#{modeValidationStageConverter}" required="true">
                             <f:selectItem itemValue="" itemLabel="" />
-                            <f:selectItems value="#{nomenclatureController.modeValidationStages}" />
+                            <f:selectItems value="#{nomenclatureController.modeValidationStagesEnServ}" />
                         </h:selectOneMenu>
                         <p:message for="modeValidationStage" />
                     </t:div>

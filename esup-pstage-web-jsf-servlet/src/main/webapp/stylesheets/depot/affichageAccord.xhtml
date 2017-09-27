@@ -49,7 +49,7 @@
                                                                  converter="#{effectifConverter}" required="true"
                                                                  disabled="true" style="opacity: 0.50;">
                                                     <f:selectItem itemValue="" />
-                                                    <f:selectItems value="#{nomenclatureController.effectifs}" />
+                                                    <f:selectItems value="#{nomenclatureController.effectifsEnServ}" />
                                                 </h:selectOneMenu>
                                                 <p:message for="effectif"/>
                                             </t:htmlTag>
@@ -79,7 +79,7 @@
                                                                  valueChangeListener="#{adminController.valueTypeStructureChanged}"
                                                                  disabled="true" style="opacity: 0.50;">
                                                     <f:selectItem itemValue="" />
-                                                    <f:selectItems value="#{nomenclatureController.typesStructure}" />
+                                                    <f:selectItems value="#{nomenclatureController.typesStructureEnServ}" />
                                                     <p:ajax event="valueChange" update="opStatutJuridique" />
                                                 </h:selectOneMenu>
                                                 <p:message for="typeStructure"/>

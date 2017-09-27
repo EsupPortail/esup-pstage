@@ -566,7 +566,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	/**
 	 * CONFIGURATION DES TABLES DE NOMENCLATURE
 	 */
-	private String nomenclatureCurrentPage = "_include_caisseRegime";
+	private String nomenclatureCurrentPage = "_include_modeValidationStage";
 	
 	/**
 	 * Constructor.

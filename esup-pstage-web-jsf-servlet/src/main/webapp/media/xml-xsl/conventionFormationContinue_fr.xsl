@@ -100,9 +100,9 @@
 			</fo:inline>
 			/
 			<!--<fo:inline text-decoration="underline">-->
-				<!--2) Fiche de stage à l'étranger-->
-				<!--(pour informations sécurité sociale voir site cleiss.fr - pour fiche-->
-				<!--pays voir site diplomatie.gouv.fr)-->
+			<!--2) Fiche de stage à l'étranger-->
+			<!--(pour informations sécurité sociale voir site cleiss.fr - pour fiche-->
+			<!--pays voir site diplomatie.gouv.fr)-->
 			<!--</fo:inline>-->
 			<!--/-->
 			<fo:inline>
@@ -399,63 +399,61 @@
 							</fo:inline>
 							<xsl:value-of select="centre-gestion/mail" />
 						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-								  country="FR" font-size="9pt" font-family="Times New Roman,serif">
-							<fo:leader />
-						</fo:block>
 
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-								  country="FR" font-size="9pt" font-family="Times New Roman,serif"
-								  padding-left="0.141cm" padding-right="0.141cm" padding-top="0cm"
-								  padding-bottom="0.035cm" text-align="center">
-							<fo:inline font-weight="bold">
-								1bis -
-								<fo:inline text-decoration="underline">L'ÉTABLISSEMENT
-									DE CERTIFICATION (si différent)
-								</fo:inline>
-							</fo:inline>
-						</fo:block>
-						<fo:block line-height="130%" hyphenate="false" language="fr"
-								  country="FR" font-size="9pt" font-family="Times New Roman,serif"
-								  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
-								  padding-bottom="0.035cm">
-							<fo:inline font-weight="bold">
-								Nom :
-							</fo:inline>
-							<xsl:choose>
-								<xsl:when test="nom-etab-ref">
-									<xsl:value-of select="nom-etab-ref" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:value-of select="document('config.xml')/config/nomUniversite" />
-								</xsl:otherwise>
-							</xsl:choose>
-						</fo:block>
-						<fo:block line-height="130%" hyphenate="false" language="fr"
-								  country="FR" font-size="9pt" font-family="Times New Roman,serif"
-								  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-								  padding-bottom="0.035cm">
-							<fo:inline font-weight="bold">
-								Adresse :
-							</fo:inline>
-							<xsl:choose>
-								<xsl:when test="adresse-etab-ref">
-									<xsl:value-of select="adresse-etab-ref" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:value-of select="document('config.xml')/config/adresseUniversite" />
-								</xsl:otherwise>
-							</xsl:choose>
-						</fo:block>
-						<fo:block line-height="130%" hyphenate="false" language="fr"
-								  country="FR" font-size="9pt" font-family="Times New Roman,serif"
-								  padding-left="0.141cm" padding-right="0.141cm">
-							<fo:inline font-weight="bold">
-								Tél :
-							</fo:inline>
-							<xsl:value-of select="centre-gestion/telephone" />
-							&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
-						</fo:block>
+						<!--<xsl:choose>-->
+							<!--<xsl:when test="nom-etab-certif">-->
+								<!--<fo:block line-height="110%" hyphenate="false" language="fr"-->
+										  <!--country="FR" font-size="9pt" font-family="Times New Roman,serif">-->
+									<!--<fo:leader />-->
+								<!--</fo:block>-->
+
+								<!--<fo:block line-height="110%" hyphenate="false" language="fr"-->
+										  <!--country="FR" font-size="9pt" font-family="Times New Roman,serif"-->
+										  <!--padding-left="0.141cm" padding-right="0.141cm" padding-top="0cm"-->
+										  <!--padding-bottom="0.035cm" text-align="center">-->
+									<!--<fo:inline font-weight="bold">-->
+										<!--1bis - -->
+										<!--<fo:inline text-decoration="underline">L'ÉTABLISSEMENT-->
+											<!--DE CERTIFICATION (si différent)-->
+										<!--</fo:inline>-->
+									<!--</fo:inline>-->
+								<!--</fo:block>-->
+								<!--<fo:block line-height="130%" hyphenate="false" language="fr"-->
+										  <!--country="FR" font-size="9pt" font-family="Times New Roman,serif"-->
+										  <!--padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"-->
+										  <!--padding-bottom="0.035cm">-->
+									<!--<fo:inline font-weight="bold">-->
+										<!--Nom :-->
+									<!--</fo:inline>-->
+									<!--<xsl:value-of select="nom-etab-certif" />-->
+								<!--</fo:block>-->
+								<!--<xsl:choose>-->
+									<!--<xsl:when test="adresse-etab-certif">-->
+										<!--<fo:block line-height="130%" hyphenate="false" language="fr"-->
+												  <!--country="FR" font-size="9pt" font-family="Times New Roman,serif"-->
+												  <!--padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"-->
+												  <!--padding-bottom="0.035cm">-->
+											<!--<fo:inline font-weight="bold">-->
+												<!--Adresse :-->
+											<!--</fo:inline>-->
+											<!--<xsl:value-of select="adresse-etab-certif" />-->
+										<!--</fo:block>-->
+									<!--</xsl:when>-->
+								<!--</xsl:choose>-->
+								<!--<fo:block line-height="130%" hyphenate="false" language="fr"-->
+								<!--country="FR" font-size="9pt" font-family="Times New Roman,serif"-->
+								<!--padding-left="0.141cm" padding-right="0.141cm">-->
+								<!--<fo:inline font-weight="bold">-->
+								<!--Tél :-->
+								<!--</fo:inline>-->
+								<!--<xsl:value-of select="centre-gestion/telephone" />-->
+								<!--&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-->
+								<!--</fo:block>-->
+							<!--</xsl:when>-->
+							<!--<xsl:otherwise>-->
+
+							<!--</xsl:otherwise>-->
+						<!--</xsl:choose>-->
 					</fo:table-cell>
 
 					<!-- partie Entreprise ou organisme accueil -->
@@ -1594,8 +1592,8 @@
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  space-before="0cm" space-after="0cm" font-weight="normal"
 									  text-align="justify">
-								Selon le cadre du stage, le stagiaire s'assurera d'être en règle avec les obligations 
-								tant sanitaires que règlementaires (notamment hygiène et sécurité) 
+								Selon le cadre du stage, le stagiaire s'assurera d'être en règle avec les obligations
+								tant sanitaires que règlementaires (notamment hygiène et sécurité)
 								propres à l'activité ou au lieu du stage.
 							</fo:block>
 
@@ -1668,8 +1666,8 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 									  font-family="Times New Roman,serif" text-align="justify">
-								Des autorisations d'absence sont possibles sous réserve que la durée du stage soit 
-								respectée. Elles sont définies entre le stagiaire et l'organisme d'accueil, 
+								Des autorisations d'absence sont possibles sous réserve que la durée du stage soit
+								respectée. Elles sont définies entre le stagiaire et l'organisme d'accueil,
 								qui en informe l'établissement d'enseignement.
 							</fo:block>
 							<xsl:variable name="nb-conges" select="nb-conges" />
@@ -1691,7 +1689,7 @@
 							</xsl:if>
 							<fo:block line-height="110%" hyphenate="false" language="fr" padding-top="5pt"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Toute absence du stagiaire doit être justifiée et signalée par le stagiaire à 
+								Toute absence du stagiaire doit être justifiée et signalée par le stagiaire à
 								l'organisme d'accueil et à l'établissement d'enseignement.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -2149,93 +2147,93 @@
 				<fo:leader />
 			</fo:block>
 			<!--<fo:table table-layout="fixed" width="100%">-->
-				<!--<fo:table-column column-width="proportional-column-width(1)" />-->
-				<!--<fo:table-column column-width="proportional-column-width(1)" />-->
-				<!--<fo:table-body>-->
-					<!--<fo:table-row>-->
-						<!--<fo:table-cell>-->
-							<!--&lt;!&ndash; Tuteur pedago &ndash;&gt;-->
-							<!--<fo:block line-height="110%" padding-top="2pt"-->
-									  <!--padding-bottom="2pt" hyphenate="false" language="fr" country="FR"-->
-									  <!--font-size="10pt" font-family="Times New Roman,serif"-->
-									  <!--text-decoration="underline" font-weight="bold">-->
-								<!--L'enseignant référent du-->
-								<!--stagiaire-->
-							<!--</fo:block>-->
-							<!--<xsl:choose>-->
-								<!--<xsl:when test="enseignant/nom">-->
-									<!--<fo:block line-height="110%" padding-top="2pt"-->
-											  <!--padding-bottom="2pt" hyphenate="false" language="fr" country="FR"-->
-											  <!--font-size="10pt" font-family="Times New Roman,serif"-->
-											  <!--font-weight="bold">-->
-										<!--<xsl:call-template name="start_upper">-->
-											<!--<xsl:with-param name="prenom">-->
-												<!--<xsl:value-of select="enseignant/prenom" />-->
-											<!--</xsl:with-param>-->
-										<!--</xsl:call-template>-->
-										<!--<xsl:text> </xsl:text>-->
-										<!--<xsl:value-of select="translate(enseignant/nom,$lowers,$uppers)" />-->
-									<!--</fo:block>-->
-									<!--<fo:block line-height="110%" hyphenate="false"-->
-											  <!--language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">-->
-										<!--<fo:leader />-->
-									<!--</fo:block>-->
-								<!--</xsl:when>-->
-								<!--<xsl:otherwise>-->
-									<!--<fo:block line-height="110%" padding-top="2pt"-->
-											  <!--padding-bottom="2pt" hyphenate="false" language="fr" country="FR"-->
-											  <!--font-size="10pt" font-family="Times New Roman,serif">-->
-										<!--Nom et signature-->
-									<!--</fo:block>-->
-									<!--<fo:block line-height="110%" hyphenate="false"-->
-											  <!--language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">-->
-										<!--......................................................-->
-									<!--</fo:block>-->
-								<!--</xsl:otherwise>-->
-							<!--</xsl:choose>-->
-						<!--</fo:table-cell>-->
-						<!--<fo:table-cell>-->
-							<!--&lt;!&ndash; Tuteur pro &ndash;&gt;-->
-							<!--<fo:block line-height="110%" padding-top="2pt"-->
-									  <!--padding-bottom="2pt" hyphenate="false" language="fr" country="FR"-->
-									  <!--font-size="10pt" font-family="Times New Roman,serif"-->
-									  <!--text-decoration="underline" font-weight="bold">-->
-								<!--Le tuteur de stage de-->
-								<!--l'organisme d'accueil-->
-							<!--</fo:block>-->
-							<!--<xsl:choose>-->
-								<!--<xsl:when test="contact/nom">-->
-									<!--<fo:block line-height="110%" padding-top="2pt"-->
-											  <!--hyphenate="false" language="fr" country="FR" font-size="10pt"-->
-											  <!--font-family="Times New Roman,serif" font-weight="bold">-->
-										<!--<xsl:call-template name="start_upper">-->
-											<!--<xsl:with-param name="prenom">-->
-												<!--<xsl:value-of select="contact/prenom" />-->
-											<!--</xsl:with-param>-->
-										<!--</xsl:call-template>-->
-										<!--<xsl:text> </xsl:text>-->
-										<!--<xsl:value-of select="translate(contact/nom,$lowers,$uppers)" />-->
-									<!--</fo:block>-->
-									<!--<fo:block line-height="110%" hyphenate="false"-->
-											  <!--language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">-->
-										<!--<fo:leader />-->
-									<!--</fo:block>-->
-								<!--</xsl:when>-->
-								<!--<xsl:otherwise>-->
-									<!--<fo:block line-height="110%" padding-top="2pt"-->
-											  <!--hyphenate="false" language="fr" country="FR" font-size="10pt"-->
-											  <!--font-family="Times New Roman,serif">-->
-										<!--Nom et signature-->
-									<!--</fo:block>-->
-									<!--<fo:block line-height="110%" hyphenate="false"-->
-											  <!--language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">-->
-										<!--......................................................-->
-									<!--</fo:block>-->
-								<!--</xsl:otherwise>-->
-							<!--</xsl:choose>-->
-						<!--</fo:table-cell>-->
-					<!--</fo:table-row>-->
-				<!--</fo:table-body>-->
+			<!--<fo:table-column column-width="proportional-column-width(1)" />-->
+			<!--<fo:table-column column-width="proportional-column-width(1)" />-->
+			<!--<fo:table-body>-->
+			<!--<fo:table-row>-->
+			<!--<fo:table-cell>-->
+			<!--&lt;!&ndash; Tuteur pedago &ndash;&gt;-->
+			<!--<fo:block line-height="110%" padding-top="2pt"-->
+			<!--padding-bottom="2pt" hyphenate="false" language="fr" country="FR"-->
+			<!--font-size="10pt" font-family="Times New Roman,serif"-->
+			<!--text-decoration="underline" font-weight="bold">-->
+			<!--L'enseignant référent du-->
+			<!--stagiaire-->
+			<!--</fo:block>-->
+			<!--<xsl:choose>-->
+			<!--<xsl:when test="enseignant/nom">-->
+			<!--<fo:block line-height="110%" padding-top="2pt"-->
+			<!--padding-bottom="2pt" hyphenate="false" language="fr" country="FR"-->
+			<!--font-size="10pt" font-family="Times New Roman,serif"-->
+			<!--font-weight="bold">-->
+			<!--<xsl:call-template name="start_upper">-->
+			<!--<xsl:with-param name="prenom">-->
+			<!--<xsl:value-of select="enseignant/prenom" />-->
+			<!--</xsl:with-param>-->
+			<!--</xsl:call-template>-->
+			<!--<xsl:text> </xsl:text>-->
+			<!--<xsl:value-of select="translate(enseignant/nom,$lowers,$uppers)" />-->
+			<!--</fo:block>-->
+			<!--<fo:block line-height="110%" hyphenate="false"-->
+			<!--language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">-->
+			<!--<fo:leader />-->
+			<!--</fo:block>-->
+			<!--</xsl:when>-->
+			<!--<xsl:otherwise>-->
+			<!--<fo:block line-height="110%" padding-top="2pt"-->
+			<!--padding-bottom="2pt" hyphenate="false" language="fr" country="FR"-->
+			<!--font-size="10pt" font-family="Times New Roman,serif">-->
+			<!--Nom et signature-->
+			<!--</fo:block>-->
+			<!--<fo:block line-height="110%" hyphenate="false"-->
+			<!--language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">-->
+			<!--......................................................-->
+			<!--</fo:block>-->
+			<!--</xsl:otherwise>-->
+			<!--</xsl:choose>-->
+			<!--</fo:table-cell>-->
+			<!--<fo:table-cell>-->
+			<!--&lt;!&ndash; Tuteur pro &ndash;&gt;-->
+			<!--<fo:block line-height="110%" padding-top="2pt"-->
+			<!--padding-bottom="2pt" hyphenate="false" language="fr" country="FR"-->
+			<!--font-size="10pt" font-family="Times New Roman,serif"-->
+			<!--text-decoration="underline" font-weight="bold">-->
+			<!--Le tuteur de stage de-->
+			<!--l'organisme d'accueil-->
+			<!--</fo:block>-->
+			<!--<xsl:choose>-->
+			<!--<xsl:when test="contact/nom">-->
+			<!--<fo:block line-height="110%" padding-top="2pt"-->
+			<!--hyphenate="false" language="fr" country="FR" font-size="10pt"-->
+			<!--font-family="Times New Roman,serif" font-weight="bold">-->
+			<!--<xsl:call-template name="start_upper">-->
+			<!--<xsl:with-param name="prenom">-->
+			<!--<xsl:value-of select="contact/prenom" />-->
+			<!--</xsl:with-param>-->
+			<!--</xsl:call-template>-->
+			<!--<xsl:text> </xsl:text>-->
+			<!--<xsl:value-of select="translate(contact/nom,$lowers,$uppers)" />-->
+			<!--</fo:block>-->
+			<!--<fo:block line-height="110%" hyphenate="false"-->
+			<!--language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">-->
+			<!--<fo:leader />-->
+			<!--</fo:block>-->
+			<!--</xsl:when>-->
+			<!--<xsl:otherwise>-->
+			<!--<fo:block line-height="110%" padding-top="2pt"-->
+			<!--hyphenate="false" language="fr" country="FR" font-size="10pt"-->
+			<!--font-family="Times New Roman,serif">-->
+			<!--Nom et signature-->
+			<!--</fo:block>-->
+			<!--<fo:block line-height="110%" hyphenate="false"-->
+			<!--language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">-->
+			<!--......................................................-->
+			<!--</fo:block>-->
+			<!--</xsl:otherwise>-->
+			<!--</xsl:choose>-->
+			<!--</fo:table-cell>-->
+			<!--</fo:table-row>-->
+			<!--</fo:table-body>-->
 			<!--</fo:table>-->
 		</fo:block>
 	</xsl:template>
