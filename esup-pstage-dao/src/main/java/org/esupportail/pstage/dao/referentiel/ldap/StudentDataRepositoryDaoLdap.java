@@ -263,7 +263,6 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 				etapes.put(etapeCode, etapeLibelle);
 			}
 		}
-		logger.info("Resultat etape 1 : " + etapes);
 		return etapes;
 	}
 
