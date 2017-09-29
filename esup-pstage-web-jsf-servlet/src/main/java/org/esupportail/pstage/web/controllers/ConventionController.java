@@ -803,10 +803,12 @@ public class ConventionController extends AbstractContextAwareController {
 							this.etudiantRef.setTheCodeVersionEtape(etp.getCodVrsVet());
 							this.etudiantRef.setTheEtape(etp.getLibWebVet());
 							this.etudiantRef.setVolumeHoraireFormation(etp.getVolumeHoraire());
-							if ("0".equals(etp.getVolumeHoraire())){
-								this.convention.setVolumeHoraireFormation(null);
-							} else {
-								this.convention.setVolumeHoraireFormation(etp.getVolumeHoraire()); // input
+							if (this.convention != null) {
+								if ("0".equals(etp.getVolumeHoraire())) {
+									this.convention.setVolumeHoraireFormation(null);
+								} else {
+									this.convention.setVolumeHoraireFormation(etp.getVolumeHoraire()); // input
+								}
 							}
 							// recherche des elements pedagogiques
 							this.listeELPEtapes = rechElpEtape(etp.getCodeEtp());
@@ -1191,8 +1193,7 @@ public class ConventionController extends AbstractContextAwareController {
 							"CONVENTION.CREERCONVENTION.ETAPE.ERREUR", we);
 					return retour;
 				} catch (EtapeAlreadyExistingForCodeException ee) {
-					logger.info("Etape deja existante code "
-							+ this.convention.getEtape(), ee);
+					logger.debug("Etape deja existante code " + this.convention.getEtape(), ee);
 				}
 			}
 			if (this.etudiantRef.getThecodeUFR() != null
@@ -2344,8 +2345,7 @@ public class ConventionController extends AbstractContextAwareController {
 					we);
 			return retour;
 		} catch (EtapeAlreadyExistingForCodeException ee) {
-			logger.info("Etape deja existante code "
-					+ this.convention.getEtape(), ee);
+			logger.debug("Etape deja existante code " + this.convention.getEtape(), ee);
 		}
 		// creation Ufr
 		try {
@@ -2444,10 +2444,10 @@ public class ConventionController extends AbstractContextAwareController {
 					we);
 			return retour;
 		} catch (AffectationAlreadyExistingForCodeException ue) {
-			logger.info("Affectation deja existante code "
+			logger.debug("Affectation deja existante code "
 					+ this.convention.getEnseignant().getAffectation().getCode(), ue);
 		} catch (Exception e) {
-			logger.info("Affectation deja existante code "
+			logger.debug("Affectation deja existante code "
 					+ this.convention.getEnseignant().getAffectation().getCode(), e);
 		}
 		// creation enseignant

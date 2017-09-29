@@ -1438,7 +1438,7 @@ public class CentreController extends AbstractContextAwareController {
 			}
 
 		} catch (AffectationAlreadyExistingForCodeException ue) {
-			logger.info("Affectation deja existante pour le code : "+this.personnel.getAffectation().getCode(), ue);
+			logger.debug("Affectation deja existante pour le code : "+this.personnel.getAffectation().getCode(), ue);
 		} catch (DataAddException d){
 			logger.error("DataAddException",d);
 			addErrorMessage("formAjoutPersonnel","CENTRE.PERSONNEL.ERREUR");

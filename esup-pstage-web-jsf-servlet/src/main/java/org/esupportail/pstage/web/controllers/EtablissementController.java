@@ -612,18 +612,16 @@ public class EtablissementController extends AbstractContextAwareController {
 				addErrorMessage("formAjoutEtab", "STRUCTURE.ERREURAJOUT");
 				retour = null;
 			} catch (StructureNumSiretException se) {
-				logger.info("Structure déjà existante pour ce numéro siret "
-						+ structureTmp, se);
+				logger.debug("Structure déjà existante pour ce numéro siret " + structureTmp);
 				addErrorMessage("formAjoutEtab", "STRUCTURE.DEJA_EXISTANTE");
 				retour = null;
 			} catch (UnvalidNumSiretException ue) {
-				logger.info("Numéro siret invalide pour " + structureTmp, ue);
+				logger.debug("Numéro siret invalide pour " + structureTmp);
 				addErrorMessage("formAjoutEtab","STRUCTURE.NUM_SIRET.VALIDATION");
 				retour = null;
 			}
 		} else {
-			addErrorMessage("formAjoutEtab",
-					"STRUCTURE.ERREURAJOUT.NAF");
+			addErrorMessage("formAjoutEtab", "STRUCTURE.ERREURAJOUT.NAF");
 		}
 		return retour;
 	}
@@ -936,17 +934,17 @@ public class EtablissementController extends AbstractContextAwareController {
 				addErrorMessage("formModifEtab", "STRUCTURE.ERREURMODIF");
 				retour = null;
 			} catch (WebServiceDataBaseException we) {
-				logger.error("WebServiceDataBaseException",
-						we);
+				logger.error("WebServiceDataBaseException", we);
 				addErrorMessage("formModifEtab", "STRUCTURE.ERREURMODIF");
 				retour = null;
 			} catch (StructureNumSiretException se) {
-				logger.info("Structure déjà existante pour ce numéro siret "
-						+ structureTmp, se);
+				logger.debug("Structure déjà existante pour ce numéro siret " + structureTmp);
+				logger.debug(se);
 				addErrorMessage("formModifEtab", "STRUCTURE.DEJA_EXISTANTE");
 				retour = null;
 			} catch (UnvalidNumSiretException ue) {
-				logger.info("Numéro siret invalide pour " + structureTmp, ue);
+				logger.debug("Numéro siret invalide pour " + structureTmp);
+				logger.debug(ue);
 				addErrorMessage("formModifEtab", "STRUCTURE.NUM_SIRET.VALIDATION");
 				retour = null;
 			}

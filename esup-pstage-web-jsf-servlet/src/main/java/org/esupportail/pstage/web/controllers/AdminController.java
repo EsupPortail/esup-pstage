@@ -543,44 +543,28 @@ public class AdminController extends AbstractContextAwareController {
 					getSessionController().setValidationAccordCurrentPage("_validationAccordEtape2Confirm");
 
 				}catch (DataUpdateException e) {
-					if(logger.isInfoEnabled()){
-						logger.info("DataUpdateException ",e);
-					}
+					logger.debug("DataUpdateException ",e);
 					addErrorMessage("formValidationAccord", "ACCORD.ERREUR_VALIDATION", e.getMessage());
 				}catch (WebServiceDataBaseException e) {
-					if(logger.isInfoEnabled()){
-						logger.info("WebServiceDataBaseException ",e);
-					}
+					logger.debug("WebServiceDataBaseException ",e);
 					addErrorMessage("formValidationAccord", "ACCORD.ERREUR_VALIDATION", e.getMessage());
 				}catch (AccordAlreadyExistingForStructureException e) {
-					if(logger.isInfoEnabled()){
-						logger.info("AccordAlreadyExistingForStructureException ",e);
-					}
+					logger.debug("AccordAlreadyExistingForStructureException ",e);
 					addErrorMessage("formValidationAccord", "ACCORD.ERREUR_VALIDATION.ACCORDEXISTANT", e.getMessage());
 				}catch (AccordAlreadyExistingForContactException e) {
-					if(logger.isInfoEnabled()){
-						logger.info("AccordAlreadyExistingForContactException ",e);
-					}
+					logger.debug("AccordAlreadyExistingForContactException ",e);
 					addErrorMessage("formValidationAccord", "ACCORD.ERREUR_VALIDATION.ACCORDEXISTANT", e.getMessage());
 				}catch (UnvalidNumSiretException e) {
-					if(logger.isInfoEnabled()){
-						logger.info("UnvalidNumSiretException ",e);
-					}
+					logger.debug("UnvalidNumSiretException ",e);
 					addErrorMessage("formValidationAccord", "ACCORD.ERREUR_VALIDATION.ERREURSIRET", e.getMessage());
 				}catch (AccountAlreadyExistingForCoupleMailStructureException e) {
-					if(logger.isInfoEnabled()){
-						logger.info("AccountAlreadyExistingForCoupleMailStructureException ",e);
-					}
+					logger.debug("AccountAlreadyExistingForCoupleMailStructureException ",e);
 					addErrorMessage("formValidationAccord", "ACCORD.ERREUR_VALIDATION.MAILEXISTANT", e.getMessage());
 				}catch (MailAlreadyUsedForStructureException e) {
-					if(logger.isInfoEnabled()){
-						logger.info("MailAlreadyUsedForStructureException ",e);
-					}
+					logger.debug("MailAlreadyUsedForStructureException ",e);
 					addErrorMessage("formValidationAccord", "ACCORD.ERREUR_VALIDATION.MAILEXISTANT", e.getMessage());
 				}catch (StructureNumSiretException e) {
-					if(logger.isInfoEnabled()){
-						logger.info("StructureNumSiretException ",e);
-					}
+					logger.debug("Structure déjà existante pour ce numéro siret " + this.structureAccordAValider);
 					addErrorMessage("formValidationAccord", "ACCORD.ERREUR_VALIDATION.STRUCTURESIRET", e.getMessage());
 				}
 			}else{
@@ -777,44 +761,28 @@ public class AdminController extends AbstractContextAwareController {
 					this.contactAccordAValider=null;
 					this.accordPartenariatAValider=null;
 				}catch (DataUpdateException e) {
-					if(logger.isInfoEnabled()){
-						logger.info("DataUpdateException ",e);
-					}
+					logger.debug("DataUpdateException ", e);
 					addErrorMessage(null, "ACCORD.ERREUR_VALIDATION", e.getMessage());
 				}catch (WebServiceDataBaseException e) {
-					if(logger.isInfoEnabled()){
-						logger.info("WebServiceDataBaseException ",e);
-					}
+					logger.debug("WebServiceDataBaseException ",e);
 					addErrorMessage(null, "ACCORD.ERREUR_VALIDATION", e.getMessage());
 				}catch (AccordAlreadyExistingForStructureException e) {
-					if(logger.isInfoEnabled()){
-						logger.info("AccordAlreadyExistingForStructureException ",e);
-					}
+					logger.debug("AccordAlreadyExistingForStructureException ",e);
 					addErrorMessage(null, "ACCORD.ERREUR_VALIDATION.ACCORDEXISTANT", e.getMessage());
 				}catch (AccordAlreadyExistingForContactException e) {
-					if(logger.isInfoEnabled()){
-						logger.info("AccordAlreadyExistingForContactException ",e);
-					}
+					logger.debug("AccordAlreadyExistingForContactException ",e);
 					addErrorMessage(null, "ACCORD.ERREUR_VALIDATION.ACCORDEXISTANT", e.getMessage());
 				}catch (UnvalidNumSiretException e) {
-					if(logger.isInfoEnabled()){
-						logger.info("UnvalidNumSiretException ",e);
-					}
+					logger.debug("UnvalidNumSiretException ",e);
 					addErrorMessage(null, "ACCORD.ERREUR_VALIDATION.ERREURSIRET", e.getMessage());
 				}catch (AccountAlreadyExistingForCoupleMailStructureException e) {
-					if(logger.isInfoEnabled()){
-						logger.info("AccountAlreadyExistingForCoupleMailStructureException ",e);
-					}
+					logger.debug("AccountAlreadyExistingForCoupleMailStructureException ",e);
 					addErrorMessage(null, "ACCORD.ERREUR_VALIDATION.MAILEXISTANT", e.getMessage());
 				}catch (MailAlreadyUsedForStructureException e) {
-					if(logger.isInfoEnabled()){
-						logger.info("MailAlreadyUsedForStructureException ",e);
-					}
+					logger.debug("MailAlreadyUsedForStructureException ",e);
 					addErrorMessage(null, "ACCORD.ERREUR_VALIDATION.MAILEXISTANT", e.getMessage());
 				}catch (StructureNumSiretException e) {
-					if(logger.isInfoEnabled()){
-						logger.info("StructureNumSiretException ",e);
-					}
+					logger.debug("StructureNumSiretException ",e);
 					addErrorMessage(null, "ACCORD.ERREUR_VALIDATION.STRUCTURESIRET", e.getMessage());
 				}
 			}else{

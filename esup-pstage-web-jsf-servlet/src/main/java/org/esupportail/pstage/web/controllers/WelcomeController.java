@@ -27,18 +27,9 @@ import org.esupportail.pstage.domain.beans.EtudiantRef;
 import org.esupportail.pstage.domain.beans.NousContacter;
 import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.domain.dto.AccordPartenariatDTO;
-import org.esupportail.pstagedata.domain.dto.AdminStructureDTO;
-import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
-import org.esupportail.pstagedata.domain.dto.ContactDTO;
-import org.esupportail.pstagedata.domain.dto.DroitAdministrationDTO;
-import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
-import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
-import org.esupportail.pstagedata.domain.dto.StructureDTO;
+import org.esupportail.pstagedata.domain.dto.*;
 import org.primefaces.event.SelectEvent;
 import org.springframework.util.StringUtils;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr

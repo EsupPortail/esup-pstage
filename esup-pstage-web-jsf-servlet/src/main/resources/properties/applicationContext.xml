@@ -27,7 +27,6 @@
 	<import resource="classpath*:/META-INF/cache/cache.xml" />
 	<import resource="classpath*:/META-INF/dao/dao.xml" />
 	<import resource="classpath*:/META-INF/domain/domain.xml" />
-	<import resource="exceptionHandling/exceptionHandling.xml" />
 	<import resource="classpath*:/META-INF/ldap/ldap.xml" />
 	<import resource="classpath*:/META-INF/misc/abstractBeans.xml" />
 	<import resource="classpath*:/META-INF/misc/application.xml" />
@@ -39,5 +38,6 @@
 	<import resource="web/converters.xml" />
 	<import resource="web/validators.xml" />
 	<import resource="web/paginators.xml" />
+	<import resource="exceptionHandling/exceptionHandling.xml" />
 
 </beans>

@@ -550,27 +550,27 @@ public class AccordController extends AbstractContextAwareController {
 				}
 			}catch (StructureNumSiretException se){
 				logger.info("Structure déjà existante pour ce numéro siret "+structureTmp+", redirection vers _accordEtape1FormulaireAccord");
-				logger.info(se);
+				logger.debug(se);
 				goToPreAccord();//Reset des objets Accord
 				getSessionController().setCreationAccordCurrentPage("_accordEtape1FormulaireAccord");
 
 			}catch (UnvalidNumSiretException ue) {
 				logger.info("Numéro siret invalide pour "+structureTmp+", redirection vers _accordEtape1FormulaireAccord");
-				logger.info(ue);
+				logger.debug(ue);
 				goToPreAccord();//Reset des objets Accord
 				getSessionController().setCreationAccordCurrentPage("_accordEtape1FormulaireAccord");
 			}catch (AccordAlreadyExistingForStructureException as) {
 				logger.info("Accord déjà existant pour la structure "+structureTmp+", redirection vers _accordEtape4DemandeCompte");
-				logger.info(as);
+				logger.debug(as);
 				this.accordDejaExistant=true;
 				this.contactDemandeCompte=this.accord.getContact();
 				getSessionController().setCreationAccordCurrentPage("_accordEtape4DemandeCompte");
 			}catch (AccordAlreadyExistingForContactException ac) {
 				// Impossible ici
-				logger.info(ac);
+				logger.debug(ac);
 			}catch (MailAlreadyUsedForStructureException e) {
-				logger.info(e);
-				logger.info("MailAlreadyUsedForStructureException", e.getCause());
+				logger.info("MailAlreadyUsedForStructureException pour la structure : "+structureTmp);
+				logger.debug(e);
 				addErrorMessage("formAccord:mailC", "CONTACT.GESTION.ERREURACCOUNT");
 				getSessionController().setCreationAccordCurrentPage("_accordEtape3FormulaireAccord");
 				return null;
