@@ -1,211 +1,123 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<rich:popupPanel id="rechEnseignantAvenant" autosized="true" width="500">
-	<f:facet name="header">
-		<h:outputText value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT.HEAD']}" />
-	</f:facet>
-	<h:form id="formRechEnseignant">
-		<a4j:outputPanel>
-			<a4j:region id="rech">
-				<h:panelGrid columns="1">
-					<h:outputText value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT.RECHERCHE']}" />
-					<t:htmlTag value="div" style="height: 10px;" />
-					<h:panelGrid columns="2">
-						<h:outputLabel value="#{msgs['CONVENTION.NOM']}"
-							for="nomEnseignant" />
-						<h:inputText id="nomEnseignant" size="50" maxlength="30"
-							style="text-transform:uppercase;"
-							value="#{conventionController.rechNomEnseignant}">
-							<f:converter binding="#{sansAccentEnMAJConverter}" />
-						</h:inputText>
+    <p:dialog id="rechEnseignantAvenant" widgetVar="rechEnseignantAvenant" resizable="false" modal="true">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT.HEAD']}" />
+        </f:facet>
+        <h:form id="formRechEnseignantAvenant">
+            <h:outputText
+                    value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT.RECHERCHE']}" />
 
-						<t:htmlTag value="div" style="height: 5px;" />
-						<t:htmlTag value="div" style="height: 5px;" />
+            <t:htmlTag value="div" style="height: 10px;" />
 
-						<h:outputLabel value="#{msgs['CONVENTION.PRENOM']}"
-							for="prenomEnseignant" />
-						<h:inputText id="prenomEnseignant" size="50" maxlength="30"
-							style="text-transform:uppercase;"
-							value="#{conventionController.rechPrenomEnseignant}">
-							<f:converter binding="#{sansAccentEnMAJConverter}" />
-						</h:inputText>
+            <h:panelGrid columns="2" cellspacing="5">
+                <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.NOM']}" />
+                <p:inputText id="nomEnseignant" size="50" maxlength="30"
+                             style="text-transform:uppercase;"
+                             value="#{conventionController.rechNomEnseignant}">
+                    <f:converter binding="#{sansAccentEnMAJConverter}" />
+                </p:inputText>
 
-<!-- 						<t:htmlTag value="div" style="height: 5px;" /> -->
-<!-- 						<t:htmlTag value="div" style="height: 5px;" /> -->
+                <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.PRENOM']}" />
+                <p:inputText id="prenomEnseignant" size="50" maxlength="30"
+                             style="text-transform:uppercase;"
+                             value="#{conventionController.rechPrenomEnseignant}">
+                    <f:converter binding="#{sansAccentEnMAJConverter}" />
+                </p:inputText>
+            </h:panelGrid>
 
-<!-- 						<h:outputLabel value="#{msgs['CONVENTION.AFFECTATION']}" -->
-<!-- 							for="codeAffectation" /> -->
-<!-- 						<h:selectOneMenu id="codeAffectation" -->
-<!-- 							rendered="#{not empty conventionController.listeAffectation}" -->
-<!-- 							value="#{conventionController.selCodeAffectationEnseignant}"> -->
-<!-- 							<f:selectItem itemValue="" /> -->
-<!-- 							<f:selectItems value="#{conventionController.listeAffectation}" /> -->
-<!-- 						</h:selectOneMenu> -->
-<!-- 						<h:outputText rendered="#{empty conventionController.listeAffectation}" -->
-<!-- 							value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE_VIDE']}" /> -->
+            <t:div styleClass="textCenter mt10">
+                <p:commandButton value="#{msgs['FORM.RECHERCHER']}"
+                                 action="#{conventionController.rechercheEnseignantAvenant}"
+                                 update="@form" />
+            </t:div>
 
-					</h:panelGrid>
-					<br />
-					<h:panelGrid columns="1" align="center">
-						<a4j:commandButton value="#{msgs['FORM.RECHERCHER']}"
-							action="#{conventionController.rechercheEnseignantAvenant}"
-							render="divRechercheEnseignant" />
-					</h:panelGrid>
-				</h:panelGrid>
-			</a4j:region>
-			<t:htmlTag value="center">
-				<a4j:status for="rech">
-					<f:facet name="start">
-						<ui:include src="../_commun/_veuillezPatienter.xhtml" />
-					</f:facet>
-				</a4j:status>
-			</t:htmlTag>
+            <t:htmlTag value="div" style="height:10px;" />
 
-			<t:htmlTag value="center">
-				<h:outputText id="information" value=""
-					rendered="#{empty conventionController.listeResultatsRechercheEnseignant}" />
-				<h:outputText id="nom" value="" />
-				<rich:message for="nom">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
-			</t:htmlTag>
+            <p:message for="@form" />
 
-			<t:div id="divRechercheEnseignant">
-				<h:panelGrid align="center" columns="1"
-					rendered="#{not empty conventionController.resultatEnseignant.nom}">
-					<h:outputText
-						value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT.RESULTAT_UNIQUE']}" />
-					<t:htmlTag value="div" style="height: 10px;" />
-					<h:panelGrid align="center" columns="2">
-						<h:outputLabel for="resultNom" value="#{msgs['CONVENTION.NOM']}" />
-						<h:outputText id="resultNom"
-							value="#{conventionController.resultatEnseignant.nom}" />
-					</h:panelGrid>
-					<h:panelGrid align="center" columns="2">
-						<h:outputLabel for="resultPrenom"
-							value="#{msgs['CONVENTION.PRENOM']}" />
-						<h:outputText id="resultPrenom"
-							value="#{conventionController.resultatEnseignant.prenom}" />
-					</h:panelGrid>
-					<h:panelGrid align="center" columns="2"
-						rendered="#{not empty conventionController.resultatEnseignant.typePersonne}">
-						<h:outputLabel for="resultType" value="#{msgs['CONVENTION.TYPE']}" />
-						<h:outputText id="resultType"
-							value="#{conventionController.resultatEnseignant.typePersonne}" />
-					</h:panelGrid>
-					<h:panelGrid align="center" columns="2"
-						rendered="#{not empty conventionController.resultatEnseignant.affectation.libelle}">
-						<h:outputLabel for="resultAffectation"
-							value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT.AFFECTATION']}" />
-						<h:outputText id="resultAffectation"
-							value="#{conventionController.resultatEnseignant.affectation.libelle}" />
-					</h:panelGrid>
-					<t:htmlTag value="center">
-						<t:div>
-							<a4j:commandLink id="choisir"
-								oncomplete="#{rich:component('rechEnseignantAvenant')}.hide()"
-								render="divEnseignant">
-								<h:outputText value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT.CHOIX']}" />
-								<f:setPropertyActionListener
-									value="#{conventionController.resultatEnseignant}"
-									target="#{avenantController.avenant.enseignant}" />
-							</a4j:commandLink>
-						</t:div>
-					</t:htmlTag>
-				</h:panelGrid>
+            <t:div styleClass="textCenter mt10"
+                   rendered="#{not empty conventionController.listeEnseignant}">
+                <h:outputText
+                        value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT.RESULTAT_LISTE']}" />
 
-				<h:panelGrid align="center" columns="1"
-					rendered="#{not empty conventionController.listeEnseignant}">
-					<h:outputText
-						value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT.RESULTAT_LISTE']}" />
-					<t:htmlTag value="div" style="height: 10px;" />
-					<rich:dataTable align="center" width="483" id="listeEnseignants"
-						rows="5" columnClasses="col"
-						value="#{conventionController.listeEnseignant}" var="enseignant"
-						onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+                <t:htmlTag value="div" style="height: 10px;" />
 
-						<rich:column sortBy="#{enseignant.nom}">
-							<f:facet name="header">
-								<h:outputText style="headerClass"
-									value="#{msgs['CONVENTION.NOM']}" />
-							</f:facet>
-							<t:htmlTag value="center">
-								<h:outputText value="#{enseignant.nom}" />
-							</t:htmlTag>
-						</rich:column>
+                <p:dataTable id="listeEnseignants"
+                             value="#{conventionController.listeEnseignant}" var="enseignant"
+                             rows="5" rowHover="true" rowStyleClass="noPointer"
+                             tableStyle="table-layout: auto;" reflow="true"
+                             paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15,20">
 
-						<rich:column sortBy="#{enseignant.prenom}">
-							<f:facet name="header">
-								<h:outputText style="headerClass"
-									value="#{msgs['CONVENTION.PRENOM']}" />
-							</f:facet>
-							<t:htmlTag value="center">
-								<h:outputText value="#{enseignant.prenom}" />
-							</t:htmlTag>
-						</rich:column>
+                    <p:column sortBy="#{enseignant.nom}">
+                        <f:facet name="header">
+                            <h:outputText
+                                    value="#{msgs['CONVENTION.NOM']}" />
+                        </f:facet>
+                        <t:htmlTag value="center">
+                            <h:outputText value="#{enseignant.nom}" />
+                        </t:htmlTag>
+                    </p:column>
 
-						<rich:column sortBy="#{enseignant.typePersonne}">
-							<f:facet name="header">
-								<h:outputText style="headerClass"
-									value="#{msgs['CONVENTION.TYPE']}" />
-							</f:facet>
-							<t:htmlTag value="center">
-								<h:outputText value="#{enseignant.typePersonne}" />
-							</t:htmlTag>
-						</rich:column>
+                    <p:column sortBy="#{enseignant.prenom}">
+                        <f:facet name="header">
+                            <h:outputText
+                                    value="#{msgs['CONVENTION.PRENOM']}" />
+                        </f:facet>
+                        <t:htmlTag value="center">
+                            <h:outputText value="#{enseignant.prenom}" />
+                        </t:htmlTag>
+                    </p:column>
 
-						<rich:column sortBy="#{enseignant.affectation.libelle}">
-							<f:facet name="header">
-								<h:outputText style="headerClass"
-									value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT.AFFECTATION']}" />
-							</f:facet>
-							<t:htmlTag value="center">
-								<h:outputText value="#{enseignant.affectation.libelle}" />
-							</t:htmlTag>
-						</rich:column>
+                    <p:column sortBy="#{enseignant.typePersonne}">
+                        <f:facet name="header">
+                            <h:outputText
+                                    value="#{msgs['CONVENTION.TYPE']}" />
+                        </f:facet>
+                        <t:htmlTag value="center">
+                            <h:outputText value="#{enseignant.typePersonne}" />
+                        </t:htmlTag>
+                    </p:column>
 
-						<rich:column>
-							<f:facet name="header">
-								<h:outputText style="headerClass"
-									value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
-							</f:facet>
-							<t:htmlTag value="center">
-								<t:div>
-									<a4j:commandLink id="choisir"
-										oncomplete="#{rich:component('rechEnseignantAvenant')}.hide()"
-										render="divEnseignant">
-										<h:graphicImage alt="#{msgs['GENERAL.OK']}"
-											value="../../media/images/arrow_right.png" style="border:0" />
-										<f:setPropertyActionListener value="#{enseignant}"
-											target="#{avenantController.avenant.enseignant}" />
-										<rich:tooltip
-											value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT.CHOIX']}" />
-									</a4j:commandLink>
-								</t:div>
-							</t:htmlTag>
-						</rich:column>
+                    <p:column sortBy="#{enseignant.affectation.libelle}">
+                        <f:facet name="header">
+                            <h:outputText
+                                    value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT.AFFECTATION']}" />
+                        </f:facet>
+                        <t:htmlTag value="center">
+                            <h:outputText value="#{enseignant.affectation.libelle}" />
+                        </t:htmlTag>
+                    </p:column>
 
-						<f:facet name="footer">
-							<rich:dataScroller align="center" for="listeEnseignants"
-								maxPages="20" page="1" id="listeScroller"
-								renderIfSinglePage="false" />
-						</f:facet>
-					</rich:dataTable>
-				</h:panelGrid>
-			</t:div>
-			<h:panelGrid id="back" columns="1">
-				<t:htmlTag value="div" style="height: 10px;" />
-				<h:commandButton value="#{msgs['GENERAL.RETOUR']}"
-					onclick="#{rich:component('rechEnseignantAvenant')}.hide();return false;" />
-			</h:panelGrid>
-		</a4j:outputPanel>
-	</h:form>
-</rich:popupPanel>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText
+                                    value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
+                        </f:facet>
+                        <t:div styleClass="textCenter">
+                            <p:commandLink id="choisir"
+                                           ajax="false">
+                                <t:htmlTag value="i" styleClass="fa fa-long-arrow-right fz13" />
+                                <f:setPropertyActionListener
+                                        value="#{enseignant}"
+                                        target="#{avenantController.avenant.enseignant}" />
+                                <p:tooltip for="choisir" value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT.CHOIX']}" />
+                            </p:commandLink>
+                        </t:div>
+                    </p:column>
+                </p:dataTable>
+            </t:div>
+
+            <p:commandButton value="#{msgs['FORM.ANNULER']}"
+                             styleClass="mt20 mb20"
+                             onclick="PF('rechEnseignantAvenant').hide();" />
+        </h:form>
+    </p:dialog>
 </ui:composition>

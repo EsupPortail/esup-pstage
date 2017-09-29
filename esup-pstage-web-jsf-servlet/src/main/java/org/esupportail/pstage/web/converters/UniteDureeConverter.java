@@ -50,7 +50,7 @@ public class UniteDureeConverter implements Serializable, Converter {
 					"object " + value + " is not a UniteDureeDTO.");
 		}
 		UniteDureeDTO e = (UniteDureeDTO) value;
-		return ""+e.getId();
+		return Integer.toString(e.getId());
 	}
 	
 	/**

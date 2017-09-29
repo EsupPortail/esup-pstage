@@ -1,18 +1,21 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
-	<h:form id="roadMapForm">
-		<a4j:repeat value="#{conventionController.sequences}" var="sequence">
-			<a4j:commandButton value="#{sequence.title}"
-				rendered="#{sequence.disabled}" disabled="#{sequence.disabled}"
-				styleClass="app-tab-inactive" action="#{sequence.actionEtape}" />
-			<a4j:commandButton value="#{sequence.title}"
-				rendered="#{!sequence.disabled}" disabled="#{sequence.disabled}"
-				styleClass="app-tab-active" action="#{sequence.actionEtape}" />
-		</a4j:repeat>
-	</h:form>
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <p:scrollPanel mode="native" styleClass="customPstage">
+        <ui:repeat value="#{conventionController.sequences}" var="sequence">
+            <p:commandButton value="#{sequence.title}" immediate="true"
+                             rendered="#{sequence.disabled}" disabled="true"
+                             action="#{sequence.actionEtape}" update="@form"
+                             style="color: #{conventionController.sequenceEtapeEnum.numEtape == sequence.numEtape ? '#2C7094' : 'black'};
+                    opacity: #{conventionController.sequenceEtapeEnum.numEtape == sequence.numEtape ? 1 : .35};"/>
+            <p:commandButton value="#{sequence.title}" immediate="true"
+                             rendered="#{!sequence.disabled}" disabled="false"
+                             action="#{sequence.actionEtape}" update="@form"
+                             style="color: #{conventionController.sequenceEtapeEnum.numEtape == sequence.numEtape ? '#2C7094' : 'black'};">
+                <f:setPropertyActionListener value="#{sequence}" target="#{conventionController.sequenceEtapeEnum}" />
+            </p:commandButton>
+        </ui:repeat>
+    </p:scrollPanel>
 </ui:composition>
+

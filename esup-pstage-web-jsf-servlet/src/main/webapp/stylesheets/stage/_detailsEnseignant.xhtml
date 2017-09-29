@@ -1,0 +1,83 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+
+    <t:div styleClass="mt10 ml20"
+           rendered="#{empty conventionController.convention.enseignant}">
+        <h:outputText value="#{msgs['CONVENTION.AUCUNENSEIGNANT']}"
+                      escape="false" />
+    </t:div>
+
+    <t:div styleClass="mt10 ml20" rendered="#{not empty conventionController.convention.enseignant}">
+
+        <p:dataTable value="#{etablissementController.serviceSel}" var="service"
+                     rowStyleClass="noPointer" styleClass="mt5"
+                     reflow="true" tableStyle="table-layout: auto;">
+            <p:column rendered="#{not empty conventionController.convention.enseignant.civilite}">
+                <f:facet name="header">
+                    <t:htmlTag id="civiliteHeader" value="i" styleClass="fa fa-user fz13 fontBlue2 noPointer">
+                        <p:tooltip for="civiliteHeader" value="#{msgs['CONTACT.CIVILITE']}"/>
+                    </t:htmlTag>
+                </f:facet>
+                <h:outputText value="#{conventionController.convention.enseignant.civilite.libelle}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{msgs['CONVENTION.NOM']}" styleClass="fontBold" />
+                </f:facet>
+                <h:outputText value="#{conventionController.convention.enseignant.nom}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{msgs['CONVENTION.PRENOM']}" styleClass="fontBold" />
+                </f:facet>
+                <h:outputText value="#{conventionController.convention.enseignant.prenom}" />
+            </p:column>
+            <p:column styleClass="textCenter">
+                <f:facet name="header">
+                    <h:outputText value="#{msgs['CONVENTION.DEPARTEMENT']}" styleClass="fontBold" />
+                </f:facet>
+                <h:outputText value="#{conventionController.convention.enseignant.codeAffectation} - #{conventionController.convention.enseignant.affectation.libelle}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{msgs['CONTACT.TELFAXMAIL']}" styleClass="fontBold" />
+                </f:facet>
+                <t:htmlTag value="i" styleClass="fa fa-phone fz13 mrf10"/>
+                <h:outputText value="#{conventionController.convention.enseignant.tel}" />
+                <t:htmlTag value="br" />
+
+                <t:htmlTag value="i" styleClass="fa fa-print fz13 mrf10"/>
+                <h:outputText value="#{conventionController.convention.enseignant.fax}" />
+                <t:htmlTag value="br" />
+
+                <h:outputText value="#{conventionController.convention.enseignant.mail}"/>
+                <t:htmlTag value="i" styleClass="fa fa-envelope fz13 mrf10"/>
+            </p:column>
+            <p:column rendered="#{not empty conventionController.convention.enseignant.campus}">
+                <f:facet name="header">
+                    <h:outputText value="#{msgs['CONVENTION.CAMPUS']}" />
+                </f:facet>
+                <h:outputText value="#{conventionController.convention.enseignant.campus}" />
+            </p:column>
+            <p:column rendered="#{not empty conventionController.convention.enseignant.batiment}">
+                <f:facet name="header">
+                    <h:outputText value="#{msgs['CONVENTION.BATIMENT']}" />
+                </f:facet>
+                <h:outputText value="#{conventionController.convention.enseignant.batiment}" />
+            </p:column>
+            <p:column rendered="#{not empty conventionController.convention.enseignant.bureau}">
+                <f:facet name="header">
+                    <h:outputText value="#{msgs['CONVENTION.BUREAU']}" />
+                </f:facet>
+                <h:outputText value="#{conventionController.convention.enseignant.bureau}" />
+            </p:column>
+        </p:dataTable>
+
+
+
+    </t:div>
+</ui:composition>

@@ -1,0 +1,291 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+    <p:panel>
+        <f:facet name="header">
+            <h:outputText value="#{msgs['OFFRE.RECAPITULATIF']}" />
+        </f:facet>
+        <t:div styleClass="mt20 ml30 block">
+            <t:div rendered="#{empty offreController.currentOffre}">
+                <h:outputText value="#{msgs['OFFRE.GESTION.AUCUNEOFFRESEL']}" />
+            </t:div>
+            <h:form>
+                <ui:param name="varRecapOffre" value="offre" />
+                <ui:param name="varRecapOffreEtab" value="offreEtab" />
+                <ui:param name="varRecapOffreCentre" value="offreCentre" />
+                <ui:param name="varRecapOffreEtabCentre" value="offreEtabCentre" />
+
+                <t:div styleClass="mb20" rendered="#{not empty offreController.currentOffre
+                            and (offreController.currentRecapOffre == varRecapOffre || offreController.currentRecapOffre == varRecapOffreEtab
+                            || (offreController.currentRecapOffre == varRecapOffreCentre and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer))
+                            || (offreController.currentRecapOffre == varRecapOffreEtabCentre and
+                            (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.reader)))}">
+
+                    <p:commandButton id="editoffre" action="#{offreController.editPdfOffre}"
+                                     value="#{msgs['OFFRE.GESTION.IMPRESSION']}"
+                                     icon="fa fa-print" escape="false" ajax="false"/>
+
+                    <t:htmlTag value="div" style="height: 10px;" />
+
+                    <t:div styleClass="mb10"
+                           rendered="#{offreController.currentRecapOffre == varRecapOffre
+                                    and (sessionController.pageAuthorized and sessionController.moderationActive and offreController.currentOffre.estDiffusee)}">
+                        <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fz13 fontBlue2"/>
+                        <h:outputText styleClass="fontBold fz13" value="#{msgs['OFFRE.GESTION.DIFFUSION.MODERATION.MSG_DIFF']}" />
+                    </t:div>
+
+                    <t:fieldset styleClass="mb20" rendered="#{offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre}">
+                        <legend>
+                            <t:div styleClass="verticalAlignDiv fontBold fontBlue2 fz13">
+                                <t:htmlTag value="i" styleClass="fa fa-gear fz16" />
+                                <h:outputText value="#{msgs['OFFRE.GESTION.CENTREGESTION']} " styleClass="mlf5 mrf5"/>
+                                <h:commandLink id="modifCentre"
+                                               action="#{offreController.goToModificationOffre}"
+                                               rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
+                                               disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
+                                    <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontGreen"
+                                               rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                    <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontDarkGray" style="opacity:.50;"
+                                               rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                    <f:setPropertyActionListener value="recapitulatifOffreEtabCentre"
+                                                                 target="#{offreController.retour}" />
+                                    <f:setPropertyActionListener value="_modificationOffreEtape01Centre"
+                                                                 target="#{sessionController.modificationOffreCurrentPage}" />
+                                    <p:tooltip value="#{msgs['FORM.MODIFIER']}" for="modifCentre"
+                                               rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                    <p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}" for="modifCentre"
+                                               rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                </h:commandLink>
+                            </t:div>
+                        </legend>
+                        <t:htmlTag value="div" style="height:10px;" />
+                        <h:outputText value="(#{offreController.currentOffre.centreGestion.idCentreGestion}) #{offreController.currentOffre.centreGestion.nomCentre}"
+                                      rendered="#{not empty offreController.currentOffre.centreGestion}" />
+                        <t:htmlTag value="div" style="height:10px;" />
+                    </t:fieldset>
+
+                    <t:fieldset styleClass="mb20" rendered="#{offreController.currentRecapOffre == varRecapOffreEtab || offreController.currentRecapOffre == varRecapOffreEtabCentre}">
+                        <legend>
+                            <t:div styleClass="verticalAlignDiv fontBold fontBlue2 fz13">
+                                <t:htmlTag value="i" styleClass="fa fa-building fz16" />
+                                <h:outputText value="#{msgs['OFFRE.GESTION.ETABLISSEMENT']} " styleClass="mlf5 mrf5" />
+
+                                <h:commandLink id="modifEtab"
+                                               action="#{offreController.goToModificationOffre}"
+                                               rendered="#{offreController.currentRecapOffre == varRecapOffreEtab
+                                                   || (offreController.currentRecapOffre == varRecapOffreEtabCentre
+                                                   and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer))}"
+                                               disabled="#{offreController.currentRecapOffre == varRecapOffreEtabCentre
+                                                   and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
+                                    <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontGreen"
+                                               rendered="#{offreController.currentRecapOffre == varRecapOffreEtab
+                                                   || (offreController.currentRecapOffre == varRecapOffreEtabCentre
+                                                   and offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre)}" />
+                                    <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontDarkGray" style="opacity:.50;"
+                                               rendered="#{offreController.currentRecapOffre == varRecapOffreEtabCentre
+                                                   and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                    <p:tooltip value="#{msgs['FORM.MODIFIER']}" for="modifEtab"
+                                               rendered="#{offreController.currentRecapOffre == varRecapOffreEtab
+                                                   || (offreController.currentRecapOffre == varRecapOffreEtabCentre
+                                                   and offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre)}" />
+                                    <p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}" for="modifEtab"
+                                               rendered="#{offreController.currentRecapOffre == varRecapOffreEtabCentre
+                                                   and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                    <f:setPropertyActionListener value="_modificationOffreEtape04DetailsEtab"
+                                                                 target="#{sessionController.modificationOffreCurrentPage}" />
+                                </h:commandLink>
+                            </t:div>
+                        </legend>
+                        <ui:include src="/stylesheets/_commun/_detailsOffreEtab.xhtml" />
+                    </t:fieldset>
+
+                    <t:fieldset styleClass="mb20">
+                        <legend>
+                            <t:div styleClass="verticalAlignDiv fontBold fontBlue2 fz13">
+                                <t:htmlTag value="i" styleClass="fa fa-list fz16" />
+                                <h:outputText value="#{msgs['OFFRE.GESTION.DETAILS']} " styleClass="mlf5 mrf5"/>
+                                <h:commandLink id="modif"
+                                               action="#{offreController.goToModificationOffre}"
+                                               rendered="#{offreController.currentRecapOffre == varRecapOffre
+                                                   || offreController.currentRecapOffre == varRecapOffreEtab
+                                                   || (offreController.currentRecapOffre == varRecapOffreCentre and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer))
+                                                   || (offreController.currentRecapOffre == varRecapOffreEtabCentre and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer))}"
+                                               disabled="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
+                                                   and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
+                                    <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontGreen"
+                                               rendered="#{offreController.currentRecapOffre == varRecapOffre
+                                                   || offreController.currentRecapOffre == varRecapOffreEtab
+                                                   || ((offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
+                                                   and offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre)}" />
+                                    <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontDarkGray" style="opacity:.50;"
+                                               rendered="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
+                                                   and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                    <p:tooltip value="#{msgs['FORM.MODIFIER']}" for="modif"
+                                               rendered="#{offreController.currentRecapOffre == varRecapOffre
+                                                   || offreController.currentRecapOffre == varRecapOffreEtab
+                                                   || ((offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
+                                                   and offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre)}" />
+                                    <p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}" for="modif"
+                                               rendered="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
+                                                   and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                    <f:setPropertyActionListener value="_modificationOffreEtape1"
+                                                                 target="#{sessionController.modificationOffreCurrentPage}" />
+                                </h:commandLink>
+                            </t:div>
+                        </legend>
+                        <ui:include src="/stylesheets/_commun/_detailsOffre.xhtml" />
+
+                        <t:div rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}">
+                            <t:div styleClass="verticalAlignDiv fontBold">
+                                <t:htmlTag value="i" styleClass="fa fa-file-code-o fz13" />
+                                <h:outputText value="#{msgs['OFFRE.GESTION.FICHIERLIENATTACHE']} " styleClass="mlf5" />
+                            </t:div>
+                            <ui:include src="/stylesheets/_commun/_detailsOffreFichier.xhtml" />
+                        </t:div>
+                    </t:fieldset>
+
+                    <t:fieldset styleClass="mb20" rendered="#{!offreController.currentOffre.avecFichier and !offreController.currentOffre.avecLien
+                                        and (offreController.currentRecapOffre == varRecapOffre
+                                        || offreController.currentRecapOffre == varRecapOffreEtab
+                                        || (offreController.currentRecapOffre == varRecapOffreCentre
+                                            and (offreController.currentOffre.centreGestion.codeConfidentialite == beanUtils.confidentialiteNulle.code
+                                            || (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized)))
+                                        || (offreController.currentRecapOffre == varRecapOffreEtabCentre
+                                            and (offreController.currentOffre.centreGestion.codeConfidentialite == beanUtils.confidentialiteNulle.code
+                                            || (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.reader))))}">
+                        <legend>
+                            <t:div styleClass="verticalAlignDiv fontBold fontBlue2 fz13">
+                                <t:htmlTag value="i" styleClass="fa fa-user fz16" />
+                                <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS']}(s) " styleClass="mlf5 mrf5" />
+                                <h:commandLink id="modifC"
+                                               action="#{offreController.goToModificationOffre}"
+                                               rendered="#{offreController.currentRecapOffre == varRecapOffre
+                                                   || offreController.currentRecapOffre == varRecapOffreEtab
+                                                   || (offreController.currentRecapOffre == varRecapOffreCentre and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer))
+                                                   || (offreController.currentRecapOffre == varRecapOffreEtabCentre and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer))}"
+                                               disabled="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
+                                                   and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
+                                    <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontGreen"
+                                               rendered="#{offreController.currentRecapOffre == varRecapOffre
+                                                   || offreController.currentRecapOffre == varRecapOffreEtab
+                                                   || ((offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
+                                                   and offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre)}" />
+                                    <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontDarkGray" style="opacity:.50;"
+                                               rendered="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
+                                                   and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                    <p:tooltip value="#{msgs['FORM.MODIFIER']}" for="modifC"
+                                               rendered="#{offreController.currentRecapOffre == varRecapOffre
+                                                   || offreController.currentRecapOffre == varRecapOffreEtab
+                                                   || ((offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
+                                                   and offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre)}" />
+                                    <p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}" for="modifC"
+                                               rendered="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
+                                                   and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}"  />
+                                    <f:setPropertyActionListener value="_modificationOffreEtape3"
+                                                                 target="#{sessionController.modificationOffreCurrentPage}" />
+                                    <f:setPropertyActionListener value="true"
+                                                                 target="#{offreController.modificationContactOffre}" />
+                                </h:commandLink>
+                            </t:div>
+                        </legend>
+                        <ui:include src="/stylesheets/_commun/_detailsOffreContacts.xhtml" />
+                    </t:fieldset>
+
+                    <t:fieldset styleClass="mb5">
+                        <legend>
+                            <t:div styleClass="verticalAlignDiv fontBold fontBlue2 fz13">
+                                <t:htmlTag value="i" styleClass="fa fa-rss fz16 mrf5" />
+                                <h:outputText value="#{msgs['OFFRE.DIFFUSION']}"
+                                              styleClass="fontBold"/>
+                            </t:div>
+                        </legend>
+                        <ui:include src="/stylesheets/_commun/_detailsOffreDiffusion.xhtml" />
+                    </t:fieldset>
+
+                    <t:div styleClass="floatRight"
+                           rendered="#{!offreController.currentOffre.estSupprimee}">
+                        <p:commandLink id="suppr" update="supprOffre" styleClass="verticalAlignDiv"
+                                       oncomplete="PF('supprOffre').show();"
+                                       rendered="#{offreController.currentRecapOffre == varRecapOffre
+                                                   || offreController.currentRecapOffre == varRecapOffreEtab
+                                                   || (offreController.currentRecapOffre == varRecapOffreCentre and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer))
+                                                   || (offreController.currentRecapOffre == varRecapOffreEtabCentre and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer))}"
+                                       disabled="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
+                                                   and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
+                            <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 fontBlue2"
+                                       rendered="#{offreController.currentRecapOffre == varRecapOffre
+                                                   || offreController.currentRecapOffre == varRecapOffreEtab
+                                                   || ((offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
+                                                   and offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre)}"/>
+                            <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 fontBlue2" style="opacity:.50;"
+                                       rendered="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
+                                                   and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}"  />
+                            <p:tooltip for="suppr" value="#{msgs['OFFRE.ERREUR.NOSUPPR']}"
+                                       rendered="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
+                                                   and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}"/>
+                            <f:setPropertyActionListener value="_supprOffreEtape1"
+                                                         target="#{sessionController.suppressionOffreCurrentPage}" />
+                            <h:outputText value=" #{msgs['OFFRE.SUPPRIMER']}" />
+                        </p:commandLink>
+                    </t:div>
+
+                    <t:div styleClass="floatRight mr5">
+                        <p:commandLink id="transfert" styleClass="verticalAlignDiv"
+                                       oncomplete="PF('panelTransfertOffre').show();"
+                                       rendered="#{offreController.currentRecapOffre == varRecapOffre
+                                                   || offreController.currentRecapOffre == varRecapOffreEtab
+                                                   || (offreController.currentRecapOffre == varRecapOffreCentre and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer))
+                                                   || (offreController.currentRecapOffre == varRecapOffreEtabCentre and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer))}"
+                                       disabled="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
+                                                   and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
+                            <t:htmlTag value="i" styleClass="fa fa-external-link fz16 fontBlue2"
+                                       rendered="#{offreController.currentRecapOffre == varRecapOffre
+                                                   || offreController.currentRecapOffre == varRecapOffreEtab
+                                                   || ((offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
+                                                   and offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre)}"/>
+                            <t:htmlTag value="i" styleClass="fa fa-external-link fz16 fontBlue2" style="opacity:.50;"
+                                       rendered="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
+                                                   and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                            <p:tooltip for="transfert" value="#{msgs['OFFRE.ERREUR.NOTRANSFERT']}"
+                                       rendered="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
+                                                   and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                            <h:outputText value=" #{msgs['OFFRE.TRANSFERT']}" />
+                        </p:commandLink>
+                    </t:div>
+                    <t:div styleClass="floatRight mr5">
+                        <t:aliasBean alias="#{objet}"
+                                     value="#{offreController.currentOffre}">
+                            <ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
+                        </t:aliasBean>
+                    </t:div>
+                </t:div>
+                <t:div styleClass="mb20" rendered="#{offreController.currentRecapOffre == varRecapOffreEtabCentre
+                                and !(welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.reader)}">
+                    <t:div styleClass="textCenter">
+                        <h:outputText value="#{offreController.currentOffre.intitule}"
+                                      styleClass="fontBold fz20"
+                                      style="text-transform:uppercase;" />
+                    </t:div>
+                    <t:div styleClass="block">
+                        <t:div styleClass="mb10" rendered="#{!offreController.currentOffre.cacherEtablissement}">
+                            <h:outputText styleClass="fz13 fontBold" value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.ETAB']} : " />
+
+                            <ui:include src="/stylesheets/_commun/_detailsOffreEtab.xhtml" />
+                        </t:div>
+
+                        <ui:include src="/stylesheets/_commun/_detailsOffreEtudiant.xhtml" />
+
+                    </t:div>
+                </t:div>
+            </h:form>
+        </t:div>
+        <ui:include src="/stylesheets/_commun/_panelDiffusionOffre.xhtml" />
+        <ui:include src="/stylesheets/_commun/_panelStopDiffusionOffre.xhtml" />
+        <ui:include src="/stylesheets/_commun/_panelOffrePourvue.xhtml" />
+        <ui:include src="/stylesheets/_commun/_panelTransfertOffre.xhtml" />
+        <ui:include src="/stylesheets/_commun/_panelDiffusionCentreOffre.xhtml" />
+        <ui:include src="/stylesheets/_commun/_panelSupprOffre.xhtml" />
+    </p:panel>
+</ui:composition>

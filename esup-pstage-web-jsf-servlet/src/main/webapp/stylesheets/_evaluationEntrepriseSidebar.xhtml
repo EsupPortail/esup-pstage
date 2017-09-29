@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:p="http://primefaces.org/ui">
+
+    <t:div id="SIDEBAR_CONTAINER">
+        <t:div id="SIDEBAR">
+            <t:div id="SIDEBAR_LOGO">
+                <p:graphicImage value="#{sessionController.mediaPath}/images/logoTablet.png" styleClass="tabletOnly"/>
+                <p:graphicImage value="#{sessionController.mediaPath}/images/logoPC.png" styleClass="PCOnly"/>
+            </t:div>
+            <h:form id="SIDEBAR_MENU">
+                <p:commandButton value="#{msgs['NAVIGATION.TEXT.WELCOME']}"
+                                 action="goToAccueilFicheEntrepriseTuteurPro"
+                                 icon="fa fa-home" styleClass="#{sessionController.currentPageHome ? 'customPstage selected' : 'customPstage'}"/>
+            </h:form>
+        </t:div>
+    </t:div>
+</ui:composition>

@@ -1,40 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="../_definedStageTemplate.xhtml">
-	<f:metadata>
-		<f:viewParam name="id" value="#{conventionController.numOffreConvention}" />
-	</f:metadata>
-	<ui:define name="content">
-		<ui:include src="_roadmap.xhtml" />
-		<rich:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.TITRE']}" />
-			</f:facet>
-			<h:form id="formConvention">
-				<rich:panel
-					style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-					<f:facet name="header">
-						<h:outputText value="#{msgs['CONVENTION.TITRE']}" />
-					</f:facet>
-					<t:htmlTag value="div" style="height: 20px;" />
-					<h:outputText value="#{msgs['CONVENTION.CONSIGNES']}" escape="false" />
-					<t:htmlTag value="div" style="height: 20px;" />
-					<h:outputText value="#{msgs['CONVENTION.CONSIGNES1']}" escape="false" />
-					<t:htmlTag value="div" style="height: 20px;" />
-					<h:outputText value="#{msgs['CONVENTION.CONSIGNES2']}" escape="false" />
-					<t:htmlTag value="div" style="height:30px;" />
-						<h:commandButton style="font-size:14px; border:solid 1px; margin-left:40px;"
-							action="#{conventionController.goToCreerConventionRechEtu}"
-							value="#{msgs['FORM.NEXT']}" />
-					<t:htmlTag value="div" style="height:20px;" />
-				</rich:panel>
-			</h:form>
-		</rich:panel>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <f:metadata>
+        <f:viewParam name="id" value="#{conventionController.numOffreConvention}" />
+    </f:metadata>
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE']}" />
+            </f:facet>
+            <h:form id="formConvention">
+                <ui:include src="_roadmap.xhtml" />
+                <p:fieldset>
+                    <t:div styleClass="mt20 ml30 block">
+                        <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+                        <h:outputText value="#{msgs['CONVENTION.CONSIGNES']}"
+                                      styleClass="ml5" escape="false"/>
+                        <h:outputText value="#{msgs['CONVENTION.CONSIGNES1']}"
+                                      escape="false"/>
+                        <h:outputText value="#{msgs['CONVENTION.CONSIGNES2']}"
+                                      escape="false"/>
+                        <t:div styleClass="ml40 mt20 mb20"
+                               rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}">
+                            <p:commandButton value="#{msgs['FORM.NEXT']}" ajax="false"
+                                             action="#{conventionController.goToCreerConventionRechEtu}"/>
+                        </t:div>
+                    </t:div>
+                </p:fieldset>
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>

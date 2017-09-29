@@ -52,7 +52,7 @@ public class TypeStructureConverter implements Serializable, Converter {
 					"object " + value + " is not a TypeStructureDTO.");
 		}
 		TypeStructureDTO t = (TypeStructureDTO) value;
-		return ""+t.getId();
+		return Integer.toString(t.getId());
 	}
 	
 	/**

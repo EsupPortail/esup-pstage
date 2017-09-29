@@ -1,15 +1,5 @@
 package org.esupportail.pstage.web.controllers;
 
-import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.faces.model.SelectItem;
-
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -18,26 +8,30 @@ import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstage.web.beans.ConventionColonneEnum;
 import org.esupportail.pstage.web.beans.ConventionEntrepriseColonneEnum;
 import org.esupportail.pstage.web.servlet.ExportConventionsServlet;
-import org.esupportail.pstagedata.domain.dto.AvenantDTO;
-import org.esupportail.pstagedata.domain.dto.ConventionDTO;
-import org.esupportail.pstagedata.domain.dto.CritereRechercheConventionDTO;
-import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
+import org.esupportail.pstagedata.domain.dto.*;
+import org.primefaces.model.DualListModel;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
+
+import javax.faces.model.SelectItem;
+import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @author dhouillo
- * 
+ *
  */
 public class ExportController extends AbstractContextAwareController {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -7120547238012215550L;
 	/**
 	 * Logger.
 	 */
-	private final Logger logger = Logger.getLogger(this.getClass());
+	private final transient Logger logger = Logger.getLogger(this.getClass());
 
 	/**
 	 * Resultats de la recherche convention.
@@ -75,7 +69,7 @@ public class ExportController extends AbstractContextAwareController {
 	/**
 	 * Liste des colonnes convention choisies.
 	 */
-	private List<String> conventionColonnesChoisies;
+	private DualListModel<String> conventionColonnesChoisies;
 
 	/**
 	 * Liste des colonnes convention choisies.
@@ -85,7 +79,7 @@ public class ExportController extends AbstractContextAwareController {
 	/**
 	 * Liste des colonnes convention/entreprise choisies.
 	 */
-	private List<String> conventionEntrepriseColonnesChoisies;
+	private DualListModel<String> conventionEntrepriseColonnesChoisies;
 
 	/**
 	 * Liste des colonnes convention/entreprise choisies.
@@ -116,8 +110,8 @@ public class ExportController extends AbstractContextAwareController {
 	@Override
 	public void reset() {
 		super.reset();
-		this.conventionColonnesChoisies = new ArrayList<String>();
-		this.conventionEntrepriseColonnesChoisies = new ArrayList<String>();
+		this.conventionColonnesChoisies = new DualListModel<String>();
+		this.conventionEntrepriseColonnesChoisies = new DualListModel<String>();
 
 		enter();
 	}
@@ -131,7 +125,7 @@ public class ExportController extends AbstractContextAwareController {
 
 	/**
 	 * JSF callback.
-	 * 
+	 *
 	 * @return a String.
 	 */
 	public String enter() {
@@ -144,7 +138,7 @@ public class ExportController extends AbstractContextAwareController {
 
 	/**
 	 * Recherche des Conventions.
-	 * 
+	 *
 	 * @return String
 	 */
 	public String rechercherConvention() {
@@ -175,11 +169,11 @@ public class ExportController extends AbstractContextAwareController {
 		if (!StringUtils.hasText(this.critereRechercheConvention
 				.getIdConvention())
 				&& !StringUtils.hasText(this.critereRechercheConvention
-						.getNumeroEtudiant())
+				.getNumeroEtudiant())
 				&& !StringUtils.hasText(this.critereRechercheConvention
-						.getNomEtudiant())
+				.getNomEtudiant())
 				&& !StringUtils.hasText(this.critereRechercheConvention
-						.getPrenomEtudiant())) {
+				.getPrenomEtudiant())) {
 			if (!StringUtils.hasText(this.critereRechercheConvention
 					.getAnneeUniversitaire())) {
 				addErrorMessage("formRechConvention",
@@ -207,7 +201,7 @@ public class ExportController extends AbstractContextAwareController {
 													.substring(1))));
 					if (this.critereRechercheConvention.getStatutJuridique() != null
 							&& this.critereRechercheConvention
-									.getStatutJuridique().getIdParent() > 0) {
+							.getStatutJuridique().getIdParent() > 0) {
 						this.critereRechercheConvention
 								.setTypeStructure(getNomenclatureDomainService()
 										.getTypeStructureFromId(
@@ -221,31 +215,31 @@ public class ExportController extends AbstractContextAwareController {
 			this.critereRechercheConvention.setTypeStructure(null);
 			this.critereRechercheConvention.setStatutJuridique(null);
 		}
-		if (!StringUtils.hasText(this.estValidee))
+
+		if (!StringUtils.hasText(this.estValidee)) {
 			this.critereRechercheConvention.setEstValidee(null);
-		else if (this.estValidee.equals("1"))
+		} else if ("1".equals(this.estValidee)) {
 			this.critereRechercheConvention.setEstValidee(true);
-		else if (this.estValidee.equals("2"))
+		} else if ("2".equals(this.estValidee)) {
 			this.critereRechercheConvention.setEstValidee(false);
-
-		if (!StringUtils.hasText(this.estVerifiee))
-			this.critereRechercheConvention.setEstVerifiee(null);
-		else if (this.estVerifiee.equals("1"))
-			this.critereRechercheConvention.setEstVerifiee(true);
-		else if (this.estVerifiee.equals("2"))
-			this.critereRechercheConvention.setEstVerifiee(false);
-
-		if (this.estEtrangere)
-			this.critereRechercheConvention.setEstEtrangere(true);
-		else
-			this.critereRechercheConvention.setEstEtrangere(false);
-		
-		this.critereRechercheConvention
-				.setNbExportMaxi(this.critereRechercheConvention
-						.getNbExportMaxi());
-		if (logger.isInfoEnabled()) {
-			logger.info("ExportController:: Appel getConventionsFromCriteresExport debut ");
 		}
+
+		if (!StringUtils.hasText(this.estVerifiee)) {
+			this.critereRechercheConvention.setEstVerifiee(null);
+		} else if ("1".equals(this.estVerifiee)) {
+			this.critereRechercheConvention.setEstVerifiee(true);
+		} else if ("2".equals(this.estVerifiee)) {
+			this.critereRechercheConvention.setEstVerifiee(false);
+		}
+
+		if (this.estEtrangere) {
+			this.critereRechercheConvention.setEstEtrangere(true);
+		} else {
+			this.critereRechercheConvention.setEstEtrangere(false);
+		}
+
+		logger.info("Appel getConventionsFromCriteresExport debut ");
+
 		// si enseignant référent, recherche des conventions pour les
 		// enseignants tuteur
 		if (getSessionController().isEnseignantTuteur()) {
@@ -290,7 +284,7 @@ public class ExportController extends AbstractContextAwareController {
 								 */
 								@Override
 								public int compare(ConventionDTO l1,
-										ConventionDTO l2) {
+												   ConventionDTO l2) {
 									return l1.getIdConvention().compareTo(
 											l2.getIdConvention());
 								}
@@ -317,33 +311,12 @@ public class ExportController extends AbstractContextAwareController {
 				logger.debug("ExportController:: nombre convention : "
 						+ this.resultatsRechercheConvention.size());
 			}
-			// if (this.resultatsRechercheConvention.size() >
-			// DonneesStatic.nb_response_export_maxi) {
-			//			if (this.resultatsRechercheConvention.size() > Integer
-			//					.parseInt(this.critereRechercheConvention.getNbExportMaxi())) {
-			//				addInfoMessage("formRechConvention",
-			//						"RECHERCHECONVENTION.MAXRESULTATS",
-			//						this.resultatsRechercheConvention.size());
-			//				return ret;
-			//			}
 			if (logger.isInfoEnabled()) {
 				logger.info("ExportController:: Appel getConventionFromExport debut ");
 			}
-			// if (this.resultatsRechercheConvention != null &&
-			// !this.resultatsRechercheConvention.isEmpty()) {
-			// List<ConventionDTO> lConventionExport = new
-			// ArrayList<ConventionDTO>();
-			// for (ConventionDTO c : resultatsRechercheConvention) {
-			// c =
-			// getConventionDomainService().getConventionFromExport(c.getIdConvention());
-			// lConventionExport.add(c);
-			// }
-			// this.resultatsRechercheConvention = lConventionExport;
-			// ret = "exportConvention";
-			// }
 			if (this.resultatsRechercheConvention != null
 					&& !this.resultatsRechercheConvention.isEmpty()) {
-				List<ConventionDTO> lConventionExport = new ArrayList<ConventionDTO>();
+				List<ConventionDTO> lConventionExport;
 				List<Integer> idsConventionsExport = new ArrayList<Integer>();
 				for (ConventionDTO c : resultatsRechercheConvention) {
 					idsConventionsExport.add(c.getIdConvention());
@@ -358,21 +331,44 @@ public class ExportController extends AbstractContextAwareController {
 				logger.info("ExportController:: Appel getConventionFromExport fin ");
 			}
 		}
-		this.conventionColonnesChoisies = new ArrayList<String>();
-		this.conventionEntrepriseColonnesChoisies = new ArrayList<String>();
+		List<String> sourceCCC = new ArrayList<String>();
+		for(ConventionColonneEnum cce : ConventionColonneEnum.values()) {
+			sourceCCC.add(cce.getKeyLabel());
+		}
+		Collections.sort(sourceCCC, new Comparator<String>() {
+			@Override
+			public int compare(String s1, String s2) {
+				return getString(s1).compareToIgnoreCase(getString(s2));
+			}
+		});
+		List<String> targetCCC = new ArrayList<String>();
+		this.conventionColonnesChoisies = new DualListModel<String>(sourceCCC, targetCCC);
+
+		List<String> sourceCECC = new ArrayList<String>();
+		for(ConventionEntrepriseColonneEnum cecc : ConventionEntrepriseColonneEnum.values()) {
+			sourceCECC.add(cecc.getKeyLabel());
+		}
+		Collections.sort(sourceCECC, new Comparator<String>() {
+			@Override
+			public int compare(String s1, String s2) {
+				return getString(s1).compareTo(getString(s2));
+			}
+		});
+		List<String> targetCECC = new ArrayList<String>();
+		this.conventionEntrepriseColonnesChoisies = new DualListModel<String>(sourceCECC, targetCECC);
 		return ret;
 	}
 
 	/**
 	 * choix export des conventions tuteur
-	 * 
+	 *
 	 * @return String
 	 */
 	public String goToChoixExportConventionTuteur() {
 		String ret = null;
 		if (this.resultatsRechercheConvention != null
 				&& !this.resultatsRechercheConvention.isEmpty()) {
-			List<ConventionDTO> lConventionExport = new ArrayList<ConventionDTO>();
+			List<ConventionDTO> lConventionExport;
 			List<Integer> idsConventionsExport = new ArrayList<Integer>();
 			for (ConventionDTO c : resultatsRechercheConvention) {
 				idsConventionsExport.add(c.getIdConvention());
@@ -382,8 +378,32 @@ public class ExportController extends AbstractContextAwareController {
 			this.resultatsRechercheConvention = lConventionExport;
 			ret = "exportConvention";
 		}
-		this.conventionColonnesChoisies = new ArrayList<String>();
-		this.conventionEntrepriseColonnesChoisies = new ArrayList<String>();
+
+		List<String> sourceCCC = new ArrayList<String>();
+		for(ConventionColonneEnum cce : ConventionColonneEnum.values()) {
+			sourceCCC.add(cce.getKeyLabel());
+		}
+		Collections.sort(sourceCCC, new Comparator<String>() {
+			@Override
+			public int compare(String s1, String s2) {
+				return getString(s1).compareToIgnoreCase(getString(s2));
+			}
+		});
+		List<String> targetCCC = new ArrayList<String>();
+		this.conventionColonnesChoisies = new DualListModel<String>(sourceCCC, targetCCC);
+
+		List<String> sourceCECC = new ArrayList<String>();
+		for(ConventionEntrepriseColonneEnum cecc : ConventionEntrepriseColonneEnum.values()) {
+			sourceCECC.add(cecc.getKeyLabel());
+		}
+		Collections.sort(sourceCECC, new Comparator<String>() {
+			@Override
+			public int compare(String s1, String s2) {
+				return getString(s1).compareTo(getString(s2));
+			}
+		});
+		List<String> targetCECC = new ArrayList<String>();
+		this.conventionEntrepriseColonnesChoisies = new DualListModel<String>(sourceCECC, targetCECC);
 		return ret;
 	}
 
@@ -392,15 +412,14 @@ public class ExportController extends AbstractContextAwareController {
 	 */
 	public String goToExportConvention() {
 		String ret = null;
-		if (this.resultatsRechercheConvention != null
-				&& !this.resultatsRechercheConvention.isEmpty()) {
+		if (this.resultatsRechercheConvention != null && !this.resultatsRechercheConvention.isEmpty()) {
 			exportConvention();
 		}
 		return ret;
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void exportConvention() {
 
@@ -414,24 +433,24 @@ public class ExportController extends AbstractContextAwareController {
 			HSSFRow row = sheet.createRow(0);
 
 			int cpt = 0;
-			for (String colonne : this.conventionColonnesChoisies) {
+			for (String colonne : this.conventionColonnesChoisies.getTarget()) {
 				row.createCell(cpt).setCellValue(getString(colonne));
 				// Si on choisi d'avoir les avenants, on ajoute une case pour
 				// leurs contenus
-				if (colonne.equalsIgnoreCase("EXPORTCONVENTION.AVENANT")) {
+				if ("EXPORTCONVENTION.AVENANT".equalsIgnoreCase(colonne)) {
 					cpt++;
 					row.createCell(cpt).setCellValue("Détails Avenant(s)");
 				}
 				cpt++;
 			}
-			for (String colonne : this.conventionEntrepriseColonnesChoisies) {
+			for (String colonne : this.conventionEntrepriseColonnesChoisies.getTarget()) {
 				row.createCell(cpt).setCellValue(getString(colonne));
 				cpt++;
 			}
 
-			String ligneAvenant = "";
-			String cellAvenant = "";
-			boolean isAvenantExistant = false;
+			StringBuilder ligneAvenant;
+			StringBuilder cellAvenant = new StringBuilder("");
+			boolean isAvenantExistant;
 
 			ConventionDTO conventionTmp;
 			for (int i = 0; i < conventions.size(); i++) {
@@ -449,124 +468,141 @@ public class ExportController extends AbstractContextAwareController {
 				row = sheet.createRow(i + 1);
 
 				cpt = 0;
-				for (String colonne : this.conventionColonnesChoisies) {
+				for (String colonne : this.conventionColonnesChoisies.getTarget()) {
 
-					if (colonne.equalsIgnoreCase("EXPORTCONVENTION.AVENANT")) {
+					if ("EXPORTCONVENTION.AVENANT".equalsIgnoreCase(colonne)) {
 						if (conventionTmp.getNbAvenant() > 0) {
 
 							List<AvenantDTO> listAvenants = getAvenantDomainService()
 									.getAvenant(conventionTmp.getIdConvention());
 
-							cellAvenant = "";
+							cellAvenant = new StringBuilder("");
 							isAvenantExistant = false;
 
 							for (AvenantDTO avenant : listAvenants) {
-								ligneAvenant = "";
+								ligneAvenant = new StringBuilder("");
 
 								if (avenant.isValidationAvenant()) {
 									isAvenantExistant = true;
 
-									ligneAvenant = "["
-											+ avenant.getTitreAvenant()
-											+ "] Créé le "
-											+ new SimpleDateFormat(
-													"dd/MM/yyyy à HH:mm:ss")
-													.format(avenant
-															.getDateCreation())
-											+ "\n";
+									if (avenant.getDateCreation() != null){
+										ligneAvenant.append("["
+												+ avenant.getTitreAvenant()
+												+ "] Créé le "
+												+ new SimpleDateFormat(
+												"dd/MM/yyyy à HH:mm:ss")
+												.format(avenant
+														.getDateCreation())
+												+ "\n");
+									} else {
+										ligneAvenant.append("["
+												+ avenant.getTitreAvenant()
+												+ "]\n");
+									}
 
 									// Rupture
 									if (avenant.isRupture()) {
-										ligneAvenant += "Rupture à compter du "
-												+ new SimpleDateFormat(
-														"dd/MM/yyyy")
-														.format(avenant
-																.getDateRupture());
+										if (avenant.getDateRupture() != null){
+											ligneAvenant.append("Rupture à compter du "
+													+ new SimpleDateFormat(
+													"dd/MM/yyyy")
+													.format(avenant
+															.getDateRupture()));
+										} else {
+											ligneAvenant.append("Rupture du stage");
+										}
 									} else {
 
 										// Modif sujet
 										if (avenant.isModificationSujet()) {
-											ligneAvenant += "Remplacement du sujet par : "
+											ligneAvenant.append("Remplacement du sujet par : "
 													+ avenant.getSujetStage()
-													+ "\n";
+													+ "\n");
 										}
 
 										// Modif periode
 										if (avenant.isModificationPeriode()) {
-											ligneAvenant += "Remplacement de la période par : Du "
-													+ new SimpleDateFormat(
-															"dd/MM/yyyy")
-															.format(avenant
-																	.getDateDebutStage())
-													+ " au "
-													+ new SimpleDateFormat(
-															"dd/MM/yyyy")
-															.format(avenant
-																	.getDateFinStage());
-											if (avenant.isInterruptionStage()) {
-												ligneAvenant += " avec interruption du "
+											if (avenant.getDateDebutStage() != null && avenant.getDateFinStage() != null){
+												ligneAvenant.append("Remplacement de la période par : Du "
 														+ new SimpleDateFormat(
-																"dd/MM/yyyy")
-																.format(avenant
-																		.getDateDebutInterruption())
+														"dd/MM/yyyy")
+														.format(avenant
+																.getDateDebutStage())
 														+ " au "
 														+ new SimpleDateFormat(
-																"dd/MM/yyyy")
-																.format(avenant
-																		.getDateFinInterruption());
+														"dd/MM/yyyy")
+														.format(avenant
+																.getDateFinStage()));
 											} else {
-												ligneAvenant += " sans interruption";
+												ligneAvenant.append("Remplacement de la période");
 											}
-											ligneAvenant += "\n";
+											if (avenant.isInterruptionStage()) {
+												if (avenant.getDateDebutInterruption() != null && avenant.getDateFinInterruption() != null){
+													ligneAvenant.append(" avec interruption du "
+															+ new SimpleDateFormat(
+															"dd/MM/yyyy")
+															.format(avenant
+																	.getDateDebutInterruption())
+															+ " au "
+															+ new SimpleDateFormat(
+															"dd/MM/yyyy")
+															.format(avenant
+																	.getDateFinInterruption()));
+												} else {
+													ligneAvenant.append(" avec interruption");
+												}
+											} else {
+												ligneAvenant.append(" sans interruption");
+											}
+											ligneAvenant.append("\n");
 										}
 
 										// Modif Gratif
-										if (avenant
-												.isModificationMontantGratification()) {
+										if (avenant.isModificationMontantGratification()) {
 											String uniteDureeGratif = "heures";
 											if (avenant.getUniteDureeGratification() != null){
 												uniteDureeGratif = avenant.getUniteDureeGratification().getLibelle();
 											}
-											ligneAvenant += "Remplacement de la gratification par : "
+											ligneAvenant.append("Remplacement de la gratification par : "
 													+ avenant
-															.getMontantGratification()
+													.getMontantGratification()
 													+ " "
 													+ avenant
-															.getUniteGratification()
-															.getLibelle()
+													.getUniteGratification()
+													.getLibelle()
 													+ " par "
-													+ uniteDureeGratif;
-											ligneAvenant += "\n";
+													+ uniteDureeGratif);
+											ligneAvenant.append("\n");
 										}
 
 										// Modif Lieu
 										if (avenant.isModificationLieu()) {
-											ligneAvenant += "Remplacement du lieu par : "
+											ligneAvenant.append("Remplacement du lieu par : "
 													+ avenant.getService()
-															.getNom() + "";
-											ligneAvenant += "\n";
+													.getNom() + "");
+											ligneAvenant.append("\n");
 										}
 
 										// Modif Contact
 										if (avenant.isModificationSalarie()) {
-											ligneAvenant += "Remplacement du contact par : "
+											ligneAvenant.append("Remplacement du contact par : "
 													+ avenant.getContact()
-															.getPrenom()
+													.getPrenom()
 													+ " "
 													+ avenant.getContact()
-															.getNom();
-											ligneAvenant += "\n";
+													.getNom());
+											ligneAvenant.append("\n");
 										}
 
 										// Modif Enseignant
 										if (avenant.isModificationEnseignant()) {
-											ligneAvenant += "Remplacement de l'enseignant référent par : "
+											ligneAvenant.append("Remplacement de l'enseignant référent par : "
 													+ avenant.getEnseignant()
-															.getUidEnseignant();
-											ligneAvenant += "\n";
+													.getUidEnseignant());
+											ligneAvenant.append("\n");
 										}
 									}
-									cellAvenant += (ligneAvenant + "\n");
+									cellAvenant.append(ligneAvenant.toString() + "\n");
 								}
 							}
 						} else {
@@ -575,7 +611,7 @@ public class ExportController extends AbstractContextAwareController {
 						if (isAvenantExistant) {
 							row.createCell(cpt).setCellValue("Oui");
 							cpt++;
-							row.createCell(cpt).setCellValue(cellAvenant);
+							row.createCell(cpt).setCellValue(cellAvenant.toString());
 						} else {
 							row.createCell(cpt).setCellValue("Non");
 							cpt++;
@@ -589,7 +625,7 @@ public class ExportController extends AbstractContextAwareController {
 					}
 					cpt++;
 				}
-				for (String colonne : this.conventionEntrepriseColonnesChoisies) {
+				for (String colonne : this.conventionEntrepriseColonnesChoisies.getTarget()) {
 					row.createCell(cpt).setCellValue(
 							this.recupValueEntreprise(colonne, conventionTmp));
 					cpt++;
@@ -602,14 +638,13 @@ public class ExportController extends AbstractContextAwareController {
 				classeur.write(baosXLS);
 
 				ExportConventionsServlet edit = new ExportConventionsServlet();
-				
+
 				String XlsFileName ="extraction_pstage.xls";
-				
+
 				edit.doGet(baosXLS,XlsFileName);
-				
+
 			} catch (Exception e) {
-				logger.error("exportConvention() - Exception lors de la tentative d'ecriture du baosXLS : "
-						+ e.getMessage());
+				logger.error("exportConvention() - Exception lors de la tentative d'ecriture du baosXLS : " + e);
 			}
 		}
 	}
@@ -619,110 +654,105 @@ public class ExportController extends AbstractContextAwareController {
 	 */
 	private String recupValueStage(String nameProperty, ConventionDTO convention) {
 		try {
-			if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.NUMEROCONVENTION")) {
+			if ("EXPORTCONVENTION.NUMEROCONVENTION".equalsIgnoreCase(nameProperty)) {
 				return convention.getIdConvention().toString();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.NUMEROETUDIANT")) {
+			} else if ("EXPORTCONVENTION.NUMEROETUDIANT".equalsIgnoreCase(nameProperty)) {
 				return convention.getEtudiant().getNumEtudiant();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.NOMETUDIANT")) {
+			} else if ("EXPORTCONVENTION.NOMETUDIANT".equalsIgnoreCase(nameProperty)) {
 				return convention.getEtudiant().getNom();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.PRENOMETUDIANT")) {
+			} else if ("EXPORTCONVENTION.PRENOMETUDIANT".equalsIgnoreCase(nameProperty)) {
 				return convention.getEtudiant().getPrenom();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.TELPERSOETUDIANT")) {
+			} else if ("EXPORTCONVENTION.TELPERSOETUDIANT".equalsIgnoreCase(nameProperty)) {
 				return convention.getTelEtudiant();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.TELPORTABLEETUDIANT")) {
+			} else if ("EXPORTCONVENTION.TELPORTABLEETUDIANT".equalsIgnoreCase(nameProperty)) {
 				return convention.getTelPortableEtudiant();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.MAILPERSOETUDIANT")) {
+			} else if ("EXPORTCONVENTION.MAILPERSOETUDIANT".equalsIgnoreCase(nameProperty)) {
 				return convention.getCourrielPersoEtudiant();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.CODESEXEETUDIANT")) {
+			} else if ("EXPORTCONVENTION.CODESEXEETUDIANT".equalsIgnoreCase(nameProperty)) {
 				return convention.getEtudiant().getCodeSexe();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.ADRESSETU")) {
+			} else if ("EXPORTCONVENTION.ADRESSETU".equalsIgnoreCase(nameProperty)) {
 				return convention.getAdresseEtudiant();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.CODEPOSTALETU")) {
+			} else if ("EXPORTCONVENTION.CODEPOSTALETU".equalsIgnoreCase(nameProperty)) {
 				return convention.getCodePostalEtudiant();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.PAYSETU")) {
+			} else if ("EXPORTCONVENTION.PAYSETU".equalsIgnoreCase(nameProperty)) {
 				return convention.getPaysEtudiant();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.VILLEETU")) {
+			} else if ("EXPORTCONVENTION.VILLEETU".equalsIgnoreCase(nameProperty)) {
 				return convention.getVilleEtudiant();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.CODEUFR")) {
+			} else if ("EXPORTCONVENTION.CODEUFR".equalsIgnoreCase(nameProperty)) {
 				return convention.getUfr().getCode();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.LIBELLEUFR")) {
+			} else if ("EXPORTCONVENTION.LIBELLEUFR".equalsIgnoreCase(nameProperty)) {
 				return convention.getUfr().getLibelle();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.CODEDEPT")) {
+			} else if ("EXPORTCONVENTION.CODEDEPT".equalsIgnoreCase(nameProperty)) {
 				return convention.getCodeDepartement();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.CODEETAPE")) {
+			} else if ("EXPORTCONVENTION.CODEETAPE".equalsIgnoreCase(nameProperty)) {
 				return convention.getEtape().getCode();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.LIBELLEETAPE")) {
+			} else if ("EXPORTCONVENTION.LIBELLEETAPE".equalsIgnoreCase(nameProperty)) {
 				return convention.getEtape().getLibelle();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.DATEDEB")) {
-				return new SimpleDateFormat("dd/MM/yyyy").format(convention
-						.getDateDebutStage());
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.DATEFIN")) {
-				return new SimpleDateFormat("dd/MM/yyyy").format(convention
-						.getDateFinStage());
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.INTERRUPTION")) {
+			} else if ("EXPORTCONVENTION.DATEDEB".equalsIgnoreCase(nameProperty)) {
+				if (convention.getDateDebutStage() != null){
+					return new SimpleDateFormat("dd/MM/yyyy").format(convention
+							.getDateDebutStage());
+				} else {
+					return "";
+				}
+			} else if ("EXPORTCONVENTION.DATEFIN".equalsIgnoreCase(nameProperty)) {
+				if (convention.getDateFinStage() != null){
+					return new SimpleDateFormat("dd/MM/yyyy").format(convention
+							.getDateFinStage());
+				} else {
+					return "";
+				}
+			} else if ("EXPORTCONVENTION.INTERRUPTION".equalsIgnoreCase(nameProperty)) {
 				if (convention.getInterruptionStageExport()) {
 					return "Oui";
 				} else {
 					return "Non";
 				}
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.DATEDEB.INTERRUPT")) {
-				return new SimpleDateFormat("dd/MM/yyyy").format(convention
-						.getDateDebutInterruption());
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.DATEFIN.INTERRUPT")) {
-				return new SimpleDateFormat("dd/MM/yyyy").format(convention
-						.getDateFinInterruption());
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.THEMATIQUE")) {
+			} else if ("EXPORTCONVENTION.DATEDEB.INTERRUPT".equalsIgnoreCase(nameProperty)) {
+				if (convention.getInterruptionStageExport() && convention.getDateDebutInterruption() != null){
+					return new SimpleDateFormat("dd/MM/yyyy").format(convention.getDateDebutInterruption());
+				} else {
+					return "";
+				}
+			} else if ("EXPORTCONVENTION.DATEFIN.INTERRUPT".equalsIgnoreCase(nameProperty)) {
+				if (convention.getInterruptionStageExport() && convention.getDateFinInterruption() != null){
+					return new SimpleDateFormat("dd/MM/yyyy").format(convention.getDateFinInterruption());
+				} else {
+					return "";
+				}
+			} else if ("EXPORTCONVENTION.THEMATIQUE".equalsIgnoreCase(nameProperty)) {
 				return convention.getTheme().getLibelle();
-			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.SUJET")) {
+			} else if ("EXPORTCONVENTION.SUJET".equalsIgnoreCase(nameProperty)) {
 				return convention.getSujetStage();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.FONCTION")) {
+			} else if ("EXPORTCONVENTION.FONCTION".equalsIgnoreCase(nameProperty)) {
 				return convention.getFonctionsEtTaches();
-			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.DETAIL")) {
+			} else if ("EXPORTCONVENTION.DETAIL".equalsIgnoreCase(nameProperty)) {
 				return convention.getDetails();
-			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.DUREE")) {
-				String duree = "0";
+			} else if ("EXPORTCONVENTION.DUREE".equalsIgnoreCase(nameProperty)) {
+				String duree;
 				if (convention.getDureeExceptionnelle() != null
 						&& !convention.getDureeExceptionnelle().isEmpty()) {
 					duree = convention.getDureeExceptionnelle();
 					if (convention.getIdUniteDureeExceptionnelle() != null
 							&& convention.getIdUniteDureeExceptionnelle() != 0) {
 						switch (convention.getIdUniteDureeExceptionnelle()) {
-						case 1:
-							duree += " heure(s)";
-						case 2:
-							duree += " jour(s)";
-						case 3:
-							duree += " semaine(s)";
-						case 4:
-							duree += " mois";
-						case 5:
-							duree += " annee(s)";
-						default:
-							duree += " heure(s)";
+							case 1:
+								duree += " heure(s)";
+								break;
+							case 2:
+								duree += " jour(s)";
+								break;
+							case 3:
+								duree += " semaine(s)";
+								break;
+							case 4:
+								duree += " mois";
+								break;
+							case 5:
+								duree += " annee(s)";
+								break;
+							default:
+								duree += " heure(s)";
 						}
 					} else {
 						duree += " heure(s)";
@@ -730,110 +760,67 @@ public class ExportController extends AbstractContextAwareController {
 				} else {
 					duree = convention.getDureeStage().toString() + " semaines";
 				}
-
 				return duree;
-				// } else if
-				// (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.DUREEEXCEPTION")){
-				// return convention.getDureeExceptionnelle();
-				// } else if
-				// (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.UNITEDUREEEXCEP")){
-				// if (convention.getDureeExceptionnelle() != null &&
-				// !convention.getDureeExceptionnelle().isEmpty()){
-				// if (convention.getIdUniteDureeExceptionnelle() != 0){
-				// switch (convention.getIdUniteDureeExceptionnelle()) {
-				// case 1:
-				// return "heure(s)";
-				// case 2:
-				// return "jour(s)";
-				// case 3:
-				// return "semaine(s)";
-				// case 4:
-				// return "mois";
-				// case 5:
-				// return "annee(s)";
-				// default:
-				// return "";
-				// }
-				// } else {
-				// return "heures";
-				// }
-				// } else {
-				// return "";
-				// }
-
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.UNITEDUREEGRATIF")) {
+			} else if ("EXPORTCONVENTION.UNITEDUREEGRATIF".equalsIgnoreCase(nameProperty)) {
 				return convention.getUniteDureeGratification().getLibelle();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.NBJOURS")) {
+			} else if ("EXPORTCONVENTION.NBJOURS".equalsIgnoreCase(nameProperty)) {
 				return convention.getNbJoursHebdo();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.GRATIFICATION")) {
+			} else if ("EXPORTCONVENTION.GRATIFICATION".equalsIgnoreCase(nameProperty)) {
 				return convention.getMontantGratification();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.UNITEGRATIFICATION")) {
+			} else if ("EXPORTCONVENTION.UNITEGRATIFICATION".equalsIgnoreCase(nameProperty)) {
 				return convention.getUniteGratification().getLibelle();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.VALIDEE")) {
+			} else if ("EXPORTCONVENTION.VALIDEE".equalsIgnoreCase(nameProperty)) {
 				if (convention.getValidationConventionExport()) {
 					return "Oui";
 				} else {
 					return "Non";
 				}
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.VALIDEE.PEDAGOGIQUEMENT")) {
+			} else if ("EXPORTCONVENTION.VALIDEE.PEDAGOGIQUEMENT".equalsIgnoreCase(nameProperty)) {
 				if (convention.getValidationPedagogiqueExport()) {
 					return "Oui";
 				} else {
 					return "Non";
 				}
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.NOM.ENSEIGNANT")) {
+			} else if ("EXPORTCONVENTION.NOM.ENSEIGNANT".equalsIgnoreCase(nameProperty)) {
 				return convention.getEnseignant().getNom();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.PRENOM.ENSEIGNANT")) {
+			} else if ("EXPORTCONVENTION.PRENOM.ENSEIGNANT".equalsIgnoreCase(nameProperty)) {
 				return convention.getEnseignant().getPrenom();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.MAIL.ENSEIGNANT")) {
+			} else if ("EXPORTCONVENTION.MAIL.ENSEIGNANT".equalsIgnoreCase(nameProperty)) {
 				return convention.getEnseignant().getMail();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.NOM.SIGNATAIRE")) {
+			} else if ("EXPORTCONVENTION.NOM.SIGNATAIRE".equalsIgnoreCase(nameProperty)) {
 				return convention.getSignataire().getNom();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.PRENOM.SIGNATAIRE")) {
+			} else if ("EXPORTCONVENTION.PRENOM.SIGNATAIRE".equalsIgnoreCase(nameProperty)) {
 				return convention.getSignataire().getPrenom();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.MAIL.SIGNATAIRE")) {
+			} else if ("EXPORTCONVENTION.MAIL.SIGNATAIRE".equalsIgnoreCase(nameProperty)) {
 				return convention.getSignataire().getMail();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.FONCTION.SIGNATAIRE")) {
+			} else if ("EXPORTCONVENTION.FONCTION.SIGNATAIRE".equalsIgnoreCase(nameProperty)) {
 				return convention.getSignataire().getFonction();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.ANNEEUNIV")) {
+			} else if ("EXPORTCONVENTION.ANNEEUNIV".equalsIgnoreCase(nameProperty)) {
 				return convention.getAnnee();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.TYPECONVENTION")) {
+			} else if ("EXPORTCONVENTION.TYPECONVENTION".equalsIgnoreCase(nameProperty)) {
 				return convention.getTypeConvention().getLibelle();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.COMMENTAIRESTAGE")) {
+			} else if ("EXPORTCONVENTION.COMMENTAIRESTAGE".equalsIgnoreCase(nameProperty)) {
 				return convention.getCommentaireStage();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.COMMENTAIREDUREETRAVAIL")) {
+			} else if ("EXPORTCONVENTION.COMMENTAIREDUREETRAVAIL".equalsIgnoreCase(nameProperty)) {
 				return convention.getCommentaireDureeTravail();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.AVANTAGESNATURE")) {
+			} else if ("EXPORTCONVENTION.AVANTAGESNATURE".equalsIgnoreCase(nameProperty)) {
 				return convention.getAvantagesNature();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.MAILUNIVETU")) {
+			} else if ("EXPORTCONVENTION.MAILUNIVETU".equalsIgnoreCase(nameProperty)) {
 				return convention.getEtudiant().getMail();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.DATECREATION")) {
-				return new SimpleDateFormat("dd/MM/yyyy à HH:mm:ss").format(convention
-						.getDateCreation());
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.DATEMODIF")) {
-				return new SimpleDateFormat("dd/MM/yyyy à HH:mm:ss").format(convention
-						.getDateModif());
+			} else if ("EXPORTCONVENTION.DATECREATION".equalsIgnoreCase(nameProperty)) {
+				if (convention.getDateCreation() != null){
+					return new SimpleDateFormat("dd/MM/yyyy à HH:mm:ss").format(convention
+							.getDateCreation());
+				} else {
+					return "";
+				}
+			} else if ("EXPORTCONVENTION.DATEMODIF".equalsIgnoreCase(nameProperty)) {
+				if (convention.getDateModif() != null){
+					return new SimpleDateFormat("dd/MM/yyyy à HH:mm:ss").format(convention
+							.getDateModif());
+				} else {
+					return "";
+				}
 			} else {
 				if (logger.isDebugEnabled())
 					logger.debug("methode recupValueStage(...) : NameProperty "
@@ -843,7 +830,7 @@ public class ExportController extends AbstractContextAwareController {
 		} catch (NullPointerException e) {
 			if (logger.isDebugEnabled())
 				logger.debug("methode recupValueStage(...) : NullPointerException pour "
-						+ nameProperty + ".");
+						+ nameProperty + ".",e);
 			return "";
 		}
 	}
@@ -852,93 +839,65 @@ public class ExportController extends AbstractContextAwareController {
 	 * @return Object
 	 */
 	private String recupValueEntreprise(String nameProperty,
-			ConventionDTO convention) {
+										ConventionDTO convention) {
 		try {
-			if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.RAISONSOC")) {
+			if ("EXPORTCONVENTION.STRUCTURE.RAISONSOC".equalsIgnoreCase(nameProperty)) {
 				return convention.getStructure().getRaisonSociale();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.SIRET")) {
+			} else if ("EXPORTCONVENTION.STRUCTURE.SIRET".equalsIgnoreCase(nameProperty)) {
 				return convention.getStructure().getNumeroSiret();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.RESIDENCE")) {
+			} else if ("EXPORTCONVENTION.STRUCTURE.RESIDENCE".equalsIgnoreCase(nameProperty)) {
 				return convention.getStructure().getBatimentResidence();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.VOIE")) {
+			} else if ("EXPORTCONVENTION.STRUCTURE.VOIE".equalsIgnoreCase(nameProperty)) {
 				return convention.getStructure().getVoie();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.LIBCEDEX")) {
+			} else if ("EXPORTCONVENTION.STRUCTURE.LIBCEDEX".equalsIgnoreCase(nameProperty)) {
 				return convention.getStructure().getLibCedex();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.CODEPOSTAL")) {
+			} else if ("EXPORTCONVENTION.STRUCTURE.CODEPOSTAL".equalsIgnoreCase(nameProperty)) {
 				return convention.getStructure().getCodePostal();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.COMMUNE")) {
+			} else if ("EXPORTCONVENTION.STRUCTURE.COMMUNE".equalsIgnoreCase(nameProperty)) {
 				return convention.getStructure().getCommune();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.PAYS")) {
+			} else if ("EXPORTCONVENTION.STRUCTURE.PAYS".equalsIgnoreCase(nameProperty)) {
 				return convention.getStructure().getPays().getLibelle();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.STATUTJURIDIQUE")) {
+			} else if ("EXPORTCONVENTION.STRUCTURE.STATUTJURIDIQUE".equalsIgnoreCase(nameProperty)) {
 				return convention.getStructure().getStatutJuridique()
 						.getLibelle();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.TYPESTRUCTURE")) {
+			} else if ("EXPORTCONVENTION.STRUCTURE.TYPESTRUCTURE".equalsIgnoreCase(nameProperty)) {
 				return convention.getStructure().getTypeStructure()
 						.getLibelle();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.EFFECTIF")) {
+			} else if ("EXPORTCONVENTION.STRUCTURE.EFFECTIF".equalsIgnoreCase(nameProperty)) {
 				return convention.getStructure().getEffectif().getLibelle();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.CODENAF")) {
+			} else if ("EXPORTCONVENTION.STRUCTURE.CODENAF".equalsIgnoreCase(nameProperty)) {
 				return convention.getStructure().getCodeNAF_N5();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.TELEPHONE")) {
+			} else if ("EXPORTCONVENTION.STRUCTURE.TELEPHONE".equalsIgnoreCase(nameProperty)) {
 				return convention.getStructure().getTelephone();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.FAX")) {
+			} else if ("EXPORTCONVENTION.STRUCTURE.FAX".equalsIgnoreCase(nameProperty)) {
 				return convention.getStructure().getFax();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.MAIL")) {
+			} else if ("EXPORTCONVENTION.STRUCTURE.MAIL".equalsIgnoreCase(nameProperty)) {
 				return convention.getStructure().getMail();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.SITEWEB")) {
+			} else if ("EXPORTCONVENTION.STRUCTURE.SITEWEB".equalsIgnoreCase(nameProperty)) {
 				return convention.getStructure().getSiteWeb();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.SERVICE.NOM")) {
+			} else if ("EXPORTCONVENTION.SERVICE.NOM".equalsIgnoreCase(nameProperty)) {
 				return convention.getService().getNom();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.SERVICE.RESIDENCE")) {
+			} else if ("EXPORTCONVENTION.SERVICE.RESIDENCE".equalsIgnoreCase(nameProperty)) {
 				return convention.getService().getBatimentResidence();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.SERVICE.VOIE")) {
+			} else if ("EXPORTCONVENTION.SERVICE.VOIE".equalsIgnoreCase(nameProperty)) {
 				return convention.getService().getVoie();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.SERVICE.LIBCEDEX")) {
+			} else if ("EXPORTCONVENTION.SERVICE.LIBCEDEX".equalsIgnoreCase(nameProperty)) {
 				return convention.getService().getLibCedex();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.SERVICE.CODEPOSTAL")) {
+			} else if ("EXPORTCONVENTION.SERVICE.CODEPOSTAL".equalsIgnoreCase(nameProperty)) {
 				return convention.getService().getCodePostal();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.SERVICE.COMMUNE")) {
+			} else if ("EXPORTCONVENTION.SERVICE.COMMUNE".equalsIgnoreCase(nameProperty)) {
 				return convention.getService().getCommune();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.SERVICE.PAYS")) {
+			} else if ("EXPORTCONVENTION.SERVICE.PAYS".equalsIgnoreCase(nameProperty)) {
 				return convention.getService().getPays().getLibelle();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.NOM.CONTACT")) {
+			} else if ("EXPORTCONVENTION.NOM.CONTACT".equalsIgnoreCase(nameProperty)) {
 				return convention.getContact().getNom();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.PRENOM.CONTACT")) {
+			} else if ("EXPORTCONVENTION.PRENOM.CONTACT".equalsIgnoreCase(nameProperty)) {
 				return convention.getContact().getPrenom();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.MAIL.CONTACT")) {
+			} else if ("EXPORTCONVENTION.MAIL.CONTACT".equalsIgnoreCase(nameProperty)) {
 				return convention.getContact().getMail();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.TEL.CONTACT")) {
+			} else if ("EXPORTCONVENTION.TEL.CONTACT".equalsIgnoreCase(nameProperty)) {
 				return convention.getContact().getTel();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.FONCTION.CONTACT")) {
+			} else if ("EXPORTCONVENTION.FONCTION.CONTACT".equalsIgnoreCase(nameProperty)) {
 				return convention.getContact().getFonction();
 			} else {
 				if (logger.isDebugEnabled())
@@ -949,7 +908,7 @@ public class ExportController extends AbstractContextAwareController {
 		} catch (NullPointerException e) {
 			if (logger.isDebugEnabled())
 				logger.debug("methode recupValueEntreprise(...) : NullPointerException pour "
-						+ nameProperty + ".");
+						+ nameProperty + ".",e);
 			return "";
 		}
 	}
@@ -1069,7 +1028,7 @@ public class ExportController extends AbstractContextAwareController {
 	/**
 	 * @return the conventionColonnesChoisies
 	 */
-	public List<String> getConventionColonnesChoisies() {
+	public DualListModel<String> getConventionColonnesChoisies() {
 		return conventionColonnesChoisies;
 	}
 
@@ -1078,14 +1037,14 @@ public class ExportController extends AbstractContextAwareController {
 	 *            the conventionColonnesChoisies to set
 	 */
 	public void setConventionColonnesChoisies(
-			List<String> conventionColonnesChoisies) {
+			DualListModel<String> conventionColonnesChoisies) {
 		this.conventionColonnesChoisies = conventionColonnesChoisies;
 	}
 
 	/**
 	 * @return the conventionEntrepriseColonnesChoisies
 	 */
-	public List<String> getConventionEntrepriseColonnesChoisies() {
+	public DualListModel<String> getConventionEntrepriseColonnesChoisies() {
 		return conventionEntrepriseColonnesChoisies;
 	}
 
@@ -1094,7 +1053,7 @@ public class ExportController extends AbstractContextAwareController {
 	 *            the conventionEntrepriseColonnesChoisies to set
 	 */
 	public void setConventionEntrepriseColonnesChoisies(
-			List<String> conventionEntrepriseColonnesChoisies) {
+			DualListModel<String> conventionEntrepriseColonnesChoisies) {
 		this.conventionEntrepriseColonnesChoisies = conventionEntrepriseColonnesChoisies;
 	}
 

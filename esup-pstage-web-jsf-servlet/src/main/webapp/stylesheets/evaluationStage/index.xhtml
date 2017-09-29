@@ -1,33 +1,32 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="../_basicStageTemplate.xhtml">
-	<f:metadata>
-		<f:viewParam name="id" value="#{evaluationController.codeAccesFiche}" />
-	</f:metadata>
-	<ui:define name="content">
-		<rich:panel
-			style="width:800px; position:relative; margin-left:auto; margin-right:auto;">
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.ETAPE13.HEADER']} " />
-			</f:facet>
-			<h:form id="formFicheEntreprise">
-				<h:panelGrid style="padding:10px;">
-					<h:outputText
-						value="#{msgs['CONVENTION.ETAPE13.ENTREPRISE.ACCUEIL1']}" />
-					<h:panelGrid columns="2" style="padding:10px;">
-						<h:outputText
-							value="#{msgs['CONVENTION.ETAPE13.ENTREPRISE.ACCUEIL2']}" />
-						<a4j:commandButton
-							value="#{msgs['CONVENTION.ETAPE13.BOUTON_CREATION']}"
-							action="#{evaluationController.goToFicheEntrepriseTuteurPro}"
-							render="formFicheEntreprise" />
-					</h:panelGrid>
-				</h:panelGrid>
-			</h:form>
-		</rich:panel>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="../_evaluationEntrepriseTemplate.xhtml">
+    <f:metadata>
+        <f:viewParam name="id" value="#{evaluationController.codeAccesFiche}" />
+    </f:metadata>
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.ETAPE13.HEADER']} " />
+            </f:facet>
+            <h:form id="formFicheEntreprise">
+                <p:fieldset style="padding:15px;">
+                    <h:outputText
+                            value="#{msgs['CONVENTION.ETAPE13.ENTREPRISE.ACCUEIL1']}" />
+
+                    <t:htmlTag value="div" style="height:10px;" />
+
+                    <h:outputText
+                            value="#{msgs['CONVENTION.ETAPE13.ENTREPRISE.ACCUEIL2']}" />
+                    <p:commandButton
+                            value="#{msgs['CONVENTION.ETAPE13.BOUTON_CREATION']}"
+                            action="#{evaluationController.goToFicheEntrepriseTuteurPro}"
+                            update="formFicheEntreprise" />
+                </p:fieldset>
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>

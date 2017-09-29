@@ -6,13 +6,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 
+import org.esupportail.commons.services.logging.Logger;
+import org.esupportail.commons.services.logging.LoggerImpl;
 import org.esupportail.pstage.utils.Utils;
-import org.richfaces.event.FileUploadEvent;
-import org.richfaces.model.UploadedFile;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 /**
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr
- * 
+ *
  */
 public class FileUploadBean {
 
@@ -34,8 +36,13 @@ public class FileUploadBean {
 	private int prefix;
 
 	/**
+	 * A logger.
+	 */
+	private final Logger logger = new LoggerImpl(this.getClass());
+
+	/**
 	 * Constructeur
-	 * @param directory  
+	 * @param directory
 	 */
 	public FileUploadBean(String directory) {
 		this.directory=directory;
@@ -47,51 +54,30 @@ public class FileUploadBean {
 	 */
 	public void fileUploadListener(FileUploadEvent event){
 		if(event == null){
-			// logger.warn("Invalid upload event");
+			logger.warn("Invalid upload event");
 		}else{
 			// on recupere l'item envoye
-			UploadedFile uploadItem = event.getUploadedFile();
-			
-			String fileName = uploadItem.getName();
+			UploadedFile uploadItem = event.getFile();
+
+			String fileName = uploadItem.getFileName();
 			String extension="";
-			if(fileName.lastIndexOf(".")>0){
-				extension = fileName.substring(fileName.lastIndexOf("."));
+			if(fileName.lastIndexOf('.')>0){
+				extension = fileName.substring(fileName.lastIndexOf('.'));
 			}
 			this.realNameFile=fileName;
 			//encodage du nom en md5 pour s'affranchir des accents et caractéres spéciaux
-			fileName = Utils.encodeMD5(this.prefix+"")+extension;
+			fileName = Utils.encodeMD5(Integer.toString(this.prefix))+extension;
 			this.nameUploadedFile=fileName;
 			if(this.prefix>=0) fileName = this.prefix+"_"+fileName;
 			File fileToWrite = new File(this.directory + File.separator + fileName);
-			FileChannel in = null;
-			FileChannel out = null;
-			try{
-				in = ((FileInputStream)uploadItem.getInputStream()).getChannel();
-				out = new FileOutputStream(fileToWrite).getChannel();
-				in.transferTo(0, in.size(), out);
-			} catch(IOException e){
-				e.printStackTrace();
-				// recuperations des exceptions possibles
-				// logger.error("Error while copying the file.");
-			} catch(Exception e){
-				e.printStackTrace();
-			} finally{ // fermeture des filechannel
-				if(in != null){
-					try{
-						in.close();
-					}catch(IOException e){
-						e.printStackTrace();
-						//logger.error("Can't close input file channel");
-					}
-					if(out != null){
-						try{
-							out.close();
-						}catch (IOException e){
-							e.printStackTrace();
-							// logger.error("Can't close ouput file channel");
-						}
-					}
+			try(FileChannel in = ((FileInputStream)uploadItem.getInputstream()).getChannel()){
+				try (FileChannel out = new FileOutputStream(fileToWrite).getChannel()){
+					in.transferTo(0, in.size(), out);
 				}
+			} catch(IOException e){
+				logger.error(e);
+			} catch(Exception e){
+				logger.error(e);
 			}
 
 		}
@@ -99,8 +85,8 @@ public class FileUploadBean {
 
 	/**
 	 * Suppression d'un fichier 
-	 * @param id 
-	 * @param name 
+	 * @param id
+	 * @param name
 	 * @return boolean
 	 */
 	public boolean deleteFileFromDirectory(int id, String name){

@@ -77,6 +77,12 @@ public class EtapeInscription implements Serializable {
 	 * libFinalite.
 	 */
 	private String libFinalite = "";
+
+	/**
+	 * volumeHoraire.
+	 */
+	private String volumeHoraire = "";
+
 	/**
 	 * @return the codeEtp
 	 */
@@ -220,6 +226,14 @@ public class EtapeInscription implements Serializable {
 	 */
 	public void setLibFinalite(String libFinalite) {
 		this.libFinalite = libFinalite;
+	}
+
+	public String getVolumeHoraire() {
+		return volumeHoraire;
+	}
+
+	public void setVolumeHoraire(String volumeHoraire) {
+		this.volumeHoraire = volumeHoraire;
 	}
 	/* ***************************************************************
 	 * MÃ©thodes

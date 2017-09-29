@@ -1,57 +1,53 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="../_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<rich:panel>
-			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS_TITLE']}" />
-			</f:facet>
-			<ui:include src="_menuGestionEtab.xhtml" />
-			<h:form id="formAffEtab">
-				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="2" align="center">
-					<h:column>
-						<ui:include src="../_commun/_confirmationImagesPermanentes.xhtml" />
-					</h:column>
-					<h:column>
-						<rich:message for="formAffEtab">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
-					</h:column>
-				</h:panelGrid>
-				<a4j:outputPanel id="opAffEtab">
-					<t:div
-						rendered="#{empty rechercheController.resultatRechercheStructure}">
-						<h:outputText value="#{msgs['STRUCTURE.AUCUN']}" />
-					</t:div>
-					<t:div
-						rendered="#{not empty rechercheController.resultatRechercheStructure}"
-						style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
-						<ui:include src="_affichageRechercheEtablissement.xhtml" />
-					</t:div>
-					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" style="float:right;"
-						rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-						<t:aliasBean alias="#{objet}"
-							value="#{rechercheController.resultatRechercheStructure}">
-							<ui:include src="../_commun/_updateInfos.xhtml" />
-						</t:aliasBean>
-					</h:panelGrid>
-				</a4j:outputPanel>
-				<t:htmlTag value="br" />
-				<t:htmlTag value="div" style="height: 30px;" />
-				<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-					action="#{rechercheController.goToRechercheEtablissementStage}"
-					alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-					title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}" />
-			</h:form>
-		</rich:panel>
-		<ui:include src="../_commun/_panelSupprStructure.xhtml" />
-		<ui:include src="./_panel_validStructure.xhtml" />
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS_TITLE']} #{sessionController.currentManageStructure.raisonSociale}" />
+            </f:facet>
+            <ui:include src="_menuGestionEtab.xhtml" />
+            <h:form id="formAffEtab" styleClass="block mt15">
+                <p:fieldset legend="#{msgs['MENUSTAGE.GESTIONETAB.FICHESIGNA']}">
+                    <p:outputPanel id="opAffEtab">
+                        <t:div rendered="#{empty rechercheController.resultatRechercheStructure}">
+                            <h:outputText value="#{msgs['STRUCTURE.AUCUN']}" />
+                        </t:div>
+                        <t:div rendered="#{not empty rechercheController.resultatRechercheStructure}"
+                               styleClass="ml40">
+                            <t:aliasBean alias="#{structure}"
+                                         value="#{rechercheController.resultatRechercheStructure}">
+                                <ui:include
+                                        src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
+                            </t:aliasBean>
+                            <t:div style="height: 10px;" />
+                            <t:div styleClass="ml20">
+                                <ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
+                                <t:div style="height: 10px;" />
+                                <t:div rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+                                    <t:aliasBean alias="#{objet}"
+                                                 value="#{rechercheController.resultatRechercheStructure}">
+                                        <ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
+                                    </t:aliasBean>
+                                </t:div>
+                            </t:div>
+                        </t:div>
+                    </p:outputPanel>
+                </p:fieldset>
+                <t:htmlTag value="div" style="height: 20px;" />
+
+                <p:commandButton action="rechercheEtablissementStage"
+                                 immediate="true" update="@form"
+                                 value=" #{msgs['RECHERCHEOFFRE.RETOURAUXRESULTATS']}"/>
+
+                <p:commandButton value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}" styleClass="ml20"
+                                 action="#{rechercheController.goToRechercheEtablissementStage}"/>
+            </h:form>
+        </p:panel>
+        <ui:include src="/stylesheets/_commun/_panelSupprStructure.xhtml" />
+        <ui:include src="./_panel_validStructure.xhtml" />
+    </ui:define>
 </ui:composition>

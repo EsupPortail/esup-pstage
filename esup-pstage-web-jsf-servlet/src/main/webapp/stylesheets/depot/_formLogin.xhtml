@@ -1,50 +1,38 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
-	<rich:message for="connexion">
-		<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-	</rich:message>
-	<h:form id="connexion">
-		<h:panelGrid columns="2" align="center"
-			rendered="#{not sessionController.pageAuthorized and not sessionController.adminPageAuthorized}">
-			<h:panelGrid columns="1" align="center">
-				<t:panelGrid columns="2" columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text">
-					<h:outputLabel for="login" value="#{msgs['CONTACT.LOGIN']}" />
-					<h:inputText id="login" value="#{welcomeController.login}"
-						required="true" maxlength="50" size="12"
-						requiredMessage="#{requiredMessageController.champObligatoire}">
-						<a4j:ajax event="blur" />
-					</h:inputText>
-					<t:panelGroup colspan="2">
-						<rich:message for="login">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
-					</t:panelGroup>
-					<h:outputLabel for="pswd" value="#{msgs['CONTACT.MDP']}" />
-					<h:inputSecret id="pswd" value="#{welcomeController.mdp}"
-						required="true" maxlength="20" size="12"
-						requiredMessage="#{requiredMessageController.champObligatoire}"
-						converter="#{passwordConverter}">
-						<a4j:ajax event="blur" />
-					</h:inputSecret>
-					<t:panelGroup colspan="2">
-						<rich:message for="pswd">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
-					</t:panelGroup>
-				</t:panelGrid>
-				<t:htmlTag value="div" style="height: 5px;"/>
-				<t:htmlTag value="center">
-					<a4j:commandButton action="#{welcomeController.connect}"
-						value="#{msgs['GENERAL.CONNEXION']}" />
-				</t:htmlTag>
-				<t:htmlTag value="div" style="height: 5px;"/>
-			</h:panelGrid>
-		</h:panelGrid>
-	</h:form>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+
+    <h:form id="formConnexion" rendered="#{not sessionController.pageAuthorized and not sessionController.adminPageAuthorized}">
+
+        <t:panelGrid columns="3">
+            <h:outputLabel for="login" value="#{msgs['CONTACT.LOGIN']}"
+                           styleClass="fontBold"/>
+            <p:inputText id="login" value="#{welcomeController.login}"
+                         required="true" maxlength="50">
+                <p:ajax event="blur" update="msgLogin" />
+            </p:inputText>
+            <p:message id="msgLogin" for="login"/>
+
+            <h:outputText value="#{msgs['CONTACT.MDP']}"
+                          styleClass="fontBold" />
+            <p:password id="pwd" value="#{welcomeController.mdp}"
+                        required="true" maxlength="20" autocomplete="true">
+                <p:ajax event="blur" update="msgPwd"/>
+            </p:password>
+            <p:message id="msgPwd" for="pwd"/>
+        </t:panelGrid>
+
+        <t:div styleClass="ml30 mt5 mb5 fz13">
+            <p:commandButton action="#{welcomeController.connect}"
+                             value="#{msgs['GENERAL.CONNEXION']}"
+                             onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                             update="@form"/>
+        </t:div>
+
+        <p:messages for="formConnexion"/>
+
+    </h:form>
 </ui:composition>

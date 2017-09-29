@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<p:dialog id="suppressionPersonnel" widgetVar="suppressionPersonnel" resizable="false" modal="true">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['CENTRE.PERSONNEL.SUPPRESSION.HEAD']}" />
+		</f:facet>
+        <t:htmlTag value="div" style="height:10px;"/>
+		<h:outputText
+			value="#{msgs['CENTRE.PERSONNEL.SUPPRESSION.RAPPEL']} 
+			#{centreController.personnel.prenom} #{centreController.personnel.nom} 
+			#{msgs['NAVIGATION.ACCESSKEY.ABOUT']}" />
+		<h:form id="formSupprPersonnel">
+			<t:htmlTag value="div" style="height:20px;" />
+			<t:div styleClass="textCenter mb20">
+				<p:commandButton value="#{msgs['FORM.OUI']}"
+					action="#{centreController.supprimerPersonnel}"
+					oncomplete="PF('suppressionPersonnel').hide();"
+					update="divConsultation" />
+				<p:commandButton value="#{msgs['FORM.NON']}" styleClass="ml20"
+					onclick="PF('suppressionPersonnel').hide();" />
+            </t:div>
+			<p:message for="formSupprPersonnel" />
+		</h:form>
+	</p:dialog>
+</ui:composition>

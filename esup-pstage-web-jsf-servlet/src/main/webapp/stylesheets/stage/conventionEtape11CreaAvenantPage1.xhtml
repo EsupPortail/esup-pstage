@@ -1,59 +1,46 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="../_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<rich:panel rendered="#{conventionController.convention != null}">
-			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CONVENTION.ETAPE11.CREA']} #{conventionController.convention.idConvention}" />
-			</f:facet>
-			<h:form id="formCreaAvenantPage1">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text"
-					style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-					
-					<ui:include src="/stylesheets/stage/_conventionEtape11FormAvenantPage1.xhtml" />
-					
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" align="center">
-						<a4j:commandButton value="#{msgs['CONVENTION.ETAPE11.CREER']}"
-							status="statusCreaAvenant"
-							action="#{avenantController.goToCreaAvenantPage2}" />
-						<h:outputText id="erreurCreation" value="" />
-						<rich:message for="erreurCreation">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
-						<t:htmlTag value="center">
-							<a4j:status name="statusCreaAvenant">
-								<f:facet name="start">
-									<ui:include src="../_commun/_veuillezPatienter.xhtml" />
-								</f:facet>
-							</a4j:status>
-						</t:htmlTag>
-					</h:panelGrid>
-				</h:panelGrid>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel rendered="#{conventionController.convention != null}">
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention} #{conventionController.convention.etudiant.nom} #{conventionController.convention.etudiant.prenom}" />
+            </f:facet>
+            <h:form id="formCreaAvenant">
+                <ui:include src="_roadmapSel.xhtml" />
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20 block">
 
-				<t:htmlTag value="div" style="height:10px;" />
+                        <ui:include src="/stylesheets/stage/_formAvenant.xhtml" />
 
-				<h:commandButton id="retour" style="float:left;"
-					value="#{msgs['GENERAL.RETOUR']}" immediate="true"
-					action="#{avenantController.goToListeAvenant}">
-					<rich:tooltip value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
-				</h:commandButton>
+                        <t:div styleClass="textCenter">
+                            <p:commandButton value="#{msgs['CONVENTION.ETAPE11.CREER']}"
+                                             action="#{avenantController.goToCreaAvenantPage2}"
+                                             onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                             update="@form" />
+                        </t:div>
 
-				<t:htmlTag value="div" style="height: 20px;" />
-			</h:form>
-			<ui:include src="../_commun/_panelAjoutService.xhtml" />
-			<ui:include src="../_commun/_panelAjoutContact.xhtml" />
-			<ui:include src="./_panel_rechEnseignantAvenant.xhtml" />
-		</rich:panel>
-		<t:div rendered="#{conventionController.convention == null}">
-			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />
-		</t:div>
-	</ui:define>
+                        <t:htmlTag value="div" style="height: 10px;" />
+
+                        <p:message for="formCreaAvenant" />
+
+                        <t:htmlTag value="div" style="height: 10px;" />
+
+                        <p:commandButton id="retour" styleClass="mt20"
+                                         value="#{msgs['GENERAL.RETOUR']}" immediate="true"
+                                         action="#{avenantController.goToListeAvenant}"/>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+            <ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
+            <ui:include src="./_panel_rechEnseignantAvenant.xhtml" />
+        </p:panel>
+        <t:div rendered="#{conventionController.convention == null}">
+            <ui:include src="./_redirection_accesDirectImpossible.xhtml" />
+        </t:div>
+    </ui:define>
 </ui:composition>

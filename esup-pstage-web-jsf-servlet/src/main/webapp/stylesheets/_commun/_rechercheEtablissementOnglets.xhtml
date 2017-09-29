@@ -1,265 +1,314 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<t:div
-		rendered="#{not empty rechercheController.ongletCourant 
-	and rechercheController.ongletCourant le 1}">
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="1">
-			<h:outputText escape="false"
-				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET1.NUMEROSIRET']}" />
-			<h:form>
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
-					<h:inputText id="rechNumeroSiret" size="20" maxlength="14"
-						value="#{rechercheController.rechNumeroSiret}" />
-					<h:commandButton action="#{rechercheController.rechercheEtabSiret}"
-						value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
-						style="font-size:14px; border:solid 1px;" />
-				</h:panelGrid>
-			</h:form>
-			<h:outputText escape="false"
-				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET1.NUMEROSIREN']}" />
-			<h:form>
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
-					<h:inputText id="rechNumeroSiren" size="20" maxlength="9"
-						value="#{rechercheController.rechNumeroSiren}">
-					</h:inputText>
-					<h:commandButton action="#{rechercheController.rechercheEtabSiren}"
-						value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
-						style="font-size:14px; border:solid 1px;" />
-				</h:panelGrid>
-			</h:form>
-		</h:panelGrid>
-	</t:div>
-	<t:div
-		rendered="#{empty rechercheController.ongletCourant 
- 	or rechercheController.ongletCourant==2}">
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="1">
-			<h:outputText
-				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET2.RAISONSOCIALE']}"
-				escape="false" />
+    <p:fieldset styleClass="mt10">
+        <t:div rendered="#{not empty rechercheController.ongletCourant and rechercheController.ongletCourant le 1}">
+            <h:outputText escape="false"
+                          value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET1.NUMEROSIRET']}" />
 
-			<h:form>
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" style="margin-left:40px;">
-					<!-- 										<h:inputText id="rechRaisonSociale" size="50" maxlength="150" -->
-					<!-- 											value="#{rechercheController.rechRaisonSociale}" -->
-					<!-- 											style="text-transform:uppercase;" -->
-					<!-- 											converter="#{sansAccentEnMAJConverter}" /> -->
+            <t:htmlTag value="ul" styleClass="formUL textCenter">
+                <p:commandButton action="#{rechercheController.rechercheEtabSiret}"
+                                 value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+                                 update="@form" styleClass="ml5 floatRight"  icon="fa fa-search"
+                                 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+                <t:div style="overflow: hidden;">
+                    <p:inputText id="rechNumeroSiret" size="20" maxlength="14"
+                                 value="#{rechercheController.rechNumeroSiret}"/>
+                    <p:message for="rechNumeroSiret" />
+                </t:div>
+            </t:htmlTag>
 
-					<h:panelGrid columns="2">
-						<h:outputLabel for="rechRaisonSociale"
-							value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.RAISONSOCIALE']}" />
-						<rich:autocomplete id="rechRaisonSociale"
-							value="#{rechercheController.rechRaisonSociale}" size="50"
-							maxlength="100" mode="cachedAjax" tokens=", " minChars="2"
-							autofill="false"
-							autocompleteMethod="#{rechercheController.getRaisonsSociales}"
-							converter="#{sansAccentEnMAJConverter}" inputClass="ac"
-							styleClass="ac" popupClass="acPopup"
-							style="text-transform:uppercase; font-size : 10px"
-							attached="false" />
-					</h:panelGrid>
+            <p:separator styleClass="mt20 mb20"/>
 
-					<a4j:outputPanel id="rechPaysDep">
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="2">
-							<h:outputLabel
-								value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.PAYS']}"
-								for="rechPays2" />
-							<h:selectOneMenu id="rechPays2"
-								value="#{rechercheController.rechPays}"
-								converter="#{paysConverter}"
-								valueChangeListener="#{rechercheController.valuePaysChanged}"
-								styleClass="paysInput">
-								<f:selectItem itemValue="" />
-								<f:selectItems value="#{nomenclatureController.pays}" />
-								<a4j:ajax event="valueChange" render="DepFrance" />
-							</h:selectOneMenu>
-						</h:panelGrid>
-					</a4j:outputPanel>
+            <h:outputText escape="false"
+                          value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET1.NUMEROSIREN']}" />
+            <t:htmlTag value="ul" styleClass="formUL textCenter">
+                <p:commandButton action="#{rechercheController.rechercheEtabSiren}"
+                                 value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+                                 update="@form" styleClass="ml5 floatRight" icon="fa fa-search"
+                                 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+                <t:div style="overflow: hidden;">
+                    <p:inputText id="rechNumeroSiren" size="20" maxlength="9"
+                                 value="#{rechercheController.rechNumeroSiren}"/>
+                    <p:message for="rechNumeroSiren" />
+                </t:div>
+            </t:htmlTag>
+        </t:div>
 
-					<t:htmlTag value="div" style="width:20px;" />
+        <t:div rendered="#{empty rechercheController.ongletCourant or rechercheController.ongletCourant==2}">
+            <t:htmlTag value="ul" styleClass="formUL columns-2 verticalCenter mt15">
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+                        <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET2.RAISONSOCIALE']}"
+                                      escape="false" />
+                        <p:autoComplete styleClass="mt5 ml5"
+                                        value="#{rechercheController.rechRaisonSociale}"
+                                        maxlength="100" size="50"
+                                        minQueryLength="3"
+                                        completeMethod="#{rechercheController.getRaisonsSociales}"/>
+                        <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET2.RAISONSOCIALE_2']}"
+                                      styleClass="ml5 fz09" escape="false" />
+                    </t:htmlTag>
+                </t:div>
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+                        <h:outputText styleClass="ml5"
+                                      value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.PAYS']} "/>
+                        <h:outputText value="(#{msgs['GENERAL.FACULTATIF']})" escape="false"/>
+                        <h:selectOneMenu id="rechPays2" effect="none" styleClass="customPstage fix-selectOneMenu"
+                                         value="#{rechercheController.rechPays}"
+                                         converter="#{paysConverter}"
+                                         valueChangeListener="#{rechercheController.valuePaysChanged}">
+                            <f:selectItem itemValue="" />
+                            <f:selectItems value="#{nomenclatureController.pays}" />
+                            <p:ajax event="valueChange" update="DepFrance" />
+                        </h:selectOneMenu>
+                    </t:htmlTag>
 
-					<a4j:outputPanel id="DepFrance">
-						<h:panelGrid rendered="#{rechercheController.france}">
-							<h:outputLabel for="rechDepartement2"
-								value="#{msgs['RECHERCHEETABLISSEMENT.DEPARTEMENT']}" />
-							<h:inputText id="rechDepartement2" size="2" maxlength="2"
-								value="#{rechercheController.rechDepartement}"
-								converter="#{sansAccentEnMAJConverter}" escape="false" />
-						</h:panelGrid>
-					</a4j:outputPanel>
-					<h:commandButton
-						style="font-size:14px; border:solid 1px; margin-left:100px;"
-						action="#{rechercheController.rechercheRaisonSociale}"
-						value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
-				</h:panelGrid>
-			</h:form>
-		</h:panelGrid>
-	</t:div>
-	<t:div
-		rendered="#{not empty rechercheController.ongletCourant 
- 	and rechercheController.ongletCourant==3}">
-		<h:form>
-			<t:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="2">
-				<t:panelGroup colspan="2">
-					<h:outputText
-						value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.ACTIVITE']}"
-						escape="false" />
-				</t:panelGroup>
-				<h:outputLabel for="rechTypeStructure"
-					value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.TYPESTRUCTURE']}" />
-				<h:selectOneMenu id="rechTypeStructure"
-					value="#{rechercheController.rechTypeEtablissement}"
-					converter="#{typeStructureConverter}">
-					<f:selectItem itemValue="" />
-					<f:selectItems value="#{nomenclatureController.typesStructure}" />
-				</h:selectOneMenu>
-				<h:outputLabel for="rechNafN1"
-					value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.SECTEURACTIVITE']}" />
-				<h:selectOneMenu id="rechNafN1"
-					value="#{rechercheController.rechNafN1}"
-					converter="#{nafN1Converter}" style="width:200px">
-					<f:selectItem itemValue="" />
-					<f:selectItems value="#{nomenclatureController.nafN1}" />
-				</h:selectOneMenu>
-				<h:outputLabel for="rechDepartement"
-					value="#{msgs['RECHERCHEETABLISSEMENT.DEPARTEMENT']}" />
-				<h:inputText id="rechDepartement" size="2" maxlength="2"
-					value="#{rechercheController.rechDepartement}"
-					converter="#{sansAccentEnMAJConverter}" />
-			</t:panelGrid>
-			<h:commandButton action="#{rechercheController.rechercheActivite}"
-				value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
-				style="font-size:14px; border:solid 1px;" />
-		</h:form>
-	</t:div>
-	<t:div
-		rendered="#{not empty rechercheController.ongletCourant 
- 	and rechercheController.ongletCourant==4}">
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="1">
-			<h:outputText
-				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.TELFAX']}"
-				escape="false" />
-			<h:form>
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="3">
-					<h:outputLabel for="rechTelephone"
-						value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.TEL']}" />
-					<h:inputText id="rechTelephone" size="20" maxlength="20"
-						value="#{rechercheController.rechTelephone}">
-					</h:inputText>
-					<h:commandButton action="#{rechercheController.rechercheTel}"
-						value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
-						style="font-size:14px; border:solid 1px;" />
-				</h:panelGrid>
-			</h:form>
-			<h:form>
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="3">
-					<h:outputLabel for="rechFax"
-						value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.FAX']}" />
-					<h:inputText id="rechFax" size="20" maxlength="20"
-						value="#{rechercheController.rechFax}">
-					</h:inputText>
-					<h:commandButton action="#{rechercheController.rechercheFax}"
-						value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
-						style="font-size:14px; border:solid 1px;" />
-				</h:panelGrid>
-			</h:form>
-		</h:panelGrid>
-	</t:div>
-	<t:div
-		rendered="#{not empty rechercheController.ongletCourant 
- 	and rechercheController.ongletCourant==7}">
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="1">
-			<h:outputText
-				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.ADRESSE']}"
-				escape="false" />
-			<h:form>
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
-						<h:outputLabel for="rechVoie"
-							value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.VOIE']}" />
-						<h:inputText id="rechVoie" size="30" maxlength="200"
-							value="#{rechercheController.critereRechercheStructureAdresse.rechVoie}">
-						</h:inputText>
-						<h:outputLabel for="rechBatRes"
-							value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.BATRES']}" />
-						<h:inputText id="rechBatRes" size="30" maxlength="200"
-							value="#{rechercheController.critereRechercheStructureAdresse.rechBatimentResidence}">
-						</h:inputText>
-						<h:outputLabel for="rechVille"
-							value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.VILLE']}" />
-						<h:inputText id="rechVille" size="20" maxlength="20"
-							value="#{rechercheController.critereRechercheStructureAdresse.rechVille}">
-						</h:inputText>
-					</h:panelGrid>
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
-						<h:outputLabel for="rechDeps"
-							value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.DEP']}" />
-						<h:inputText id="rechDeps" size="20" maxlength="20"
-							value="#{rechercheController.critereRechercheStructureAdresse.codePostal}">
-						</h:inputText>
-						<h:outputLabel for="rechPays"
-							value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.PAYS']}" />
-						<h:selectOneMenu id="rechPays"
-							value="#{rechercheController.critereRechercheStructureAdresse.rechPays}"
-							converter="#{paysConverter}" styleClass="paysInput">
-							<f:selectItem itemValue="" />
-							<f:selectItems value="#{nomenclatureController.pays}" />
-						</h:selectOneMenu>
-					</h:panelGrid>
-				</h:panelGrid>
-				<h:commandButton action="#{rechercheController.rechercheAdresse}"
-					value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
-					style="font-size:14px; border:solid 1px;" />
-			</h:form>
-		</h:panelGrid>
-	</t:div>
-	<t:div
-		rendered="#{not empty rechercheController.ongletCourant 
- 	and rechercheController.ongletCourant==5}">
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="1">
-			<h:outputText
-				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET5.SERVICE']}"
-				escape="false" />
-			<h:form>
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
-					<h:outputLabel for="rechNomService"
-						value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET5.NOMSERVICE']}" />
-					<h:inputText id="rechNomService" size="30" maxlength="200"
-						value="#{rechercheController.rechNomService}"
-						style="text-transform:uppercase;"
-						converter="#{sansAccentEnMAJConverter}" />
-					<h:outputLabel for="rechDepartement"
-						value="#{msgs['RECHERCHEETABLISSEMENT.DEPARTEMENT']}" />
-					<h:inputText id="rechDepartement" size="2" maxlength="2"
-						value="#{rechercheController.rechDepartement}"
-						converter="#{sansAccentEnMAJConverter}" />
-				</h:panelGrid>
-				<h:commandButton action="#{rechercheController.rechercheService}"
-					value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
-					style="font-size:14px; border:solid 1px;" />
-			</h:form>
-		</h:panelGrid>
-	</t:div>
+                    <t:htmlTag value="li">
+                        <p:outputPanel id="DepFrance">
+                            <t:div rendered="#{rechercheController.france}">
+                                <h:outputLabel for="rechDepartement2" escape="false"
+                                               value="#{msgs['RECHERCHEETABLISSEMENT.DEPARTEMENT']}"/>
+                                <p:inputText id="rechDepartement2" size="2" maxlength="2"
+                                             value="#{rechercheController.rechDepartement}"
+                                             converter="#{sansAccentEnMAJConverter}" escape="false" />
+                            </t:div>
+                        </p:outputPanel>
+                    </t:htmlTag>
+                </t:div>
+            </t:htmlTag>
+            <t:div styleClass="mt20 textCenter">
+                <p:commandButton id="confirmForm" update="@form"
+                                 action="#{rechercheController.rechercheRaisonSociale}"
+                                 value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+                                 icon="fa fa-search"
+                                 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+            </t:div>
+        </t:div>
+        <t:div rendered="#{not empty rechercheController.ongletCourant and rechercheController.ongletCourant==3}">
+            <t:htmlTag value="ul" styleClass="formUL columns-2 verticalCenter mt15">
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+                        <h:outputLabel for="rechTypeStructure"
+                                       value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.TYPESTRUCTURE']}" />
+                        <h:selectOneMenu id="rechTypeStructure" required="true" styleClass="customPstage fix-selectOneMenu"
+                                         value="#{rechercheController.rechTypeEtablissement}"
+                                         converter="#{typeStructureConverter}">
+                            <f:selectItems value="#{nomenclatureController.typesStructureSansSiret}" />
+                        </h:selectOneMenu>
+                        <p:message for="rechTypeStructure"/>
+                    </t:htmlTag>
+
+                    <t:htmlTag value="li">
+                        <h:outputLabel for="rechNafN1"
+                                       value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.SECTEURACTIVITE']}" />
+                        <h:selectOneMenu id="rechNafN1" required="true" styleClass="customPstage fix-selectOneMenu"
+                                         value="#{rechercheController.rechNafN1}"
+                                         converter="#{nafN1Converter}">
+                            <f:selectItems value="#{nomenclatureController.nafN1}" />
+                        </h:selectOneMenu>
+                        <p:message for="rechNafN1"/>
+                    </t:htmlTag>
+                </t:div>
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+                        <h:outputLabel for="rechDepartement3" escape="false"
+                                       value="#{msgs['RECHERCHEETABLISSEMENT.DEPARTEMENT']}" />
+                        <p:inputText id="rechDepartement3" size="2" maxlength="2"
+                                     value="#{rechercheController.rechDepartement}"
+                                     converter="#{sansAccentEnMAJConverter}" />
+                        <p:message for="rechDepartement3"/>
+                    </t:htmlTag>
+                </t:div>
+            </t:htmlTag>
+
+            <t:div styleClass="textCenter clearFloat">
+                <p:commandButton action="#{rechercheController.rechercheActivite}"
+                                 value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" icon="fa fa-search"
+                                 update="@form" onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+            </t:div>
+        </t:div>
+
+        <t:div rendered="#{not empty rechercheController.ongletCourant and rechercheController.ongletCourant==4}">
+
+            <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.TEL']}" styleClass="fontBold"/>
+            <t:htmlTag value="ul" styleClass="formUL">
+                <p:commandButton action="#{rechercheController.rechercheTel}"
+                                 value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+                                 update="@form" styleClass="ml5 floatRight" icon="fa fa-search"
+                                 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+                <t:div style="overflow: hidden;">
+                    <p:inputText id="rechTelephone" size="20" maxlength="20"
+                                 value="#{rechercheController.rechTelephone}"/>
+                    <p:message for="rechTelephone" />
+                </t:div>
+            </t:htmlTag>
+            <p:separator styleClass="mt20 mb20"/>
+
+            <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.FAX']}" styleClass="fontBold"/>
+            <t:htmlTag value="ul" styleClass="formUL">
+                <p:commandButton action="#{rechercheController.rechercheFax}"
+                                 value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+                                 update="@form" styleClass="ml5 floatRight" icon="fa fa-search"
+                                 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+                <t:div style="overflow: hidden;">
+                    <p:inputText id="rechFax" size="20" maxlength="20"
+                                 value="#{rechercheController.rechFax}"/>
+                    <p:message for="rechFax" />
+                </t:div>
+            </t:htmlTag>
+        </t:div>
+        <t:div rendered="#{not empty rechercheController.ongletCourant and rechercheController.ongletCourant==7}">
+
+            <t:htmlTag value="ul" styleClass="formUL columns-2 mt15">
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+                        <h:outputLabel for="rechVoie"
+                                       value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.VOIE']}" />
+                        <p:inputText id="rechVoie" size="30" maxlength="200"
+                                     value="#{rechercheController.critereRechercheStructureAdresse.rechVoie}"/>
+                    </t:htmlTag>
+                    <t:htmlTag value="li">
+                        <h:outputLabel for="rechBatRes"
+                                       value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.BATRES']}" />
+                        <p:inputText id="rechBatRes" size="30" maxlength="200"
+                                     value="#{rechercheController.critereRechercheStructureAdresse.rechBatimentResidence}"/>
+                    </t:htmlTag>
+                    <t:htmlTag value="li">
+                        <h:outputLabel for="rechVille"
+                                       value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.VILLE']}" />
+                        <p:inputText id="rechVille" size="20" maxlength="20"
+                                     value="#{rechercheController.critereRechercheStructureAdresse.rechVille}"/>
+                    </t:htmlTag>
+                </t:div>
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+                        <h:outputLabel for="rechDeps"
+                                       value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.DEP']}" />
+                        <p:inputText id="rechDeps" size="20" maxlength="20"
+                                     value="#{rechercheController.critereRechercheStructureAdresse.codePostal}"/>
+                    </t:htmlTag>
+                    <t:htmlTag value="li">
+                        <h:outputLabel for="rechPays"
+                                       value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.PAYS']}" />
+                        <h:selectOneMenu id="rechPays" effect="none" styleClass="customPstage fix-selectOneMenu"
+                                         value="#{rechercheController.critereRechercheStructureAdresse.rechPays}"
+                                         converter="#{paysConverter}">
+                            <f:selectItem itemValue="" />
+                            <f:selectItems value="#{nomenclatureController.pays}" />
+                        </h:selectOneMenu>
+                    </t:htmlTag>
+                </t:div>
+            </t:htmlTag>
+            <t:div styleClass="mt20 textCenter clearFloat">
+                <p:commandButton action="#{rechercheController.rechercheAdresse}"
+                                 value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+                                 update="@form" icon="fa fa-search"
+                                 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+            </t:div>
+        </t:div>
+        <t:div rendered="#{not empty rechercheController.ongletCourant and rechercheController.ongletCourant==5}">
+            <t:htmlTag value="ul" styleClass="formUL columns-2 mt15">
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+                        <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET5.NOMSERVICE']}" />
+                        <p:inputText id="rechNomService" size="30" maxlength="200"
+                                     required="true"
+                                     value="#{rechercheController.rechNomService}"
+                                     style="text-transform:uppercase;"
+                                     converter="#{sansAccentEnMAJConverter}" />
+                        <p:message for="rechNomService" />
+                    </t:htmlTag>
+                </t:div>
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+                        <h:outputText escape="false"
+                                      value="#{msgs['RECHERCHEETABLISSEMENT.DEPARTEMENT']}" />
+                        <p:inputText id="rechDepartement" size="2" maxlength="2"
+                                     value="#{rechercheController.rechDepartement}"
+                                     converter="#{sansAccentEnMAJConverter}" />
+                        <p:message for="rechDepartement" />
+                    </t:htmlTag>
+                </t:div>
+            </t:htmlTag>
+
+            <t:div styleClass="textCenter mt15 clearFloat">
+                <p:commandButton action="#{rechercheController.rechercheService}"
+                                 update="@form" icon="fa fa-search"
+                                 value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+                                 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+            </t:div>
+        </t:div>
+
+        <t:div rendered="#{not empty rechercheController.ongletCourant and rechercheController.ongletCourant==6}">
+            <t:div styleClass="mt5">
+                <t:htmlTag id="infoBulleRs" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
+                    <p:tooltip for="infoBulleRs" value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"/>
+                </t:htmlTag>
+                <h:outputText styleClass="fontBold ml5"
+                              value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.RAISONSOCIALE']}" />
+                <p:autoComplete id="rechRaisonSocialeAccord" styleClass="ml5"
+                                value="#{rechercheController.rechRaisonSociale}" size="50"
+                                maxlength="100" completeMethod="#{rechercheController.getRaisonsSociales}"
+                                converter="#{sansAccentEnMAJConverter}" />
+            </t:div>
+
+            <t:htmlTag value="ul" styleClass="formUL columns-2 mt15">
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+                        <t:div id="panelSansAccord" styleClass="mt5 mb5">
+                            <h:outputText styleClass="fontBold"
+                                          value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.ACCORD']}" />
+                            <p:selectOneRadio id="rechTypeAccord"
+                                              value="#{rechercheController.rechTypeAccord}"
+                                              converter="#{intConverter}">
+                                <f:selectItems value="#{rechercheController.listTypeAccord}" />
+                                <p:ajax event="valueChange" update="panelSansAccord" />
+                            </p:selectOneRadio>
+                            <t:div styleClass="fz09" rendered="#{rechercheController.rechTypeAccord == 2}">
+                                <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fz13"/>
+                                <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.SANSACCORD.AIDE']}" />
+                            </t:div>
+                        </t:div>
+                    </t:htmlTag>
+                </t:div>
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+
+                        <t:div styleClass="mb10 verticalAlignDiv">
+                            <h:outputText styleClass="fontBold"
+                                          value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.DATEDEBUT']}" />
+                            <p:calendar id="rechDateDebut" styleClass="autoWidth ml5"
+                                        value="#{rechercheController.dateDebut}"
+                                        locale="#{sessionController.locale}" />
+                        </t:div>
+                        <t:div styleClass="mb10 verticalAlignDiv">
+                            <h:outputText styleClass="fontBold"
+                                          value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.DATEFIN']}" />
+                            <p:calendar id="rechDateFin" styleClass="autoWidth ml5"
+                                        value="#{rechercheController.dateFin}"
+                                        locale="#{sessionController.locale}" />
+                        </t:div>
+                    </t:htmlTag>
+                </t:div>
+            </t:htmlTag>
+
+            <t:div styleClass="textCenter">
+                <p:commandButton action="#{rechercheController.rechercheAccord}"
+                                 value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+                                 update="@form" icon="fa fa-search"
+                                 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+            </t:div>
+        </t:div>
+
+        <t:htmlTag value="div" style="height:10px;"/>
+        <p:message for="@form"/>
+
+    </p:fieldset>
+
 </ui:composition>

@@ -1,66 +1,74 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-	<h:panelGrid columns="1" rowClasses="paginatorData-text"
-		columnClasses="paginatorData-text">
-		<ui:include src="../_commun/_champsObligatoires.xhtml" />
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
 
-		<h:outputLabel for="nomCentre"
-			value="#{msgs['CENTRE.CENTRE_ENTREPRISE.NOM']} *" />
-		<h:inputText id="nomCentre"
-			value="#{centreController.formCentreEntreprise.nomCentre}"
-			required="true" maxlength="100" size="50"
-			requiredMessage="#{requiredMessageController.champObligatoire}">
-			<a4j:ajax event="blur" />
-		</h:inputText>
-		<rich:message for="nomCentre">
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
+    <t:div style="height:20px;" />
 
-		<h:outputLabel for="confidentialite"
-			value="#{msgs['CENTRE.CENTRE_ENTREPRISE.CONFIDENTIALITE']} *" />
-		<h:selectOneMenu id="confidentialite"
-			value="#{centreController.formCentreEntreprise.confidentialite}"
-			required="true"
-			requiredMessage="#{requiredMessageController.champObligatoire}"
-			converter="#{confidentialiteConverter}">
-			<a4j:ajax event="valueChange" />
-			<f:selectItems
-				value="#{nomenclatureController.confidentialitesSansConfEtab}" />
-		</h:selectOneMenu>
-		<rich:message for="confidentialite">
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
+    <t:htmlTag value="ul" styleClass="formUL columns-2">
+        <t:div styleClass="column">
+            <t:htmlTag value="li">
+                <h:outputText styleClass="fontBold" for="nomCentre"
+                              value="#{msgs['CENTRE.CENTRE_ENTREPRISE.NOM']} *" />
+                <t:div style="height:5px;" />
+                <p:inputText id="nomCentre"
+                             value="#{centreController.formCentreEntreprise.nomCentre}"
+                             required="true" maxlength="100" />
+                <p:message for="nomCentre"/>
 
-		<h:outputLabel for="telCentre"
-			value="#{msgs['CENTRE.CENTRE_ENTREPRISE.TEL']}" />
-		<h:inputText id="telCentre"
-			value="#{centreController.formCentreEntreprise.telephone}" size="20"
-			maxlength="20" />
+                <t:div style="height:10px;" />
 
-		<h:outputLabel for="faxCentre"
-			value="#{msgs['CENTRE.CENTRE_ENTREPRISE.FAX']}" />
-		<h:inputText id="faxCentre"
-			value="#{centreController.formCentreEntreprise.fax}" size="20"
-			maxlength="20" />
-	</h:panelGrid>
-	<a4j:commandButton
-		rendered="#{empty centreController.centreEntreprise}"
-		value="#{msgs['FORM.CREER']}"
-		action="#{centreController.ajouterCentreEntreprise}"
-		render="formCentreEntreprise" />
-	<h:commandButton
-		rendered="#{not empty centreController.centreEntreprise}"
-		value="#{msgs['FORM.MODIFIER']}"
-		action="#{centreController.modifierCentreEntreprise}"
-		/>
-	<h:commandButton
-		value="#{msgs['FORM.ANNULER']}" immediate="true">
-		<f:setPropertyActionListener value="_modifCentreEntrepriseEtape1"
-			target="#{sessionController.modifCentreEntrepriseCurrentPage}" />
-	</h:commandButton>
+                <h:outputText styleClass="fontBold" for="confidentialite"
+                              value="#{msgs['CENTRE.CENTRE_ENTREPRISE.CONFIDENTIALITE']} *" />
+                <t:div style="height:5px;" />
+                <h:selectOneMenu id="confidentialite" styleClass="customPstage fix-selectOneMenu"
+                                 value="#{centreController.formCentreEntreprise.confidentialite}"
+                                 required="true" converter="#{confidentialiteConverter}">
+                    <p:ajax event="valueChange" />
+                    <f:selectItems
+                            value="#{nomenclatureController.confidentialitesSansConfEtab}" />
+                </h:selectOneMenu>
+                <p:message for="confidentialite"/>
+            </t:htmlTag>
+        </t:div>
+        <t:div styleClass="column">
+            <t:htmlTag value="li">
 
+                <h:outputText styleClass="fontBold" for="telCentre"
+                              value="#{msgs['CENTRE.CENTRE_ENTREPRISE.TEL']}" />
+                <t:div style="height:5px;" />
+                <p:inputText id="telCentre"
+                             value="#{centreController.formCentreEntreprise.telephone}"
+                             maxlength="20" />
+
+                <t:div style="height:10px;" />
+
+                <h:outputText styleClass="fontBold" for="faxCentre"
+                              value="#{msgs['CENTRE.CENTRE_ENTREPRISE.FAX']}" />
+                <t:div style="height:5px;" />
+                <p:inputText id="faxCentre"
+                             value="#{centreController.formCentreEntreprise.fax}"
+                             maxlength="20" />
+            </t:htmlTag>
+        </t:div>
+    </t:htmlTag>
+    <t:div style="height:20px;" styleClass="clearFloat"/>
+
+    <t:div styleClass="mb10 textCenter">
+        <p:commandButton value="#{msgs['FORM.CREER']}"
+                         action="#{centreController.ajouterCentreEntreprise}"
+                         update="formCentreEntreprise"
+                         rendered="#{empty centreController.centreEntreprise}" />
+        <p:commandButton value="#{msgs['FORM.MODIFIER']}"
+                         action="#{centreController.modifierCentreEntreprise}"
+                         rendered="#{not empty centreController.centreEntreprise}"/>
+    </t:div>
+
+    <p:commandButton value="#{msgs['FORM.ANNULER']}" immediate="true"
+                     update="@form">
+        <f:setPropertyActionListener value="_modifCentreEntrepriseEtape1"
+                                     target="#{sessionController.modifCentreEntrepriseCurrentPage}" />
+    </p:commandButton>
 </ui:composition>

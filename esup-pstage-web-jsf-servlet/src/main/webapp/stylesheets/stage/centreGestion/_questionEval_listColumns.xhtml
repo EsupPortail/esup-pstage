@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://primefaces.org/ui"
+
+				xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<t:div styleClass="mb5">
+	<p:commandLink
+			oncomplete="PF('editQuestionEvalPanel').show();"
+			update="editQuestionEvalPanel">
+		<t:htmlTag value="i" styleClass="fa fa-pencil fz16 mrf5"/>
+		<f:setPropertyActionListener value="_questionEval_editEtape1Modif"
+									 target="#{sessionController.editQuestionEvalCurrentPage}" />
+		<f:setPropertyActionListener value="#{questionSup}"
+									 target="#{centreController.questionSupplementaire}" />
+		<p:tooltip value="#{msgs['FORM.MODIFIER']}" />
+	</p:commandLink>
+	<p:commandLink
+			oncomplete="PF('deleteQuestionEvalPanel').show();"
+			update="formDeleteQuestionEval">
+		<t:htmlTag value="i" styleClass="fa fa-trash-o mrf5 fz16"/>
+		<f:setPropertyActionListener value="_questionEval_deleteEtape1"
+									 target="#{sessionController.suppressionQuestionEvalCurrentPage}" />
+		<f:setPropertyActionListener value="#{questionSup}"
+									 target="#{centreController.questionSupplementaire}" />
+		<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+	</p:commandLink>
+
+
+	<h:outputText style="font-weight:bold;"
+				  value="#{questionSup.question}" />
+	</t:div>
+	<t:div styleClass="mlf40 mb15">
+	<h:outputText
+			value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.TYPE.TXT']}"
+			rendered="#{questionSup.typeQuestion == 'TXT'}" />
+	<h:outputText
+			value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.TYPE.INT']}"
+			rendered="#{questionSup.typeQuestion == 'INT'}" />
+	<h:outputText
+			value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.TYPE.BOOL']}"
+			rendered="#{questionSup.typeQuestion == 'BOOL'}" />
+	</t:div>
+
+</ui:composition>

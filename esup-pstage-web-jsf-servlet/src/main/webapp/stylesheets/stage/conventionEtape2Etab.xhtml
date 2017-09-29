@@ -1,31 +1,129 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="../_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<rich:panel>
-			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
-			</f:facet>
-			<h:form id="formSelConvention">
-				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-					<f:facet name="header">
-						<h:outputText value="#{msgs['CONVENTION.ETAPE2.ETAB']}" />
-					</f:facet>
-					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-						<rich:messages />
-						<ui:include src="/stylesheets/stage/_conventionEtape2DetailsEtab.xhtml" />
-					</h:panelGrid>
-				</h:panelGrid>
-			</h:form>
-			<ui:include src="./_panel_validStructure.xhtml" />
-		</rich:panel>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention} #{conventionController.convention.etudiant.nom} #{conventionController.convention.etudiant.prenom}" />
+            </f:facet>
+            <h:form id="formSelConvention">
+                <ui:include src="_roadmapSel.xhtml" />
+
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20 block">
+
+                        <t:aliasBean alias="#{structure}"
+                                     value="#{conventionController.convention.structure}">
+                            <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
+                            <h:outputText value="#{msgs['STRUCTURE.INFOS']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
+                            <ui:include src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
+                        </t:aliasBean>
+
+                        <t:div styleClass="ml20">
+                            <p:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']} ces informations"
+                                             action="#{conventionController.goToConventionModifEtab}"
+                                             rendered="#{not empty conventionController.convention.structure and !conventionController.conventionValide
+                                and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)
+                                || (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
+                                (!sessionController.autoriserEtudiantAModifierEntreprise
+                                and ((empty conventionController.convention.structure.loginModif and
+                                conventionController.convention.structure.loginCreation==sessionController.currentLogin)
+                                || (conventionController.convention.structure.loginModif==sessionController.currentLogin)))))))}">
+                                <f:setPropertyActionListener
+                                        value="#{conventionController.convention.structure}"
+                                        target="#{etablissementController.formStructure}" />
+                            </p:commandButton>
+
+                            <p:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER.AUTRE']}"
+                                             oncomplete="PF('demandeConfirmModifEtab').show();"
+                                             styleClass="ml20"
+                                             rendered="#{not empty conventionController.convention.structure and !conventionController.conventionValide
+                                        and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
+                                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+                                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)}" />
+                        </t:div>
+
+                        <t:htmlTag value="div" style="height:15px;" />
+
+                        <t:div rendered="#{conventionController.convention.structure.temEnServStructure == 'O'}">
+
+                            <h:outputText value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.ETAT']}"
+                                          styleClass="fontItalic" />
+
+                            <h:outputText id="verification1" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI']}"
+                                          rendered="#{conventionController.convention.structure.estValidee == 1}"
+                                          styleClass="fontGreen" escape="false">
+                                <p:tooltip for="verification1" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI.TOOLTIP']}" />
+                            </h:outputText>
+                            <h:outputText id="verification2" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON']}"
+                                          rendered="#{conventionController.convention.structure.estValidee == 2}"
+                                          styleClass="fontRed" escape="false">
+                                <p:tooltip for="verification2" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON.TOOLTIP']}" />
+                            </h:outputText>
+                            <h:outputText id="verification3" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU']}"
+                                          rendered="#{conventionController.convention.structure.estValidee == 0}"
+                                          style="color:grey;" escape="false">
+                                <p:tooltip for="verification3" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU.TOOLTIP']}" />
+                            </h:outputText>
+                            <p:commandButton id="validerStructure" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}"
+                                             action="#{etablissementController.avantValidation}"
+                                             oncomplete="PF('validerStructurePanel').show();"
+                                             update="validerStructurePanel"
+                                             styleClass="ml10"
+                                             rendered="#{sessionController.moderationStructures
+                                        and (sessionController.adminPageAuthorized || welcomeController.superAdmin
+                                        || welcomeController.admin || welcomeController.writer)}">
+                                <f:setPropertyActionListener value="#{conventionController.convention.structure}"
+                                                             target="#{etablissementController.currentStruct}" />
+                                <f:setPropertyActionListener value="_validStructureEtape1"
+                                                             target="#{sessionController.validationStructureCurrentPage}" />
+                                <p:tooltip value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}" />
+                            </p:commandButton>
+                        </t:div>
+
+                        <h:outputText id="MsgsStructureSupp"
+                                      value="#{msgs['STRUCTURE.MODERATION.ETAT.SUPP']}"
+                                      styleClass="fontItalic" escape="false"
+                                      rendered="#{conventionController.convention.structure.temEnServStructure == 'N'}" />
+
+                        <p:dialog id="demandeConfirmModifEtab"
+                                  widgetVar="demandeConfirmModifEtab"
+                                  resizable="false">
+                            <f:facet name="header">
+                                <h:outputText value="#{msgs['CONVENTION.MODIF.ETAB.DEMANDE']}" />
+                            </f:facet>
+
+                            <t:htmlTag value="div" style="height:10px;" />
+
+                            <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fontRed fz13" />
+                            <h:outputText value="#{msgs['CONVENTION.MODIF.ETAB.QUESTION']}" escape="false"
+                                          styleClass="ml5"/>
+
+                            <t:htmlTag value="div" style="height:20px;" />
+
+                            <t:div styleClass="textCenter mb20">
+                                <p:commandButton value="#{msgs['FORM.OUI']}"
+                                                 action="conventionEtape2RechEtab"
+                                                 update="@form"
+                                                 onclick="PF('demandeConfirmModifEtab').hide();" />
+
+                                <p:commandButton value="#{msgs['FORM.NON']}" styleClass="ml40"
+                                                 onclick="PF('demandeConfirmModifEtab').hide();" />
+                            </t:div>
+                        </p:dialog>
+
+                        <p:messages />
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+            <ui:include src="./_panel_validStructure.xhtml" />
+        </p:panel>
+    </ui:define>
 </ui:composition>

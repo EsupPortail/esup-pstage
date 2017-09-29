@@ -72,7 +72,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 			errorldap(ldae,"getLdapUsersFromFilter");
 		}
 		EnseignantDTO enseignant = new EnseignantDTO();
-		if(!ldapUsersFromFilter.isEmpty()){
+		if(ldapUsersFromFilter != null && !ldapUsersFromFilter.isEmpty()){
 			LdapUser ldapUser = ldapUsersFromFilter.get(0);
 			if(logger.isInfoEnabled()){
 				logger.info("attributsNames= " +ldapUser.getAttributeNames());
@@ -191,7 +191,6 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 				//dans ce cas on construit le filtre sur chaqu'un des attributs
 				String[] valeursNonTuteurs = ldapFacultyNonTuteur.split(",");        		
 				for(String unTypeNonTuteur : valeursNonTuteurs) {
-					//TODO cas ou la chaine contient un accent , filtre encode mal 
 					filter.and(new NotFilter(new EqualsFilter(ldapAttributes.getLdapMemberType(), unTypeNonTuteur)));
 				}	
 			}
@@ -338,7 +337,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 			errorldap(ldae,"getLdapUsersFromFilter");
 		}
 		PersonnelCentreGestionDTO personnelCentreGestion = new PersonnelCentreGestionDTO();
-		if(!ldapUsersFromFilter.isEmpty()){
+		if(ldapUsersFromFilter != null && !ldapUsersFromFilter.isEmpty()){
 			LdapUser ldapUser = ldapUsersFromFilter.get(0);
 			if(logger.isInfoEnabled()){
 				logger.info("attributsNames= " +ldapUser.getAttributeNames());

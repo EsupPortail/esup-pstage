@@ -2,12 +2,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="2">
+	<h:panelGrid
+		columns="2">
 		<h:column>
 			<h:graphicImage alt="#{msgs['GENERAL.HELP']}"
 				value="../../media/images/help32.png" />
@@ -21,20 +21,22 @@
 <!-- 				value="../../media/images/warning_50px.png" /> -->
 <!-- 		</h:column> -->
 		<h:column>
-			<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
+			<h:panelGrid>
 				<h:outputFormat value="#{msgs['STRUCTURE.SUPPRESSION.QUESTION']}"
 					escape="false">
 					<f:param
 						value="#{etablissementController.formStructure.raisonSociale}" />
 				</h:outputFormat>
 			</h:panelGrid>
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="3">
-				<a4j:commandButton action="#{etablissementController.supprimerEtablissement}"
-					value="#{msgs['FORM.SUPPRIMER']}" render="opRechercheStructureDataTable, opAffEtab, formSupprStructure" />
+			<h:panelGrid
+				columns="3">
+<!-- 				<p:commandButton action="#{etablissementController.supprimerEtablissement}" -->
+<!-- 					value="#{msgs['FORM.SUPPRIMER']}" update="opRechercheStructureDataTable, opAffEtab, formSupprStructure" /> -->
+				<p:commandButton action="#{etablissementController.supprimerEtablissement}"
+					value="#{msgs['FORM.SUPPRIMER']}" update="@form" />
 				<t:htmlTag value="div" style="width: 150px;" />
-				<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
-					onclick="#{rich:component('supprimerStructurePanel')}.hide();return false;" />
+				<p:commandButton value="#{msgs['FORM.ANNULER']}"
+					onclick="PF('supprimerStructurePanel').hide();" />
 			</h:panelGrid>
 		</h:column>
 	</h:panelGrid>

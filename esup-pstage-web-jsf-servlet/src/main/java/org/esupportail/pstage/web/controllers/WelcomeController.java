@@ -13,10 +13,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.util.SystemOutLogger;
 import org.esupportail.commons.services.ldap.LdapUser;
 import org.esupportail.commons.services.ldap.LdapUserService;
 import org.esupportail.pstage.domain.beans.EtapeInscription;
@@ -24,17 +27,9 @@ import org.esupportail.pstage.domain.beans.EtudiantRef;
 import org.esupportail.pstage.domain.beans.NousContacter;
 import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.domain.dto.AccordPartenariatDTO;
-import org.esupportail.pstagedata.domain.dto.AdminStructureDTO;
-import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
-import org.esupportail.pstagedata.domain.dto.ContactDTO;
-import org.esupportail.pstagedata.domain.dto.DroitAdministrationDTO;
-import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
-import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
-import org.esupportail.pstagedata.domain.dto.StructureDTO;
+import org.esupportail.pstagedata.domain.dto.*;
+import org.primefaces.event.SelectEvent;
 import org.springframework.util.StringUtils;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr
@@ -48,7 +43,7 @@ public class WelcomeController extends AbstractContextAwareController {
 	/**
 	 * Logger
 	 */
-	private final Logger logger = Logger.getLogger(this.getClass());
+	private final transient Logger logger = Logger.getLogger(this.getClass());
 	/**
 	 * The serialization id.
 	 */
@@ -61,10 +56,11 @@ public class WelcomeController extends AbstractContextAwareController {
 	 * Form connexion : Mot de passe
 	 */
 	private String mdp;
+
 	/**
 	 * Mail utilise pour la recuperation de mot de passe perdu
 	 */
-	private String mailMotDePassePerdu;
+	private String mailPassPerdu;
 	/**
 	 * Liste des structures pour sélection (étape 2 de récupération de mot de passe)
 	 * dans le cas ou le contact possède un compte dans 2 établissements différents.
@@ -138,7 +134,7 @@ public class WelcomeController extends AbstractContextAwareController {
 	 */
 	@Override
 	public void reset() {
-		super.reset();	
+		super.reset();
 	}
 
 	/**
@@ -163,12 +159,28 @@ public class WelcomeController extends AbstractContextAwareController {
 	}
 
 
+	public String goToMenuConventionsStageTablette() {
+		return "menuConventionsStageTablette";
+	}
+
+	public String goToMenuEtablissementsAccueilTablette() {
+		return "menuEtablissementsAccueilTablette";
+	}
+
+	public String goToMenuOffresTablette() {
+		return "menuOffresTablette";
+	}
+
+	public String goToMenuEvaluationsStagesTablette() {
+		return "menuEvaluationsStagesTablette";
+	}
+
 	/**
 	 * Envoi vers la 1ére étape de récupération d'un mot de passe
 	 * @return A String
 	 */
 	public String goToMotDePassePerdu(){
-		this.mailMotDePassePerdu="";
+		this.mailPassPerdu="";
 		this.listeStructuresTrouveeMotDePassePerdu=null;
 		getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape1Mail");
 		return "motDePassePerdu";
@@ -178,20 +190,18 @@ public class WelcomeController extends AbstractContextAwareController {
 	 * Envoi vers la 2éme ou 3éme étape de récupération d'un mot de passe
 	 */
 	public String goToMotDePassePerduEtabTrouve(){
-		//		String ret="_motDePassePerduEtape3Confirmation";
-		getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape3Confirmation");
-		if(StringUtils.hasText(this.mailMotDePassePerdu)){
-			List<StructureDTO> ls = getStructureDomainService().getStructureFromContactMailEntrepriseAvecCompte(this.mailMotDePassePerdu);
+		this.structureSelectionneeMotDePassePerdu = null;
+		getSessionController().setMdpPerduCurrentPage("../_commun/_confirmationDialog");
+		if(StringUtils.hasText(this.mailPassPerdu)){
+			List<StructureDTO> ls = getStructureDomainService().getStructureFromContactMailEntrepriseAvecCompte(this.mailPassPerdu);
 			if(ls!=null){
 				if(ls.size()>1){
-					//					ret="_motDePassePerduEtape2SelectionEtab";
 					getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape2SelectionEtab");
 					this.listeStructuresTrouveeMotDePassePerdu=ls;
 					return "motDePassePerdu";
 				}else{
-					//					ret="_motDePassePerduEtape3Confirmation";
-					getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape3Confirmation");
-					ContactDTO c = getStructureDomainService().getContactEntrepriseAvecCompteFromMailAndIdStructure(this.mailMotDePassePerdu, 
+					getSessionController().setMdpPerduCurrentPage("../_commun/_confirmationDialog");
+					ContactDTO c = getStructureDomainService().getContactEntrepriseAvecCompteFromMailAndIdStructure(this.mailPassPerdu,
 							ls.get(0).getIdStructure());
 					if(c!=null){
 						InternetAddress cIA;
@@ -199,20 +209,19 @@ public class WelcomeController extends AbstractContextAwareController {
 							cIA = new InternetAddress(c.getMail());
 							cIA.validate();
 							getSmtpService().send(
-									cIA, 
+									cIA,
 									getString("MAIL.RECAPIDENTS.SUJET", getSessionController().getApplicationNameEntreprise()),
 									getString("MAIL.RECAPIDENTS.MESSAGE", c.getLogin(), getBlowfishUtils().decode(c.getMdp()),getSessionController().getApplicationNameEntreprise()),
 									""
-									);
+							);
 							if(logger.isInfoEnabled()){
 								logger.info("Recuperation de mot de passe pour : "+c);
 							}
 							addInfoMessage(null, "MOTDEPASSEPERDU.CONFIRMATION", c.getMail());
-							this.mailMotDePassePerdu="";
+							this.mailPassPerdu="";
 							this.listeStructuresTrouveeMotDePassePerdu=null;
 						} catch (AddressException e) {
-							logger.error(e.getMessage());
-							e.printStackTrace();
+							logger.error(e);
 							addErrorMessage(null, "MOTDEPASSEPERDU.ERREUR");
 						}
 					}else{
@@ -220,8 +229,7 @@ public class WelcomeController extends AbstractContextAwareController {
 					}
 				}
 			}else{
-				//				ret="_motDePassePerduEtape3Confirmation";
-				getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape3Confirmation");
+				getSessionController().setMdpPerduCurrentPage("../_commun/_confirmationDialog");
 				addErrorMessage(null, "MOTDEPASSEPERDU.INCONNUE");
 			}
 		}
@@ -229,13 +237,22 @@ public class WelcomeController extends AbstractContextAwareController {
 	}
 
 	/**
+	 * @return String
+	 */
+//	public void onMdpPerduStructureSelect(SelectEvent event) {
+//		try {
+//		} catch (IOException ioe){
+//			addErrorMessage(null, "Erreur lors de la tentative de redirection de page.");
+//		}
+//	}
+
+	/**
 	 * Envoi vers l'étape 3 de récupération de mot de passe depuis l'étape 2
 	 */
 	public void goToRecuperationMotDePasse(){
-		//		String ret="_motDePassePerduEtape3Confirmation";
-		getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape3Confirmation");
+		getSessionController().setMdpPerduCurrentPage("../_commun/_confirmationDialog");
 		if(this.structureSelectionneeMotDePassePerdu!=null){
-			ContactDTO c = getStructureDomainService().getContactEntrepriseAvecCompteFromMailAndIdStructure(this.mailMotDePassePerdu, 
+			ContactDTO c = getStructureDomainService().getContactEntrepriseAvecCompteFromMailAndIdStructure(this.mailPassPerdu,
 					this.structureSelectionneeMotDePassePerdu.getIdStructure());
 			if(c!=null){
 				InternetAddress cIA;
@@ -243,20 +260,19 @@ public class WelcomeController extends AbstractContextAwareController {
 					cIA = new InternetAddress(c.getMail());
 					cIA.validate();
 					getSmtpService().send(
-							cIA, 
+							cIA,
 							getString("MAIL.RECAPIDENTS.SUJET", getSessionController().getApplicationNameEntreprise()),
 							getString("MAIL.RECAPIDENTS.MESSAGE", c.getLogin(), getBlowfishUtils().decode(c.getMdp()),getSessionController().getApplicationNameEntreprise()),
 							""
-							);
+					);
 					if(logger.isInfoEnabled()){
 						logger.info("Recuperation de mot de passe pour : "+c);
 					}
 					addInfoMessage(null, "MOTDEPASSEPERDU.CONFIRMATION", c.getMail());
-					this.mailMotDePassePerdu="";
+					this.mailPassPerdu="";
 					this.listeStructuresTrouveeMotDePassePerdu=null;
 				} catch (AddressException e) {
-					logger.error(e.getMessage());
-					e.printStackTrace();
+					logger.error(e);
 					addErrorMessage(null, "MOTDEPASSEPERDU.ERREUR");
 				}
 			}else{
@@ -267,28 +283,26 @@ public class WelcomeController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void nousContacter(){
-		//		String retour="_nousContacterEtape2";
 		getSessionController().setNousContacterCurrentPage("_nousContacterEtape2");
 		if(!getSessionController().getNousContacter().isNull()){
 			addInfoMessage(null, "GENERAL.NOUS_CONTACTER.CONFIRMATION");
 			if(StringUtils.hasText(getSessionController().getMailingListEntr())){
 				getSmtpService().send(
-						getSessionController().getMailingListEntrIA(), 
+						getSessionController().getMailingListEntrIA(),
 						getString("MAIL.ADMIN.NOUSCONTACTER.SUJET", getSessionController().getApplicationNameEntreprise(), getSessionController().getNousContacter().getCodePostal()+" - "+getSessionController().getNousContacter().getPays().getLibelle())+" : "+getSessionController().getNousContacter().getSujet(),
-						getString("MAIL.ADMIN.NOUSCONTACTER.MESSAGE", getSessionController().getApplicationNameEntreprise(), 
+						getString("MAIL.ADMIN.NOUSCONTACTER.MESSAGE", getSessionController().getApplicationNameEntreprise(),
 								getFacesInfoMessage("CONTACT.NOM").getSummary()+" : "+getSessionController().getNousContacter().getContact().getNom()+" - "+getFacesInfoMessage("CONTACT.PRENOM").getSummary()+" : "+getSessionController().getNousContacter().getContact().getPrenom()
-								+" - "+getFacesInfoMessage("CONTACT.MAIL").getSummary()+" : "+getSessionController().getNousContacter().getContact().getMail(),
+										+" - "+getFacesInfoMessage("CONTACT.MAIL").getSummary()+" : "+getSessionController().getNousContacter().getContact().getMail(),
 								getSessionController().getNousContacter().getSujet(),
 								getSessionController().getNousContacter().getMessage()),
-								""
-						);
+						""
+				);
 			}
 			getSessionController().setNousContacter(new NousContacter());
 		}
-		//		return retour;
 	}
 
 	/**
@@ -326,7 +340,7 @@ public class WelcomeController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String goToGererStructure(){
-		String ret=null;
+		String ret;
 		ret="gererStructure";
 		if(getSessionController().getCurrentManageStructure()!=null && getSessionController().getCurrentManageStructure().getIdStructure()>0){
 			if(getSessionController().getCurrentManageStructure().getIdAccordPartenariat()>0){
@@ -352,14 +366,15 @@ public class WelcomeController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String connect(){
-		String ret=null;
+		String ret;
 		if(StringUtils.hasText(login) && StringUtils.hasText(mdp)){
 			ContactDTO tmp = getStructureDomainService().getContactFromLogin(this.login);
 			if(tmp!=null && StringUtils.hasText(tmp.getMdp())){
 				StructureDTO st = getStructureDomainService().getStructureFromIdService(tmp.getIdService());
 				if(st!=null && st.getIdStructure()>0){
 					AccordPartenariatDTO ap = getStructureDomainService().getAccordFromIdStructure(st.getIdStructure());
-					if(ap!=null && ap.isEstValide() && tmp.getMdp().equalsIgnoreCase(this.mdp)){
+					if(ap != null && ap.isEstValide()
+							&& getBlowfishUtils().decode(tmp.getMdp()).equalsIgnoreCase(this.mdp)){
 						getSessionController().setCurrentAuthAdminStructure(null);
 						if(logger.isInfoEnabled()){
 							logger.info("Connection of contact : "+tmp);
@@ -381,10 +396,12 @@ public class WelcomeController extends AbstractContextAwareController {
 						getSessionController().setCurrentAuthEnseignant(null);
 						getSessionController().setCurrentAuthPersonnel(null);
 					}else{
-						addErrorMessage("connexion", "GENERAL.BADLOGINORPASS");
+						addErrorMessage("formConnexion", "GENERAL.BADLOGINORPASS");
+						return null;
 					}
 				}else{
-					addErrorMessage("connexion", "GENERAL.BADLOGINORPASS");
+					addErrorMessage("formConnexion", "GENERAL.BADLOGINORPASS");
+					return null;
 				}
 			}else{
 				getSessionController().setCurrentAuthContact(null);
@@ -400,14 +417,17 @@ public class WelcomeController extends AbstractContextAwareController {
 						l.add(getCentreGestionDomainService().getCentreEntreprise());
 						getSessionController().setCurrentCentresGestion(l);
 					}else{
-						addErrorMessage("connexion", "GENERAL.BADLOGINORPASS");
+						addErrorMessage("formConnexion", "GENERAL.BADLOGINORPASS");
+						return null;
 					}
 				}else{
-					addErrorMessage("connexion", "GENERAL.BADLOGINORPASS");
+					addErrorMessage("formConnexion", "GENERAL.BADLOGINORPASS");
+					return null;
 				}
 			}
 		}else{
-			addErrorMessage("connexion", "GENERAL.LOGINANDPASS");
+			addErrorMessage("formConnexion", "GENERAL.LOGINANDPASS");
+			return null;
 		}
 		return ret;
 	}
@@ -537,16 +557,17 @@ public class WelcomeController extends AbstractContextAwareController {
 	}
 
 	public String goToContactsLienDirect(String ret){
+		String retour = ret;
 		if (this.idLienDirect != null && !this.idLienDirect.isEmpty()){
 			StructureDTO currentStruct = getStructureDomainService().getStructureFromId(Utils.convertStringToInt(this.idLienDirect));
 			if (currentStruct != null){
 				getSessionController().setCurrentManageStructure(currentStruct);
 				getSessionController().setMenuGestionEtab(true);
 				this.goToGererStructure();
-				ret = "gestionContacts";
+				retour = "gestionContacts";
 			}
 		}
-		return ret;
+		return retour;
 	}
 
 	/**
@@ -588,19 +609,20 @@ public class WelcomeController extends AbstractContextAwareController {
 			getSessionController().setMenuGestionEtab(false);
 			getSessionController().setCentreGestionRattachement(null);
 
-			LdapUser ldapUser = null;
-			String userAffiliation = null;
+			LdapUser ldapUser;
+			String userAffiliation;
 			if(StringUtils.hasText(getSessionController().getCurrentStageCasUser().getId())){
 				ldapUser = ldapUserService.getLdapUser(getSessionController().getCurrentStageCasUser().getId());
 
 				userAffiliation = ldapUser.getAttribute(this.affiliation);
 				if(StringUtils.hasText(userAffiliation) && (employee.contains(userAffiliation) || faculty.contains(userAffiliation))){
 					// Gestion de ses droits pour chaque centre de l'université de l'individu connecté
-					List<PersonnelCentreGestionDTO> liste = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionFromUid(getSessionController().getCurrentStageCasUser().getId(),getSessionController().getCodeUniversite());
+					List<PersonnelCentreGestionDTO> liste = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionFromUid(
+							getSessionController().getCurrentStageCasUser().getId(),getSessionController().getCodeUniversite());
 					if(logger.isDebugEnabled()){
 						logger.info("ldapUser : " + ldapUser);
 						logger.info("Employee : " + employee);
-						logger.debug("Recherche des droits du personnel pour chaque centre de son université ==> " + liste);
+						logger.info("Recherche des droits du personnel pour chaque centre de son université ==> " + liste.size());
 					}
 
 					if (liste != null && !liste.isEmpty()){
@@ -642,9 +664,10 @@ public class WelcomeController extends AbstractContextAwareController {
 
 					if(getSessionController().getCurrentCentresGestion()!=null && !getSessionController().getCurrentCentresGestion().isEmpty()){
 						// Ajout des droits pour le centre entreprise (artois) si la personne est superadmin ou adminStructure
-						if ((getSessionController().isSuperAdminPageAuthorized() 
+						if ((getSessionController().isSuperAdminPageAuthorized()
 								|| getAdminDomainService().getAdminStructureFromLogin(getSessionController().getCurrentLogin()) != null)
-								&& getCentreGestionDomainService().getCentreEntreprise() != null){
+								&& getCentreGestionDomainService().getCentreEntreprise() != null
+								&& !getSessionController().getCurrentCentresGestion().contains(getCentreGestionDomainService().getCentreEntreprise())){
 							getSessionController().getCurrentCentresGestion().add(getCentreGestionDomainService().getCentreEntreprise());
 						}
 						Collections.sort(getSessionController().getCurrentCentresGestion(), new Comparator<CentreGestionDTO>(){
@@ -671,7 +694,7 @@ public class WelcomeController extends AbstractContextAwareController {
 
 								getSessionController().setCurrentAuthPersonnel(p);
 							}
-						}	
+						}
 					}
 
 					if (faculty.contains(userAffiliation)){
@@ -692,13 +715,14 @@ public class WelcomeController extends AbstractContextAwareController {
 								getSessionController().setCurrentAuthEnseignant(en);
 							}
 						}
-					} 
+					}
 				} else if (StringUtils.hasText(userAffiliation) && student.contains(userAffiliation)){
 					// Sinon, si c'est un étudiant
-					// Il existe forcement dans le Ldap donc on appel getEtudiantRef a partir de son uid
+					// Il existe forcement dans le Ldap donc on appelle getEtudiantRef a partir de son uid
+					// Avec le temoin pour recuperer les annees precedentes a false
 					EtudiantRef e = getStudentDataRepositoryDomain().getEtudiantRef(getSessionController().getCodeUniversite(),
 							getSessionController().getCurrentStageCasUser().getId());
-					
+
 					if (e != null){
 						// Si la liste des annees d'inscription est vide, aucune inscription admin pour l'etudiant, il ne peut donc creer de convention
 						if (e.getListeAnneesUniv() == null || e.getListeAnneesUniv().isEmpty()){
@@ -710,14 +734,20 @@ public class WelcomeController extends AbstractContextAwareController {
 							// puis on recupere toutes les infos d'inscription ufr/etape/elp de l'etudiant pour l'annee prealablement recuperee
 							this.conventionController.setEtudiantRef(e);
 							this.conventionController.loadInfosEtu();
+							// Si l'annee en cours est en regime d'inscription FC, on assigne le flag du sessionController en consequence
+							if (this.conventionController.isConventionFormationContinue()){
+								getSessionController().setEtudiantFC(true);
+							} else {
+								getSessionController().setEtudiantFC(false);
+							}
 						}
 						
 						/* 
 						 * Recherche des centres de gestion auquel l'etudiant est rattaché
 						 */
-						CentreGestionDTO tmp = new CentreGestionDTO();
+						CentreGestionDTO tmp;
 						CentreGestionDTO cgEtab = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
-						
+
 						if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_UFR)) {
 							// On recupere la liste des ufr de l'etudiant et on vérifie si elles sont gerees par un centre
 							// Si c'est le cas et que ce centre n'est pas déjà dans la liste CurrentCentresGestion, on l'y ajoute
@@ -767,10 +797,10 @@ public class WelcomeController extends AbstractContextAwareController {
 									}
 								}
 							}
-							if (e.getStudysKey() != null 
-								&& e.getStudysKey().isEmpty() 
-								&& e.getListeEtapeInscriptions() != null 
-								&& e.getListeEtapeInscriptions().isEmpty()) {
+							if (e.getStudysKey() != null
+									&& e.getStudysKey().isEmpty()
+									&& e.getListeEtapeInscriptions() != null
+									&& e.getListeEtapeInscriptions().isEmpty()) {
 								// par default, on met le centre etablissement
 								getSessionController().getCurrentCentresGestion().add(cgEtab);
 							}
@@ -792,7 +822,7 @@ public class WelcomeController extends AbstractContextAwareController {
 			}
 		}
 		if (logger.isDebugEnabled())
-			logger.debug("Resume des informations recuperees a la connexion : " + 
+			logger.debug("Resume des informations recuperees a la connexion : " +
 					"\nCurrentAuthAdminStructure : " + getSessionController().getCurrentAuthAdminStructure() +
 					"\nCurrentAuthContact : " + getSessionController().getCurrentAuthContact() +
 					"\nCurrentAuthEtudiant : " + getSessionController().getCurrentAuthEtudiant() +
@@ -933,7 +963,8 @@ public class WelcomeController extends AbstractContextAwareController {
 		connectStage();
 		Map<Integer,DroitAdministrationDTO> map = getSessionController().getDroitsAccesMap();
 		if (map != null && !(map.isEmpty())){
-			if(map.containsValue(getBeanUtils().getDroitEcriture())){
+			if(map.containsValue(getBeanUtils().getDroitEcriture()) ||
+					map.containsValue(getBeanUtils().getDroitEcritureAvantValP())) {
 				isWriter = true;
 			}
 		}
@@ -993,7 +1024,7 @@ public class WelcomeController extends AbstractContextAwareController {
 		return ret;
 	}
 	/**
-	 * 
+	 *
 	 */
 	public void disconnectLight(){
 		getSessionController().setCurrentAuthAdminStructure(null);
@@ -1025,14 +1056,14 @@ public class WelcomeController extends AbstractContextAwareController {
 		getSessionController().setNotAdminEntrepriseViaCasShibb(false);
 		getSessionController().setCurrentAuthEtudiant(null);
 		getSessionController().setCurrentAuthEnseignant(null);
-		getSessionController().setCurrentAuthPersonnel(null);	
+		getSessionController().setCurrentAuthPersonnel(null);
 		getSessionController().setCurrentCentresGestion(null);
 		getSessionController().setCurrentStageCasUser(null);
 		getSessionController().setCentreGestionRattachement(null);
 		try {
 			getSessionController().logout();
 		} catch (IOException e) {
-			logger.error(e.getMessage());
+			logger.error(e);
 		}
 	}
 
@@ -1066,20 +1097,6 @@ public class WelcomeController extends AbstractContextAwareController {
 	 */
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
-	}
-
-	/**
-	 * @return the mailMotDePassePerdu
-	 */
-	public String getMailMotDePassePerdu() {
-		return mailMotDePassePerdu;
-	}
-
-	/**
-	 * @param mailMotDePassePerdu the mailMotDePassePerdu to set
-	 */
-	public void setMailMotDePassePerdu(String mailMotDePassePerdu) {
-		this.mailMotDePassePerdu = mailMotDePassePerdu;
 	}
 
 	/**
@@ -1234,5 +1251,12 @@ public class WelcomeController extends AbstractContextAwareController {
 
 	public void setConventionController(ConventionController conventionController) {
 		this.conventionController = conventionController;
+	}
+	public String getMailPassPerdu() {
+		return mailPassPerdu;
+	}
+
+	public void setMailPassPerdu(String mailPassPerdu) {
+		this.mailPassPerdu = mailPassPerdu;
 	}
 }

@@ -43,7 +43,7 @@ PersonalDataRepositoryDao {
 	/**
 	 * 
 	 */
-	final Logger logger = Logger.getLogger(PersonalDataRepositoryDaoWS.class);
+	final transient Logger logger = Logger.getLogger(PersonalDataRepositoryDaoWS.class);
 
 	/**
 	 * see {@link LdapUserService}.
@@ -68,15 +68,18 @@ PersonalDataRepositoryDao {
 
 	/**
 	 * @param codeLdapComposante
-	 * @return le code composante Apog�e en fonction du code Ldap en param�tre
+	 * @return le code composante Apogee en fonction du code Ldap en parametre
 	 */
 	@SuppressWarnings("unchecked")
 	public String getCodeApogeeComposante(String codeLdapComposante) {
-		List<String[]> liste = ldapTemplate.search(this.ldapAttributes.getLdapComposante(), this.ldapAttributes.getLdapComposanteFilter(), new CompDescriptionAttributesMapper());
-		String codeApo=codeLdapComposante;
-		for(String[] st : liste){
-			if(st[0].equalsIgnoreCase(codeLdapComposante)){
-				codeApo=st[2];
+
+		List<String[]> listeComposantes = ldapTemplate.search(this.ldapAttributes.getLdapComposante(), this.ldapAttributes.getLdapComposanteFilter(), new CompDescriptionAttributesMapper());
+
+		String codeApo = codeLdapComposante;
+		
+		for(String[] composante : listeComposantes){
+			if(composante[0].equalsIgnoreCase(codeLdapComposante)){
+				codeApo = composante[2];
 			}
 		}
 		return codeApo;
@@ -84,37 +87,38 @@ PersonalDataRepositoryDao {
 
 	/**
 	 * @param codeApogeeComposante
-	 * @return le code composante Ldap en fonction du code Apog�e en param�tre
+	 * @return le code composante Ldap en fonction du code Apogee en parametre
 	 */
 	@SuppressWarnings("unchecked")
 	public String getCodeLdapComposante(String codeApogeeComposante) {
-		List<String[]> liste = ldapTemplate.search(this.ldapAttributes.getLdapComposante(), this.ldapAttributes.getLdapComposanteFilter(), new CompDescriptionAttributesMapper());
+
+		List<String[]> listeComposantes = ldapTemplate.list(this.ldapAttributes.getLdapComposante());
+
 		String codeLdap=codeApogeeComposante;
-		for(String[] st : liste){
-			if(st[2]!=null && st[2].equalsIgnoreCase(codeApogeeComposante)){
-				codeLdap=st[0];
+		
+		for(String[] composante : listeComposantes){
+			if(composante[2]!=null && composante[2].equalsIgnoreCase(codeApogeeComposante)){
+				codeLdap=composante[0];
 			}
 		}
 		return codeLdap;
 	}
 
 	/**
-	 * C
 	 *
 	 */
 	private class CompDescriptionAttributesMapper implements AttributesMapper {
 		/**
 		 * @see org.springframework.ldap.core.AttributesMapper#mapFromAttributes(javax.naming.directory.Attributes)
 		 */
-		public Object mapFromAttributes(Attributes attrs) throws NamingException {
+		public Object mapFromAttributes(Attributes attributs) throws NamingException {
 			String[] compo = new String[3];
-			compo[0]=attrs.get(getLdapAttributes().getLdapComposanteCode()).get().toString();
-			compo[1]=attrs.get(getLdapAttributes().getLdapComposanteLibelle()).get().toString();
-			compo[2]=attrs.get(getLdapAttributes().getLdapCodeComposanteApogee())!=null?attrs.get(getLdapAttributes().getLdapCodeComposanteApogee()).get().toString():null;
+			compo[0]=(attributs.get(getLdapAttributes().getLdapComposanteCode())).get().toString();
+			compo[1]=(attributs.get(getLdapAttributes().getLdapComposanteLibelle())).get().toString();
+			compo[2]=((attributs.get(getLdapAttributes().getLdapCodeComposanteApogee())) != null ? (attributs.get(getLdapAttributes().getLdapCodeComposanteApogee())).get().toString() : null);
 			return compo;
 		}
 	}
-
 
 	public EnseignantDTO getEnseignantRef(String universityCode, String id) {
 		if (logger.isDebugEnabled()){
@@ -160,11 +164,8 @@ PersonalDataRepositoryDao {
 			errorldap(ldae,"LdapUser");
 		}
 
-
 		return enseignant;
 	}
-
-
 
 	@Override
 	public List<EnseignantDTO> getEnseignantsByName(String universityCode,
@@ -179,12 +180,16 @@ PersonalDataRepositoryDao {
 	 */
 	public List<EnseignantDTO> getEnseignantsByName(String universityCode,
 			String name, String firstName, String codeAffectation) {
-		name=name==null?"":name;
-		firstName=firstName==null?"":firstName;
-		codeAffectation=codeAffectation==null?"":codeAffectation;
-		List<EnseignantDTO> teachers=new ArrayList<EnseignantDTO>();
-
-		if(!sameCodeComposanteLdapApogee){
+		
+		name = (name == null ? "" : name);
+		firstName = (firstName == null ? "" : firstName);
+		codeAffectation = (codeAffectation == null ? "" : codeAffectation);
+		
+		List<EnseignantDTO> teachers = new ArrayList<EnseignantDTO>();
+		
+		// Si la configuration indique que le code saisi dans le LDAP n'est pas celui d'apogee
+		if (!sameCodeComposanteLdapApogee) {
+			// On lance la methode de recuperation du code apogee a partir du code ldap
 			codeAffectation=getCodeLdapComposante(codeAffectation);
 		}
 
@@ -223,7 +228,6 @@ PersonalDataRepositoryDao {
 			//dans ce cas on construit le filtre sur chaqu'un des attributs
 			StringTokenizer valeursNonTuteurs = new StringTokenizer(ldapFacultyNonTuteur,",");
 			while(valeursNonTuteurs.hasMoreTokens()) {
-				//TODO cas ou la chaine contient un accent , filtre encode mal 
 				String uneValeurNonTuteur = valeursNonTuteurs.nextToken();
 				StringTokenizer stmt = new StringTokenizer(memberTypes,",");
 				while (stmt.hasMoreTokens()){
@@ -267,7 +271,6 @@ PersonalDataRepositoryDao {
 			OrFilter filtreOuT = new OrFilter();
 
 			while(valeursTuteurs.hasMoreTokens()) {
-				//TODO cas ou la chaine contient un accent , filtre encode mal 
 				filtreOuT.or(new EqualsFilter(ldapAttributes.getLdapUid(),valeursTuteurs.nextToken()));
 			}
 			filterEmployeeTutor.and(filtreOuT);
@@ -451,7 +454,7 @@ PersonalDataRepositoryDao {
 			errorldap(ldae,"getLdapUsersFromFilter");
 		}
 		PersonnelCentreGestionDTO personnelCentreGestion = new PersonnelCentreGestionDTO();
-		if(!ldapUsersFromFilter.isEmpty()){
+		if(ldapUsersFromFilter != null && !ldapUsersFromFilter.isEmpty()){
 			LdapUser ldapUser = ldapUsersFromFilter.get(0);
 			if(logger.isInfoEnabled()){
 				logger.info("attributsNames= " +ldapUser.getAttributeNames());

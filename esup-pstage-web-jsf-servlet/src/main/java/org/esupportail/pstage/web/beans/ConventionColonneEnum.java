@@ -295,7 +295,7 @@ public enum ConventionColonneEnum {
 	 * @param keyLabe
 	 * @param nameProperty 
 	 */
-	private ConventionColonneEnum(final String keyLabe, final String nameProperty) {
+	ConventionColonneEnum(final String keyLabe, final String nameProperty) {
 		this.keyLabel = keyLabe;
 		this.nameProperty = nameProperty; 
 	}
@@ -319,7 +319,7 @@ public enum ConventionColonneEnum {
 	/**
 	 * @param keyLabel the keyLabel to set
 	 */
-	public void setKeyLabel(final String keyLabel) {
+	void setKeyLabel(final String keyLabel) {
 		this.keyLabel = keyLabel;
 	}
 
@@ -333,7 +333,7 @@ public enum ConventionColonneEnum {
 	/**
 	 * @param nameProperty the nameProperty to set
 	 */
-	public void setNameProperty(final String nameProperty) {
+	void setNameProperty(final String nameProperty) {
 		this.nameProperty = nameProperty;
 	}
 	

@@ -24,7 +24,7 @@ public class PersonalComponentRepositoryDomainWS implements
 	/**
 	 * 
 	 */
-	final Logger logger = Logger.getLogger(PersonalComponentRepositoryDomainWS.class);
+	final transient Logger logger = Logger.getLogger(PersonalComponentRepositoryDomainWS.class);
 
 	/**
 	 * 

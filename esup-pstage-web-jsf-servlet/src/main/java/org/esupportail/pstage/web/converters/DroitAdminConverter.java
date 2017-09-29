@@ -52,7 +52,7 @@ public class DroitAdminConverter implements Serializable, Converter {
 					"object " + value + " is not a DroitAdministrationDTO.");
 		}
 		DroitAdministrationDTO d = (DroitAdministrationDTO) value;
-		return ""+d.getId();
+		return Integer.toString(d.getId());
 	}
 	
 	/**

@@ -1,71 +1,125 @@
 <ui:fragment xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:outputText value="#{msgs['OFFRE.ERREUR.AUCUNETABSELECT']}"
-		rendered="#{empty offreController.formOffre.structure}" />
-	<h:panelGrid columns="1" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
-		rendered="#{not empty offreController.formOffre.structure}">
-		<ui:include src="../_commun/_champsObligatoires.xhtml" />
-		<h:panelGrid columns="3" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
-			rendered="#{offreController.formOffre.idOffre>0}"
-			style="float:right;">
-			<h:outputLabel value="#{msgs['OFFRE']} " for="idOffre"/>
-			<h:outputLabel value=" #{msgs['OFFRE.ID']}" for="idOffre" />
-			<h:outputText id="idOffre" value="#{offreController.formOffre.idOffre}" />
-		</h:panelGrid>
-		<h:outputLabel value="#{msgs['OFFRE.TYPEOFFRE']} *" for="typeOffre" />
-		<h:panelGrid columns="2">
-			<h:selectOneMenu id="typeOffre"
-				value="#{offreController.formOffre.typeOffre}"
-				converter="#{typeOffreConverter}" required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<f:selectItem itemValue="" />
-				<f:selectItems value="#{nomenclatureController.typesOffre}" />
-				<a4j:ajax event="valueChange"  />
-			</h:selectOneMenu>
-			<rich:message for="typeOffre">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-		</h:panelGrid>
-<!-- 		<a4j:region renderRegionOnly="true"> -->
-			<h:outputLabel value="#{msgs['OFFRE.AVECFICHIEROULIEN']}"
-				for="avecFichierOuLien"
-				rendered="#{!(sessionController.adminPageAuthorized || (welcomeController.superAdmin and !sessionController.adminPageAuthorized) 
-			|| welcomeController.admin || welcomeController.writer)}" />
-			<h:outputLabel value="#{msgs['OFFRE.AVECFICHIEROULIEN.ADMIN']}"
-				for="avecFichierOuLien"
-				rendered="#{sessionController.adminPageAuthorized || (welcomeController.superAdmin and !sessionController.adminPageAuthorized) 
-			|| welcomeController.admin || welcomeController.writer}" />
-			<h:selectOneRadio id="avecFichierOuLien"
-				value="#{offreController.avecFichierOuLien}">
-				<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
-				<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
-				<a4j:ajax event="click" 
-					render="opAvecFichierOuLien" execute="@this" />
-			</h:selectOneRadio>
-			<a4j:outputPanel id="opAvecFichierOuLien">
-				<h:outputLabel value="#{msgs['OFFRE.AVECFICHIEROULIEN.PRECISER']} *"
-					rendered="#{offreController.avecFichierOuLien}" for="fichierOuLien" />
-				<h:panelGrid columns="1" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-					<h:selectOneRadio id="fichierOuLien"
-						value="#{offreController.fichierOuLien}"
-						rendered="#{offreController.avecFichierOuLien}" required="true"
-						requiredMessage="#{requiredMessageController.champObligatoire}">
-						<f:selectItem itemValue="1"
-							itemLabel="#{msgs['OFFRE.UNFICHIER']}" />
-						<f:selectItem itemValue="2" itemLabel="#{msgs['OFFRE.UNLIEN']}" />
-						<a4j:ajax event="click"  />
-					</h:selectOneRadio>
-					<rich:message for="fichierOuLien">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
-				</h:panelGrid>
-			</a4j:outputPanel>
-<!-- 		</a4j:region> -->
-	</h:panelGrid>
+    <ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
+    <t:div styleClass="floatRight" rendered="#{not empty offreController.formOffre.structure and offreController.formOffre.idOffre > 0}">
+        <h:outputLabel value="#{msgs['OFFRE']} " for="idOffre" styleClass="fontBold" />
+        <h:outputLabel value=" #{msgs['OFFRE.ID']}" for="idOffre" styleClass="fontBold"/>
+        <h:outputText id="idOffre" value="#{offreController.formOffre.idOffre}" />
+    </t:div>
+    <t:htmlTag value="ul" styleClass="formUL mt10 ml40">
+        <t:htmlTag value="li" style="width: auto;">
+            <h:outputText value="#{msgs['OFFRE.ERREUR.AUCUNETABSELECT']}"
+                          rendered="#{empty offreController.formOffre.structure}" />
+            <t:div rendered="#{not empty offreController.formOffre.structure}">
+
+                <t:div styleClass="mt5 mb5 verticalAlignDiv">
+                    <h:outputLabel value="* #{msgs['OFFRE.TYPEOFFRE']}" for="typeOffre" styleClass="fontBold"/>
+                    <h:selectOneMenu id="typeOffre" styleClass="customPstage fix-selectOneMenu mlf5 autoWidth"
+                                     value="#{offreController.formOffre.typeOffre}"
+                                     converter="#{typeOffreConverter}" required="true">
+                        <f:selectItem itemValue="" />
+                        <f:selectItems value="#{nomenclatureController.typesOffreEnServ}" />
+                        <p:ajax event="valueChange" update="msgTypeOffre"/>
+                    </h:selectOneMenu>
+                    <p:message id="msgTypeOffre" for="typeOffre" />
+                </t:div>
+
+                <t:div style="height:10px;"/>
+
+                <h:outputLabel value="#{msgs['OFFRE.AVECFICHIEROULIEN']}"
+                               for="avecFichierOuLien" styleClass="fontBold"
+                               rendered="#{!(sessionController.adminPageAuthorized || (welcomeController.superAdmin and !sessionController.adminPageAuthorized)
+			        || welcomeController.admin || welcomeController.writer)}" />
+                <h:outputLabel value="#{msgs['OFFRE.AVECFICHIEROULIEN.ADMIN']}"
+                               for="avecFichierOuLien" styleClass="fontBold"
+                               rendered="#{sessionController.adminPageAuthorized || (welcomeController.superAdmin and !sessionController.adminPageAuthorized)
+			        || welcomeController.admin || welcomeController.writer}" />
+
+                <p:selectOneRadio id="avecFichierOuLien" styleClass="mlf20"
+                                  value="#{offreController.avecFichierOuLien}">
+                    <f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+                    <f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+                    <p:ajax event="valueChange" update="opAvecFichierOuLien" />
+                </p:selectOneRadio>
+
+                <p:outputPanel id="opAvecFichierOuLien" styleClass="mlf20">
+                    <t:div rendered="#{offreController.avecFichierOuLien}">
+                        <h:outputLabel value="* #{msgs['OFFRE.AVECFICHIEROULIEN.PRECISER']}"
+                                       styleClass="fontBold mt10"
+                                       for="fichierOuLien" />
+
+                        <p:selectOneRadio id="fichierOuLien"
+                                          value="#{offreController.fichierOuLien}"
+                                          required="true">
+                            <f:selectItem itemValue="1" itemLabel="#{msgs['OFFRE.UNFICHIER']}" />
+                            <f:selectItem itemValue="2" itemLabel="#{msgs['OFFRE.UNLIEN']}" />
+                            <p:ajax event="valueChange" update="opAvecFichierOuLien"/>
+                        </p:selectOneRadio>
+                        <p:message for="fichierOuLien" />
+
+                        <t:div rendered="#{offreController.fichierOuLien==1}" styleClass="textCenter mt5">
+                            <t:div rendered="#{offreController.formOffre.idFichier le 0}">
+                                <p:fileUpload id="uploadFile"
+                                              auto="true" label="#{msgs['OFFRE.SELECTIONFICHIER']}"
+                                              invalidSizeMessage="Fichier trop grand."
+                                              invalidFileMessage="Type de fichier incorrect."
+                                              fileUploadListener="#{offreController.uploadFileOffre}"
+                                              sizeLimit="#{sessionController.uploadImagesFileSizeLimit}"
+                                              fileLimit="1" required="true"
+                                              allowTypes="/(\.|\/)(doc|pdf|odt|docx)$/"
+                                              update="opAvecFichierOuLien"/>
+
+                                <h:outputFormat value="#{msgs['GENERAL.FILESIZERESTRICTED']}"
+                                                styleClass="fz09">
+                                    <f:param value="#{sessionController.uploadImagesFileSizeLimit}" />
+                                </h:outputFormat>
+                                <h:outputFormat value="#{msgs['OFFRE.EXTENSIONFICHIER']}"
+                                                styleClass="fz09">
+                                    <f:param value="#{sessionController.uploadImagesFileExtensions}" />
+                                </h:outputFormat>
+                            </t:div>
+
+                            <t:div rendered="#{offreController.formOffre.idFichier gt 0}" styleClass="verticalAlignDiv">
+                                <h:outputText value="#{msgs['OFFRE.FICHIERUPLOADE']}" styleClass="fontBold"/>
+                                <t:div styleClass="mlf5">
+                                    <t:htmlTag value="i" styleClass="fa fa-file-text-o fontBlue2 fz13" />
+                                    <h:outputText value="#{offreController.formOffre.fichier.nomReel}"
+                                                  styleClass="mlf5"
+                                                  rendered="#{not empty offreController.formOffre.fichier.nomReel}" />
+                                    <h:outputText value="#{offreController.formOffre.fichier.nomFichier}"
+                                                  styleClass="mlf5"
+                                                  rendered="#{empty offreController.formOffre.fichier.nomReel}" />
+                                </t:div>
+                            </t:div>
+                            <t:div rendered="#{offreController.formOffre.idFichier gt 0}" styleClass="verticalAlignDiv mt5 fz09">
+                                <p:commandButton action="#{offreController.deleteUploadedFile}"
+                                                 update="opAvecFichierOuLien" icon="fa fa-times"
+                                                 value="#{msgs['OFFRE.MODIFFICHIER']}" />
+                            </t:div>
+                        </t:div>
+
+                        <t:div styleClass="mt5"
+                               rendered="#{offreController.fichierOuLien==2}">
+                            <t:div>
+                                <p:inputText id="lien" styleClass="autoWidth"
+                                             value="#{offreController.formOffre.lienAttache}" required="true"
+                                             validatorMessage="#{requiredMessageController.siteWebNonValide}"
+                                             maxlength="200">
+                                    <f:validator binding="#{siteWebValidator}" />
+                                </p:inputText>
+                                <h:outputText value="(http://***.***)" styleClass="fz09 mlf5" />
+                            </t:div>
+                            <p:message for="lien"/>
+                        </t:div>
+                    </t:div>
+                </p:outputPanel>
+
+            </t:div>
+        </t:htmlTag>
+    </t:htmlTag>
 </ui:fragment>

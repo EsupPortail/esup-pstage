@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <t:htmlTag value="div" style="height:15px;"/>
+
+    <h:outputFormat value="#{msgs['CONVENTION.CREERCONVENTION.SERVICE.AJOUT']}" escape="false">
+        <f:param value="#{sessionController.currentManageStructure.raisonSociale}" />
+    </h:outputFormat>
+
+    <t:div styleClass="mt15 fontBold textCenter">
+        <h:outputText value="#{msgs['FORM.CONFIRMER']} #{msgs['NAVIGATION.ACCESSKEY.ABOUT']}" />
+    </t:div>
+
+    <t:div styleClass="textCenter mt20 mb20">
+        <p:commandButton value="#{msgs['FORM.OUI']}" update="@form">
+            <f:setPropertyActionListener value="_ajoutServiceEtape1"
+                                         target="#{sessionController.ajoutServiceCurrentPage}" />
+        </p:commandButton>
+        <p:commandButton value="#{msgs['FORM.NON']}" styleClass="ml40"
+                         onclick="PF('ajoutService').hide();" immediate="true" />
+    </t:div>
+
+</ui:composition>

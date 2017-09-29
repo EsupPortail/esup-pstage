@@ -68,14 +68,14 @@ public class StudentDataRepositoryDomainWS implements
 	}
 	
 	/**
-	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtapesByEtudiantAndAnnee(java.lang.String, java.lang.String)
+	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtapesByEtudiantAndAnnee(String, String, String)
 	 */
-	public ApogeeMap getEtapesByEtudiantAndAnnee(String cod, String anneeScolaire){
+	public ApogeeMap getEtapesByEtudiantAndAnnee(String cod, String anneeScolaire, String codeUniversite){
 		if(logger.isDebugEnabled()){
 			logger.debug("getEtapesByEtudiantAndAnnee(" + cod +  ", " + anneeScolaire+")");
 		}
 		
-		return studentDataRepositoryDaoWS.getEtapesByEtudiantAndAnnee(cod, anneeScolaire);
+		return studentDataRepositoryDaoWS.getEtapesByEtudiantAndAnnee(cod, anneeScolaire, codeUniversite);
 
 	}
 

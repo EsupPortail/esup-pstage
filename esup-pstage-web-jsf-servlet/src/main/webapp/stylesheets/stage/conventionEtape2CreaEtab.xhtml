@@ -1,21 +1,41 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="../_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<rich:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']}" />
-			</f:facet>
-			<h:form id="formSelConvention">
-				<ui:include src="/stylesheets/stage/_conventionEtape2CreaEtab.xhtml" />
-			</h:form>
-		</rich:panel>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention} #{conventionController.convention.etudiant.nom} #{conventionController.convention.etudiant.prenom}" />
+            </f:facet>
+            <h:form id="formConvention">
+                <ui:include src="_roadmapSel.xhtml" />
+
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20 block">
+
+                        <h:outputText value="#{msgs['CONVENTION.ETAPE2.CHOIXETAB.DEMANDE']}" />
+
+                        <t:htmlTag value="div" style="height:20px;" />
+
+                        <ui:include src="/stylesheets/_commun/_etablissementForm.xhtml" />
+
+                        <t:div styleClass="textCenter">
+                            <p:commandButton value="#{msgs['FORM.CREER']}"
+                                             update="@form"
+                                             action="#{conventionController.ajouterEtablissementModif}" />
+                        </t:div>
+
+                        <t:htmlTag value="div" style="height:10px;" />
+
+                        <p:commandButton value="#{msgs['FORM.ANNULER']}"
+                                         action="conventionEtape2Etab"
+                                         immediate="true"/>
+
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>

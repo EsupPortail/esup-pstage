@@ -41,17 +41,7 @@ public class AvenantController extends AbstractContextAwareController {
 	/**
 	 * Logger.
 	 */
-	private final Logger logger = Logger.getLogger(this.getClass());
-
-	/**
-	 * True si aucun avenant n'a été ajouté
-	 */
-	private boolean listeAvenantVide;
-	/**
-	 * ListeAvenants
-	 */
-	@SuppressWarnings("unused")
-	private List<AvenantDTO> listeAvenants;
+	private final transient Logger logger = Logger.getLogger(this.getClass());
 
 	/**
 	 * ListeServices
@@ -110,16 +100,7 @@ public class AvenantController extends AbstractContextAwareController {
 
 	/* ***************************************************************
 	 * Actions
-	 ****************************************************************/	
-	/**
-	 * @return boolean
-	 */
-	public boolean listeAvenantVide(){
-		if ((getAvenantDomainService().getNombreAvenant(conventionController.getConvention().getIdConvention())) > 0){
-			return false;
-		}
-		return true;
-	}
+	 ****************************************************************/
 	/**
 	 * @return String
 	 */
@@ -127,6 +108,7 @@ public class AvenantController extends AbstractContextAwareController {
 		if (logger.isDebugEnabled()) {
 			logger.debug("AvenantController:: goToListeAvenant");
 		}
+
 		return "conventionEtape11ListeAvenant";
 	}
 
@@ -142,6 +124,8 @@ public class AvenantController extends AbstractContextAwareController {
 		etablissementController.setServiceSel(conventionController.getConvention().getService());
 		etablissementController.setContactSel(conventionController.getConvention().getContact());
 		this.avenant = new AvenantDTO();
+
+
 
 		return "conventionEtape11CreaAvenantPage1";
 	}
@@ -162,8 +146,9 @@ public class AvenantController extends AbstractContextAwareController {
 	 */
 	public String goToCreaAvenantPage2(){
 		if (logger.isDebugEnabled()) {
-			logger.debug("AvenantController:: goToCreaAvenantPage2");
+			logger.debug("AvenantController - goToCreaAvenantPage2");
 		}
+
 		if(!this.avenant.isRupture()){
 			if (this.avenant.isModificationPeriode()){
 				java.util.Date dateDebutStage = this.avenant.getDateDebutStage();
@@ -173,11 +158,11 @@ public class AvenantController extends AbstractContextAwareController {
 				if (dateFinStage != null && dateDebutStage != null){
 					if (dateFinStage.before(dateDebutStage)){
 						// Si la date de fin du stage est inferieure la date de debut
-						addErrorMessage("formCreaAvenantPage1:erreurPeriode", "CONVENTION.ETAPE11.ERREUR_PERIODE");
+						addErrorMessage("formCreaAvenant:divPeriode", "CONVENTION.ETAPE11.ERREUR_PERIODE");
 						return null;
 					}
 				} else {
-					addErrorMessage("formCreaAvenantPage1:erreurPeriode", "CONVENTION.ETAPE11.ERREUR_PERIODE2");
+					addErrorMessage("formCreaAvenant:divPeriode", "CONVENTION.ETAPE11.ERREUR_PERIODE2");
 					return null;
 				}
 				if(this.avenant.isInterruptionStage()){
@@ -189,7 +174,7 @@ public class AvenantController extends AbstractContextAwareController {
 							|| dateFinInterruption.before(dateDebutInterruption)){
 						// Si la date de debut d'interruption est inferieure a la date de debut du stage, ou superieure aux dates de fin d'interruption ou de stage
 						// ou si la date de fin d'interruption est superieure a la date de fin de stage, ou inferieure aux dates de debut d'interruption ou de stage
-						addErrorMessage("formCreaAvenantPage1:erreurInterruption", "CONVENTION.ETAPE11.ERREUR_INTERRUPTION");
+						addErrorMessage("formCreaAvenant:divInterruption", "CONVENTION.ETAPE11.ERREUR_INTERRUPTION");
 						return null;
 					}
 				}
@@ -197,12 +182,12 @@ public class AvenantController extends AbstractContextAwareController {
 			if(this.avenant.isModificationLieu()){
 				if (etablissementController.getServiceSel().getIdService() == conventionController.getConvention().getIdService()){
 					// Si l'idService n'a pas été changé, on envoie l'erreur correspondante
-					addErrorMessage("formCreaAvenantPage1:erreurService","CONVENTION.ETAPE11.ERREUR_SERVICE");
+					addErrorMessage("formCreaAvenant:opActionsService","CONVENTION.ETAPE11.ERREUR_SERVICE");
 					return null;
 				}
 				if (etablissementController.getContactSel().getId() == conventionController.getConvention().getIdContact()){
 					// Si l'idContact n'a pas été changé, on envoie l'erreur correspondante
-					addErrorMessage("formCreaAvenantPage1:erreurSalarie","CONVENTION.ETAPE11.ERREUR_SALARIE");
+					addErrorMessage("formCreaAvenant:opContactsDataTable","CONVENTION.ETAPE11.ERREUR_SALARIE");
 					return null;
 				}
 				this.avenant.setIdService(etablissementController.getServiceSel().getIdService());
@@ -212,18 +197,18 @@ public class AvenantController extends AbstractContextAwareController {
 
 			if(this.avenant.isModificationMontantGratification()){
 				if (this.avenant.getUniteDureeGratification() == null) {
-					addErrorMessage("formCreaAvenantPage1:gratification", "CONVENTION.CREERCONVENTION.UNITEDUREEGRATIFICATION.OBLIGATOIRE");
+					addErrorMessage("formCreaAvenant:gratification", "CONVENTION.CREERCONVENTION.UNITEDUREEGRATIFICATION.OBLIGATOIRE");
 					return null;
 				} else if (this.avenant.getUniteGratification() == null) {
 					// unite duree gratif obligatoire
-					addErrorMessage("formCreaAvenantPage1:gratification", "CONVENTION.CREERCONVENTION.UNITEGRATIFICATION.OBLIGATOIRE");
+					addErrorMessage("formCreaAvenant:gratification", "CONVENTION.CREERCONVENTION.UNITEGRATIFICATION.OBLIGATOIRE");
 					return null;
 				}
 			}
 			if(this.avenant.isModificationSalarie()){
 				if (etablissementController.getContactSel().getId() == conventionController.getConvention().getIdContact()){
 					// Si l'idContact n'a pas été changé, on envoie l'erreur correspondante
-					addErrorMessage("formCreaAvenantPage1:erreurSalarie","CONVENTION.ETAPE11.ERREUR_SALARIE");
+					addErrorMessage("formCreaAvenant:opContactsDataTable","CONVENTION.ETAPE11.ERREUR_SALARIE");
 					return null;
 				}
 				this.avenant.setIdContact(etablissementController.getContactSel().getId());
@@ -232,35 +217,32 @@ public class AvenantController extends AbstractContextAwareController {
 			if(this.avenant.isModificationEnseignant()){
 				if (this.avenant.getEnseignant() == null){
 					// Si l'enseignant n'a pas été renseigné, on envoie l'erreur correspondante
-					addErrorMessage("formCreaAvenantPage1:erreurEnseignant","CONVENTION.ETAPE11.ERREUR_ENSEIGNANT");
+					addErrorMessage("formCreaAvenant:divEnseignant","CONVENTION.ETAPE11.ERREUR_ENSEIGNANT");
 					return null;
 				}
 			}
 			if(this.isModificationTexteLibre()){
 				if (this.avenant.getMotifAvenant() == null){
 					// Si l'enseignant n'a pas été renseigné, on envoie l'erreur correspondante
-					addErrorMessage("formCreaAvenantPage1:erreurTexteLibre","CONVENTION.ETAPE11.ERREUR_TEXTELIBRE");
+					addErrorMessage("formCreaAvenant:divTexteLibre","CONVENTION.ETAPE11.ERREUR_TEXTELIBRE");
 					return null;
 				}
 			}
-		}
-		else{
+		} else {
 			// cas où il y a rupture, rentrer seulement la date de rupture
-
-			java.util.Date dateDebutStage=conventionController.getConvention().getDateDebutStage();
+			java.util.Date dateDebutStage = conventionController.getConvention().getDateDebutStage();
 			java.util.Date dateFinStage = conventionController.getConvention().getDateFinStage();
 			java.util.Date dateRupture = this.avenant.getDateRupture();
+
 			if (dateRupture != null){
-				if (dateRupture.before(dateDebutStage) 
-						|| dateRupture.after(dateFinStage)){
+				if (dateRupture.before(dateDebutStage) || dateRupture.after(dateFinStage)){
 					// Si la date de debut d'interruption est inferieure a la date de debut du stage, ou superieure aux dates de fin d'interruption ou de stage
 					// ou si la date de fin d'interruption est superieure a la date de fin de stage, ou inferieure aux dates de debut d'interruption ou de stage
-					addErrorMessage("formCreaAvenantPage1:erreurDateRupture", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE");
+					addErrorMessage("formCreaAvenant", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE");
 					return null;
 				}
-			}
-			else {
-				addErrorMessage("formCreaAvenantPage1:erreurDateRupture", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE2");
+			} else {
+				addErrorMessage("formCreaAvenant", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE2");
 				return null;
 			}
 		}
@@ -333,11 +315,11 @@ public class AvenantController extends AbstractContextAwareController {
 				if (dateFinStage != null && dateDebutStage != null){
 					if (dateFinStage.before(dateDebutStage)){
 						// Si la date de fin du stage est inferieure la date de debut
-						addErrorMessage("formModifAvenantPage1:erreurPeriode", "CONVENTION.ETAPE11.ERREUR_PERIODE");
+						addErrorMessage("formModifAvenant:divPeriode", "CONVENTION.ETAPE11.ERREUR_PERIODE");
 						return null;
 					}
 				} else {
-					addErrorMessage("formModifAvenantPage1:erreurPeriode", "CONVENTION.ETAPE11.ERREUR_PERIODE2");
+					addErrorMessage("formModifAvenant:divPeriode", "CONVENTION.ETAPE11.ERREUR_PERIODE2");
 					return null;
 				}
 				if(this.avenant.isInterruptionStage()){
@@ -349,7 +331,7 @@ public class AvenantController extends AbstractContextAwareController {
 							|| dateFinInterruption.before(dateDebutInterruption)){
 						// Si la date de debut d'interruption est inferieure a la date de debut du stage, ou superieure aux dates de fin d'interruption ou de stage
 						// ou si la date de fin d'interruption est superieure a la date de fin de stage, ou inferieure aux dates de debut d'interruption ou de stage
-						addErrorMessage("formModifAvenantPage1:erreurInterruption", "CONVENTION.ETAPE11.ERREUR_INTERRUPTION");
+						addErrorMessage("formModifAvenant:divInterruption", "CONVENTION.ETAPE11.ERREUR_INTERRUPTION");
 						return null;
 					}
 				}
@@ -357,12 +339,12 @@ public class AvenantController extends AbstractContextAwareController {
 			if(this.avenant.isModificationLieu()){
 				if (etablissementController.getServiceSel().getIdService() == conventionController.getConvention().getIdService()){
 					// Si l'idService n'a pas été changé, on envoie l'erreur correspondante
-					addErrorMessage("formModifAvenantPage1:erreurService","CONVENTION.ETAPE11.ERREUR_SERVICE");
+					addErrorMessage("formModifAvenant:opActionsService","CONVENTION.ETAPE11.ERREUR_SERVICE");
 					return null;
 				}
 				if (etablissementController.getContactSel().getId() == conventionController.getConvention().getIdContact()){
 					// Si l'idContact n'a pas été changé, on envoie l'erreur correspondante
-					addErrorMessage("formModifAvenantPage1:erreurSalarie","CONVENTION.ETAPE11.ERREUR_SALARIE");
+					addErrorMessage("formModifAvenant:opContactsDataTable","CONVENTION.ETAPE11.ERREUR_SALARIE");
 					return null;
 				}
 				this.avenant.setIdService(etablissementController.getServiceSel().getIdService());
@@ -371,18 +353,18 @@ public class AvenantController extends AbstractContextAwareController {
 			}
 			if(this.avenant.isModificationMontantGratification()){
 				if (this.avenant.getUniteDureeGratification() == null) {
-					addErrorMessage("formModifAvenantPage1:gratification", "CONVENTION.CREERCONVENTION.UNITEDUREEGRATIFICATION.OBLIGATOIRE");
+					addErrorMessage("formModifAvenant:gratification", "CONVENTION.CREERCONVENTION.UNITEDUREEGRATIFICATION.OBLIGATOIRE");
 					return null;
 				} else if (this.avenant.getUniteGratification() == null) {
 					// unite duree gratif obligatoire
-					addErrorMessage("formModifAvenantPage1:gratification", "CONVENTION.CREERCONVENTION.UNITEGRATIFICATION.OBLIGATOIRE");
+					addErrorMessage("formModifAvenant:gratification", "CONVENTION.CREERCONVENTION.UNITEGRATIFICATION.OBLIGATOIRE");
 					return null;
 				}
 			}
 			if(this.avenant.isModificationSalarie()){
 				if (etablissementController.getContactSel().getId() == conventionController.getConvention().getIdContact()){
 					// Si l'idContact n'a pas été changé, on envoie l'erreur correspondante
-					addErrorMessage("formModifAvenantPage1:erreurSalarie","CONVENTION.ETAPE11.ERREUR_SALARIE");
+					addErrorMessage("formModifAvenant:opContactsDataTable","CONVENTION.ETAPE11.ERREUR_SALARIE");
 					return null;
 				}
 				this.avenant.setIdContact(etablissementController.getContactSel().getId());
@@ -391,14 +373,14 @@ public class AvenantController extends AbstractContextAwareController {
 			if(this.avenant.isModificationEnseignant()){
 				if (this.avenant.getEnseignant() == null){
 					// Si l'enseignant n'a pas été renseigné, on envoie l'erreur correspondante
-					addErrorMessage("formModifAvenantPage1:erreurCreation","CONVENTION.ETAPE11.ERREUR_ENSEIGNANT");
+					addErrorMessage("formModifAvenant:divEnseignant","CONVENTION.ETAPE11.ERREUR_ENSEIGNANT");
 					return null;
 				}
 			}
 			if(this.isModificationTexteLibre()){
 				if (this.avenant.getMotifAvenant() == null){
 					// Si l'enseignant n'a pas été renseigné, on envoie l'erreur correspondante
-					addErrorMessage("formModifAvenantPage1:erreurTexteLibre","CONVENTION.ETAPE11.ERREUR_TEXTELIBRE");
+					addErrorMessage("formModifAvenant:divTexteLibre","CONVENTION.ETAPE11.ERREUR_TEXTELIBRE");
 					return null;
 				}
 			}
@@ -413,12 +395,12 @@ public class AvenantController extends AbstractContextAwareController {
 						|| dateRupture.after(dateFinStage)){
 					// Si la date de debut d'interruption est inferieure a la date de debut du stage, ou superieure aux dates de fin d'interruption ou de stage
 					// ou si la date de fin d'interruption est superieure a la date de fin de stage, ou inferieure aux dates de debut d'interruption ou de stage
-					addErrorMessage("formModifAvenantPage1:erreurDateRupture", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE");
+					addErrorMessage("formModifAvenant", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE");
 					return null;
 				}
 			}
 			else {
-				addErrorMessage("formModifAvenantPage1:erreurDateRupture", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE2");
+				addErrorMessage("formModifAvenant", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE2");
 				return null;
 			}
 		}
@@ -459,12 +441,12 @@ public class AvenantController extends AbstractContextAwareController {
 				}
 
 			} catch (DataAddException ae) {
-				logger.error("DataAddException", ae.fillInStackTrace());
-				addErrorMessage("formCreaAvenantPage2:erreurAjoutAvenant", "CONVENTION.CREERCONVENTION.ERREURAJOUT");
+				logger.error("DataAddException", ae);
+				addErrorMessage("formConfirmCreaAvenant", "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 				return null;
 			} catch (WebServiceDataBaseException we) {
-				logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
-				addErrorMessage("formCreaAvenantPage2:erreurAjoutAvenant", "CONVENTION.CREERCONVENTION.ENSEIGNANT.ERREUR", we.getMessage());
+				logger.error("WebServiceDataBaseException ", we);
+				addErrorMessage("formConfirmCreaAvenant", "CONVENTION.CREERCONVENTION.ENSEIGNANT.ERREUR", we);
 				return null;
 			}
 		}
@@ -484,6 +466,9 @@ public class AvenantController extends AbstractContextAwareController {
 		try{
 			// Ajout Avenant
 			int idAvenant = getAvenantDomainService().addAvenant(this.avenant);
+
+			// On l'ajoute à la liste des avenants de la convention
+			this.conventionController.getListeAvenants().add(this.avenant);
 
 			// Si c'est un étudiant qui crée l'avenant et qu'on est configurés en alertes mail pour les tuteurs et gestionnaires
 			if (getSessionController().getCurrentAuthEtudiant() != null && getSessionController().isAvertissementPersonnelCreaAvenant()){
@@ -521,16 +506,16 @@ public class AvenantController extends AbstractContextAwareController {
 				logger.debug("idAvenant : " + idAvenant);
 			}
 		} catch (DataAddException d){
-			logger.error("DataAddException",d.fillInStackTrace());
-			addErrorMessage("formCreaAvenantPage2:erreurAjoutAvenant","CONVENTION.ETAPE11.ERREUR_AJOUT");
+			logger.error("DataAddException",d);
+			addErrorMessage("formConfirmCreaAvenant","CONVENTION.ETAPE11.ERREUR_AJOUT");
 			return null;
 		} catch (WebServiceDataBaseException w){
-			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
-			addErrorMessage("formCreaAvenantPage2:erreurAjoutAvenant", "CONVENTION.ETAPE11.ERREUR_WS");
+			logger.error("WebServiceDataBaseException", w);
+			addErrorMessage("formConfirmCreaAvenant", "CONVENTION.ETAPE11.ERREUR_WS");
 			return null;
 		}catch (AddressException ade){
-			logger.error("AddressException", ade.fillInStackTrace());
-			addErrorMessage("formCreaAvenantPage2:erreurAjoutAvenant", "GENERAL.ERREUR_MAIL");
+			logger.error("AddressException", ade);
+			addErrorMessage("formConfirmCreaAvenant", "GENERAL.ERREUR_MAIL");
 		}
 		this.avenant = new AvenantDTO();
 
@@ -569,12 +554,12 @@ public class AvenantController extends AbstractContextAwareController {
 				}
 
 			} catch (DataAddException ae) {
-				logger.error("DataAddException", ae.fillInStackTrace());
-				addErrorMessage("formModifAvenantPage1:erreurModifAvenant", "CONVENTION.CREERCONVENTION.ERREURAJOUT");
+				logger.error("DataAddException", ae);
+				addErrorMessage("formModifAvenant:erreurModifAvenant", "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 				return null;
 			} catch (WebServiceDataBaseException we) {
-				logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
-				addErrorMessage("formModifAvenantPage1:erreurModifAvenant", "CONVENTION.CREERCONVENTION.ENSEIGNANT.ERREUR", we.getMessage());
+				logger.error("WebServiceDataBaseException ", we);
+				addErrorMessage("formModifAvenant:erreurModifAvenant", "CONVENTION.CREERCONVENTION.ENSEIGNANT.ERREUR", we);
 				return null;
 			}
 		}
@@ -621,16 +606,16 @@ public class AvenantController extends AbstractContextAwareController {
 			}
 
 		} catch (DataUpdateException d){
-			logger.error("DataUpdateException",d.fillInStackTrace());
-			addErrorMessage("formModifAvenantPage1:erreurModifAvenant","CONVENTION.ETAPE11.ERREUR_MODIF");
+			logger.error("DataUpdateException",d);
+			addErrorMessage("formModifAvenant:erreurModifAvenant","CONVENTION.ETAPE11.ERREUR_MODIF");
 			return null;
 		} catch (WebServiceDataBaseException w){
-			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
-			addErrorMessage("formModifAvenantPage1:erreurModifAvenant", "CONVENTION.ETAPE11.ERREUR_WS");
+			logger.error("WebServiceDataBaseException", w);
+			addErrorMessage("formModifAvenant:erreurModifAvenant", "CONVENTION.ETAPE11.ERREUR_WS");
 			return null;
 		}catch (AddressException ade){
-			logger.error("AddressException", ade.fillInStackTrace());
-			addErrorMessage("formModifAvenantPage1:erreurModifAvenant", "GENERAL.ERREUR_MAIL");
+			logger.error("AddressException", ade);
+			addErrorMessage("formModifAvenant:erreurModifAvenant", "GENERAL.ERREUR_MAIL");
 		}
 
 		return "conventionEtape11DetailsAvenant";
@@ -646,13 +631,16 @@ public class AvenantController extends AbstractContextAwareController {
 					logger.debug("Suppression Avenant : "+this.avenant);
 				}
 				getAvenantDomainService().deleteAvenant(this.avenant.getIdAvenant());
+
+				this.conventionController.getListeAvenants().remove(this.avenant);
+
 			}catch (DataDeleteException de) {
-				logger.error("DataDeleteException ",de.fillInStackTrace());
-				addErrorMessage("formSupprAvenant:erreurSupprAvenant", "CONVENTION.ETAPE11.ERREUR_SUPPRESSION", de.getMessage());
+				logger.error("DataDeleteException ",de);
+				addErrorMessage("formSupprAvenant:erreurSupprAvenant", "CONVENTION.ETAPE11.ERREUR_SUPPRESSION", de);
 				return null;
 			}catch (WebServiceDataBaseException we) {
-				logger.error("WebServiceDataBaseException ",we.fillInStackTrace());
-				addErrorMessage("formSupprAvenant:erreurSupprAvenant", "CONVENTION.ETAPE11.ERREUR_WS", we.getMessage());
+				logger.error("WebServiceDataBaseException ",we);
+				addErrorMessage("formSupprAvenant:erreurSupprAvenant", "CONVENTION.ETAPE11.ERREUR_WS", we);
 				return null;
 			}
 			this.avenant = new AvenantDTO();
@@ -685,15 +673,15 @@ public class AvenantController extends AbstractContextAwareController {
 							sujet,text,text);
 				}
 			}catch (DataDeleteException d) {
-				logger.error("DataUpdateException ",d.fillInStackTrace());
-				addErrorMessage("formDetailsAvenant:erreurValidAvenant", "CONVENTION.ETAPE11.ERREUR_VALIDATION", d.getMessage());
+				logger.error("DataUpdateException ",d);
+				addErrorMessage("formDetailsAvenant:erreurValidAvenant", "CONVENTION.ETAPE11.ERREUR_VALIDATION", d);
 				return null;
 			}catch (WebServiceDataBaseException we) {
-				logger.error("WebServiceDataBaseException ",we.fillInStackTrace());
-				addErrorMessage("formDetailsAvenant:erreurValidAvenant", "CONVENTION.ETAPE11.ERREUR_WS", we.getMessage());
+				logger.error("WebServiceDataBaseException ",we);
+				addErrorMessage("formDetailsAvenant:erreurValidAvenant", "CONVENTION.ETAPE11.ERREUR_WS", we);
 				return null;
 			}catch (AddressException ade){
-				logger.error("AddressException", ade.fillInStackTrace());
+				logger.error("AddressException", ade);
 				addErrorMessage("formDetailsAvenant:erreurValidAvenant", "GENERAL.ERREUR_MAIL");
 			}
 		}
@@ -715,12 +703,12 @@ public class AvenantController extends AbstractContextAwareController {
 				this.avenant.setValidationAvenant(false);
 				getAvenantDomainService().updateAvenant(this.avenant);
 			}catch (DataDeleteException d) {
-				logger.error("DataUpdateException ",d.fillInStackTrace());
-				addErrorMessage("formDetailsAvenant:erreurDevalidAvenant", "CONVENTION.ETAPE11.ERREUR_VALIDATION", d.getMessage());
+				logger.error("DataUpdateException ",d);
+				addErrorMessage("formDetailsAvenant:erreurDevalidAvenant", "CONVENTION.ETAPE11.ERREUR_VALIDATION", d);
 				return null;
 			}catch (WebServiceDataBaseException we) {
-				logger.error("WebServiceDataBaseException ",we.fillInStackTrace());
-				addErrorMessage("formDetailsAvenant:erreurDevalidAvenant", "CONVENTION.ETAPE11.ERREUR_WS", we.getMessage());
+				logger.error("WebServiceDataBaseException ",we);
+				addErrorMessage("formDetailsAvenant:erreurDevalidAvenant", "CONVENTION.ETAPE11.ERREUR_WS", we);
 				return null;
 			}
 		}
@@ -731,7 +719,7 @@ public class AvenantController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String editPdfAvenantFr() {
-		String retour = null;
+		String retour;
 		this.editAvFR = true;
 		retour = editPdfAvenant();
 		return retour;
@@ -748,8 +736,8 @@ public class AvenantController extends AbstractContextAwareController {
 			 **  Methodes de creation des documents PDF selon l'edition demandee
 			 **/
 			//StringBuffer sbFilename = new StringBuffer();
-			String nomDocxsl = "";
-			String fileNameXml = "";
+			String nomDocxsl;
+			String fileNameXml;
 			String fileNameXmlfin = ".xml";
 			//String xslXmlPath = castorService.getXslXmlPath();
 			String language = "fr";
@@ -780,8 +768,8 @@ public class AvenantController extends AbstractContextAwareController {
 			addInfoMessage(null, "CONVENTION.IMPRESSION.CONFIRMATION");
 			this.editAvFR = false;
 		} catch (ExportException e) {
-			logger.error("ExportException ", e.fillInStackTrace());
-			addErrorMessage(null, "CONVENTION.EDIT.CONVENTION.ERREUR", e.getMessage());
+			logger.error("ExportException ", e);
+			addErrorMessage(null, "CONVENTION.EDIT.CONVENTION.ERREUR", e);
 		}
 		return retour;
 	}
@@ -797,29 +785,6 @@ public class AvenantController extends AbstractContextAwareController {
 	/* ***************************************************************
 	 * Getters / Setters
 	 ****************************************************************/
-
-	/**
-	 * @param listeAvenantVide the listeAvenantVide to set
-	 */
-	public void setListeAvenantVide(boolean listeAvenantVide) {
-		this.listeAvenantVide = listeAvenantVide;
-	}
-	/**
-	 * @return the listeAvenantVide
-	 */
-	public boolean isListeAvenantVide() {
-		listeAvenantVide = this.listeAvenantVide();
-		return listeAvenantVide;
-	}
-
-	/**
-	 * @return the listeAvenants
-	 */
-	public List<AvenantDTO> getListeAvenants() {
-		List<AvenantDTO> l = getAvenantDomainService().getAvenant(conventionController.getConvention().getIdConvention());
-		return l;
-	}
-
 	/**
 	 * @return the listeServices
 	 */
@@ -833,7 +798,7 @@ public class AvenantController extends AbstractContextAwareController {
 	 */
 	public List<ContactDTO> getListeSalaries() {
 		List<ContactDTO> l = new ArrayList<ContactDTO>();
-		List<Integer> idsCentreGestion = new ArrayList<Integer>();
+		List<Integer> idsCentreGestion;
 		
 		idsCentreGestion = getSessionController().getCurrentIdsCentresGestion();
 		if(idsCentreGestion != null && !idsCentreGestion.contains(conventionController.getConvention().getIdCentreGestion())){

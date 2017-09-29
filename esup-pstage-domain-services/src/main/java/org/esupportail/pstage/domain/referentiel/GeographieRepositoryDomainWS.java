@@ -21,7 +21,7 @@ public class GeographieRepositoryDomainWS implements GeographieRepositoryDomain 
 	/**
 	 * 
 	 */
-	final Logger logger = Logger.getLogger(GeographieRepositoryDomainWS.class);
+	final transient Logger logger = Logger.getLogger(GeographieRepositoryDomainWS.class);
 	/**
 	 * GeographieRepositoryDao
 	 */

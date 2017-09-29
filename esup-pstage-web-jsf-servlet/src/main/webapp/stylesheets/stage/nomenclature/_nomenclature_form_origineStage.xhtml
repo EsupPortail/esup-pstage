@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
+
+	<t:htmlTag value="div" style="height:5px;" />
+		
+	<h:panelGrid columns="3">
+		<h:outputLabel value="#{msgs['NOMENCLATURES.AJOUT.LIBELLE']}"
+			for="libelleOrigineStage" />
+		<t:htmlTag value="div" style="width:5px;" />
+		<h:panelGrid columns="2">
+			<h:inputText id="libelleOrigineStage"
+				value="#{nomenclatureController.origineStage.libelle}" size="30"
+				maxlength="100" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}">
+				<p:ajax event="blur" update="msgLibelleOrigine" />
+			</h:inputText>
+			<p:message id="msgLibelleOrigine" for="libelleOrigineStage"/>
+		</h:panelGrid>
+	</h:panelGrid>
+</ui:composition>

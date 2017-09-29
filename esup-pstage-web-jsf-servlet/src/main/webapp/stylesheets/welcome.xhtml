@@ -1,16 +1,18 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="_basicTemplate.xhtml">
-	<ui:define name="content">
-		<h:outputLink value="#{sessionController.baseUrl}/stylesheets/depot/welcome.xhtml">Vers depot d'offres</h:outputLink>
-		<t:htmlTag value="br" />
-		<h:outputLink value="#{sessionController.baseUrl}/stylesheets/stage/welcome.xhtml">Vers stage</h:outputLink>
-		<h:panelGroup layout="block" styleClass="app-footer" align="center">
-			<h:outputText value="#{msgs['COPYRIGHT']}" />
-		</h:panelGroup>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui" template="_basicTemplate.xhtml">
+    <ui:define name="content">
+        <h:form>
+            <p:commandButton ajax="false"
+                             value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.GESTION']}"
+                             action="#{welcomeController.goToAccueilEntr}" />
+
+            <p:commandButton ajax="false"
+                             value="#{msgs['GENERAL.ACCUEIL.STAGE.GESTION']}"
+                             action="#{welcomeController.goToAccueilStage}" />
+
+        </h:form>
+    </ui:define>
 </ui:composition>

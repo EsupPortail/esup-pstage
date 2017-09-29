@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+
+    <t:htmlTag value="i" styleClass="fa fa-question-circle fz13 fontBlue2"/>
+    <h:outputText value="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.DEMANDE']}" styleClass="ml5" escape="false"/>
+
+    <t:div styleClass="mt20 mb30 mr40 textCenter">
+        <p:commandButton value="#{msgs['FORM.OUI']}" update="@form">
+            <f:setPropertyActionListener
+                    value="_creerConventionEtape2Offre"
+                    target="#{sessionController.creationConventionEtape2CurrentPage}" />
+        </p:commandButton>
+        <p:commandButton value="#{msgs['FORM.NON']}" styleClass="ml40" update="@form">
+            <f:setPropertyActionListener
+                    value="_creerConventionEtape2Etab"
+                    target="#{sessionController.creationConventionEtape2CurrentPage}" />
+            <f:setPropertyActionListener
+                    value="false"
+                    target="#{rechercheController.rechercheEtabOk}" />
+            <f:setPropertyActionListener
+                    value="false"
+                    target="#{rechercheController.afficherBoutonAjoutEtab}" />
+        </p:commandButton>
+    </t:div>
+
+    <p:commandButton value="#{msgs['FORM.PREVIOUS']}"
+                     action="#{conventionController.retourCreationEtape1}"
+                     immediate="true"
+                     styleClass="mb20"/>
+</ui:composition>

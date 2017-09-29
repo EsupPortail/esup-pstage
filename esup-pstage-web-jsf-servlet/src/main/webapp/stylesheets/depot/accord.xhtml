@@ -1,22 +1,22 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="../_basicTemplate.xhtml">
-	<ui:define name="content">
-		<h:panelGrid columns="1" styleClass="panelEntreprise">
-			<rich:panel>
-				<f:facet name="header">
-					<h:outputText value="#{msgs['ACCORD.TITRE']}" />
-				</f:facet>
-				<h:form id="formAccord"
-					rendered="#{not empty accordController.preAccord}">
-					<ui:include src="/stylesheets/depot/#{sessionController.creationAccordCurrentPage}.xhtml" />
-				</h:form>
-			</rich:panel>
-			<ui:include src="_panelNousContacter.xhtml" />
-		</h:panelGrid>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="../_basicTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['ACCORD.TITRE']}" />
+            </f:facet>
+            <h:form id="formAccord"
+                    rendered="#{not empty accordController.preAccord}">
+                <p:fieldset styleClass="block">
+                    <t:div styleClass="mt10 ml30">
+                        <ui:include src="/stylesheets/depot/#{sessionController.creationAccordCurrentPage}.xhtml" />
+                    </t:div>
+                </p:fieldset>
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>

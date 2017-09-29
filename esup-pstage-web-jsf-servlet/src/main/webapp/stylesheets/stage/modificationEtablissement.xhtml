@@ -1,43 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="../_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<rich:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['STRUCTURE.MODIF']}" />
-			</f:facet>
-			<t:div rendered="#{empty etablissementController.formStructure}">
-				<h:outputText value="#{msgs['STRUCTURE.AUCUN']}" />
-			</t:div>
-			<t:div rendered="#{not empty etablissementController.formStructure}">
-				<h:form id="formModifEtab">
-					<rich:message for="formModifEtab">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
-					<ui:include src="../_commun/_etablissementForm.xhtml" />
-					<h:panelGrid columns="3">
-						<h:commandButton value="#{msgs['FORM.MODIFIER']}"
-							action="#{etablissementController.modifierEtablissement}"/>
-						<t:htmlTag value="div" style="width: 100px;" />
-						<h:commandButton value="#{msgs['FORM.ANNULER']}"
-							action="affichageRechercheEtablissement"
-							alt="#{msgs['FORM.ANNULER']}" title="#{msgs['FORM.ANNULER']}"
-							immediate="true"
-							rendered="#{etablissementController.modificationEtabBoutonAnnuler}"/>
-						<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-							action="#{rechercheController.goToRechercheEtablissementStage}"
-							alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-							title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}" immediate="true"
-							rendered="#{!etablissementController.modificationEtabBoutonAnnuler}"/>
-					</h:panelGrid>
-				</h:form>
-			</t:div>
-		</rich:panel>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['STRUCTURE.MODIF']}" />
+            </f:facet>
+            <t:div rendered="#{empty etablissementController.formStructure}">
+                <h:outputText value="#{msgs['STRUCTURE.AUCUN']}" />
+            </t:div>
+            <t:div rendered="#{not empty etablissementController.formStructure}">
+                <h:form id="formModifEtab">
+                    <p:message for="formModifEtab"/>
+
+                    <t:div styleClass="block ml40">
+                        <ui:include src="/stylesheets/_commun/_etablissementForm.xhtml" />
+
+                        <t:div styleClass="textCenter mt10 mb20">
+                            <p:commandButton value="#{msgs['FORM.MODIFIER']}" update="@form"
+                                             action="#{etablissementController.modifierEtablissement}"/>
+                            <p:commandButton value="#{msgs['FORM.ANNULER']}" styleClass="ml40"
+                                             action="affichageRechercheEtablissement" immediate="true"
+                                             rendered="#{etablissementController.modificationEtabBoutonAnnuler}"/>
+                        </t:div>
+                    </t:div>
+                    <p:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
+                                     action="#{rechercheController.goToRechercheEtablissementStage}"
+                                     ajax="false" immediate="true"
+                                     rendered="#{!etablissementController.modificationEtabBoutonAnnuler}"/>
+                </h:form>
+            </t:div>
+        </p:panel>
+    </ui:define>
 </ui:composition>

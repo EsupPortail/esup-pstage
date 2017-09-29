@@ -1,0 +1,131 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<h:form style="padding-top:15px; padding-bottom:20px;">
+		<t:fieldset id="indicateursStats">
+			<legend>
+				<h:outputText styleClass="fz16" value="#{statistiquesConventionController.message}" />
+				<h:outputText styleClass="fz16" value=" pour l'année universitaire "
+					rendered="#{not empty statistiquesConventionController.critereUnLib
+								|| not empty statistiquesConventionController.critereDeuxLib}" />
+				<h:outputText styleClass="fz16"
+					value="#{statistiquesConventionController.annee_scolaire}"
+					rendered="#{not empty statistiquesConventionController.critereUnLib
+								|| not empty statistiquesConventionController.critereDeuxLib}" />
+            </legend>
+
+			<t:div>
+				<t:div styleClass="textCenter">
+					<p:commandButton
+						value="#{msgs['CONVENTION.STATS.INFO.ENREGISTRER']}"
+						action="#{statistiquesConventionController.edition}"
+                        icon="fa fa-file-excel-o" style="margin:10px;" ajax="false" />
+                </t:div>
+
+				<c:set var="map" value="#{statistiquesConventionController.map}" />
+				<c:choose>
+					<c:when
+						test="#{empty statistiquesConventionController.critereUnLib and empty statistiquesConventionController.critereDeuxLib}">
+						<c:set var="liste" value="#{map['all']}" />
+					</c:when>
+					<c:otherwise>
+						<c:set var="liste"
+							value="#{map[statistiquesConventionController.annee_scolaire]}" />
+					</c:otherwise>
+				</c:choose>
+
+				<c:set var="total" value="0" />
+				<c:set var="libPrec" value="" />
+				<c:set var="sousTotal" value="0" />
+				<c:set var="pourcent" value="0" />
+
+				<c:forEach var="statsItem" items="#{liste}">
+					<c:set var="total" value="#{total+statsItem.number}" />
+				</c:forEach>
+
+				<table style="margin: auto;" cellspacing="10">
+					<tr style="font-size: 14px; font-weight: bold; text-align: center;">
+						<td><h:outputText
+								value="#{statistiquesConventionController.critereUnLib}" /></td>
+						<td><h:outputText
+								value="#{statistiquesConventionController.critereDeuxLib}" /></td>
+						<td><h:outputText value="#{msgs['CVT.NBRE.STAGES.LIB']}" />
+						</td>
+						<td><h:outputText value="#{msgs['CVT.POURCENT.TOTAL.LIB']}" />
+						</td>
+					</tr>
+					<tr style="height: 10px;">
+					</tr>
+
+					<c:forEach var="list" items="#{liste}">
+						<c:if
+							test="#{list.libPriorCriteria ne libPrec and (!empty libPrec)}">
+							<tr style="text-align: center;">
+								<td><h:outputText value="#{libPrec}" styleClass="fontBold" /></td>
+								<td><h:outputText value="sous-total" styleClass="fontBold"/></td>
+								<td><h:outputText value="#{sousTotal}" styleClass="fontBold" /></td>
+								<td><h:outputText value="#{pourcent} %" styleClass="fontBold" /></td>
+							</tr>
+							<tr style="height: 10px;">
+							</tr>
+							<c:set var="sousTotal" value="0" />
+							<c:set var="pourcent" value="0" />
+						</c:if>
+
+						<tr style="text-align: center;">
+							<td><h:outputText value="#{list.libPriorCriteria}" /></td>
+							<td><h:outputText value="#{list.lib}" /></td>
+							<td><h:outputText value="#{list.number}" /></td>
+							<td><h:outputText value="#{list.percentage} %" /></td>
+						</tr>
+
+						<c:set var="libPrec" value="#{list.libPriorCriteria}" />
+						<c:set var="sousTotal" value="#{sousTotal+list.number}" />
+						<c:set var="pourcent" value="#{pourcent+list.percentage}" />
+
+					</c:forEach>
+
+					<tr style="text-align: center;">
+						<td><h:outputText value="#{libPrec}" styleClass="fontBold" /></td>
+						<td><h:outputText value="sous-total" styleClass="fontBold" /></td>
+						<td><h:outputText value="#{sousTotal}" styleClass="fontBold" /></td>
+						<td><h:outputText value="#{pourcent} %" styleClass="fontBold" /></td>
+					</tr>
+
+					<tr style="height: 20px;">
+					</tr>
+
+					<tr style="text-align: center;">
+						<td><h:outputText value="#{statistiquesConventionController.critereUnLib}" styleClass="fontBold" /></td>
+						<td><h:outputText value="Total" styleClass="fontBold" /></td>
+						<td><h:outputText value="#{total}" styleClass="fontBold" /></td>
+						<td><h:outputText value="100 %" styleClass="fontBold" /></td>
+					</tr>
+				</table>
+
+				<t:htmlTag value="div" style="height:20px;" />
+
+				<t:div styleClass="textCenter">
+					<p:commandButton id="idLienEnregisterFormatExcel"
+						value="#{msgs['CONVENTION.STATS.INFO.ENREGISTRER']}"
+						action="#{statistiquesConventionController.edition}"
+						icon="fa fa-file-excel-o" ajax="false" />
+				</t:div>
+
+				<t:htmlTag value="div" style="height:25px;" />
+				<p:commandButton update="divConsultation"
+					value="#{msgs['GENERAL.RETOUR']}" immediate="true">
+					<f:setPropertyActionListener value="_consultationCentre_stats"
+						target="#{sessionController.consultationCentreCurrentPage}" />
+				</p:commandButton>
+
+				<t:htmlTag value="div" style="height:5px;" />
+			</t:div>
+		</t:fieldset>
+	</h:form>
+</ui:composition>

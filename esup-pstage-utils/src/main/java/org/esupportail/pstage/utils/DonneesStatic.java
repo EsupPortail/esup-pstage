@@ -53,6 +53,11 @@ public class DonneesStatic {
 	 * valeur pour les droits en lecture
 	 */
 	public static final String LIBELLE_DROIT_LECTURE = "LECTURE";
+
+	/**
+	 * valeur pour les droits en écriture avant validation pédagogique
+	 */
+	public static final String LIBELLE_DROIT_ECRITURE_AVANT_VALP = "ECRITURE_AVANT_VALP";
 	
 	/**
 	 * valeur de la civilite Monsieur dans le ldap
@@ -151,14 +156,14 @@ public class DonneesStatic {
 	 * FIN Contrôles Données Apogée
 	 */
 	/**
-	 * valeur du code (stage obligatoire) pour les controles de la table typeConvention.
+	 * valeur du code pour les conventions en formation initiale pour les controles de la table typeConvention.
 	 */
-	public static final String TYPE_CONVENTION_CODE_CTRL_OBLIG = "OBLIG";
+	public static final String TYPE_CONVENTION_CODE_CTRL_FI = "FI";
 	
 	/**
-	 * valeur du code (stage conseille) pour les controles de la table typeConvention.
+	 * valeur du code pour les conventions en formation continue pour les controles de la table typeConvention.
 	 */
-	public static final String TYPE_CONVENTION_CODE_CTRL_CONS = "CONS";
+	public static final String TYPE_CONVENTION_CODE_CTRL_FC = "FC";
 	/*
 	 * Codes controles des données TempsTravail
 	 */

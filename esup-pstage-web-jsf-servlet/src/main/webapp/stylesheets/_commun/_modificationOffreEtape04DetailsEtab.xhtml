@@ -1,63 +1,68 @@
 <ui:fragment xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="3"
-		rendered="#{offreController.currentOffre.idOffre gt 0}"
-		style="float:right;">
-		<h:outputLabel for="idOffre" value="#{msgs['OFFRE']} " />
-		<h:outputLabel for="idOffre" value=" #{msgs['OFFRE.ID']}" />
-		<h:outputText id="idOffre" value="#{offreController.currentOffre.idOffre}" />
-	</h:panelGrid>
-	<t:div rendered="#{not empty offreController.currentOffre.structure}"
-		style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
-		<t:aliasBean alias="#{structure}"
-			value="#{offreController.currentOffre.structure}">
-			<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
-		</t:aliasBean>
-		<h:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
-			action="#{offreController.goToModificationOffreModifEtab}"
-			alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
-			rendered="#{not empty offreController.currentOffre.structure}">
-			<f:setPropertyActionListener
-				value="#{offreController.currentOffre.structure}"
-				target="#{etablissementController.formStructure}" />
-		</h:commandButton>
-		<h:panelGrid id="formAffEtab" align="center">
-			<rich:message for="formAffEtab">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-			<t:htmlTag value="div" style="height:10px;"/>
-		</h:panelGrid>
-		<h:panelGrid columns="2">
-			<h:column>
-				<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
-					alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-					immediate="true"
-					rendered="#{offreController.typeAjoutModifOffre gt 2}"
-					render="formModificationOffre">
-					<f:setPropertyActionListener value="_modificationOffreEtape01Centre"
-						target="#{sessionController.modificationEtabOffreCurrentPage}" />
-					<f:setPropertyActionListener value="_modificationOffreEtape01Centre"
-						target="#{sessionController.modificationOffreCurrentPage}" />
-					<f:setPropertyActionListener value="_modificationOffreEtape01Centre"
-						target="#{sessionController.modificationOffre3CurrentPage}" />
-					<f:setPropertyActionListener value="_modificationOffreEtape01Centre"
-						target="#{sessionController.modificationOffre3CCurrentPage}" />
-				</a4j:commandButton>
-				<t:htmlTag value="div" style="width:20px;"
-					rendered="#{offreController.typeAjoutModifOffre gt 2}" />
-			</h:column>
-			<h:column>
-				<a4j:commandButton id="continuer" value="#{msgs['FORM.NEXT']}"
-					action="#{offreController.goToModificationOffreEtape1}"
-					render="formModificationOffre"
-					alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}" />
-			</h:column>
-		</h:panelGrid>
-	</t:div>
+    <t:div rendered="#{offreController.currentOffre.idOffre gt 0}"
+           styleClass="floatRight">
+        <h:outputLabel value="#{msgs['OFFRE']} " for="idOffre" styleClass="fontBold" />
+        <h:outputLabel value=" #{msgs['OFFRE.ID']}" for="idOffre" styleClass="fontBold" />
+        <h:outputText id="idOffre" value="#{offreController.currentOffre.idOffre}" />
+    </t:div>
+
+    <t:div rendered="#{not empty offreController.currentOffre.structure}">
+        <t:aliasBean alias="#{structure}"
+                     value="#{offreController.currentOffre.structure}">
+            <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
+            <h:outputText value="#{msgs['STRUCTURE.INFOS']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
+
+            <ui:include src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
+        </t:aliasBean>
+
+        <t:div styleClass="mt5 ml25 fz09">
+            <p:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']} ces informations"
+                             action="#{offreController.goToModificationOffreModifEtab}"
+                             update="formModificationOffre"
+                             rendered="#{not empty offreController.currentOffre.structure}">
+                <f:setPropertyActionListener
+                        value="#{offreController.currentOffre.structure}"
+                        target="#{etablissementController.formStructure}" />
+            </p:commandButton>
+        </t:div>
+        <t:div id="formAffEtab" styleClass="textCenter mb10">
+            <p:message for="formAffEtab" />
+        </t:div>
+
+        <!--<t:div styleClass="textCenter">-->
+            <!--<p:commandButton value="#{msgs['FORM.ENREGISTRER']} les modifications"-->
+                             <!--update="formModificationOffre"-->
+                             <!--action="#{offreController.modificationOffre}" />-->
+        <!--</t:div>-->
+
+        <!--<h:panelGrid columns="2">-->
+        <!--<h:column>-->
+        <!--<p:commandButton value="#{msgs['FORM.PREVIOUS']}"-->
+        <!--immediate="true"-->
+        <!--update="formModificationOffre">-->
+        <!--<f:setPropertyActionListener value="_modificationOffreEtape01Centre"-->
+        <!--target="#{sessionController.modificationEtabOffreCurrentPage}" />-->
+        <!--<f:setPropertyActionListener value="_modificationOffreEtape01Centre"-->
+        <!--target="#{sessionController.modificationOffreCurrentPage}" />-->
+        <!--<f:setPropertyActionListener value="_modificationOffreEtape01Centre"-->
+        <!--target="#{sessionController.modificationOffre3CurrentPage}" />-->
+        <!--<f:setPropertyActionListener value="_modificationOffreEtape01Centre"-->
+        <!--target="#{sessionController.modificationOffre3CCurrentPage}" />-->
+        <!--</p:commandButton>-->
+        <!--<t:htmlTag value="div" style="width:20px;"-->
+        <!--</h:column>-->
+        <!--<h:column>-->
+        <!--<p:commandButton id="continuer" value="#{msgs['FORM.NEXT']}"-->
+        <!--action="#{offreController.goToModificationOffreEtape1}"-->
+        <!--update="formModificationOffre"-->
+        <!--alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}" />-->
+        <!--</h:column>-->
+        <!--</h:panelGrid>-->
+    </t:div>
 </ui:fragment>

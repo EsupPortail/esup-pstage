@@ -25,8 +25,7 @@ public class DefaultCvtStatsBuilder extends AbstractStatsBuilder implements Init
 		preparedStats.put(Configuration.getString("convention.service.pays"), "getTotalConventionsParPaysDuService");	
 		preparedStats.put(Configuration.getString("convention.thematique"), " ");//FIXME  methode a implementer dans remoteServic
 		preparedStats.put(Configuration.getString("convention.default"), "getTotalConventions");
-		
-		// TODO Auto-generated method stub
+
 		return preparedStats;
 	}
 	@Override

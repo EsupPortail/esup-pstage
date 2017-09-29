@@ -1,28 +1,11 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
 	template="_stageTemplate.xhtml">
-	<ui:define name="navigationHeader">
-		<t:div styleClass="app-pagebar">
-			<h:form id="navigationHeader" styleClass="app-form">
-				<ui:include src="stage/_navigation.xhtml" />
-			</h:form>
-		</t:div>
+
+	<ui:define name="sidebar">
+		<ui:include src="_sidebar.xhtml"/>
 	</ui:define>
-	<ui:define name="navigationFooter">
-		<t:div styleClass="fl-container-flex">
-			<h:form id="navigationFooter" styleClass="app-form">
-				<ui:include src="stage/_navigation.xhtml" />
-			</h:form>
-		</t:div>
+	<ui:define name="topbar">
+		<ui:include src="_topbar.xhtml"/>
 	</ui:define>
-	<ui:define name="header">
-		<t:div id="header" styleClass="app-header fl-container-auto">
-			<ui:include src="stage/_header.xhtml" />
-		</t:div>
-	</ui:define>
-	<ui:define name="menuDynamique">
-		<ui:include src="stage/_menuDynamiqueStage.xhtml" />
-	</ui:define>
+
 </ui:composition>

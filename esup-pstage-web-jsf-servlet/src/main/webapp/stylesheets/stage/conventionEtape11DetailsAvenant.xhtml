@@ -1,26 +1,105 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="../_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<rich:panel
-			rendered="#{conventionController.convention != null and avenantController.avenant != null}">
-			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CONVENTION.ETAPE11.DETAIL']} #{avenantController.avenant.idAvenant}" />
-			</f:facet>
-			<h:form id="formDetailsAvenant">
-				<ui:include
-					src="/stylesheets/stage/_conventionEtape11DetailsAvenant.xhtml" />
-			</h:form>
-		</rich:panel>
-		<t:div
-			rendered="#{conventionController.convention == null || avenantController.avenant == null}">
-			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />
-		</t:div>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel rendered="#{conventionController.convention != null and avenantController.avenant != null}">
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention} #{conventionController.convention.etudiant.nom} #{conventionController.convention.etudiant.prenom}" />
+            </f:facet>
+            <h:form id="formDetailsAvenant"
+                    rendered="#{conventionController.convention != null}">
+                <ui:include src="_roadmapSel.xhtml" />
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20 block">
+                        <t:div style="float:right;"
+                               rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+                            <t:aliasBean alias="#{objet}" value="#{avenantController.avenant}">
+                                <ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
+                            </t:aliasBean>
+                        </t:div>
+
+                        <ui:include src="_detailsAvenant.xhtml" />
+
+                        <t:div styleClass="textCenter"
+                               rendered="#{!avenantController.avenant.validationAvenant and (welcomeController.superAdmin
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}">
+                            <p:commandButton id="modif"
+                                             action="#{avenantController.goToModifAvenantPage1}"
+                                             value="#{msgs['FORM.MODIFIER']}" />
+                            <p:commandButton id="valid" styleClass="ml40"
+                                             oncomplete="PF('validAvenant').show();"
+                                             value="#{msgs['FORM.VALIDER']}" />
+                        </t:div>
+
+                        <t:div styleClass="textCenter">
+                            <p:commandButton id="devalid"
+                                             value="#{msgs['FORM.DEVALIDER']}"
+                                             oncomplete="PF('devalidAvenant').show();"
+                                             rendered="#{avenantController.avenant.validationAvenant and (welcomeController.superAdmin
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}" />
+                        </t:div>
+
+                        <t:div styleClass="mt10"
+                               rendered="#{welcomeController.etudiant}">
+                            <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE11.IMPRESSION']}"
+                                          styleClass="fontBold fontBlue2"
+                                          rendered="#{!conventionController.cgUrlInstruction}" />
+
+                            <t:htmlTag value="div" style="height: 10px;" />
+
+                            <h:outputText value="#{msgs['CONVENTION.IMPRESSION.URL']}"
+                                          styleClass="fontBold"
+                                          rendered="#{conventionController.cgUrlInstruction}">
+                                <h:outputLink target="_blank"
+                                              value="#{conventionController.convention.centreGestion.urlPageInstruction}">
+                                    <h:outputText id="urlPageInstruction"
+                                                  value="#{conventionController.convention.centreGestion.urlPageInstruction}" />
+                                </h:outputLink>
+                            </h:outputText>
+                        </t:div>
+                        <t:div styleClass="textCenter mt20"
+                               rendered="#{welcomeController.superAdmin
+                            || (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                            || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+                            || (welcomeController.etudiant and avenantController.avenant.validationAvenant))}">
+                            <p:commandButton id="print"
+                                             value="#{msgs['CONVENTION.ETAPE11.IMPRIMER']}"
+                                             action="#{avenantController.editPdfAvenant}"
+                                             icon="fa fa-print fz13"
+                                             rendered="#{conventionController.convention.codeLangueConvention == 'fr'}"/>
+
+                            <t:div rendered="#{conventionController.convention.codeLangueConvention != 'fr'}">
+                                <p:commandButton id="printFr"
+                                                 value="#{msgs['CONVENTION.ETAPE11.IMPRIMER_FR']}"
+                                                 action="#{avenantController.editPdfAvenantFr}"
+                                                 icon="fa fa-print" />
+
+                                <p:commandButton id="printAutre" styleClass="ml40"
+                                                 value="#{msgs['CONVENTION.ETAPE11.IMPRIMER_AUTRE']} #{conventionController.convention.langueConvention.libelle}"
+                                                 action="#{avenantController.editPdfAvenant}"
+                                                 icon="fa fa-print" />
+                            </t:div>
+                        </t:div>
+
+                        <t:htmlTag value="div" style="height: 10px;" />
+
+                        <p:commandButton id="retour" styleClass="mt10 mb10"
+                                         value="#{msgs['GENERAL.RETOUR']}" immediate="true"
+                                         action="#{avenantController.goToListeAvenant}"/>
+                    </t:div>
+                </t:fieldset>
+                <ui:include src="./_panel_validAvenant.xhtml" />
+                <ui:include src="./_panel_devalidAvenant.xhtml" />
+            </h:form>
+        </p:panel>
+        <t:div rendered="#{conventionController.convention == null || avenantController.avenant == null}">
+            <ui:include src="./_redirection_accesDirectImpossible.xhtml" />
+        </t:div>
+    </ui:define>
 </ui:composition>

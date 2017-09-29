@@ -1,52 +1,43 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j" template="../_basicTemplate.xhtml">
-	<ui:define name="content">
-		<h:panelGrid style="float:left;">
-			<ui:include src="./_menu.xhtml" />
-		</h:panelGrid>
-		<t:div rendered="#{sessionController.adminPageAuthorized}">
-			<h:panelGrid columns="1" styleClass="panelEntreprise">
-				<rich:panel>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['STRUCTURE.MODIF']}" />
-					</f:facet>
-					<t:div rendered="#{empty etablissementController.formStructure}">
-						<h:outputText value="#{msgs['STRUCTURE.AUCUN']}" />
-					</t:div>
-					<t:div
-						rendered="#{not empty etablissementController.formStructure}">
-						<h:form id="formModifEtab">
-							<rich:message for="formModifEtab">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
-							<ui:include src="../_commun/_etablissementForm.xhtml" />
-							<h:panelGrid columns="3">
-								<h:commandButton value="#{msgs['FORM.MODIFIER']}"
-									action="#{etablissementController.modifierEtablissement}" />
-								<t:htmlTag value="div" style="width:100px;" />
-								<h:commandButton value="#{msgs['FORM.ANNULER']}"
-									action="affichageRechercheEtablissement"
-									alt="#{msgs['FORM.ANNULER']}" title="#{msgs['FORM.ANNULER']}"
-									immediate="true"
-									rendered="#{etablissementController.modificationEtabBoutonAnnuler}" />
-								<h:commandButton
-									value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-									action="#{rechercheController.goToRechercheEtablissement}"
-									alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-									title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-									immediate="true"
-									rendered="#{!etablissementController.modificationEtabBoutonAnnuler}" />
-							</h:panelGrid>
-						</h:form>
-					</t:div>
-				</rich:panel>
-				<ui:include src="_panelNousContacter.xhtml" />
-			</h:panelGrid>
-		</t:div>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="../_basicTemplate.xhtml">
+    <ui:define name="content">
+        <t:div rendered="#{sessionController.adminPageAuthorized}" styleClass="block">
+            <p:panel>
+                <f:facet name="header">
+                    <h:outputText value="#{msgs['STRUCTURE.MODIF']}" />
+                </f:facet>
+                <t:div rendered="#{empty etablissementController.formStructure}">
+                    <h:outputText value="#{msgs['STRUCTURE.AUCUN']}" />
+                </t:div>
+                <t:div rendered="#{not empty etablissementController.formStructure}">
+                    <h:form id="formModifEtab">
+                        <p:message for="formModifEtab" />
+
+                        <t:div styleClass="block ml20">
+                            <ui:include src="/stylesheets/_commun/_etablissementForm.xhtml" />
+
+                            <t:div styleClass="mt20 mb20 textCenter">
+                                <p:commandButton value="#{msgs['FORM.MODIFIER']}" update="@form"
+                                                 action="#{etablissementController.modifierEtablissement}" />
+                            </t:div>
+                            <p:commandButton value="#{msgs['FORM.ANNULER']}"
+                                             action="affichageRechercheEtablissement"
+                                             immediate="true" ajax="false" styleClass="ml40"
+                                             rendered="#{etablissementController.modificationEtabBoutonAnnuler}" />
+                        </t:div>
+                        <p:commandButton ajax="false"
+                                         value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
+                                         action="#{rechercheController.goToRechercheEtablissement}"
+                                         immediate="true"
+                                         rendered="#{!etablissementController.modificationEtabBoutonAnnuler}" />
+                    </h:form>
+                </t:div>
+            </p:panel>
+        </t:div>
+    </ui:define>
 </ui:composition>
 

@@ -5,11 +5,11 @@
 package org.esupportail.pstage.web.controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import javax.faces.application.ConfigurableNavigationHandler;
+import javax.faces.application.NavigationCase;
+import javax.faces.application.NavigationHandler;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.mail.internet.AddressException;
@@ -17,6 +17,7 @@ import javax.mail.internet.InternetAddress;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.apache.myfaces.config.element.NavigationRule;
 import org.esupportail.commons.utils.Assert;
 import org.esupportail.commons.utils.ContextUtils;
 import org.esupportail.commons.utils.strings.StringUtils;
@@ -50,7 +51,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	/**
 	 * Logger
 	 */
-	private final Logger logger = Logger.getLogger(this.getClass());
+	private final transient Logger logger = Logger.getLogger(this.getClass());
 	/**
 	 * The serialization id.
 	 */
@@ -62,7 +63,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	/**
 	 * The authenticator.
 	 */
-	private Authenticator authenticator;	
+	private transient Authenticator authenticator;
 	/**
 	 * true to print login/logout button in servlet mode.
 	 */
@@ -196,11 +197,11 @@ public class SessionController extends AbstractDomainAwareBean {
 	/**
 	 * Classe d'upload d'image avec redimensionnement
 	 */
-	private ImageUploadBean imageUploadBean;
+	private transient ImageUploadBean imageUploadBean;
 	/**
 	 * Classe d'upload de fichiers pour les offres
 	 */
-	private FileUploadBean offreFileUploadBean;
+	private transient FileUploadBean offreFileUploadBean;
 	/**
 	 * uploadFilesFileSizeLimit
 	 */
@@ -367,6 +368,11 @@ public class SessionController extends AbstractDomainAwareBean {
 	private boolean courrierRemerciement;
 
 	/**
+	 * Page actuellement (en ce moment) utilisé
+	 */
+	private String currentPage;
+
+	/**
 	 * Map contenant les droits d'acces aux fiches d'evaluation du personnel en fonction de l'id d'un centre
 	 */
 	private Map<Integer, Boolean> droitsEvaluationEtudiantMap = new HashMap<Integer,Boolean>();
@@ -384,7 +390,20 @@ public class SessionController extends AbstractDomainAwareBean {
 	private String smtpHost;
 	private String smtpUser;
 	private String smtpPassword;
-	
+
+	/**
+	 * Detection d'un etudiant FC connecté pour changer son affichage
+	 */
+	private boolean etudiantFC;
+
+	public boolean isEtudiantFC() {
+		return etudiantFC;
+	}
+
+	public void setEtudiantFC(boolean etudiantFC) {
+		this.etudiantFC = etudiantFC;
+	}
+
 	/* ***************************************************************
 	 * Variables de navigation
 	 ****************************************************************/
@@ -441,18 +460,6 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	private String modificationOffreCurrentPage = "_modificationOffreEtape1";
 	/**
-	 * MODIFICATION OFFRE 3 - PARTIE DEPOT
-	 */
-	private String modificationOffre3CurrentPage = "_modificationOffreEtape3";
-	/**
-	 * MODIFICATION OFFRE 3C - PARTIE DEPOT
-	 */
-	private String modificationOffre3CCurrentPage = "_modificationOffreEtape3Contacts";
-	/**
-	 * MODIFICATION ETABLISSEMENT OFFRE
-	 */
-	private String modificationEtabOffreCurrentPage = "_modificationOffreEtape04DetailsEtab";
-	/**
 	 * SUPPRESSION OFFRE
 	 */
 	private String suppressionOffreCurrentPage = "_supprOffreEtape1";
@@ -475,11 +482,11 @@ public class SessionController extends AbstractDomainAwareBean {
 	/**
 	 * AJOUT SERVICE
 	 */
-	private String ajoutServiceCurrentPage = "_ajoutServiceEtape1";
+	private String ajoutServiceCurrentPage = "_ajoutServiceEtape0";
 	/**
 	 * MODIF SERVICE
 	 */
-	private String modifServiceCurrentPage = "_modifServiceEtape1";
+	private String modifServiceCurrentPage = "_modifServiceEtape0";
 	/**
 	 * SUPPRESSION SERVICE
 	 */
@@ -487,11 +494,11 @@ public class SessionController extends AbstractDomainAwareBean {
 	/**
 	 * AJOUT CONTACT
 	 */
-	private String ajoutContactCurrentPage = "_ajoutContactEtape1";
+	private String ajoutContactCurrentPage = "_ajoutContactEtape0";
 	/**
 	 * MODIF CONTACT
 	 */
-	private String modifContactCurrentPage = "_modifContactEtape1";
+	private String modifContactCurrentPage = "_modifContactEtape0";
 	/**
 	 * SUPPRESSION CONTACT
 	 */
@@ -529,10 +536,6 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	private String validationStructureCurrentPage = "_validStructureEtape1";
 	/**
-	 * FICHE EVALUATION
-	 */
-	private String ficheEvaluationCurrentPage = "_conventionEtape13FicheEvaluation";
-	/**
 	 * EDITION QUESTION FICHE EVALUATION 
 	 */
 	private String editQuestionEvalCurrentPage = "_questionEval_editEtape1Ajout";
@@ -556,7 +559,15 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * PANEL RESET MDP CONTACT
 	 */
 	private String resetMdpContactCurrentPage = "_resetMdpContactEtape1";
-
+	/**
+	 * CONSULTATION D'UN CENTRE DE GESTION
+	 */
+	private String consultationCentreCurrentPage = "_consultationCentre_detail";
+	/**
+	 * CONFIGURATION DES TABLES DE NOMENCLATURE
+	 */
+	private String nomenclatureCurrentPage = "_include_modeValidationStage";
+	
 	/**
 	 * Constructor.
 	 */
@@ -599,7 +610,7 @@ public class SessionController extends AbstractDomainAwareBean {
 				this.mailingListEntrIA = new InternetAddress(this.mailingListEntr);
 				this.mailingListEntrIA.validate();
 			} catch (AddressException e) {
-				e.printStackTrace();
+				logger.error(e);
 				Assert.isTrue(false, "with property mailingListEntr = "+this.mailingListEntr);
 			}
 		}
@@ -611,7 +622,7 @@ public class SessionController extends AbstractDomainAwareBean {
 				this.mailingListPStageIA = new InternetAddress(this.mailingListPStage);
 				this.mailingListPStageIA.validate();
 			} catch (AddressException e) {
-				e.printStackTrace();
+				logger.error(e);
 				Assert.isTrue(false, "with property mailingListPStage = "+this.mailingListPStage);
 			}
 		}
@@ -622,7 +633,7 @@ public class SessionController extends AbstractDomainAwareBean {
 					+ this.getClass().getName() + " can not be null : "+superAdmin);
 		}
 		if(org.springframework.util.StringUtils.hasText(adminAuthentication)){
-			if(!adminAuthentication.equals("cas") && !adminAuthentication.equals("shibb")){
+			if(!"cas".equals(adminAuthentication) && !"shibb".equals(adminAuthentication)){
 				Assert.isTrue(false, "property adminAuthentication must be 'cas' or 'shibb'");
 			}
 		}
@@ -633,15 +644,15 @@ public class SessionController extends AbstractDomainAwareBean {
 				+ this.getClass().getName() + " can not be null");
 		if(Utils.isNumber(uploadFilesFileSizeLimit)){
 			int i = Utils.convertStringToInt(this.uploadFilesFileSizeLimit);
-			if((""+i).length()<=3 && (""+i).length()>1){
+			if((Integer.toString(i)).length()<=3 && (Integer.toString(i)).length()>1){
 				this.uploadFilesFileSizeLimit=i+"o";
 			}
 			i = i /1024;
-			if((""+i).length()<=3 && (""+i).length()>1){
+			if((Integer.toString(i)).length()<=3 && (Integer.toString(i)).length()>1){
 				this.uploadFilesFileSizeLimit=i+"ko";
 			}
 			i = i /1024;
-			if((""+i).length()<=3 && (""+i).length()>1){
+			if((Integer.toString(i)).length()<=3 && (Integer.toString(i)).length()>1){
 				this.uploadFilesFileSizeLimit=i+"mo";
 			}
 		}
@@ -651,20 +662,20 @@ public class SessionController extends AbstractDomainAwareBean {
 		this.imageUploadBean=new ImageUploadBean(this.uploadFilesLogosCentrePath);
 		Assert.notNull(this.uploadImagesFileSizeLimit, "property uploadImagesFileSizeLimit of class " 
 				+ this.getClass().getName() + " can not be null");
-		if(Utils.isNumber(uploadImagesFileSizeLimit)){
-			int i = Utils.convertStringToInt(this.uploadImagesFileSizeLimit);
-			if((""+i).length()<=3 && (""+i).length()>1){
-				this.uploadImagesFileSizeLimit=i+"o";
-			}
-			i = i /1024;
-			if((""+i).length()<=3 && (""+i).length()>1){
-				this.uploadImagesFileSizeLimit=i+"ko";
-			}
-			i = i /1000;
-			if((""+i).length()<=3 && (""+i).length()>1){
-				this.uploadImagesFileSizeLimit=i+"mo";
-			}
-		}
+//		if(Utils.isNumber(uploadImagesFileSizeLimit)){
+//			int i = Utils.convertStringToInt(this.uploadImagesFileSizeLimit);
+//			if((""+i).length()<=3 && (""+i).length()>1){
+//				this.uploadImagesFileSizeLimit=i+"o";
+//			}
+//			i = i /1024;
+//			if((""+i).length()<=3 && (""+i).length()>1){
+//				this.uploadImagesFileSizeLimit=i+"ko";
+//			}
+//			i = i /1000;
+//			if((""+i).length()<=3 && (""+i).length()>1){
+//				this.uploadImagesFileSizeLimit=i+"mo";
+//			}
+//		}
 
 		Assert.notNull(this.uploadFilesOffresFileExtensions, "property uploadFilesOffresFileExtensions of class " 
 				+ this.getClass().getName() + " can not be null");
@@ -700,6 +711,36 @@ public class SessionController extends AbstractDomainAwareBean {
 		}
 
 		return getIsServlet()&& getCurrentUser() != null; 
+	}
+
+	public void resetCurrentPage() {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		if(ctx != null && ctx.getViewRoot() != null) {
+			String currentURI = ctx.getViewRoot().getViewId();
+			if(currentURI.toLowerCase().contains("convention")) {
+				setCurrentPage("Convention");
+			} else if(currentURI.toLowerCase().contains("welcome.xhtml")) {
+				setCurrentPage("Home");
+			}
+//			System.out.println(currentURI);
+//			NavigationHandler a = ctx.getApplication().getNavigationHandler();
+//			Map<String, Set<NavigationCase>> b = ((ConfigurableNavigationHandler)a).getNavigationCases();
+//			Iterator<Set<NavigationCase>> i = b.values().iterator();
+//			while(i.hasNext()) {
+//				Iterator<NavigationCase> k = i.next().iterator();
+//				while(k.hasNext()) {
+//					NavigationCase n = k.next();
+//				}
+//			}
+		}
+	}
+
+	public boolean isCurrentPageHome() {
+		return "Home".equals(getCurrentPage()) || getCurrentPage() == null || getCurrentPage().isEmpty();
+	}
+
+	public boolean isCurrentPageConvention() {
+		return "Convention".equals(getCurrentPage());
 	}
 
 	/**
@@ -1959,21 +2000,6 @@ public class SessionController extends AbstractDomainAwareBean {
 	}
 
 	/**
-	 * @return the modificationEtabOffreCurrentPage
-	 */
-	public String getModificationEtabOffreCurrentPage() {
-		return modificationEtabOffreCurrentPage;
-	}
-
-	/**
-	 * @param modificationEtabOffreCurrentPage the modificationEtabOffreCurrentPage to set
-	 */
-	public void setModificationEtabOffreCurrentPage(
-			String modificationEtabOffreCurrentPage) {
-		this.modificationEtabOffreCurrentPage = modificationEtabOffreCurrentPage;
-	}
-
-	/**
 	 * @return the modifMdpCurrentPage
 	 */
 	public String getModifMdpCurrentPage() {
@@ -1985,36 +2011,6 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	public void setModifMdpCurrentPage(String modifMdpCurrentPage) {
 		this.modifMdpCurrentPage = modifMdpCurrentPage;
-	}
-
-	/**
-	 * @return the modificationOffre3CurrentPage
-	 */
-	public String getModificationOffre3CurrentPage() {
-		return modificationOffre3CurrentPage;
-	}
-
-	/**
-	 * @param modificationOffre3CurrentPage the modificationOffre3CurrentPage to set
-	 */
-	public void setModificationOffre3CurrentPage(
-			String modificationOffre3CurrentPage) {
-		this.modificationOffre3CurrentPage = modificationOffre3CurrentPage;
-	}
-
-	/**
-	 * @return the modificationOffre3CCurrentPage
-	 */
-	public String getModificationOffre3CCurrentPage() {
-		return modificationOffre3CCurrentPage;
-	}
-
-	/**
-	 * @param modificationOffre3CCurrentPage the modificationOffre3CCurrentPage to set
-	 */
-	public void setModificationOffre3CCurrentPage(
-			String modificationOffre3CCurrentPage) {
-		this.modificationOffre3CCurrentPage = modificationOffre3CCurrentPage;
 	}
 
 	/**
@@ -2354,20 +2350,6 @@ public class SessionController extends AbstractDomainAwareBean {
 	}
 
 	/**
-	 * @return the ficheEvaluationCurrentPage
-	 */
-	public String getFicheEvaluationCurrentPage() {
-		return ficheEvaluationCurrentPage;
-	}
-
-	/**
-	 * @param ficheEvaluationCurrentPage the ficheEvaluationCurrentPage to set
-	 */
-	public void setFicheEvaluationCurrentPage(String ficheEvaluationCurrentPage) {
-		this.ficheEvaluationCurrentPage = ficheEvaluationCurrentPage;
-	}
-
-	/**
 	 * @return the editQuestionEvalCurrentPage
 	 */
 	public String getEditQuestionEvalCurrentPage() {
@@ -2577,6 +2559,31 @@ public class SessionController extends AbstractDomainAwareBean {
 
 	public void setCurrentAuthEtudiant(EtudiantRef currentAuthEtudiant) {
 		this.currentAuthEtudiant = currentAuthEtudiant;
+	}
+
+	public String getConsultationCentreCurrentPage() {
+		return consultationCentreCurrentPage;
+	}
+
+	public void setConsultationCentreCurrentPage(
+			String consultationCentreCurrentPage) {
+		this.consultationCentreCurrentPage = consultationCentreCurrentPage;
+	}
+
+	public String getNomenclatureCurrentPage() {
+		return nomenclatureCurrentPage;
+	}
+
+	public void setNomenclatureCurrentPage(String nomenclatureCurrentPage) {
+		this.nomenclatureCurrentPage = nomenclatureCurrentPage;
+	}
+
+	public String getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(String currentPage) {
+		this.currentPage = currentPage;
 	}
 
 }

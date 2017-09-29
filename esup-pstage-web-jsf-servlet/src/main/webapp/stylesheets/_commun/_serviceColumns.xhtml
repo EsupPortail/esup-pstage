@@ -1,68 +1,55 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
-
-	<f:facet name="header">
-		<rich:columnGroup>
-			<rich:column>
-				<h:outputText value="#{msgs['SERVICE.NOM']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText value="#{msgs['STRUCTURE.VOIE']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText value="#{msgs['STRUCTURE.COMMUNE']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText value="#{msgs['STRUCTURE.PAYS']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText value="#{msgs['STRUCTURE.TELEPHONE']}" />
-			</rich:column>
-			<rich:column
-				rendered="#{sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
-		welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-				<h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
-			</rich:column>
-		</rich:columnGroup>
-	</f:facet>
-	<rich:column>
-		<h:outputText value="#{etablissementController.serviceSel.nom}" />
-	</rich:column>
-	<rich:column>
-		<h:outputText
-			value="#{etablissementController.serviceSel.batimentResidence}" />
-	</rich:column>
-	<rich:column>
-		<h:outputText value="#{etablissementController.serviceSel.voie}" />
-	</rich:column>
-	<rich:column>
-		<h:outputText value="#{etablissementController.serviceSel.codePostal}" />
-	</rich:column>
-	<rich:column>
-		<h:outputText value="#{etablissementController.serviceSel.commune}" />
-	</rich:column>
-	<rich:column>
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" style="font-size:12px;"
-			rendered="#{not empty etablissementController.serviceSel.pays}">
-			<h:graphicImage
-				value="../../media/images/flags/#{etablissementController.serviceSel.pays.iso2}.png"
-				alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-				title="#{etablissementController.serviceSel.pays.libelle}" />
-			<h:outputText value="#{etablissementController.serviceSel.pays.libelle}" />
-		</h:panelGrid>
-	</rich:column>
-	<rich:column>
-		<h:outputText value="#{etablissementController.serviceSel.telephone}" />
-	</rich:column>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    <p:column>
+        <f:facet name="header">
+            <h:outputText value="#{msgs['SERVICE.NOM']}" />
+        </f:facet>
+        <h:outputText value="#{etablissementController.serviceSel.nom}" />
+    </p:column>
+    <p:column>
+        <f:facet name="header">
+            <h:outputText value="#{msgs['STRUCTURE.VOIE']}" />
+        </f:facet>
+        <h:outputText value="#{etablissementController.serviceSel.voie}" />
+    </p:column>
+    <p:column>
+        <f:facet name="header">
+            <h:outputText value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
+        </f:facet>
+        <h:outputText
+                value="#{etablissementController.serviceSel.batimentResidence}" />
+    </p:column>
+    <p:column styleClass="textCenter">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+        </f:facet>
+        <h:outputText value="#{etablissementController.serviceSel.codePostal}" />
+    </p:column>
+    <p:column>
+        <f:facet name="header">
+            <h:outputText value="#{msgs['STRUCTURE.COMMUNE']}" />
+        </f:facet>
+        <h:outputText value="#{etablissementController.serviceSel.commune}" />
+    </p:column>
+    <p:column style="white-space:nowrap;">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['STRUCTURE.PAYS']}" />
+        </f:facet>
+        <h:graphicImage id="flag"
+                        rendered="#{not empty etablissementController.serviceSel.pays}"
+                        value="/media/images/flags/#{etablissementController.serviceSel.pays.iso2}.png"
+                        alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+                        title="#{etablissementController.serviceSel.pays.libelle}" />
+        <h:outputText value="#{etablissementController.serviceSel.pays.libelle}" styleClass="mlf5" style="white-space:normal;" />
+    </p:column>
+    <p:column>
+        <f:facet name="header">
+            <h:outputText value="#{msgs['STRUCTURE.TELEPHONE']}" />
+        </f:facet>
+        <h:outputText value="#{etablissementController.serviceSel.telephone}" />
+    </p:column>
 </ui:composition>

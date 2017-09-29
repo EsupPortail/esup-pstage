@@ -1,0 +1,312 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:p="http://primefaces.org/ui">
+
+    <t:div id="SIDEBAR_CONTAINER">
+        <t:div id="SIDEBAR">
+            <t:div id="SIDEBAR_LOGO">
+                <p:graphicImage value="#{sessionController.mediaPath}/images/logoTablet.png" styleClass="tabletOnly"/>
+                <p:graphicImage value="#{sessionController.mediaPath}/images/logoPC.png" styleClass="PCOnly"/>
+            </t:div>
+            <h:form id="SIDEBAR_MENU">
+                <p:commandButton value="#{msgs['NAVIGATION.TEXT.WELCOME']}" action="#{welcomeController.goToAccueilStage}"
+                                 icon="fa fa-home" styleClass="#{sessionController.currentPageHome ? 'customPstage selected' : 'customPstage'}"/>
+                <p:commandButton value="#{msgs['MENUSTAGE.GESTIONCENTRE']}" action="#{centreController.goToListeCentre}"
+                                 rendered="#{sessionController.utilisationStage and (welcomeController.personnel || welcomeController.superAdmin)}"
+                                 icon="fa fa-gear" styleClass="#{false ? 'customPstage selected' : 'customPstage'}"/>
+                <!-- pc only -->
+                <p:panelMenu styleClass="customPstage PCOnly">
+                    <p:submenu label="#{msgs['MENUSTAGE.GESTIONCONVENTION']}"
+                               rendered="#{sessionController.utilisationStage and (welcomeController.personnel || welcomeController.superAdmin || welcomeController.enseignant)}">
+                        <p:menuitem value="#{msgs['MENUSTAGE.RECHCONVENTION']}"
+                                    action="#{conventionController.goToRechercheConvention}"
+                                    rendered="#{welcomeController.personnel || welcomeController.superAdmin }"
+                                    icon="fa fa-search" styleClass="#{sessionController.currentPageConvention ? 'selected' : ''}"/>
+                        <p:menuitem value="#{msgs['MENUSTAGE.CREERCONVENTION']}"
+                                    action="#{conventionController.goToCreerConvention}"
+                                    rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}"
+                                    icon="fa fa-plus" styleClass="#{sessionController.currentPageConvention ? 'selected' : ''}"/>
+                        <p:menuitem value="#{msgs['MENUSTAGE.VALIDERENMASSE']}"
+                                    action="#{conventionController.goToValiderEnMasse}"
+                                    rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}"
+                                    icon="fa fa-check" styleClass="#{sessionController.currentPageConvention ? 'selected' : ''}"/>
+                        <p:menuitem value="#{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}"
+                                    action="#{conventionController.goToRechercheConventionEnseignantTuteur}"
+                                    rendered="#{welcomeController.enseignantTuteur}"
+                                    onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                    icon="fa fa-list" styleClass="#{sessionController.currentPageConvention ? 'selected' : ''}"/>
+                    </p:submenu>
+                    <p:submenu label="#{msgs['MENUSTAGE.GESTIONCONVENTION']}"
+                               rendered="#{sessionController.utilisationStage and welcomeController.etudiant}">
+                        <p:menuitem value="#{msgs['MENUSTAGE.RECHCONVENTION.ETU']}"
+                                    action="#{conventionController.goToRechercheConventionEtu}" icon="fa fa-search"
+                                    onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                    styleClass="#{sessionController.currentPageConvention ? 'selected' : ''}"/>
+                        <p:menuitem value="#{msgs['MENUSTAGE.CREERCONVENTION']}"
+                                    action="#{conventionController.goToCreerConvention}" icon="fa fa-plus"
+                                    styleClass="#{sessionController.currentPageConvention ? 'selected' : ''}"/>
+                    </p:submenu>
+                    <p:submenu label="#{msgs['MENUSTAGE.GESTIONETAB']}">
+                        <p:menuitem value="#{msgs['MENUSTAGE.RECHETAB']}"
+                                    action="#{rechercheController.goToRechercheEtablissementStage}" icon="fa fa-search"
+                                    styleClass="#{false ? 'selected' : ''}">
+                            <f:setPropertyActionListener value="#{2}" target="#{rechercheController.ongletCourant}"/>
+                            <f:setPropertyActionListener value="#{null}"
+                                                         target="#{sessionController.currentManageStructure}"/>
+                            <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
+                            <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
+                        </p:menuitem>
+                        <p:menuitem value="#{msgs['MENUSTAGE.RECHETAB.AVERIFIER']}"
+                                    action="#{rechercheController.goToEtablissementsAVerifier}"
+                                    rendered="#{sessionController.moderationStructures and (welcomeController.superAdmin || welcomeController.writer || welcomeController.admin)}"
+                                    icon="fa fa-check" styleClass="#{false ? 'selected' : ''}"
+                                    onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
+                            <f:setPropertyActionListener value="#{2}" target="#{rechercheController.ongletCourant}"/>
+                            <f:setPropertyActionListener value="#{null}" target="#{sessionController.currentManageStructure}"/>
+                            <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
+                            <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
+                        </p:menuitem>
+                        <p:menuitem value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET8']}"
+                                    action="#{rechercheController.rechercheTemoinFalse}"
+                                    rendered="#{welcomeController.superAdmin}"
+                                    icon="fa fa-times" onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
+                            <f:setPropertyActionListener value="#{null}" target="#{sessionController.currentManageStructure}"/>
+                            <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
+                            <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
+                        </p:menuitem>
+                    </p:submenu>
+                    <p:submenu label="#{msgs['MENUSTAGE.GESTIONOFFRE']}"
+                               rendered="#{sessionController.utilisationEntreprise}">
+                        <p:menuitem value="#{msgs['MENUSTAGE.RECHOFFRE']}"
+                                    action="#{offreController.goToRechercheOffreStage}" icon="fa fa-search"
+                                    styleClass="#{false ? 'selected' : ''}">
+                            <f:setPropertyActionListener value="#{null}"
+                                                         target="#{sessionController.currentManageStructure}"/>
+                            <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
+                            <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
+                        </p:menuitem>
+                        <p:menuitem value="#{msgs['MENUSTAGE.AJOUTOFFRE']}"
+                                    action="#{offreController.goToCreationOffreSelectionCentre}"
+                                    rendered="#{!welcomeController.etudiant and (welcomeController.superAdmin || welcomeController.writer || welcomeController.admin)}"
+                                    icon="fa fa-plus" styleClass="#{false ? 'selected' : ''}">
+                            <f:setPropertyActionListener value="#{null}"
+                                                         target="#{sessionController.currentManageStructure}"/>
+                            <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
+                            <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
+                            <f:setPropertyActionListener value="#{2}" target="#{rechercheController.ongletCourant}"/>
+                        </p:menuitem>
+                        <p:menuitem value="#{msgs['MENU.OFFRESADIFFUSER']}(#{offreController.offreADiffuser})"
+                                    action="#{offreController.goToOffreADiffuser}"
+                                    rendered="#{!welcomeController.etudiant and sessionController.moderationActive and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}"
+                                    icon="fa fa-check" styleClass="#{false ? 'selected' : ''}">
+                            <f:setPropertyActionListener value="#{null}"
+                                                         target="#{sessionController.currentManageStructure}"/>
+                            <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
+                            <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
+                            <f:setPropertyActionListener value="#{2}" target="#{rechercheController.ongletCourant}"/>
+                        </p:menuitem>
+                    </p:submenu>
+                    <p:submenu label="#{msgs['MENUSTAGE.EVALUATION']}" rendered="#{sessionController.utilisationStage
+				    and (welcomeController.superAdmin
+						|| not empty sessionController.droitsEvaluationEtudiantMap
+						|| not empty sessionController.droitsEvaluationEnseignantMap
+						|| not empty sessionController.droitsEvaluationEntrepriseMap
+						|| welcomeController.enseignantTuteur
+						|| welcomeController.etudiant)}">
+                        <p:menuitem value="#{msgs['RECHERCHEEVALUATION.TITRE']}"
+                                    action="#{evaluationController.goToRechercheEval}" rendered="#{welcomeController.superAdmin
+					|| not empty sessionController.droitsEvaluationEtudiantMap
+					|| not empty sessionController.droitsEvaluationEnseignantMap
+                    || not empty sessionController.droitsEvaluationEntrepriseMap}" icon="fa fa-search"
+                                    styleClass="#{false ? 'selected' : ''}"/>
+                        <p:menuitem value="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}"
+                                    action="#{evaluationController.goToRechercheEvalEns}"
+                                    onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                    rendered="#{welcomeController.enseignantTuteur}" icon="fa fa-list"
+                                    styleClass="#{false ? 'selected' : ''}"/>
+                        <p:menuitem value="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}"
+                                    action="#{evaluationController.goToRechercheEvalEtu}"
+                                    onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                    rendered="#{welcomeController.etudiant}" icon="fa fa-list"
+                                    styleClass="#{false ? 'selected' : ''}"/>
+                    </p:submenu>
+                </p:panelMenu>
+                <!-- / pc only -->
+
+                <!-- phone only -->
+                <t:div styleClass="phoneOnly menuSidebarPhone"
+                       rendered="#{sessionController.utilisationStage and (welcomeController.personnel || welcomeController.superAdmin || welcomeController.enseignant)}">
+                    <p:commandButton value="#{msgs['MENUSTAGE.GESTIONCONVENTION']}" disabled="true"
+                                     icon="fa fa-file-text" styleClass="customPstage"/>
+                    <t:htmlTag value="ul">
+                        <t:htmlTag value="li">
+                            <h:commandLink action="#{conventionController.goToRechercheConvention}"
+                                           rendered="#{welcomeController.personnel || welcomeController.superAdmin }"
+                                           value="#{msgs['MENUSTAGE.RECHCONVENTION']}" styleClass="fa fa-search"/>
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <h:commandLink action="#{conventionController.goToCreerConvention}"
+                                           rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}"
+                                           value="#{msgs['MENUSTAGE.CREERCONVENTION']}" styleClass="fa fa-plus"/>
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <h:commandLink action="#{conventionController.goToValiderEnMasse}"
+                                           rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}"
+                                           value="#{msgs['MENUSTAGE.VALIDERENMASSE']}" styleClass="fa fa-check"/>
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <h:commandLink action="#{conventionController.goToRechercheConventionEnseignantTuteur}"
+                                           rendered="#{welcomeController.enseignantTuteur}"
+                                           value="#{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}" styleClass="fa fa-list"/>
+                        </t:htmlTag>
+                    </t:htmlTag>
+                </t:div>
+                <t:div styleClass="phoneOnly menuSidebarPhone"
+                       rendered="#{sessionController.utilisationStage and welcomeController.etudiant}">
+                    <p:commandButton value="#{msgs['MENUSTAGE.GESTIONCONVENTION']}" disabled="true"
+                                     icon="fa fa-file-text" styleClass="customPstage"/>
+                    <t:htmlTag value="ul">
+                        <t:htmlTag value="li">
+                            <h:commandLink action="#{conventionController.goToRechercheConventionEtu}"
+                                           value="#{msgs['MENUSTAGE.RECHCONVENTION.ETU']}" styleClass="fa fa-search"/>
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <h:commandLink action="#{conventionController.goToCreerConvention}"
+                                           value="#{msgs['MENUSTAGE.CREERCONVENTION']}" styleClass="fa fa-plus"/>
+                        </t:htmlTag>
+                    </t:htmlTag>
+                </t:div>
+                <t:div styleClass="phoneOnly menuSidebarPhone">
+                    <p:commandButton value="#{msgs['MENUSTAGE.GESTIONETAB']}" disabled="true"
+                                     icon="fa fa-building" styleClass="customPstage"/>
+                    <t:htmlTag value="ul">
+                        <t:htmlTag value="li">
+                            <h:commandLink action="#{rechercheController.goToRechercheEtablissementStage}"
+                                           value="#{msgs['MENUSTAGE.RECHETAB']}" styleClass="fa fa-search">
+                                <f:setPropertyActionListener value="#{2}" target="#{rechercheController.ongletCourant}"/>
+                                <f:setPropertyActionListener value="#{null}"
+                                                             target="#{sessionController.currentManageStructure}"/>
+                                <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
+                                <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
+                            </h:commandLink>
+                        </t:htmlTag>
+                        <t:htmlTag value="li" rendered="#{sessionController.moderationStructures and (welcomeController.superAdmin || welcomeController.writer || welcomeController.admin)}">
+                            <h:commandLink action="#{rechercheController.goToEtablissementsAVerifier}"
+                                           value="#{msgs['MENUSTAGE.RECHETAB.AVERIFIER']}" styleClass="fa fa-check"
+                                           onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
+                                <f:setPropertyActionListener value="#{2}" target="#{rechercheController.ongletCourant}"/>
+                                <f:setPropertyActionListener value="#{null}" target="#{sessionController.currentManageStructure}"/>
+                                <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
+                                <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
+                            </h:commandLink>
+                        </t:htmlTag>
+                        <t:htmlTag value="li" rendered="#{welcomeController.superAdmin}">
+                            <h:commandLink action="#{rechercheController.rechercheTemoinFalse}"
+                                           value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET8']}" styleClass="fa fa-times"
+                                           onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
+                                <f:setPropertyActionListener value="#{null}" target="#{sessionController.currentManageStructure}"/>
+                                <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
+                                <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
+                            </h:commandLink>
+                        </t:htmlTag>
+                    </t:htmlTag>
+                </t:div>
+                <t:div styleClass="phoneOnly menuSidebarPhone" rendered="#{sessionController.utilisationEntreprise}">
+                    <p:commandButton value="#{msgs['MENUSTAGE.GESTIONOFFRE']}" disabled="true"
+                                     icon="fa fa-suitcase" styleClass="customPstage"/>
+                    <t:htmlTag value="ul">
+                        <t:htmlTag value="li">
+                            <h:commandLink action="#{offreController.goToRechercheOffreStage}"
+                                           value="#{msgs['MENUSTAGE.RECHOFFRE']}" styleClass="fa fa-search"
+                                           onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
+                                <f:setPropertyActionListener value="#{null}"
+                                                             target="#{sessionController.currentManageStructure}"/>
+                                <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
+                                <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
+                            </h:commandLink>
+                        </t:htmlTag>
+                        <t:htmlTag value="li" rendered="#{!welcomeController.etudiant and (welcomeController.superAdmin || welcomeController.writer || welcomeController.admin)}">
+                            <h:commandLink action="#{offreController.goToCreationOffreSelectionCentre}"
+                                           value="#{msgs['MENUSTAGE.AJOUTOFFRE']}" styleClass="fa fa-plus"
+                                           onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
+                                <f:setPropertyActionListener value="#{null}"
+                                                             target="#{sessionController.currentManageStructure}"/>
+                                <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
+                                <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
+                                <f:setPropertyActionListener value="#{2}" target="#{rechercheController.ongletCourant}"/>
+                            </h:commandLink>
+                        </t:htmlTag>
+                        <t:htmlTag value="li" rendered="#{!welcomeController.etudiant and sessionController.moderationActive and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
+                            <h:commandLink action="#{offreController.goToOffreADiffuser}"
+                                           value="#{msgs['MENU.OFFRESADIFFUSER']}(#{offreController.offreADiffuser})" styleClass="fa fa-check"
+                                           onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
+                                <f:setPropertyActionListener value="#{null}"
+                                                             target="#{sessionController.currentManageStructure}"/>
+                                <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
+                                <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
+                                <f:setPropertyActionListener value="#{2}" target="#{rechercheController.ongletCourant}"/>
+                            </h:commandLink>
+                        </t:htmlTag>
+                    </t:htmlTag>
+                </t:div>
+                <t:div styleClass="phoneOnly menuSidebarPhone" rendered="#{sessionController.utilisationStage
+				and (welcomeController.superAdmin
+						|| not empty sessionController.droitsEvaluationEtudiantMap
+						|| not empty sessionController.droitsEvaluationEnseignantMap
+						|| not empty sessionController.droitsEvaluationEntrepriseMap
+						|| welcomeController.enseignantTuteur
+						|| welcomeController.etudiant)}">
+                    <p:commandButton value="#{msgs['MENUSTAGE.EVALUATION']}" disabled="true"
+                                     icon="fa fa-bar-chart" styleClass="customPstage"/>
+                    <t:htmlTag value="ul">
+                        <t:htmlTag value="li" rendered="#{welcomeController.superAdmin
+					|| not empty sessionController.droitsEvaluationEtudiantMap
+					|| not empty sessionController.droitsEvaluationEnseignantMap
+                    || not empty sessionController.droitsEvaluationEntrepriseMap}">
+                            <h:commandLink action="#{evaluationController.goToRechercheEval}"
+                                           value="#{msgs['RECHERCHEEVALUATION.TITRE']}" styleClass="fa fa-search">
+                            </h:commandLink>
+                        </t:htmlTag>
+                        <t:htmlTag value="li" rendered="#{welcomeController.enseignantTuteur}">
+                            <h:commandLink action="#{evaluationController.goToRechercheEvalEns}"
+                                           value="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}" styleClass="fa fa-list">
+                            </h:commandLink>
+                        </t:htmlTag>
+                        <t:htmlTag value="li" rendered="#{welcomeController.etudiant}">
+                            <h:commandLink action="#{evaluationController.goToRechercheEvalEtu}"
+                                           value="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}" styleClass="fa fa-list">
+                            </h:commandLink>
+                        </t:htmlTag>
+                    </t:htmlTag>
+                </t:div>
+                <!-- / phone only -->
+
+                <!-- tablet only -->
+                <p:commandButton value="#{msgs['MENUSTAGE.GESTIONCONVENTION']}" action="#{welcomeController.goToMenuConventionsStageTablette}"
+                                 rendered="#{sessionController.utilisationStage and (welcomeController.personnel || welcomeController.superAdmin || welcomeController.enseignant || welcomeController.etudiant)}"
+                                 icon="fa fa-file-text" styleClass="#{sessionController.currentPageConvention ? 'customPstage selected tabletOnly' : 'customPstage tabletOnly'}"/>
+                <p:commandButton value="#{msgs['MENUSTAGE.GESTIONETAB']}" action="#{welcomeController.goToMenuEtablissementsAccueilTablette}"
+                                 icon="fa fa-building" styleClass="#{false ? 'customPstage selected tabletOnly' : 'customPstage tabletOnly'}"/>
+                <p:commandButton value="#{msgs['MENUSTAGE.GESTIONOFFRE']}" action="#{welcomeController.goToMenuOffresTablette}"
+                                 rendered="#{sessionController.utilisationEntreprise}"
+                                 icon="fa fa-suitcase" styleClass="#{false ? 'customPstage selected tabletOnly' : 'customPstage tabletOnly'}"/>
+                <p:commandButton value="#{msgs['MENUSTAGE.EVALUATION']}" action="#{welcomeController.goToMenuEvaluationsStagesTablette}"
+                                 rendered="#{sessionController.utilisationStage
+                                        and (welcomeController.superAdmin
+                                                || not empty sessionController.droitsEvaluationEtudiantMap
+                                                || not empty sessionController.droitsEvaluationEnseignantMap
+                                                || not empty sessionController.droitsEvaluationEntrepriseMap
+                                                || welcomeController.enseignantTuteur
+                                                || welcomeController.etudiant)}"
+                                 icon="fa fa-bar-chart" styleClass="#{false ? 'customPstage selected tabletOnly' : 'customPstage tabletOnly'}"/>
+                <!-- / tablet only -->
+                <p:commandButton value="#{msgs['MENU.GESTIONNOMENCLATURES']}"
+                                 action="#{nomenclatureController.goToGestionNomenclatures}"
+                                 rendered="#{welcomeController.superAdmin}" icon="fa fa-table"
+                                 styleClass="#{false ? 'customPstage selected' : 'customPstage'}"/>
+                <p:commandButton value="Déconnexion" styleClass="customPstage phoneOnly" action="#{sessionController.logout}"
+                                 rendered="#{sessionController.printLogout}" icon="fa fa-power-off"/>
+            </h:form>
+        </t:div>
+    </t:div>
+</ui:composition>

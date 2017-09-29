@@ -1,77 +1,81 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
-		<h:panelGrid columns="1" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-			<h:outputText value="#{msgs['OFFRE.SUPPR.QUESTION']}" escape="false" />
-			<h:outputText value="#{msgs['OFFRE.SUPPR.QUESTION.SIADMIN']}"
-				escape="false" />
-			<rich:dataTable value="#{offreController.currentOffre}">
-				<rich:column rendered="#{sessionController.adminPageAuthorized}">
-					<f:facet name="header">
-						<h:outputText value="#{msgs['OFFRE.ID']}" />
-					</f:facet>
-					<h:outputText value="#{offreController.currentOffre.idOffre}" />
-				</rich:column>
-				<rich:column>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['OFFRE.INTITULE']}" />
-					</f:facet>
-					<h:outputText value="#{offreController.currentOffre.intitule}" />
-				</rich:column>
-				<rich:column>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['OFFRE.TYPEOFFRE']}" />
-					</f:facet>
-					<h:outputText value="#{offreController.currentOffre.typeOffre.libelle}" />
-				</rich:column>
-				<rich:column>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['OFFRE.DATECREATION']}" />
-					</f:facet>
-					<h:outputText value="#{offreController.currentOffre.dateCreation}" />
-				</rich:column>
-				<rich:column>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
-					</f:facet>
-					<h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
-						rendered="#{offreController.currentOffre.estDiffusee}"
-						style="color:green;" />
-					<h:outputText value="#{msgs['OFFRE.DIFFUSION.NESTPASDIFFUSEE']}"
-						rendered="#{!offreController.currentOffre.estDiffusee}"
-						style="color:orange;" />
-					<t:htmlTag value="br" />
-					<h:outputText value="#{msgs['OFFRE.DIFFUSION.JUSQU']} "
-						rendered="#{offreController.currentOffre.estDiffusee}"
-						style="color:green;" />
-					<h:outputText value="#{offreController.currentOffre.dateFinDiffusion}"
-						rendered="#{offreController.currentOffre.estDiffusee}"
-						style="color:green;">
-						<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
-					</h:outputText>
-				</rich:column>
-				<rich:column>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['OFFRE.FICHIERLIEN']}" />
-					</f:facet>
-					<h:outputText value="#{msgs['FORM.OUI']}"
-						rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}" />
-					<h:outputText value="#{msgs['FORM.NON']}"
-						rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}" />
-				</rich:column>
-			</rich:dataTable>
-		</h:panelGrid>
-		<h:panelGrid columns="3" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-			<a4j:commandButton action="#{offreController.supprimerOffre}"
-				value="#{msgs['FORM.SUPPRIMER']}"
-				render="formSupprOffre, opOffresDataTable" />
-			<t:htmlTag value="div" style="width: 100px;" />
-			<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
-				onclick="#{rich:component('supprOffre')}.hide();"
-				immediate="true" />
-		</h:panelGrid>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+
+    <t:div style="height: 10px;"/>
+
+    <h:outputText value="#{msgs['OFFRE.SUPPR.QUESTION']}" escape="false" />
+
+    <t:div style="height: 10px;"/>
+
+    <h:outputText value="(#{msgs['OFFRE.SUPPR.QUESTION.SIADMIN']})" escape="false" />
+    <t:div style="height: 10px;"/>
+
+    <p:dataTable value="#{offreController.currentOffre}"
+                 reflow="true" tableStyle="table-layout: auto;">
+        <p:column rendered="#{sessionController.adminPageAuthorized}">
+            <f:facet name="header">
+                <h:outputText value="#{msgs['OFFRE.ID']}" />
+            </f:facet>
+            <h:outputText value="#{offreController.currentOffre.idOffre}" />
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['OFFRE.INTITULE']}" />
+            </f:facet>
+            <h:outputText value="#{offreController.currentOffre.intitule}" />
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['OFFRE.TYPEOFFRE']}" />
+            </f:facet>
+            <h:outputText value="#{offreController.currentOffre.typeOffre.libelle}" />
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['OFFRE.DATECREATION']}" />
+            </f:facet>
+            <h:outputText value="#{offreController.currentOffre.dateCreation}" />
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
+            </f:facet>
+            <h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
+                          rendered="#{offreController.currentOffre.estDiffusee}"
+                          style="color:green;" />
+            <h:outputText value="#{msgs['OFFRE.DIFFUSION.NESTPASDIFFUSEE']}"
+                          rendered="#{!offreController.currentOffre.estDiffusee}"
+                          style="color:orange;" />
+            <t:htmlTag value="br" />
+            <h:outputText value="#{msgs['OFFRE.DIFFUSION.JUSQU']} "
+                          rendered="#{offreController.currentOffre.estDiffusee}"
+                          style="color:green;" />
+            <h:outputText value="#{offreController.currentOffre.dateFinDiffusion}"
+                          rendered="#{offreController.currentOffre.estDiffusee}"
+                          style="color:green;">
+                <f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+            </h:outputText>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['OFFRE.FICHIERLIEN']}" />
+            </f:facet>
+            <h:outputText value="#{msgs['FORM.OUI']}"
+                          rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}" />
+            <h:outputText value="#{msgs['FORM.NON']}"
+                          rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}" />
+        </p:column>
+    </p:dataTable>
+    <t:div styleClass="textCenter mt20 mb20">
+        <p:commandButton action="#{offreController.supprimerOffre}"
+                         value="#{msgs['FORM.SUPPRIMER']}"
+                         update="@form" />
+        <p:commandButton value="#{msgs['FORM.ANNULER']}"
+                         onclick="PF('supprOffre').hide();"
+                         immediate="true" styleClass="ml40" />
+    </t:div>
 </ui:composition>

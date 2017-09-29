@@ -18,6 +18,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 
 	private RemoteServices remoteServices;
 
+	private String errorMsg = "Echec de la requête.";
+
 	public void setRemoteServices(RemoteServices remoteServices) {
 		this.remoteServices = remoteServices;
 	}
@@ -26,8 +28,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 	public List<CritereDTO> getCriteresPremierNiveauPrConvention()throws StatistiquesException{
 		List<CritereDTO> criteresParCategorieEtParNiveau = remoteServices.getCriteresParCategorieEtParNiveau(TypeCritere.CONVENTION.get(), TypeCritere.PREMIER_NIVEAU.get());
 		if(criteresParCategorieEtParNiveau == null ){
-			logger.error(Configuration.getString("critere.cvt.niveau1.ko"));
-			throw new StatistiquesException(Configuration.getString("critere.cvt.niveau1.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return criteresParCategorieEtParNiveau;
 	}
@@ -42,8 +44,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 	public List<CritereDTO> getCriteresPremierNiveauPrOffres() throws StatistiquesException {
 		List<CritereDTO> criteresOffreEtNiveau1 = remoteServices.getCriteresParCategorieEtParNiveau(TypeCritere.OFFRE.get(),  TypeCritere.PREMIER_NIVEAU.get());
 		if(criteresOffreEtNiveau1 == null ){
-			logger.error(Configuration.getString("critere.offre.niveau1.ko"));
-			throw new StatistiquesException(Configuration.getString("critere.offre.niveau1.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return criteresOffreEtNiveau1;
 	}
@@ -53,8 +55,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 	throws StatistiquesException {
 		List<CritereDTO> criteresOffreEtNiveau2 = remoteServices.getCriteresParCategorieEtParNiveau(TypeCritere.OFFRE.get(),TypeCritere.SECOND_NIVEAU.get());
 		if(criteresOffreEtNiveau2 == null ){
-			logger.error(Configuration.getString("critere.offre.niveau2.ko"));
-			throw new StatistiquesException(Configuration.getString("critere.offre.niveau2.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return criteresOffreEtNiveau2;
 	}
@@ -68,8 +70,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			anneesConventions	 =  remoteServices.getAnneesConventions(idCentreGestion, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("annees.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("annees.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return anneesConventions;
 	}
@@ -79,8 +81,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getTotalConventions(idCenter, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}	
 		return nbCvt;
 	}
@@ -90,8 +92,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getTotalConventionsParType(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -101,8 +103,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getTotalConventionsParTheme(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -112,8 +114,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getTotalConventionsParIndemnite(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -123,8 +125,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getTotalConventionsParTpsDeTravail(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}	
 		return nbCvt;
 	}
@@ -134,8 +136,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getTotalConventionsParJourSemaine(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -145,8 +147,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getTotalConventionsParOrigineStage(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -156,8 +158,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getTotalConventionsParEnseignantTuteur(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -167,8 +169,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getTotalConventionsParStructure(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -178,8 +180,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getTotalConventionsParStructureActivite(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -189,8 +191,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getTotalConventionsParStructureType(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -200,8 +202,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getTotalConventionsParTailleStructure(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -211,8 +213,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getTotalConventionsParDepLieuStage(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -222,8 +224,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getTotalConventionsParPaysDuService(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -236,8 +238,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStudy(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}	
 		return nbCvt;
 	}
@@ -247,8 +249,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStudyAndType(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -258,8 +260,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStudyAndTheme(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -269,8 +271,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStudyAndIndemnity(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -280,8 +282,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStudyAndWorkDuration(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}	
 		return nbCvt;
 	}
@@ -291,8 +293,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStudyAndNbDaysPerWeek(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -302,8 +304,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStudyAndWayToFind(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -313,8 +315,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStudyAndTeacherGuide(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -324,8 +326,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStudyAndStructure(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -335,8 +337,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStudyAndActivity(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -346,8 +348,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStudyAndStructureType(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -357,8 +359,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStudyAndStructureSize(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -368,8 +370,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStudyAndServiceDep(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -379,8 +381,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStudyAndServiceCountry(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -392,8 +394,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByDepartment(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}	
 		return nbCvt;
 	}
@@ -403,8 +405,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByDepartmentAndType(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -414,8 +416,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByDepartmentAndActivity(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -425,8 +427,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByDepartmentAndIndemnity(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -436,8 +438,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByDepartmentAndWorkDuration(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}	
 		return nbCvt;
 	}
@@ -447,8 +449,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByDepartmentAndNbDaysPerWeek(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -458,8 +460,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByDepartmentAndWayToFind(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -469,8 +471,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByDepartmentAndTeacherGuide(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -480,8 +482,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByDepartmentAndStructure(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -491,8 +493,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByDepartmentAndStructureType(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -502,8 +504,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByDepartmentAndStructureSize(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -513,8 +515,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByDepartmentAndServiceDep(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -524,8 +526,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByDepartmentAndServiceCountry(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -535,8 +537,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByDepartmentAndTheme(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -549,8 +551,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStep(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}	
 		return nbCvt;
 	}
@@ -560,8 +562,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStepAndType(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -571,8 +573,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStepAndActivity(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -582,8 +584,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStepAndIndemnity(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -593,8 +595,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStepAndWorkDuration(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}	
 		return nbCvt;
 	}
@@ -604,8 +606,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStepAndNbDaysPerWeek(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -615,8 +617,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStepAndWayToFind(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -626,8 +628,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStepAndTeacherGuide(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -637,8 +639,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStepAndStructure(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -648,8 +650,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStepAndStructureType(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -659,8 +661,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStepAndStructureSize(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -670,8 +672,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStepAndServiceDep(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -681,8 +683,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStepAndServiceCountry(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -692,8 +694,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStepAndTheme(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -707,8 +709,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			anneesOffres	 =  remoteServices.getAnneesOffres(idCentreGestion, etat);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("annees.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("annees.offre.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return anneesOffres;
 	}
@@ -718,8 +720,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbOffres = remoteServices.getNumberOfOffers(idCenter, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.offre.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.offre.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}	
 		return nbOffres;
 	}
@@ -729,8 +731,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbOffres = remoteServices.getNumberOfOffersByActivity(idCenter,year, etab, validation, publication);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.offre.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.offre.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbOffres;
 	}
@@ -740,8 +742,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbOffres = remoteServices.getNumberOfOffersByStructure(idCenter,year, etab, validation, publication);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.offre.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.offre.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbOffres;
 	}
@@ -751,8 +753,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbOffres = remoteServices.getNumberOfOffersByStructureType(idCenter,year, etab, validation, publication);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.offre.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.offre.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbOffres;
 	}
@@ -762,8 +764,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbOffres = remoteServices.getNumberOfOffersByStructureSize(idCenter,year, etab, validation, publication);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.offre.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.offre.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}	
 		return nbOffres;
 	}
@@ -773,8 +775,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbOffres = remoteServices.getNumberOfOffersByStructureDep(idCenter,year, etab, validation, publication);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.offre.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.offre.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbOffres;
 	}
@@ -784,8 +786,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbOffres = remoteServices.getNumberOfOffersByStructureCountry(idCenter,year, etab, validation, publication);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.offre.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.offre.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbOffres;
 	}
@@ -795,8 +797,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbOffres = remoteServices.getNumberOfOffersByFunction(idCenter,year, etab, validation, publication);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.offre.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.offre.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbOffres;
 	}
@@ -806,8 +808,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbOffres = remoteServices.getNumberOfOffersByFormation(idCenter,year, etab, validation, publication);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.offre.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.offre.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbOffres;
 	}
@@ -817,8 +819,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbOffres = remoteServices.getNumberOfOffersByLevel(idCenter,year, etab, validation, publication);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.offre.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.offre.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbOffres;
 	}
@@ -828,8 +830,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbOffres = remoteServices.getNumberOfOffersByType(idCenter,year, etab, validation, publication);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.offre.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.offre.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbOffres;
 	}
@@ -839,8 +841,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbOffres = remoteServices.getNumberOfOffersByValidation(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.offre.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.offre.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbOffres;
 	}
@@ -850,8 +852,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbOffres = remoteServices.getNumberOfOffersByPublication(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.offre.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.offre.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbOffres;
 	}
@@ -861,8 +863,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbOffres = remoteServices.getNumberOfOffersByCandidateFound(idCenter,year, etab, validation, publication);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.offre.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.offre.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbOffres;
 	}
@@ -872,8 +874,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbOffres = remoteServices.getNumberOfOffersByLocalStudent(idCenter,year, etab, validation, publication);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.offre.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.offre.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbOffres;
 	}
@@ -886,8 +888,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByNbWeeks(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -900,8 +902,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStudyAndNbWeeks(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -914,8 +916,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByDepartmentAndNbWeeks(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}
@@ -928,8 +930,8 @@ public class StatistiquesDomainServiceImpl implements StatistiquesDomainService{
 		try {
 			nbCvt = remoteServices.getNumberOfConventionsByStepAndNbWeeks(idCenter,year, etab);
 		} catch (RemoteException e) {
-			logger.error(Configuration.getString("nb.cvt.ko"));
-			throw new StatistiquesException(Configuration.getString("nb.cvt.ko"));
+			logger.error(errorMsg);
+			throw new StatistiquesException(errorMsg);
 		}
 		return nbCvt;
 	}

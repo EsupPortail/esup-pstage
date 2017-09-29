@@ -1,19 +1,14 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-	<rich:popupPanel id="supprAdministrateur" autosized="true" width="400"
-		styleClass="panel">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['ADMINSTRUCTURE.SUPPRESSION']}" />
-		</f:facet>
-		<h:form id="formSupprAdminStructure">
-			<a4j:outputPanel ajaxRendered="true">
-				<ui:include id="include"
-					src="/stylesheets/depot/#{sessionController.suppressionAdminStructureCurrentPage}.xhtml" />
-			</a4j:outputPanel>
-		</h:form>
-	</rich:popupPanel>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+    <p:dialog id="supprAdministrateur" widgetVar="supprAdministrateur" modal="true" resizable="false">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['ADMINSTRUCTURE.SUPPRESSION']}" />
+        </f:facet>
+        <h:form id="formSupprAdminStructure">
+            <ui:include src="/stylesheets/depot/#{sessionController.suppressionAdminStructureCurrentPage}.xhtml" />
+        </h:form>
+    </p:dialog>
 </ui:composition>

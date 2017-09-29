@@ -1,0 +1,48 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog id="ajoutCritere" widgetVar="ajoutCritere" resizable="false" modal="true">
+        <f:facet name="header">
+            <h:outputText
+                    value="#{msgs['CENTRE.CRITERE.HEAD']} #{centreController.centre.nomCentre}" />
+        </f:facet>
+        <h:form id="formAjoutCritere">
+            <t:htmlTag value="center">
+                <h:outputText rendered="#{centreController.listeCriteres == null}"
+                              value="#{msgs['CENTRE.CRITERE.VIDE']}" />
+            </t:htmlTag>
+
+            <t:div styleClass="mt10"
+                   rendered="#{centreController.listeCriteres != null}">
+                <h:outputText
+                        value="#{msgs['CENTRE.CRITERE.TYPE']} #{centreController.centre.niveauCentre.libelle}" />
+
+                <t:div styleClass="textCenter mt10">
+                    <h:outputText styleClass="fontBold" for="critere"
+                                  value="#{msgs['CENTRE.CRITERE.CRITERES']}" />
+                </t:div>
+                <t:htmlTag value="div" style="height:5px;" />
+                <p:selectManyMenu id="critere"
+                                     value="#{centreController.listeCriteresChoisis}">
+                    <f:selectItems value="#{centreController.listeCriteres}" />
+                </p:selectManyMenu>
+                <t:div styleClass="fz09">
+                    <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+                    <h:outputText value="#{msgs['RECHERCHECONVENTION.ETAPES.AIDE']}"
+                                  styleClass="ml5" />
+                </t:div>
+
+                <t:div styleClass="mt10 mb10 textCenter fontBold fz16">
+                    <p:commandButton id="ajouter" value="#{msgs['FORM.AJOUTER']}"
+                                     action="#{centreController.ajouterCriteres}"
+                                     ajax="false"/>
+                </t:div>
+
+                <p:messages />
+            </t:div>
+        </h:form>
+    </p:dialog>
+</ui:composition>

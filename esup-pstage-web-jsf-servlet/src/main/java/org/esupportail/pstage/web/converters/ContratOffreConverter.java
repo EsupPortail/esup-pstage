@@ -51,7 +51,7 @@ public class ContratOffreConverter implements Serializable, Converter {
 					"object " + value + " is not a ContratOffreDTO.");
 		}
 		ContratOffreDTO e = (ContratOffreDTO) value;
-		return ""+e.getId();
+		return Integer.toString(e.getId());
 	}
 	
 	/**

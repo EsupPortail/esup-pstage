@@ -1,0 +1,115 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="formFicheEvaluation"
+            styleClass="mt15 mb20">
+		<p:fieldset legend="#{msgs['GENERAL.WARNING']}" styleClass="legendWarning">
+			<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.ALERTE']}"
+				escape="false" />
+		</p:fieldset>
+
+		<t:htmlTag value="div" style="height:15px;" />
+
+		<p:fieldset legend="#{msgs['CENTRE.FICHE_EVALUATION.EDIT']}">
+
+			<h:panelGrid id="gridFiches" columns="5" align="center">
+				<h:column
+					rendered="#{welcomeController.superAdmin 
+							|| sessionController.droitsEvaluationEtudiantMap[centreController.centre.idCentreGestion]}">
+					<p:commandButton id="ficheEtudiant"
+						value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT']}"
+						action="#{centreController.goToFicheEtudiant}"
+						update="divConsultation" />
+
+					<t:htmlTag value="div" style="height:10px;" />
+
+					<h:panelGrid columns="2" style="font-weight:bold;" align="center"
+						rendered="#{!centreController.ficheEvaluation.validationEtudiant}">
+                        <t:htmlTag value="i" styleClass="fa fa-times fz16 fontRed"/>
+						<h:outputText id="ficheEtudiantInvalide"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.INVALIDE']}">
+							<p:tooltip for="ficheEtudiantInvalide"
+								value="#{msgs['CENTRE.FICHE_EVALUATION.INVALIDE.INFO']}" />
+						</h:outputText>
+					</h:panelGrid>
+					<h:panelGrid columns="2" style="font-weight:bold;" align="center"
+						rendered="#{centreController.ficheEvaluation.validationEtudiant}">
+                        <t:htmlTag value="i" styleClass="fa fa-check fz16 fontBlue2"/>
+						<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.VALIDE']}" />
+					</h:panelGrid>
+				</h:column>
+
+				<h:column
+					rendered="#{welcomeController.superAdmin 
+							|| sessionController.droitsEvaluationEtudiantMap[centreController.centre.idCentreGestion]}">
+					<p:separator
+						style="width:2px; height:40px; margin-left:25px; margin-right:25px;" />
+				</h:column>
+
+				<h:column
+					rendered="#{welcomeController.superAdmin 
+							|| sessionController.droitsEvaluationEnseignantMap[centreController.centre.idCentreGestion]}">
+					<p:commandButton id="ficheTuteur"
+						value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT']}"
+						action="#{centreController.goToFicheEnseignant}"
+						update="divConsultation" />
+
+					<t:htmlTag value="div" style="height:10px;" />
+
+					<h:panelGrid columns="2" style="font-weight:bold;" align="center"
+						rendered="#{!centreController.ficheEvaluation.validationEnseignant}">
+                        <t:htmlTag value="i" styleClass="fa fa-times fz16 fontRed"/>
+						<h:outputText id="ficheEnseignantInvalide"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.INVALIDE']}">
+							<p:tooltip for="ficheEnseignantInvalide"
+								value="#{msgs['CENTRE.FICHE_EVALUATION.INVALIDE.INFO']}" />
+						</h:outputText>
+					</h:panelGrid>
+
+					<h:panelGrid columns="2" style="font-weight:bold;" align="center"
+						rendered="#{centreController.ficheEvaluation.validationEnseignant}">
+                        <t:htmlTag value="i" styleClass="fa fa-check fz16 fontBlue2"/>
+						<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.VALIDE']}" />
+					</h:panelGrid>
+				</h:column>
+
+				<h:column columns="3"
+					rendered="#{welcomeController.superAdmin 
+							|| (sessionController.droitsEvaluationEnseignantMap[centreController.centre.idCentreGestion]
+							|| sessionController.droitsEvaluationEtudiantMap[centreController.centre.idCentreGestion]
+							and sessionController.droitsEvaluationEntrepriseMap[centreController.centre.idCentreGestion])}">
+					<p:separator
+						style="width:2px; height:40px; margin-left:25px; margin-right:25px;" />
+				</h:column>
+
+				<h:column
+					rendered="#{welcomeController.superAdmin 
+							|| sessionController.droitsEvaluationEntrepriseMap[centreController.centre.idCentreGestion]}">
+					<p:commandButton id="ficheEntreprise"
+						value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE']}"
+						action="#{centreController.goToFicheEntreprise}"
+						update="divConsultation" />
+
+					<t:htmlTag value="div" style="height:10px;" />
+
+					<h:panelGrid columns="2" style="font-weight:bold;" align="center"
+						rendered="#{!centreController.ficheEvaluation.validationEntreprise}">
+                        <t:htmlTag value="i" styleClass="fa fa-times fz16 fontRed"/>
+						<h:outputText id="ficheEntrepriseInvalide"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.INVALIDE']}">
+							<p:tooltip for="ficheEntrepriseInvalide"
+								value="#{msgs['CENTRE.FICHE_EVALUATION.INVALIDE.INFO']}" />
+						</h:outputText>
+					</h:panelGrid>
+
+					<h:panelGrid columns="2" style="font-weight:bold;" align="center"
+						rendered="#{centreController.ficheEvaluation.validationEntreprise}">
+                        <t:htmlTag value="i" styleClass="fa fa-check fz16 fontBlue2"/>
+						<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.VALIDE']}" />
+					</h:panelGrid>
+				</h:column>
+			</h:panelGrid>
+		</p:fieldset>
+	</h:form>
+</ui:composition>

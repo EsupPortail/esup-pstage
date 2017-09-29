@@ -1,47 +1,96 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="../_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />   <!-- 		permet d'afficher la barre de navigation avenant, tuteur, ... -->
-		<rich:panel>
-			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
-			</f:facet>
-			<h:form id="formSelConvention">
-				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-					<f:facet name="header">
-						<h:outputText value="#{msgs['CONVENTION.ETAPE8.NAVIGATION']} " />
-					</f:facet>
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="3"
-						rendered="#{conventionController.conventionCree}">
-						<h:graphicImage alt="#{msgs['GENERAL.OK']}"
-							title="#{msgs['GENERAL.OK']}"
-							value="../../media/images/valid.png" style="border:0" />
-						<h:outputText id="confirmCreationConvention"
-							rendered="#{!welcomeController.etudiant}"
-							value="#{msgs['CONVENTION.CREERCONVENTION.CONFIRMATION']}" />
-						<h:outputText id="confirmCreationConventionEtu"
-							rendered="#{welcomeController.etudiant}"
-							value="#{msgs['CONVENTION.CREERCONVENTION.CONFIRMATION.ETUDIANT']}" />
-					</h:panelGrid>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention} #{conventionController.convention.etudiant.nom} #{conventionController.convention.etudiant.prenom}" />
+            </f:facet>
+            <h:form id="formSelConvention">
+                <ui:include src="_roadmapSel.xhtml" />
 
-					<t:htmlTag value="div" style="height: 10px;" />
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 block">
+                        <t:div rendered="#{conventionController.conventionCree}" styleClass="textCenter mt10 mb10">
+                            <t:htmlTag value="i" styleClass="fa fa-check fz16 fontBlue2" />
+                            <h:outputText id="confirmCreationConvention" styleClass="fontBold"
+                                          value="#{msgs['CONVENTION.CREERCONVENTION.CONFIRMATION']}" />
+                        </t:div>
 
- 					<ui:include src="/stylesheets/stage/_conventionEtape8DetailsRecap.xhtml" /> 
-					
-					<t:htmlTag value="div" style="height: 10px;" />
-					
-					<rich:messages />
-				</h:panelGrid>
-			</h:form>
-		</rich:panel>
-	</ui:define>
+                        <p:messages />
+
+                        <t:div styleClass="mb10">
+                            <p:commandButton id="impression" action="#{conventionController.goToImpressionConvention}"
+                                             value="#{msgs['CONVENTION.IMPRESSION.CONVENTION.DEMANDE']}"
+                                             icon="fa fa-print" />
+                            <p:commandButton id="editrecap" escape="false"
+                                             value="#{msgs['CONVENTION.IMPRESSION.RECAP.DEMANDE']}"
+                                             icon="fa fa-print" styleClass="ml10"
+                                             action="#{conventionController.editPdfRecap}" />
+                            <p:commandButton value="#{msgs['CONVENTION.IMPRESSION.REMERCIEMENT.DEMANDE']}"
+                                             action="#{conventionController.editPdfRemerciement}"
+                                             icon="fa fa-print" styleClass="ml10"
+                                             rendered="#{sessionController.courrierRemerciement
+		                            and conventionController.convention.validationConvention}"/>
+                        </t:div>
+
+                        <ui:include src="/stylesheets/stage/_recapConvention.xhtml" />
+
+                        <t:div styleClass="floatRight"
+                               rendered="#{welcomeController.superAdmin || welcomeController.etudiant
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP}">
+                            <t:aliasBean alias="#{objet}"
+                                         value="#{conventionController.convention}">
+                                <ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
+                            </t:aliasBean>
+                            <t:htmlTag value="div" style="height:5px;" />
+                            <p:commandLink id="suppr"
+                                           oncomplete="PF('supprConvention').show();"
+                                           disabled="#{conventionController.conventionValide}">
+                                <t:htmlTag value="i" styleClass="fa fa-trash fz13" />
+                                <h:outputText value="#{msgs['CONVENTION.SUPPRIMER']}"
+                                              escape="false"/>
+                                <p:tooltip for="suppr"
+                                           value="#{msgs['CONVENTION.SUPPRESSION.IMPOSSIBLE']}"
+                                           rendered="#{conventionController.conventionValide || conventionController.nbAvenant gt 0}" />
+                            </p:commandLink>
+                        </t:div>
+
+                        <t:div rendered="#{conventionController.retourListe}" styleClass="mt20">
+                            <p:commandButton ajax="false"
+                                             value="#{msgs['RECHERCHECONVENTION.RETOURLISTE']}"
+                                             action="#{conventionController.goToRetourAction}" />
+                        </t:div>
+
+                        <p:dialog id="supprConvention" widgetVar="supprConvention" resizable="false">
+                            <f:facet name="header">
+                                <h:outputText value="#{msgs['CONVENTION.SUPPRESSION']}" />
+                            </f:facet>
+
+                            <t:htmlTag value="div" style="height: 10px;" />
+
+                            <h:outputText value="#{msgs['CONVENTION.SUPPRESSION.DEMANDE']}"
+                                          escape="false" />
+
+                            <t:div styleClass="mt20 mb20 textCenter">
+                                <p:commandButton value="#{msgs['FORM.OUI']}"
+                                                 oncomplete="PF('supprConvention').hide();"
+                                                 update="@form"
+                                                 action="#{conventionController.goToSuppConvention}"/>
+
+                                <p:commandButton value="#{msgs['FORM.NON']}" immediate="true"
+                                                 oncomplete="PF('supprConvention').hide();"
+                                                 styleClass="ml40"/>
+                            </t:div>
+                        </p:dialog>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>

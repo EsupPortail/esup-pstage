@@ -4,6 +4,8 @@
  */
 package org.esupportail.pstage.web.controllers;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,6 +15,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -42,6 +46,9 @@ import org.esupportail.pstagedata.exceptions.DataDeleteException;
 import org.esupportail.pstagedata.exceptions.DataUpdateException;
 import org.esupportail.pstagedata.exceptions.PersonalAlreadyExistingForCentreException;
 import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 import org.springframework.util.StringUtils;
 
 
@@ -61,14 +68,14 @@ public class CentreController extends AbstractContextAwareController {
 	 ****************************************************************/
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 8058126798700641595L;
 
 	/**
 	 * Logger
 	 */
-	private final Logger logger = Logger.getLogger(this.getClass());
+	private final transient Logger logger = Logger.getLogger(this.getClass());
 
 	/* ***************************************************************
 	 * Centre de Gestion
@@ -140,6 +147,11 @@ public class CentreController extends AbstractContextAwareController {
 	 */
 	private boolean ajoutPossible;
 
+	/**
+	 * Index du menu_centre
+	 */
+	private int indexMenu;
+
 	/* ***************************************************************
 	 * Critere de Gestion
 	 ****************************************************************/
@@ -158,7 +170,7 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * Liste des Criteres choisis dans la listeCriteres lors d'un ajout
 	 */
-	private List<Object> listeCriteresChoisis;
+	private transient List<Object> listeCriteresChoisis;
 	/**
 	 * Liste des Criteres rattaches au centre
 	 */
@@ -199,7 +211,7 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * Code affectation choisi pendant la recherche
 	 */
-	private Object codeAffectationPersonnel;
+	private transient Object codeAffectationPersonnel;
 
 	/**
 	 * Liste des personnels trouvés lors d'une recherche
@@ -214,6 +226,10 @@ public class CentreController extends AbstractContextAwareController {
 	 * True si la liste des affectations est vide
 	 */
 	private boolean listeAffectationVide;
+	/**
+	 * True si l'on se trouve dans le formulaire d'ajout/modif centre et qu'on cherche un viseur
+	 */
+	private boolean rechercheViseur;
 
 	/**
 	 * Centre Entreprise
@@ -232,7 +248,7 @@ public class CentreController extends AbstractContextAwareController {
 	 * true si un codeEtape/codeUFR n'est plus existant dans apogee pour alerter avant sa suppression
 	 */
 	private boolean critereNotFound = false;
-	
+
 	/* ***************************************************************
 	 * FICHE EVAL
 	 ****************************************************************/
@@ -286,6 +302,7 @@ public class CentreController extends AbstractContextAwareController {
 	/* ***************************************************************
 	 * Actions
 	 ****************************************************************/
+
 	/**
 	 * @see java.lang.Object#toString()
 	 */
@@ -313,20 +330,8 @@ public class CentreController extends AbstractContextAwareController {
 	 * @return a String
 	 */
 	public String goToAccueil(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public String goToAccueil() ");
-		}
+		logger.debug("public String goToAccueil() ");
 		return "accueilStage";
-	}
-
-	/**
-	 * @return a String
-	 */
-	public String goToIndicateurStat(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public String goToIndicateurStat() ");
-		}
-		return "indicateurStat";
 	}
 
 	/* ****************************************************************************
@@ -336,10 +341,10 @@ public class CentreController extends AbstractContextAwareController {
 	 * @return a String
 	 */
 	public String goToListeCentre(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public String goToListeCentre() ");
-		}
+		logger.debug("public String goToListeCentre() ");
+
 		this.centresGestion = getCentreGestionDomainService().getCentreGestionList(getSessionController().getCodeUniversite());
+
 		return "listeCentres";
 	}
 
@@ -367,16 +372,19 @@ public class CentreController extends AbstractContextAwareController {
 	 * @return a String
 	 */
 	public String goToAjoutCentre(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public String goToAjoutCentre() ");
-		}
+		logger.debug("public String goToAjoutCentre() ");
 
 		// Instanciation du centre correspondant au formulaire rempli et de ses objets
 		this.centre=new CentreGestionDTO();
 		this.personnel=new PersonnelCentreGestionDTO();
 		this.centre.setNiveauCentre(new NiveauCentreDTO());
 		this.centre.setConfidentialite(new ConfidentialiteDTO());
+		this.centre.setPresenceTuteurEns(true);
+		this.centre.setPresenceTuteurPro(true);
+		this.centre.setSaisieTuteurProParEtudiant(true);
 		this.centre.setAutoriserImpressionConvention(true);
+		// On indique au flag correspondant que l'on est en recherche de personnel et pas de viseur (pour modifier le form)
+		this.rechercheViseur = true;
 
 		return "ajoutCentre";
 	}
@@ -426,16 +434,16 @@ public class CentreController extends AbstractContextAwareController {
 		//		centre.setIdModeValidationStage(centre.getModeValidationStage().getId());
 
 		// Ajout temporaire du premier centre superviseur
-		try{
-			(getCentreGestionDomainService().getCentreGestionSuperviseur()).isEmpty();
-		} catch (NullPointerException e){
-			CentreGestionSuperviseurDTO tmp = new CentreGestionSuperviseurDTO();
-			tmp.setNomCentreGestionSuperviseur("SuperViseur Temporaire");
-			getCentreGestionDomainService().addCentreGestionSuperviseur(tmp);
-		}
+//		try{
+//			(getCentreGestionDomainService().getCentreGestionSuperviseur()).isEmpty();
+//		} catch (NullPointerException e){
+//			CentreGestionSuperviseurDTO tmp = new CentreGestionSuperviseurDTO();
+//			tmp.setNomCentreGestionSuperviseur("SuperViseur Temporaire");
+//			getCentreGestionDomainService().addCentreGestionSuperviseur(tmp);
+//		}
 
 		// On recupére l'id du centre superviseur ajouté 
-		centre.setIdCentreGestionSuperViseur(((getCentreGestionDomainService().getCentreGestionSuperviseur()).get(0)).getIdCentreGestionSuperviseur());
+//		centre.setIdCentreGestionSuperViseur(((getCentreGestionDomainService().getCentreGestionSuperviseur()).get(0)).getIdCentreGestionSuperviseur());
 
 		if(logger.isDebugEnabled()){
 			logger.debug("public String ajouterCentre()");
@@ -448,26 +456,28 @@ public class CentreController extends AbstractContextAwareController {
 			centre.setPrenomViseur(null);
 		}
 
+		String msgErreurAjoutCentre = "CENTRE.AJOUT_CENTRE.ERREUR";
+		String msgTargetAjoutCentre = "formCentre";
 		try{
 			// Ajout Centre
 			int idCentreGestion = getCentreGestionDomainService().addCentreGestion(centre);
-			
+
 			centre.setIdCentreGestion(idCentreGestion);
 			this.centresGestion.add(centre);
 			if(logger.isDebugEnabled()){
 				logger.debug("idCentreGestion : " + idCentreGestion);
 			}
 		} catch (DataAddException d){
-			logger.error("DataAddException",d.fillInStackTrace());
-			addErrorMessage("formAjoutCentre:erreurAjoutCentre","CENTRE.AJOUT_CENTRE.ERREUR");
+			logger.error("DataAddException",d);
+			addErrorMessage(msgTargetAjoutCentre,msgErreurAjoutCentre);
 			return null;
 		} catch (WebServiceDataBaseException w){
-			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
-			addErrorMessage("formAjoutCentre:erreurAjoutCentre", "CENTRE.AJOUT_CENTRE.ERREUR");
+			logger.error("WebServiceDataBaseException", w);
+			addErrorMessage(msgTargetAjoutCentre, msgErreurAjoutCentre);
 			return null;
 		} catch (CentreEtablissementDejaExistantException e) {
-			logger.error("EtablissementDejaExistantException", e.fillInStackTrace());
-			addErrorMessage("formAjoutCentre:erreurAjoutCentre", "CENTRE.AJOUT_CENTRE.ERREUR_ETABLISSEMENT");
+			logger.error("EtablissementDejaExistantException", e);
+			addErrorMessage(msgTargetAjoutCentre, "CENTRE.AJOUT_CENTRE.ERREUR_ETABLISSEMENT");
 			return null;
 		}
 
@@ -486,29 +496,40 @@ public class CentreController extends AbstractContextAwareController {
 		if(logger.isDebugEnabled()){
 			logger.debug("public String goToVoirCentre() ");
 		}
+		this.indexMenu = 0;
 		this.listeCriteres = new ArrayList<SelectItem>();
 		this.personnels = new ArrayList<PersonnelCentreGestionDTO>();
+
+		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_detail");
+
 		return "voirCentre";
+	}
+
+	public void onCentreSelect(SelectEvent event) {
+		if(logger.isDebugEnabled()) {
+			logger.debug("Selection du centre " + ((CentreGestionDTO) event.getObject()).getIdCentreGestion()+"");
+		}
+
+		String retour = this.goToVoirCentre();
+
+		try {
+			if (retour != null) {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("consultationCentre.xhtml");
+			}
+		} catch (IOException ioe){
+			logger.error("Erreur lors de la tentative de redirection de page.", ioe);
+			addErrorMessage(null, "Erreur lors de la tentative de redirection de page.");
+		}
 	}
 
 	/* ****************************************************************************
 	 * MODIFICATION D'UN CENTRE
 	 *****************************************************************************/
 	/**
-	 * @return a String
-	 */
-	public String goToModifCentre(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public String goToModifCentre() ");
-		}
-
-		return "modifCentre";
-	}
-	/**
 	 * Traite le formulaire une fois valide et renvoie vers la liste des centres
 	 * @return a String
 	 */
-	public String modifierCentre(){
+	public void modifierCentre(){
 
 		centre.setLoginModif(getSessionController().getCurrentLogin());
 
@@ -541,7 +562,8 @@ public class CentreController extends AbstractContextAwareController {
 			// On recupére l'id du centre superviseur ajouté (temporaire)
 			centre.setIdCentreGestionSuperViseur(((getCentreGestionDomainService().getCentreGestionSuperviseur()).get(0)).getIdCentreGestionSuperviseur());
 		} catch (NullPointerException e ){
-			addErrorMessage("formModifCentre:erreurModifCentre","CENTRE.AJOUT_CENTRE.ERREUR_SUPERVISEUR");
+			logger.error(e);
+			addErrorMessage("formCentre","CENTRE.AJOUT_CENTRE.ERREUR_SUPERVISEUR");
 		}
 
 
@@ -549,25 +571,25 @@ public class CentreController extends AbstractContextAwareController {
 			logger.debug("public String modifierCentre()");
 			logger.debug("Propriétés du centre modifié : "+ centre);
 		}
+		String msgErreurAjoutCentre = "CENTRE.AJOUT_CENTRE.ERREUR";
 		try{
 			// Modification du Centre
 			getCentreGestionDomainService().updateCentreGestion(centre);
-			
+
+			addInfoMessage("formConsultationCentre","CENTRE.MODIF_CENTRE.CONFIRM");
+
 		} catch (DataUpdateException d){
-			logger.error("DataUpdateException",d.fillInStackTrace());
-			addErrorMessage("formModifCentre:erreurModifCentre","CENTRE.AJOUT_CENTRE.ERREUR");
-			return null;
+			logger.error("DataUpdateException",d);
+			addErrorMessage("formCentre",msgErreurAjoutCentre);
 		} catch (WebServiceDataBaseException w){
-			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
-			addErrorMessage("formModifCentre:erreurModifCentre", "CENTRE.AJOUT_CENTRE.ERREUR");
-			return null;
+			logger.error("WebServiceDataBaseException", w);
+			addErrorMessage("formCentre", msgErreurAjoutCentre);
 		} catch (CentreEtablissementDejaExistantException e) {
-			logger.error("EtablissementDejaExistantException", e.fillInStackTrace());
-			addErrorMessage("formModifCentre:erreurModifCentre", "CENTRE.AJOUT_CENTRE.ERREUR_ETABLISSEMENT");
-			return null;
+			logger.error("EtablissementDejaExistantException", e);
+			addErrorMessage("formCentre", "CENTRE.AJOUT_CENTRE.ERREUR_ETABLISSEMENT");
 		}
 
-		return "voirCentre";
+		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_detail");
 	}
 
 	/* ****************************************************************************
@@ -589,7 +611,7 @@ public class CentreController extends AbstractContextAwareController {
 
 	/**
 	 * Action de création du centre entreprise si non existant
-	 * 
+	 *
 	 */
 	public void ajouterCentreEntreprise(){
 		//		String ret=null;
@@ -605,16 +627,16 @@ public class CentreController extends AbstractContextAwareController {
 					addInfoMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.CONFIRMATION");
 					getSessionController().setModifCentreEntrepriseCurrentPage("modifCentreEntrepriseEtape1");
 					//					ret="_modifCentreEntrepriseEtape1";
-				} catch (DataAddException d) {	
-					logger.error("DataAddException", d.fillInStackTrace());				
+				} catch (DataAddException d) {
+					logger.error("DataAddException", d);
 					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", d.getMessage());
 					//					return null;
 				} catch (CentreEntrepriseDejaExistantException e) {
-					logger.error("CentreEntrepriseDejaExistantException", e.fillInStackTrace());	
+					logger.error("CentreEntrepriseDejaExistantException", e);
 					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
 					//					return null;
 				} catch (WebServiceDataBaseException e) {
-					logger.error("WebServiceDataBaseException", e.fillInStackTrace());	
+					logger.error("WebServiceDataBaseException", e);
 					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
 					//					return null;
 				}
@@ -627,35 +649,32 @@ public class CentreController extends AbstractContextAwareController {
 	 * Action de modification du centre entreprise
 	 */
 	public void modifierCentreEntreprise(){
-		//		String ret=null;
-		if(getCentreEntreprise()!=null){
-			if(StringUtils.hasText(this.formCentreEntreprise.getNomCentre()) &&
-					this.formCentreEntreprise.getConfidentialite()!=null){
-				try{
-					this.formCentreEntreprise.setCodeConfidentialite(this.formCentreEntreprise.getConfidentialite().getCode());
-					this.formCentreEntreprise.setCodeUniversite("entreprise");
-					this.formCentreEntreprise.setIdNiveauCentre(getBeanUtils().getEntreprise().getId());
-					this.formCentreEntreprise.setLoginModif(getSessionController().getCurrentLogin());
-					getCentreGestionDomainService().updateCentreGestion(this.formCentreEntreprise);
-					getSessionController().setModifCentreEntrepriseCurrentPage("_modifCentreEntrepriseEtape1");
-					addInfoMessage("msgsEts", "CENTRE.CENTRE_ENTREPRISE.CONFIRMATION");
-					//					ret="_modifCentreEntrepriseEtape1";
-				} catch (DataAddException d){
-					logger.error("DataAddException", d.fillInStackTrace());				
-					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE");
-					//					return null;
-				} catch (CentreEntrepriseDejaExistantException e) {
-					logger.error("CentreEntrepriseDejaExistantException", e.fillInStackTrace());	
-					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
-					//					return null;
-				} catch (WebServiceDataBaseException e) {
-					logger.error("WebServiceDataBaseException", e.fillInStackTrace());	
-					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
-					//					return null;
-				}
+
+		if(getCentreEntreprise()!=null && StringUtils.hasText(this.formCentreEntreprise.getNomCentre())
+				&& this.formCentreEntreprise.getConfidentialite()!=null){
+			try{
+				this.formCentreEntreprise.setCodeConfidentialite(this.formCentreEntreprise.getConfidentialite().getCode());
+				this.formCentreEntreprise.setCodeUniversite("entreprise");
+				this.formCentreEntreprise.setIdNiveauCentre(getBeanUtils().getEntreprise().getId());
+				this.formCentreEntreprise.setLoginModif(getSessionController().getCurrentLogin());
+
+				getCentreGestionDomainService().updateCentreGestion(this.formCentreEntreprise);
+
+				getSessionController().setModifCentreEntrepriseCurrentPage("_modifCentreEntrepriseEtape1");
+
+				addInfoMessage("msgsEts", "CENTRE.CENTRE_ENTREPRISE.CONFIRMATION");
+
+			} catch (DataAddException d){
+				logger.error("DataAddException", d);
+				addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE");
+			} catch (CentreEntrepriseDejaExistantException e) {
+				logger.error("CentreEntrepriseDejaExistantException", e);
+				addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
+			} catch (WebServiceDataBaseException e) {
+				logger.error("WebServiceDataBaseException", e);
+				addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
 			}
 		}
-		//		return "centreEntreprise";
 	}
 
 	/* ****************************************************************************	 * 
@@ -690,31 +709,42 @@ public class CentreController extends AbstractContextAwareController {
 	public String supprimerCentre(){
 		if(this.centre!=null){
 			try{
-				if(logger.isInfoEnabled()){
-					logger.info(getSessionController().getCurrentLogin()+" supprime le centre de gestion : "+this.centre);
-				}
-				List<CritereGestionDTO> list = new ArrayList<CritereGestionDTO>();
-				list = getCritereGestionDomainService().getCritereGestionFromIdCentre(this.centre.getIdCentreGestion());
-				if (list != null && !list.isEmpty()){
-					for(CritereGestionDTO crit : list){
-						this.critere = crit;
-						this.repercutionCriteres();
-					}
-				}
-				getCentreGestionDomainService().deleteCentreGestion(this.centre.getIdCentreGestion());
+				List<CritereGestionDTO> list;
 
-				this.centresGestion.remove(centre);
+				if (getCentreGestionDomainService().deleteCentreGestion(this.centre.getIdCentreGestion())){
+
+					// On reporte le rattachement des conventions référencées au centre de niveau supérieur (etablissement ou UFR)
+					list = getCritereGestionDomainService().getCritereGestionFromIdCentre(this.centre.getIdCentreGestion());
+					if (list != null && !list.isEmpty()) {
+						for (CritereGestionDTO crit : list) {
+							this.critere = crit;
+							this.repercutionCriteres();
+						}
+					}
+
+					// On retire le centre de la liste pour l'affichage
+					this.centresGestion.remove(centre);
+
+					if (logger.isInfoEnabled()) {
+						logger.info(getSessionController().getCurrentLogin() + " supprime le centre de gestion : " + this.centre);
+					}
+				} else {
+					logger.error("La requête de suppression renvoie False.");
+					addErrorMessage("formSupprCentre", "CENTRE.SUPPRESSION.ERREUR");
+					return null;
+				}
+
 			} catch (CentreReferenceException e){
-				logger.error("CentreReferenceException ",e.fillInStackTrace());
-				addErrorMessage("formSupprCentre:erreurListeCentre","CENTRE.SUPPRESSION.ERREUR.REFERENCE",e.getMessage());
+				logger.error("CentreReferenceException ",e);
+				addErrorMessage("formSupprCentre","CENTRE.SUPPRESSION.ERREUR.REFERENCE",e.getMessage());
 				return null;
 			}catch (DataDeleteException de) {
-				logger.error("DataDeleteException ",de.fillInStackTrace());
-				addErrorMessage("formSupprCentre:erreurListeCentre", "CENTRE.SUPPRESSION.ERREUR");
+				logger.error("DataDeleteException ",de);
+				addErrorMessage("formSupprCentre", "CENTRE.SUPPRESSION.ERREUR");
 				return null;
 			}catch (WebServiceDataBaseException we) {
-				logger.error("WebServiceDataBaseException ",we.fillInStackTrace());
-				addErrorMessage("formSupprCentre:erreurListeCentre", "CENTRE.SUPPRESSION.ERREUR");
+				logger.error("WebServiceDataBaseException ",we);
+				addErrorMessage("formSupprCentre", "CENTRE.SUPPRESSION.ERREUR");
 				return null;
 			}
 			this.centre = new CentreGestionDTO();
@@ -723,17 +753,18 @@ public class CentreController extends AbstractContextAwareController {
 	}
 
 	/* ****************************************************************************
-	 * Liste des critéres rattachés
+	 * Liste des criteres rattachés
 	 *****************************************************************************/
 	/**
 	 * @return a String
 	 */
-	public String goToListeCritere(){
+	public void goToListeCritere(){
 		if(logger.isDebugEnabled()){
 			logger.debug("public String goToListeCritere() ");
 		}
 		this.critere = null;
-		return "listeCriteres";
+
+		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_criteres");
 	}
 
 	/**
@@ -760,7 +791,7 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String goToAjoutCritere(){
+	public void goToAjoutCritere(){
 		if(logger.isDebugEnabled()){
 			logger.debug("public String goToAjoutCritere() ");
 		}
@@ -787,23 +818,23 @@ public class CentreController extends AbstractContextAwareController {
 				// codes et libelles de toutes les UFR
 				this.toutLesCriteres = getPersonalComponentRepositoryDomain().getComposantesRef(codeUniversite);
 			} catch (CommunicationApogeeException cae){
-				logger.error(cae.fillInStackTrace());
-				addErrorMessage("formListeCritere:erreurListeCritere", "CENTRE.CRITERE.ERREUR_COMMUNICATION");
-				return null;
+				logger.error(cae);
+				addErrorMessage("formListeCritere", "CENTRE.CRITERE.ERREUR_COMMUNICATION");
+				return;
 			} catch (Exception e){
-				logger.error(e.fillInStackTrace());
-				addErrorMessage("formListeCritere:erreurListeCritere", "CENTRE.CRITERE.ERREUR");
-				return null;
+				logger.error(e);
+				addErrorMessage("formListeCritere", "CENTRE.CRITERE.ERREUR");
+				return;
 			}
 
 			if (this.toutLesCriteres == null || this.toutLesCriteres.isEmpty()) {
-				return null;
+				return;
 			}
 
 			// Liste des codes ufr uniquement
 			List<String> codesUfr = new ArrayList<String>();
 			for(Iterator<String> iter = this.toutLesCriteres.keySet().iterator(); iter.hasNext(); ){
-				codesUfr.add(iter.next().toString());
+				codesUfr.add(iter.next());
 			}
 			Collections.sort(codesUfr);
 
@@ -841,17 +872,17 @@ public class CentreController extends AbstractContextAwareController {
 				// codes et libelles de toutes les ETAPES
 				this.toutLesCriteres = getStudentComponentRepositoryDomain().getEtapesRef(codeUniversite);
 			} catch (CommunicationApogeeException cae){
-				logger.error(cae.fillInStackTrace());
-				addErrorMessage("formListeCritere:erreurListeCritere", "CENTRE.CRITERE.ERREUR_COMMUNICATION");
-				return null;
+				logger.error(cae);
+				addErrorMessage("formListeCritere", "CENTRE.CRITERE.ERREUR_COMMUNICATION");
+				return;
 			}catch (Exception e){
-				logger.error(e.fillInStackTrace());
-				addErrorMessage("formListeCritere:erreurListeCritere", "CENTRE.CRITERE.ERREUR");
-				return null;
+				logger.error(e);
+				addErrorMessage("formListeCritere", "CENTRE.CRITERE.ERREUR");
+				return;
 			}
 
 			if (this.toutLesCriteres == null || this.toutLesCriteres.isEmpty()) {
-				return null;
+				return;
 			}
 			// liste des codes ETAPES et version etapes
 			List<String> codesEtape = new ArrayList<String>();
@@ -876,9 +907,9 @@ public class CentreController extends AbstractContextAwareController {
 					// si le code n'est pas saisi et qu'il est un combine code/codeVersion
 					if(!codesSaisis.contains(codeEtp) && codeEtp.contains(";")){
 						// on en extrait juste sa partie codeEtape et on verifie qu'elle n'est pas non plus rattachee avant d'ajouter le code
-//						if(!codesSaisis.contains(tabCodes2[0])){
-//							criteresDisponibles.put(codeEtp,this.toutLesCriteres.get(codeEtp));
-//						}
+						//						if(!codesSaisis.contains(tabCodes2[0])){
+						//							criteresDisponibles.put(codeEtp,this.toutLesCriteres.get(codeEtp));
+						//						}
 						criteresDisponibles.put(codeEtp,this.toutLesCriteres.get(codeEtp));
 					}
 				}
@@ -889,8 +920,8 @@ public class CentreController extends AbstractContextAwareController {
 			}
 		}
 
-		String clef = null;
-		String valeur = null;
+		String clef;
+		String valeur;
 		Iterator<String> i = criteresDisponibles.keySet().iterator();
 		while (i.hasNext()){
 			clef = i.next();
@@ -899,7 +930,6 @@ public class CentreController extends AbstractContextAwareController {
 		}
 		Collections.sort(this.listeCriteres, new ComparatorSelectItem());
 
-		return "ajoutCritere";
 	}
 
 	/**
@@ -912,12 +942,12 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String ajouterCriteres(){
+	public void ajouterCriteres(){
 		if(logger.isDebugEnabled()){
 			logger.debug("public String ajouterCriteres() ");
 		}
 		List<CritereGestionDTO> liste = new ArrayList<CritereGestionDTO>();
-		CritereGestionDTO tmp = new CritereGestionDTO();
+		CritereGestionDTO tmp;
 		String code;
 
 		if (this.listeCriteresChoisis == null || this.listeCriteresChoisis.isEmpty()){
@@ -925,7 +955,7 @@ public class CentreController extends AbstractContextAwareController {
 				logger.info("Ajout impossible : aucun critere choisi dans la liste.");
 			}
 			addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR_CHOIX");
-			return null;
+			return;
 		}
 		for(int i=0;i < this.listeCriteresChoisis.size();i++){
 			tmp = new CritereGestionDTO();
@@ -946,7 +976,7 @@ public class CentreController extends AbstractContextAwareController {
 					this.listeCriteres.remove(j);
 				}
 			}
-			
+
 			liste.add(tmp);
 
 			if (tmp.getCodeVersionEtape() != ""){
@@ -980,13 +1010,14 @@ public class CentreController extends AbstractContextAwareController {
 					getConventionDomainService().updateCentreConventionByEtape(code, this.centre.getIdCentreGestion(),getSessionController().getCodeUniversite());
 				}
 			}
-		} catch (DataAddException e) {
-			logger.error(e.fillInStackTrace());
-		} catch (WebServiceDataBaseException e) {
-			logger.error(e.fillInStackTrace());
-		}
 
-		return "listeCriteres";
+			addInfoMessage("formListeCritere", "CENTRE.CRITERE.CONFIRM_AJOUT");
+
+		} catch (DataAddException e) {
+			logger.error(e);
+		} catch (WebServiceDataBaseException e) {
+			logger.error(e);
+		}
 	}
 
 
@@ -1005,28 +1036,28 @@ public class CentreController extends AbstractContextAwareController {
 					// codes et libelles de toutes les UFR
 					this.toutLesCriteres = getPersonalComponentRepositoryDomain().getComposantesRef(codeUniversite);
 				} catch (CommunicationApogeeException cae){
-					logger.error(cae.fillInStackTrace());
+					logger.error(cae);
 				} catch (Exception e){
-					logger.error(e.fillInStackTrace());
+					logger.error(e);
 				}
 			} else if ((this.centre.getNiveauCentre().getLibelle()).equalsIgnoreCase(DonneesStatic.CG_ETAPE)){
 				try{
 					// codes et libelles de toutes les ETAPES
 					this.toutLesCriteres = getStudentComponentRepositoryDomain().getEtapesRef(codeUniversite);
 				} catch (CommunicationApogeeException cae){
-					logger.error(cae.fillInStackTrace());
-				}catch (Exception e){
-					logger.error(e.fillInStackTrace());
+					logger.error(cae);
+				} catch (Exception e){
+					logger.error(e);
 				}
 			}
-			String code = "";
+			String code;
 			if (this.critere.getCodeVersionEtape() != null
-				&& !this.critere.getCodeVersionEtape().isEmpty()){
+					&& !this.critere.getCodeVersionEtape().isEmpty()){
 				code = this.critere.getCode()+";"+this.critere.getCodeVersionEtape();
 			} else {
 				code = this.critere.getCode();
 			}
-			if (this.toutLesCriteres == null 
+			if (this.toutLesCriteres == null
 					|| this.toutLesCriteres.isEmpty()
 					|| !this.toutLesCriteres.containsKey(code)){
 				this.setCritereNotFound(true);
@@ -1037,14 +1068,13 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String supprimerCritere(){
+	public void supprimerCritere(){
 		if(this.critere != null){
 			if(logger.isInfoEnabled()){
 				logger.info("Suppression du critere de gestion : " + this.critere);
 			}
 			repercutionCriteres();
 		}
-		return "listeCriteres";
 	}
 
 	/**
@@ -1061,13 +1091,13 @@ public class CentreController extends AbstractContextAwareController {
 			} else {
 				codeCritere = this.critere.getCode();
 			}
-			
+
 			// Si le centre est de type UFR
 			if (this.centre.getNiveauCentre().getLibelle().equalsIgnoreCase(DonneesStatic.CG_UFR)){
 
 				// On récupère la liste des codesEtape de toutes les conventions impactées
 				List<String> listeCodes = getConventionDomainService().getCodesEtapesConventionsFromCodeUfrAndIdCentre(codeCritere, this.critere.getIdCentreGestion(), getSessionController().getCodeUniversite());
-				
+
 				if (listeCodes != null && !listeCodes.isEmpty()){
 					for (String code : listeCodes){
 						// Pour chaque codeEtape, on regarde si un centre le gere (dans la table CritereGestion)
@@ -1084,7 +1114,7 @@ public class CentreController extends AbstractContextAwareController {
 					// Partout ou le code critere est trouvé dans les conventions, on remet l'id du centre Etablissement
 					getConventionDomainService().updateCentreConventionByUfr(codeCritere, getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite()).getIdCentreGestion(),getSessionController().getCodeUniversite());
 				}
-				
+
 			} else {
 				// Sinon, le centre est une Etape
 				// Si le critere de gestion du fichier de config est MIXTE, alors on vérifie d'abord qu'il n'y a pas d'UFR pouvant recuperer la convention avant l'etablissement
@@ -1119,96 +1149,90 @@ public class CentreController extends AbstractContextAwareController {
 				Collections.sort(this.listeCriteres, new ComparatorSelectItem());
 			}
 		} catch (DataUpdateException e) {
-			logger.error("DataUpdateException", e.fillInStackTrace());
-			addErrorMessage("formSupprCritere:erreurCritere", "CENTRE.CRITERE.SUPPRESSION.ERREUR",this.critere.getCode());
+			logger.error("DataUpdateException", e);
+			addErrorMessage("formSupprCritere", "CENTRE.CRITERE.SUPPRESSION.ERREUR",this.critere.getCode());
 		} catch (WebServiceDataBaseException e) {
-			logger.error("WebServiceDataBaseException", e.fillInStackTrace());
-			addErrorMessage("formSupprCritere:erreurCritere", "CENTRE.CRITERE.SUPPRESSION.ERREUR",this.critere.getCode());
+			logger.error("WebServiceDataBaseException", e);
+			addErrorMessage("formSupprCritere", "CENTRE.CRITERE.SUPPRESSION.ERREUR",this.critere.getCode());
 		}
 	}
 	/* ****************************************************************************
 	 * AJOUT/MODIFICATION DU LOGO
 	 *****************************************************************************/
 	/**
-	 * @return a String
+	 * Upload du logo
 	 */
-	public String goToModifLogo(){
+	public void uploadLogoCentre(FileUploadEvent event){
 		if(logger.isDebugEnabled()){
-			logger.debug("public String goToModifLogo() ");
+			logger.debug("public String uploadLogoCentre() ");
 		}
-		return "modifLogo";
-	}
+		ImageUploadBean imgUlBean = getSessionController().getImageUploadBean();
 
-	/**
-	 * Methode appelée avant l'affichage du panel_logo
-	 */
-	public void avantAjoutLogo(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public String avantModifLogo() ");
-		}
-		if (!(this.centre.getIdFichier() > 0)){
-			try {
-				getSessionController().setImageUploadBean(new ImageUploadBean(getSessionController().getUploadFilesLogosCentrePath()));
-				FichierDTO o = new FichierDTO();
-				o.setNomFichier("");
-				o.setNomReel("");
-				int idFichier = getOffreDomainService().addFichier(o);
-				o.setIdFichier(idFichier);
-				this.centre.setFichier(o);
-				getSessionController().getImageUploadBean().setPrefix(idFichier);
-			} catch (DataAddException e) {
-				logger.error(e.fillInStackTrace());
-			} catch (WebServiceDataBaseException e) {
-				logger.error(e.fillInStackTrace());
-			}
-		}
-	}
+		// On met le prefix a -1 sinon '0_' est ajouté au nom
+		imgUlBean.setPrefix(-1);
+		// Methode s'occupant de l'upload du fichier
+		imgUlBean.imageUploadListener(event);
 
-	/**
-	 * Action appellée après l'upload d'un fichier
-	 */
-	public String insertLogo() {
-		String nomFichier = getSessionController().getImageUploadBean().getNameUploadedImage();
-		String nomReel = getSessionController().getImageUploadBean().getRealNameImage();
+		// Recuperation du nom final du fichier
+		String nomFichier = imgUlBean.getNameUploadedImage();
+		String nomReel = imgUlBean.getRealNameImage();
+
 		//Si nom de fichier non vide (cas des fichiers volumineux)
 		if(StringUtils.hasText(nomFichier)){
-			this.centre.getFichier().setNomFichier(nomFichier);
+			FichierDTO f = new FichierDTO();
+			f.setNomFichier(nomFichier);
 			if(StringUtils.hasText(nomReel)){
-				this.centre.getFichier().setNomReel(nomReel);
+				f.setNomReel(nomReel);
+			} else {
+				f.setNomReel("");
 			}
 			try {
-				getOffreDomainService().updateFichier(this.centre.getFichier());
+				int idFichier = getOffreDomainService().addFichier(f);
+
+				// Maintenant que l'upload s'est bien passé et que l'on a pu inserer le fichier en base,
+				// on recupere le last insert id pour l'assigner au centre
+				f.setIdFichier(idFichier);
+				this.centre.setFichier(f);
+				this.centre.setIdFichier(idFichier);
 				getCentreGestionDomainService().updateIdFichier(this.centre.getIdCentreGestion(), this.centre.getFichier().getIdFichier());
-				this.centre.setIdFichier(this.centre.getFichier().getIdFichier());
-				return "modifLogo";
-			} catch (DataUpdateException d){
-				logger.error("DataUpdateException",d.fillInStackTrace());
-				addErrorMessage("panelUpload:erreurLogo",d.getMessage());
+
+				// Pour que l'image puisse etre recup par getFileServlet, il faut la prefixer de l'idFichier,
+				// On la recupere donc pour la renommer
+				String directory = getSessionController().getUploadFilesLogosCentrePath() + File.separator;
+				File fichier = new File(directory + f.getNomFichier());
+				boolean b = fichier.renameTo(new File(directory+ idFichier +"_"+f.getNomFichier()));
+				if (b == false){
+					addErrorMessage("panelUpload","Erreur lors de la tentative de renommage du fichier.");
+				}
+			} catch (DataAddException e) {
+				logger.error(e);
+				addErrorMessage("panelUpload",e.getMessage());
+			} catch (DataUpdateException e) {
+				logger.error(e);
+				addErrorMessage("panelUpload",e.getMessage());
 			} catch (WebServiceDataBaseException e) {
-				logger.error(e.fillInStackTrace());
-				addErrorMessage("panelUpload:erreurLogo",e.getMessage());
+				logger.error(e);
+				addErrorMessage("panelUpload",e.getMessage());
 			}
 		}
-		return null;
 	}
 
 	/**
 	 * @return String
 	 */
-	public String cleanFichiers(){
+	public void cleanFichiers(){
 		if(logger.isDebugEnabled()){
 			logger.debug("public String cleanFichiers() ");
 		}
 		getOffreDomainService().cleanFichiers();
-		return "modifLogo";
 	}
 	/* ****************************************************************************
 	 * SUPPRESSION DU LOGO
-	 *****************************************************************************/	
+	 *****************************************************************************/
 	/**
 	 * @return a String
 	 */
-	public String deleteLogo() {
+	public void deleteLogo() {
 		try{
 			getSessionController().getImageUploadBean().deleteImageFromDirectory(
 					this.centre.getFichier().getIdFichier(), this.centre.getFichier().getNomFichier());
@@ -1216,13 +1240,11 @@ public class CentreController extends AbstractContextAwareController {
 			getOffreDomainService().deleteFichier(this.centre.getIdFichier());
 			this.centre.setIdFichier(0);
 			this.centre.setFichier(null);
-			return "modifLogo";
 		}catch (DataDeleteException e) {
-			logger.warn(e.fillInStackTrace());
+			logger.warn(e);
 		}catch (WebServiceDataBaseException e) {
-			logger.warn(e.fillInStackTrace());
+			logger.warn(e);
 		}
-		return null;
 	}
 
 	/* ****************************************************************************
@@ -1231,15 +1253,19 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String goToListePersonnel(){
+	public void goToListePersonnel(){
 		if(logger.isDebugEnabled()){
 			logger.debug("public String goToListePersonnel() ");
 		}
+
 		if(this.personnels == null || this.personnels.isEmpty()){
 			this.personnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.centre.getIdCentreGestion());
 		}
 
-		return "listePersonnels";
+		// On indique au flag correspondant que l'on est en recherche de personnel et pas de viseur (pour modifier le form)
+		this.rechercheViseur = false;
+
+		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_personnels");
 	}
 
 	/**
@@ -1275,9 +1301,9 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String goToRattachPersonnelRecherche(){
+	public void avantRecherchePersonnel(){
 		if(logger.isDebugEnabled()){
-			logger.debug("public String goToRattachPersonnelRecherche() ");
+			logger.debug("public String avantRecherchePersonnel() ");
 		}
 
 		// On initialise tout les objets en rapport avec le personnel récupéré depuis le LDAP
@@ -1290,124 +1316,23 @@ public class CentreController extends AbstractContextAwareController {
 		this.personnel.setAffectation(a);
 		this.personnel.setDroitAdmin(new DroitAdministrationDTO());
 		this.personnel.setCodeAffectation(" ");
-
-		return "rattachPersonnelRecherche";
+		this.personnel.setImpressionConvention(true);
 	}
 
 	/**
-	 * @return a String
+	 *
 	 */
-	public String rechercherPersonnel(){
+	public void rechercherPersonnel(){
 		if(logger.isDebugEnabled()){
 			logger.debug("public String rechercherPersonnel() ");
 		}
-		try{
-			this.recherchePersonnels = new ArrayList<PersonnelCentreGestionDTO>();
-
-			if (this.codeAffectationPersonnel == null 
-					&& (this.personnel.getNom() == null || this.personnel.getNom().isEmpty()) 
-					&& (this.personnel.getPrenom() == null || this.personnel.getPrenom().isEmpty())){
-				addErrorMessage("formRechercheViseur:erreurRecherche","CENTRE.PERSONNEL.ERREUR_CHAMPS");
-				return null;
-			}
-			String codeUniversite = getSessionController().getCodeUniversite();
-			String codeAffectation = "";
-			if (this.codeAffectationPersonnel != null) {
-				codeAffectation = (String) this.codeAffectationPersonnel;
-			}
-			try {
-				LinkedHashMap<String,String> map = (LinkedHashMap<String, String>) getPersonalComponentRepositoryDomain().getComposantesRef(getSessionController().getCodeUniversite());
-
-				AffectationDTO a;
-				String libelleAffectation = null;
-				List<PersonnelCentreGestionDTO> lp = getPersonalDataRepositoryDomain().getPersonnelCentreGestionRefByName(codeUniversite,this.personnel.getNom(),this.personnel.getPrenom(),codeAffectation);
-
-				for(PersonnelCentreGestionDTO tmp : lp){
-					a = new AffectationDTO();
-					a.setCodeUniversite(getSessionController().getCodeUniversite());
-
-					if (tmp.getAffectation().getCode() == null && tmp.getAffectation().getLibelle() == null){
-						// Le code et le libelle sont vides
-						a.setLibelle(" ");
-						a.setCode(" ");
-						tmp.setAffectation(a);
-						tmp.setCodeAffectation(a.getCode());
-					}
-
-					if(tmp.getAffectation().getCode() == null){
-						// Si seul le code est vide on utilise le libelle pour le retrouver
-						if (map != null && !map.isEmpty()){
-							for (Iterator<String> i = map.keySet().iterator() ; i.hasNext() ; ){
-								String key = i.next();
-								if ((map.get(key)).equalsIgnoreCase(tmp.getAffectation().getLibelle())){
-									codeAffectation = key;
-								}
-							}
-						}
-						a.setCode(codeAffectation==null?" ":codeAffectation);
-						a.setLibelle(tmp.getAffectation().getLibelle());
-						tmp.setAffectation(a);
-						tmp.setCodeAffectation(a.getCode());
-					}
-
-					if (tmp.getAffectation().getLibelle() == null){
-						// Si seul le libelle est vide on utilise le code pour le retrouver
-						if (map != null && map.get(codeAffectation) != null) {
-							libelleAffectation = map.get(codeAffectation);
-						}
-						a.setCode(tmp.getAffectation().getCode());
-						a.setLibelle(libelleAffectation==null?" ":libelleAffectation);
-						tmp.setAffectation(a);
-						tmp.setCodeAffectation(a.getCode());
-					}
-
-					tmp.setCivilite(getNomenclatureDomainService().getCiviliteFromId(tmp.getIdCivilite()));
-
-					this.recherchePersonnels.add(tmp);
-
-				}
-			} catch (CommunicationApogeeException e) {
-				addErrorMessage("formRecherchePersonnel:erreurRecherche", "APOGEE.ERREUR");
-				return null;
-			}
-
-		} catch (NullPointerException e){
-
-			this.personnel = new PersonnelCentreGestionDTO();
-			this.recherchePersonnels = new ArrayList<PersonnelCentreGestionDTO>();
-			addErrorMessage("formRecherchePersonnel:erreurRecherche", "CENTRE.PERSONNEL.RECHERCHE.VIDE");
-
-			return null;
-		}
-
-		return "rattachPersonnelResultat";
-	}
-
-	/**
-	 * @return a String
-	 */
-	public void avantRechercheViseur(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public void avantRechercheViseur() ");
-		}
-		this.recherchePersonnels = new ArrayList<PersonnelCentreGestionDTO>();
-		this.personnel = new PersonnelCentreGestionDTO();
-	}
-
-	/**
-	 * 
-	 */
-	public String rechercherViseur(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public String rechercherViseur() ");
-		}
 		this.recherchePersonnels = new ArrayList<PersonnelCentreGestionDTO>();
 
-		if (this.codeAffectationPersonnel == null 
-				&& (this.personnel.getNom() == null || this.personnel.getNom().isEmpty()) 
+		if (this.codeAffectationPersonnel == null
+				&& (this.personnel.getNom() == null || this.personnel.getNom().isEmpty())
 				&& (this.personnel.getPrenom() == null || this.personnel.getPrenom().isEmpty())){
-			addErrorMessage("formRechercheViseur:erreurRecherche","CENTRE.PERSONNEL.ERREUR_CHAMPS");
-			return null;
+			addErrorMessage("formRecherchePersonnel","CENTRE.PERSONNEL.ERREUR_CHAMPS");
+			return;
 		}
 
 		// Déclaration des codes nécessaires à chaque recuperation dans le ldap
@@ -1429,6 +1354,9 @@ public class CentreController extends AbstractContextAwareController {
 			for(PersonnelCentreGestionDTO tmp : lp){
 				a = new AffectationDTO();
 				a.setCodeUniversite(getSessionController().getCodeUniversite());
+
+				// On lui donne d'office le droit d'impression
+				tmp.setImpressionConvention(true);
 
 				if (tmp.getAffectation().getCode() == null && tmp.getAffectation().getLibelle() == null){
 					// Le code et le libelle sont vides
@@ -1469,26 +1397,16 @@ public class CentreController extends AbstractContextAwareController {
 
 			}
 		} catch (CommunicationApogeeException e) {
-			addErrorMessage("formRechercheViseur:erreurRecherche", "APOGEE.ERREUR");
-			return null;
+			logger.error(e);
+			addErrorMessage("formRecherchePersonnel", "APOGEE.ERREUR");
+			return;
 		} catch (NullPointerException e){
+			logger.error(e);
 			this.personnel = new PersonnelCentreGestionDTO();
 			this.recherchePersonnels = new ArrayList<PersonnelCentreGestionDTO>();
-			addErrorMessage("formRechercheViseur:erreurRecherche", "CENTRE.PERSONNEL.RECHERCHE.VIDE");
-			return null;
+			addErrorMessage("formRecherchePersonnel", "CENTRE.PERSONNEL.RECHERCHE.VIDE");
+			return;
 		}
-
-		return null;
-	}
-
-	/**
-	 * @return a String
-	 */
-	public String goToRattachPersonnelResultat(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public String goToRattachPersonnelResultat() ");
-		}
-		return "rattachPersonnelResultat";
 	}
 
 	/* ****************************************************************************
@@ -1497,21 +1415,7 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String goToRattachPersonnelAjout(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public String goToRattachPersonnelAjout() ");
-		}
-
-		// Instanciation des objets du personnel correspondant au formulaire rempli
-		this.personnel.setDroitAdmin(new DroitAdministrationDTO());
-
-		return "rattachPersonnelAjout";
-	}
-
-	/**
-	 * @return a String
-	 */
-	public String ajouterPersonnel(){
+	public void ajouterPersonnel(){
 		if(logger.isDebugEnabled()){
 			logger.debug("public String ajouterPersonnel() ");
 		}
@@ -1534,26 +1438,45 @@ public class CentreController extends AbstractContextAwareController {
 			}
 
 		} catch (AffectationAlreadyExistingForCodeException ue) {
-			if(logger.isInfoEnabled()){
-				logger.info("Affectation deja existante pour le code : "+this.personnel.getAffectation().getCode());
-			}
+			logger.debug("Affectation deja existante pour le code : "+this.personnel.getAffectation().getCode(), ue);
 		} catch (DataAddException d){
-			logger.error("DataAddException",d.fillInStackTrace());
-			addErrorMessage("formAjoutPersonnel:erreurAjout","CENTRE.PERSONNEL.ERREUR");
-			return null;
+			logger.error("DataAddException",d);
+			addErrorMessage("formAjoutPersonnel","CENTRE.PERSONNEL.ERREUR");
+			return;
 		} catch (WebServiceDataBaseException w){
-			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
-			addErrorMessage("formAjoutPersonnel:erreurAjout", "CENTRE.WS.ERREUR");
-			return null;
+			logger.error("WebServiceDataBaseException", w);
+			addErrorMessage("formAjoutPersonnel", "CENTRE.WS.ERREUR");
+			return;
 		}catch (Exception e){
-			logger.error("Exception",e.fillInStackTrace());
-			addErrorMessage("formAjoutPersonnel:erreurAjout","CENTRE.PERSONNEL.ERREUR");
-			return null;
+			logger.error("Exception",e);
+			addErrorMessage("formAjoutPersonnel","CENTRE.PERSONNEL.ERREUR");
+			return;
 		}
 		this.personnel.setCodeUniversiteAffectation(getSessionController().getCodeUniversite());
 		try {
+
+			// Verification de l'existence reportee ici a cause du cache (Flush au DEBUT du add)
+			try{
+				List<PersonnelCentreGestionDTO> tmp = getPersonnelCentreGestionDomainService()
+						.getPersonnelCentreGestionFromUid(this.personnel.getUidPersonnel(), this.personnel.getCodeUniversite());
+
+				if(tmp != null){
+					for(int i=0; i < tmp.size();i++){
+						if(this.personnel.getUidPersonnel().equals(tmp.get(i).getUidPersonnel())
+								&& this.personnel.getIdCentreGestion() == tmp.get(i).getIdCentreGestion()){
+							throw new PersonalAlreadyExistingForCentreException("Personnel déjà rattaché : " + tmp);
+						}
+					}
+				}
+			} catch (NullPointerException npe){
+				// En cas de npe, le personnel n'est pas déjà rattaché, on continue donc l'ajout normalement.
+				logger.info(npe);
+			}
+
 			// Ajout Personnel en base
 			int idPersonnelCentreGestion = getPersonnelCentreGestionDomainService().addPersonnelCentreGestion(this.personnel);
+
+
 			// Ajout Personnel dans la liste du Controller
 			this.personnel.setId(idPersonnelCentreGestion);
 			if (this.personnels == null){
@@ -1566,7 +1489,8 @@ public class CentreController extends AbstractContextAwareController {
 				if(getSessionController().getCurrentCentresGestion()==null){
 					getSessionController().setCurrentCentresGestion(new ArrayList<CentreGestionDTO>());
 				}
-				if(!getSessionController().getCurrentCentresGestion().contains(this.centre.getIdCentreGestion()) && getSessionController().getCurrentAuthPersonnel()!=null){
+				if(!getSessionController().getCurrentCentresGestion().contains(this.centre)
+						&& getSessionController().getCurrentAuthPersonnel()!=null){
 					CentreGestionDTO cgA = getCentreGestionDomainService().getCentreGestion(this.centre.getIdCentreGestion());
 					if(!getSessionController().getCurrentCentresGestion().contains(cgA)){
 						getSessionController().getCurrentCentresGestion().add(cgA);
@@ -1585,7 +1509,7 @@ public class CentreController extends AbstractContextAwareController {
 				}
 				Map<Integer, DroitAdministrationDTO> droitsAccesMap = getSessionController().getDroitsAccesMap();
 				if(droitsAccesMap!=null &&
-						!droitsAccesMap.isEmpty() && 
+						!droitsAccesMap.isEmpty() &&
 						!droitsAccesMap.containsKey(this.centre.getIdCentreGestion())){
 					droitsAccesMap.put(this.centre.getIdCentreGestion(), this.personnel.getDroitAdmin());
 					getSessionController().setDroitsAccesMap(droitsAccesMap);
@@ -1597,7 +1521,9 @@ public class CentreController extends AbstractContextAwareController {
 					droitsEvaluationEtudiantMap.put(this.centre.getIdCentreGestion(), true);
 				} else {
 					// Si le droit evaluation est mis a false, retrait de la clef
-					if (droitsEvaluationEtudiantMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEtudiantMap.remove(this.personnel.getIdCentreGestion());
+					if (droitsEvaluationEtudiantMap.containsKey(this.personnel.getIdCentreGestion())){
+						droitsEvaluationEtudiantMap.remove(this.personnel.getIdCentreGestion());
+					}
 				}
 				getSessionController().setDroitsEvaluationEtudiantMap(droitsEvaluationEtudiantMap);
 
@@ -1607,10 +1533,12 @@ public class CentreController extends AbstractContextAwareController {
 					droitsEvaluationEnseignantMap.put(this.centre.getIdCentreGestion(), true);
 				} else {
 					// Si le droit evaluation est mis a false, retrait de la clef
-					if (droitsEvaluationEnseignantMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEnseignantMap.remove(this.personnel.getIdCentreGestion());
+					if (droitsEvaluationEnseignantMap.containsKey(this.personnel.getIdCentreGestion())){
+						droitsEvaluationEnseignantMap.remove(this.personnel.getIdCentreGestion());
+					}
 				}
 				getSessionController().setDroitsEvaluationEnseignantMap(droitsEvaluationEnseignantMap);
-				
+
 
 				Map<Integer, Boolean> droitsEvaluationEntrepriseMap = getSessionController().getDroitsEvaluationEntrepriseMap();
 				if(this.personnel.isDroitEvaluationEntreprise()){
@@ -1618,7 +1546,9 @@ public class CentreController extends AbstractContextAwareController {
 					droitsEvaluationEntrepriseMap.put(this.centre.getIdCentreGestion(), true);
 				} else {
 					// Si le droit evaluation est mis a false, retrait de la clef
-					if (droitsEvaluationEntrepriseMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEntrepriseMap.remove(this.personnel.getIdCentreGestion());
+					if (droitsEvaluationEntrepriseMap.containsKey(this.personnel.getIdCentreGestion())){
+						droitsEvaluationEntrepriseMap.remove(this.personnel.getIdCentreGestion());
+					}
 				}
 				getSessionController().setDroitsEvaluationEntrepriseMap(droitsEvaluationEntrepriseMap);
 			}
@@ -1626,40 +1556,27 @@ public class CentreController extends AbstractContextAwareController {
 				logger.debug("idPersonnelCentreGestion : " + idPersonnelCentreGestion);
 			}
 		}  catch (PersonalAlreadyExistingForCentreException pe){
-			logger.error("DataAddException",pe.fillInStackTrace());
-			addErrorMessage("formAjoutPersonnel:erreurAjout","CENTRE.PERSONNEL.ALREADYEXISTING",this.personnel.getUidPersonnel());
-			return null;
+			logger.error("DataAddException",pe);
+			addErrorMessage("formAjoutPersonnel","CENTRE.PERSONNEL.ALREADYEXISTING",this.personnel.getUidPersonnel());
+			return;
 		} catch (DataAddException d){
-			logger.error("DataAddException",d.fillInStackTrace());
-			addErrorMessage("formAjoutPersonnel:erreurAjout","CENTRE.PERSONNEL.ERREURAJOUT");
-			return null;
+			logger.error("DataAddException",d);
+			addErrorMessage("formAjoutPersonnel","CENTRE.PERSONNEL.ERREURAJOUT");
+			return;
 		} catch (WebServiceDataBaseException w){
-			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
-			addErrorMessage("formAjoutPersonnel:erreurAjout", "CENTRE.WS.ERREUR");
-			return null;
+			logger.error("WebServiceDataBaseException", w);
+			addErrorMessage("formAjoutPersonnel", "CENTRE.WS.ERREUR");
+			return;
 		}catch (Exception e){
-			logger.error("Exception",e.fillInStackTrace());
-			addErrorMessage("formAjoutPersonnel:erreurAjout","CENTRE.PERSONNEL.ERREUR");
-			return null;
+			logger.error("Exception",e);
+			addErrorMessage("formAjoutPersonnel","CENTRE.PERSONNEL.ERREUR");
+			return;
 		}
 
 		this.personnel = new PersonnelCentreGestionDTO();
 
-		return "listePersonnels";
 	}
 
-	/* ****************************************************************************
-	 * Consulter un personnel rattaché
-	 *****************************************************************************/
-	/**
-	 * @return a String
-	 */
-	public String goToVoirPersonnel(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public String goToVoirPersonnel() ");
-		}
-		return "voirPersonnel";
-	}
 
 	/* ****************************************************************************
 	 * Modifier un personnel rattaché
@@ -1677,7 +1594,7 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String modifierPersonnel(){
+	public void modifierPersonnel(){
 		if(logger.isDebugEnabled()){
 			logger.debug("public String modifierPersonnel() ");
 		}
@@ -1694,59 +1611,69 @@ public class CentreController extends AbstractContextAwareController {
 			//Maj droits si l'on modifie la personne connectée
 			if(this.personnel.getUidPersonnel().equals(getSessionController().getCurrentLogin())){
 				Map<Integer, DroitAdministrationDTO> droitsAccesMap = getSessionController().getDroitsAccesMap();
-				if (droitsAccesMap!=null 
-						&& !droitsAccesMap.isEmpty() 
+				if (droitsAccesMap!=null
+						&& !droitsAccesMap.isEmpty()
 						&& droitsAccesMap.containsKey(this.personnel.getIdCentreGestion())){
 					droitsAccesMap.remove(this.personnel.getIdCentreGestion());
 					droitsAccesMap.put(this.personnel.getIdCentreGestion(), this.personnel.getDroitAdmin());
 					getSessionController().setDroitsAccesMap(droitsAccesMap);
 				}
 
-				// Nouveaux droits d'acces aux fiches d'evaluation
-				Map<Integer, Boolean> droitsEvaluationEtudiantMap = getSessionController().getDroitsEvaluationEtudiantMap();
-				if(this.personnel.isDroitEvaluationEtudiant()){
-					// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
-					droitsEvaluationEtudiantMap.put(this.centre.getIdCentreGestion(), true);
-				} else {
-					// Si le droit evaluation est mis a false, retrait de la clef
-					if (droitsEvaluationEtudiantMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEtudiantMap.remove(this.personnel.getIdCentreGestion());
-				}
-				getSessionController().setDroitsEvaluationEtudiantMap(droitsEvaluationEtudiantMap);
+				this.majDroitsFromEvaluationMap();
 
-				Map<Integer, Boolean> droitsEvaluationEnseignantMap = getSessionController().getDroitsEvaluationEnseignantMap();
-				if(this.personnel.isDroitEvaluationEnseignant()){
-					// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
-					droitsEvaluationEnseignantMap.put(this.centre.getIdCentreGestion(), true);
-				} else {
-					// Si le droit evaluation est mis a false, retrait de la clef
-					if (droitsEvaluationEnseignantMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEnseignantMap.remove(this.personnel.getIdCentreGestion());
-				}
-				getSessionController().setDroitsEvaluationEnseignantMap(droitsEvaluationEnseignantMap);
-				
-
-				Map<Integer, Boolean> droitsEvaluationEntrepriseMap = getSessionController().getDroitsEvaluationEntrepriseMap();
-				if(this.personnel.isDroitEvaluationEntreprise()){
-					// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
-					droitsEvaluationEntrepriseMap.put(this.centre.getIdCentreGestion(), true);
-				} else {
-					// Si le droit evaluation est mis a false, retrait de la clef
-					if (droitsEvaluationEntrepriseMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEntrepriseMap.remove(this.personnel.getIdCentreGestion());
-				}
-				getSessionController().setDroitsEvaluationEntrepriseMap(droitsEvaluationEntrepriseMap);
 			}
 		} catch (DataUpdateException d){
-			logger.error("DataUpdateException",d.fillInStackTrace());
-			addErrorMessage("formModifPersonnel:erreurModifPersonnel","CENTRE.PERSONNEL.MODIF.ERREUR");
-			return null;
+			logger.error("DataUpdateException",d);
+			addErrorMessage("formModifPersonnel","CENTRE.PERSONNEL.MODIF.ERREUR");
+			return;
 		} catch (WebServiceDataBaseException w){
-			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
-			addErrorMessage("formModifPersonnel:erreurModifPersonnel", "CENTRE.PERSONNEL.MODIF.ERREUR");
-			return null;
+			logger.error("WebServiceDataBaseException", w);
+			addErrorMessage("formModifPersonnel", "CENTRE.PERSONNEL.MODIF.ERREUR");
+			return;
 		}
 
 		this.personnel = new PersonnelCentreGestionDTO();
 
-		return "listePersonnels";
+	}
+
+	public void majDroitsFromEvaluationMap(){
+		// Nouveaux droits d'acces aux fiches d'evaluation
+		Map<Integer, Boolean> droitsEvaluationEtudiantMap = getSessionController().getDroitsEvaluationEtudiantMap();
+		if(this.personnel.isDroitEvaluationEtudiant()){
+			// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
+			droitsEvaluationEtudiantMap.put(this.centre.getIdCentreGestion(), true);
+		} else {
+			// Si le droit evaluation est mis a false, retrait de la clef
+			if (droitsEvaluationEtudiantMap.containsKey(this.personnel.getIdCentreGestion())){
+				droitsEvaluationEtudiantMap.remove(this.personnel.getIdCentreGestion());
+			}
+		}
+		getSessionController().setDroitsEvaluationEtudiantMap(droitsEvaluationEtudiantMap);
+
+		Map<Integer, Boolean> droitsEvaluationEnseignantMap = getSessionController().getDroitsEvaluationEnseignantMap();
+		if(this.personnel.isDroitEvaluationEnseignant()){
+			// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
+			droitsEvaluationEnseignantMap.put(this.centre.getIdCentreGestion(), true);
+		} else {
+			// Si le droit evaluation est mis a false, retrait de la clef
+			if (droitsEvaluationEnseignantMap.containsKey(this.personnel.getIdCentreGestion())){
+				droitsEvaluationEnseignantMap.remove(this.personnel.getIdCentreGestion());
+			}
+		}
+		getSessionController().setDroitsEvaluationEnseignantMap(droitsEvaluationEnseignantMap);
+
+
+		Map<Integer, Boolean> droitsEvaluationEntrepriseMap = getSessionController().getDroitsEvaluationEntrepriseMap();
+		if(this.personnel.isDroitEvaluationEntreprise()){
+			// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
+			droitsEvaluationEntrepriseMap.put(this.centre.getIdCentreGestion(), true);
+		} else {
+			// Si le droit evaluation est mis a false, retrait de la clef
+			if (droitsEvaluationEntrepriseMap.containsKey(this.personnel.getIdCentreGestion())){
+				droitsEvaluationEntrepriseMap.remove(this.personnel.getIdCentreGestion());
+			}
+		}
+		getSessionController().setDroitsEvaluationEntrepriseMap(droitsEvaluationEntrepriseMap);
 	}
 
 	/* ****************************************************************************
@@ -1756,86 +1683,89 @@ public class CentreController extends AbstractContextAwareController {
 	 * @return a String
 	 */
 	public String supprimerPersonnel(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public String supprimerPersonnel()");
-		}
-		if(this.personnel!=null){
-			if(logger.isInfoEnabled()){
-				logger.info("Suppression du Personnel de Centre de gestion : "+this.personnel);
-			}
-			try {
-				// Suppression du personnel en base
-				getPersonnelCentreGestionDomainService().deletePersonnelCentreGestion(this.personnel.getIdCentreGestion(), this.personnel.getId());
-				// Suppression du personnel dans la liste du controleur
-				this.personnels.remove(this.personnel);
-				//Méj liste des centres pour la personne connectée
-				if(this.personnel.getUidPersonnel().equals(getSessionController().getCurrentLogin())){
-					if(!getSessionController().getCurrentCentresGestion().contains(this.centre.getIdCentreGestion()) && getSessionController().getCurrentAuthPersonnel()!=null){
-						getSessionController().getCurrentCentresGestion().remove(getCentreGestionDomainService().getCentreGestion(this.centre.getIdCentreGestion()));
-						if(getSessionController().getCurrentCentresGestion()!=null && !getSessionController().getCurrentCentresGestion().isEmpty()){
-							Collections.sort(getSessionController().getCurrentCentresGestion(), new Comparator<CentreGestionDTO>(){
-								/**
-								 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-								 */
-								@Override
-								public int compare(CentreGestionDTO c1, CentreGestionDTO c2) {
-									return c1.getNomCentre().compareTo(c2.getNomCentre());
-								}
-							});
-						}
-					}
-					//Maj droits
-					Map<Integer, DroitAdministrationDTO> droitsAccesMap = getSessionController().getDroitsAccesMap();
-					if(droitsAccesMap!=null &&
-							!droitsAccesMap.isEmpty() && 
-							droitsAccesMap.containsKey(this.personnel.getIdCentreGestion())){
-						droitsAccesMap.remove(this.personnel.getIdCentreGestion());
-						getSessionController().setDroitsAccesMap(droitsAccesMap);
-					}
-					
-					if (this.personnel.isDroitEvaluationEtudiant()){
-						Map<Integer, Boolean> droitsEvaluationEtudiantMap = getSessionController().getDroitsEvaluationEtudiantMap();
-						if(droitsEvaluationEtudiantMap!=null &&
-								!droitsEvaluationEtudiantMap.isEmpty() && 
-								droitsEvaluationEtudiantMap.containsKey(this.centre.getIdCentreGestion())){
-							droitsEvaluationEtudiantMap.remove(this.personnel.getIdCentreGestion());
-							getSessionController().setDroitsEvaluationEtudiantMap(droitsEvaluationEtudiantMap);
-						}
-					}
-					if (this.personnel.isDroitEvaluationEnseignant()){
-						Map<Integer, Boolean> droitsEvaluationEnseignantMap = getSessionController().getDroitsEvaluationEnseignantMap();
-						if(droitsEvaluationEnseignantMap!=null &&
-								!droitsEvaluationEnseignantMap.isEmpty() && 
-								droitsEvaluationEnseignantMap.containsKey(this.centre.getIdCentreGestion())){
-							droitsEvaluationEnseignantMap.remove(this.personnel.getIdCentreGestion());
-							getSessionController().setDroitsEvaluationEnseignantMap(droitsEvaluationEnseignantMap);
-						}
-					}
-					if (this.personnel.isDroitEvaluationEntreprise()){
-						Map<Integer, Boolean> droitsEvaluationEntrepriseMap = getSessionController().getDroitsEvaluationEntrepriseMap();
-						if(droitsEvaluationEntrepriseMap!=null &&
-								!droitsEvaluationEntrepriseMap.isEmpty() && 
-								droitsEvaluationEntrepriseMap.containsKey(this.centre.getIdCentreGestion())){
-							droitsEvaluationEntrepriseMap.remove(this.personnel.getIdCentreGestion());
-							getSessionController().setDroitsEvaluationEtudiantMap(droitsEvaluationEntrepriseMap);
-						}
-					}
-				}
-			} catch (DataDeleteException e) {
-				logger.error("DataDeleteException", e.fillInStackTrace());
-				addErrorMessage("formSupprPersonnel:erreurSupprPersonnel", "CENTRE.PERSONNEL.SUPPRESSION.ERREUR",this.personnel.getUidPersonnel());
-				return null;
-			} catch (WebServiceDataBaseException e) {
-				logger.error("WebServiceDataBaseException", e.fillInStackTrace());
-				addErrorMessage("formSupprPersonnel:erreurSupprPersonnel", "CENTRE.PERSONNEL.SUPPRESSION.ERREUR",this.personnel.getUidPersonnel());
-				return null;
-			}
 
-			this.personnel = new PersonnelCentreGestionDTO();
+		logger.info("Suppression du Personnel de Centre de gestion : " + this.personnel);
+		String msgErreur = "CENTRE.PERSONNEL.SUPPRESSION.ERREUR";
+		String msgTarget = "formSupprPersonnel";
+
+		try {
+
+			// Suppression du personnel en base
+			getPersonnelCentreGestionDomainService().deletePersonnelCentreGestion(this.personnel.getIdCentreGestion(), this.personnel.getId());
+
+			// Suppression du personnel dans la liste du controller
+			this.personnels.remove(this.personnel);
+
+			//Maj liste des centres pour la personne connectée
+			if(this.personnel.getUidPersonnel().equals(getSessionController().getCurrentLogin())){
+
+				if(getSessionController().getCurrentCentresGestion()!=null
+						&& !getSessionController().getCurrentCentresGestion().isEmpty()
+						&& getSessionController().getCurrentCentresGestion().contains(this.centre)
+						&& getSessionController().getCurrentAuthPersonnel()!=null){
+
+					getSessionController().getCurrentCentresGestion().remove(getCentreGestionDomainService().getCentreGestion(this.centre.getIdCentreGestion()));
+
+				}
+
+				//Maj droits
+				Map<Integer, DroitAdministrationDTO> droitsAccesMap = getSessionController().getDroitsAccesMap();
+				if(droitsAccesMap!=null && !droitsAccesMap.isEmpty()
+						&& droitsAccesMap.containsKey(this.personnel.getIdCentreGestion())){
+					droitsAccesMap.remove(this.personnel.getIdCentreGestion());
+					getSessionController().setDroitsAccesMap(droitsAccesMap);
+				}
+
+				this.deleteDroitsFromEvaluationMap();
+
+			}
+		} catch (NullPointerException npe){
+			logger.error("NullPointerException", npe);
+			addErrorMessage(msgTarget, msgErreur, this.personnel);
+		} catch (DataDeleteException e) {
+			logger.error("DataDeleteException", e);
+			addErrorMessage(msgTarget, msgErreur,this.personnel.getUidPersonnel());
+			return null;
+		} catch (WebServiceDataBaseException e) {
+			logger.error("WebServiceDataBaseException", e);
+			addErrorMessage(msgTarget, msgErreur,this.personnel.getUidPersonnel());
+			return null;
 		}
-		return "listePersonnels";
+
+		this.personnel = new PersonnelCentreGestionDTO();
+
+		return "voirCentre";
 	}
 
+	public void deleteDroitsFromEvaluationMap(){
+		if (this.personnel.isDroitEvaluationEtudiant()){
+			Map<Integer, Boolean> droitsEvaluationEtudiantMap = getSessionController().getDroitsEvaluationEtudiantMap();
+			if(droitsEvaluationEtudiantMap!=null &&
+					!droitsEvaluationEtudiantMap.isEmpty() &&
+					droitsEvaluationEtudiantMap.containsKey(this.centre.getIdCentreGestion())){
+				droitsEvaluationEtudiantMap.remove(this.personnel.getIdCentreGestion());
+				getSessionController().setDroitsEvaluationEtudiantMap(droitsEvaluationEtudiantMap);
+			}
+		}
+		if (this.personnel.isDroitEvaluationEnseignant()){
+			Map<Integer, Boolean> droitsEvaluationEnseignantMap = getSessionController().getDroitsEvaluationEnseignantMap();
+			if(droitsEvaluationEnseignantMap!=null &&
+					!droitsEvaluationEnseignantMap.isEmpty() &&
+					droitsEvaluationEnseignantMap.containsKey(this.centre.getIdCentreGestion())){
+				droitsEvaluationEnseignantMap.remove(this.personnel.getIdCentreGestion());
+				getSessionController().setDroitsEvaluationEnseignantMap(droitsEvaluationEnseignantMap);
+			}
+		}
+		if (this.personnel.isDroitEvaluationEntreprise()){
+			Map<Integer, Boolean> droitsEvaluationEntrepriseMap = getSessionController().getDroitsEvaluationEntrepriseMap();
+			if(droitsEvaluationEntrepriseMap!=null &&
+					!droitsEvaluationEntrepriseMap.isEmpty() &&
+					droitsEvaluationEntrepriseMap.containsKey(this.centre.getIdCentreGestion())){
+				droitsEvaluationEntrepriseMap.remove(this.personnel.getIdCentreGestion());
+				getSessionController().setDroitsEvaluationEtudiantMap(droitsEvaluationEntrepriseMap);
+			}
+		}
+	}
 	/* ***************************************************************
 	 * Gestion des menus deroulants de confidentialite
 	 ****************************************************************/
@@ -1869,7 +1799,7 @@ public class CentreController extends AbstractContextAwareController {
 		}
 
 		return false;
-	}	
+	}
 
 	/**
 	 * @return List<SelectItem>
@@ -1885,12 +1815,11 @@ public class CentreController extends AbstractContextAwareController {
 		SelectItem itmConfLibre = new SelectItem(getBeanUtils().getConfidentialiteLibre(),(getBeanUtils().getConfidentialiteLibre().getLibelle()));
 		ls.add(itmConfLibre);
 
-		CentreGestionDTO etab = new CentreGestionDTO();
-		etab = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
+		CentreGestionDTO etab = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
 
 		if (this.centre.getIdCentreGestion() != 0){
 			// Si un centre est stocké dans la variable centre du CentreController(donc en cours de modification)
-			if (etab != null 
+			if (etab != null
 					&& this.centre.getIdCentreGestion() != etab.getIdCentreGestion()){
 				// Si l'Etablissement existe déjé et que ce n'est pas le centre actuellement modifié
 				// On retire la confidentialite libre (qui n'est dispo que pour l'etablissement)
@@ -1913,8 +1842,7 @@ public class CentreController extends AbstractContextAwareController {
 	public ConfidentialiteDTO getConfidentialiteEtablissement() {
 		this.confidentialiteEtablissement = new ConfidentialiteDTO();
 
-		CentreGestionDTO etab = new CentreGestionDTO();
-		etab = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
+		CentreGestionDTO etab = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
 
 		if(etab != null) {
 			String codeConfEtablissement = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite()).getCodeConfidentialite();
@@ -1931,7 +1859,9 @@ public class CentreController extends AbstractContextAwareController {
 	 * @return List<SelectItem>
 	 */
 	public List<SelectItem> getNiveauxCentre(){
-		List<SelectItem> ls = new ArrayList<SelectItem>();
+		List<SelectItem> ls = new ArrayList<>();
+
+		CentreGestionDTO centreEtablissement = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
 
 		// On crée les selectItem pour chaque critere et on les ajoute à la liste
 		SelectItem itmEtablissement = new SelectItem(getBeanUtils().getEtablissement(),(getBeanUtils().getEtablissement()).getLibelle());
@@ -1941,57 +1871,25 @@ public class CentreController extends AbstractContextAwareController {
 		SelectItem itmUfr = new SelectItem(getBeanUtils().getUfr(),(getBeanUtils().getUfr()).getLibelle());
 		ls.add(itmUfr);
 
-		if (this.centre.getIdCentreGestion() != 0){
-			// Si un centre est stocké dans la variable centre du centreController (donc en cours de modification)
-			if ((this.centre.getIdCentreGestion() != (getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite())).getIdCentreGestion())
-					&& getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite())!=null){
-				// Si l'Etablissement existe et que ce n'est pas l'etablissement en cours de modification, on le retire de la liste
-				ls.remove(itmEtablissement);
-
-				if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_ETAPE)){
-					// Si le critere de gestion defini dans le fichier de config est 'ETAPE', on retire 'UFR' de la liste
-					ls.remove(itmUfr);
-				} else if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_UFR)){
-					// Si le critere de gestion defini dans le fichier de config est 'UFR', on retire 'ETAPE' de la liste
-					ls.remove(itmEtape);
-				} else if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_MIXTE)){
-
-					// Si le critere de gestion defini dans le fichier de config est 'MIXTE', on ne retire rien de la liste
-
-				} else {
-					// Si le critere de gestion defini dans le fichier de config est vide, on retire 'ETAPE' et 'UFR' de la liste
-					ls.remove(itmEtape);
-					ls.remove(itmUfr);
-				}
-			} else {
-				// Si le centre etablissement n'existe pas encore ou qu'il est en cours de modification, on retire les possibilité 'ETAPE' et 'UFR'
-				ls.remove(itmEtape);
-				ls.remove(itmUfr);
-			}
+		if (centreEtablissement == null
+				|| (this.centre != null && this.centre.getIdCentreGestion() == centreEtablissement.getIdCentreGestion())){
+			// Si le centre etablissement n'existe pas encore ou qu'il est en cours de modification, on retire les possibilité 'ETAPE' et 'UFR'
+			ls.remove(itmEtape);
+			ls.remove(itmUfr);
 		} else {
+			// Sinon, on le retire de la liste
+			ls.remove(itmEtablissement);
 
-			// Sinon, aucun centre n'est stocké dans la variable centre du CentreController (donc en cours d'ajout)
-			if (getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite())!=null){
-				// Si l'Etablissement existe, on le retire de la liste
-				ls.remove(itmEtablissement);
-
-				if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_ETAPE)){
-					// Si le critere de gestion defini dans le fichier de config est 'ETAPE', on retire 'UFR' de la liste
-					ls.remove(itmUfr);
-				} else if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_UFR)){
-					// Si le critere de gestion defini dans le fichier de config est 'UFR', on retire 'ETAPE' de la liste
-					ls.remove(itmEtape);
-				} else if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_MIXTE)){
-
-					// Si le critere de gestion defini dans le fichier de config est 'MIXTE', on ne retire rien de la liste
-
-				} else {
-					// Si le critere de gestion defini dans le fichier de config est vide, on retire 'ETAPE' et 'UFR' de la liste
-					ls.remove(itmEtape);
-					ls.remove(itmUfr);
-				}
+			if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_ETAPE)){
+				// Si le critere de gestion defini dans le fichier de config est 'ETAPE', on retire 'UFR' de la liste
+				ls.remove(itmUfr);
+			} else if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_UFR)){
+				// Si le critere de gestion defini dans le fichier de config est 'UFR', on retire 'ETAPE' de la liste
+				ls.remove(itmEtape);
+			} else if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_MIXTE)){
+				// Si le critere de gestion defini dans le fichier de config est 'MIXTE', on ne retire rien de la liste
 			} else {
-				// Si le centre etablissement n'existe pas encore ou qu'il est en cours de modification, on retire les possibilités 'ETAPE' et 'UFR'
+				// Si le critere de gestion defini dans le fichier de config est vide, on retire 'ETAPE' et 'UFR' de la liste
 				ls.remove(itmEtape);
 				ls.remove(itmUfr);
 			}
@@ -2015,14 +1913,15 @@ public class CentreController extends AbstractContextAwareController {
 		return depotEncode;
 	}
 
+	
 	/* ****************************************************************************
 	 * Fiche d'evaluation
 	 *****************************************************************************/
-	
+
 	/**
 	 * @return String
 	 */
-	public String goToFicheEvaluation(){
+	public void goToFicheEvaluation(){
 		this.ficheEvaluation = new FicheEvaluationDTO();
 		this.questionSupplementaire = new QuestionSupplementaireDTO();
 		FicheEvaluationDTO tmp = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(this.centre.getIdCentreGestion());
@@ -2030,6 +1929,7 @@ public class CentreController extends AbstractContextAwareController {
 			this.ficheEvaluation = tmp;
 		} else {
 			this.ficheEvaluation.setIdCentreGestion(this.centre.getIdCentreGestion());
+			String msgErreurFicheEvaluation = "CENTRE.FICHE_EVALUATION.ERREUR";
 			try{
 				int idFicheEvaluation = getFicheEvaluationDomainService().addFicheEvaluation(this.ficheEvaluation);
 				if (idFicheEvaluation > 0){
@@ -2037,22 +1937,22 @@ public class CentreController extends AbstractContextAwareController {
 					this.ficheEvaluation = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(this.centre.getIdCentreGestion());
 				}
 			} catch (DataAddException d){
-				logger.error("DataAddException",d.fillInStackTrace());
-				addErrorMessage("formFicheEtudiant","CENTRE.AJOUT_CENTRE.ERREUR");
-				return null;
+				logger.error("DataAddException",d);
+				addErrorMessage("formFicheEtudiant",msgErreurFicheEvaluation);
+				return;
 			} catch (WebServiceDataBaseException w){
-				logger.error("WebServiceDataBaseException", w.fillInStackTrace());
-				addErrorMessage("formFicheEtudiant", "CENTRE.AJOUT_CENTRE.ERREUR");
-				return null;
+				logger.error("WebServiceDataBaseException", w);
+				addErrorMessage("formFicheEtudiant", msgErreurFicheEvaluation);
+				return;
 			}
 		}
-		return "goToFicheEvaluation";
+		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_evaluations");
 	}
 
 	/**
 	 * @return String
 	 */
-	public String goToFicheEtudiant(){
+	public void goToFicheEtudiant(){
 		this.listeQuestionsSupplementairesEtudiant1 = getFicheEvaluationDomainService().getQuestionsSupplementairesFromIdPlacement(this.ficheEvaluation.getIdFicheEvaluation(), 1);
 		if(this.listeQuestionsSupplementairesEtudiant1 == null){
 			this.listeQuestionsSupplementairesEtudiant1 = new ArrayList<QuestionSupplementaireDTO>();
@@ -2065,11 +1965,12 @@ public class CentreController extends AbstractContextAwareController {
 		if(this.listeQuestionsSupplementairesEtudiant3 == null){
 			this.listeQuestionsSupplementairesEtudiant3 = new ArrayList<QuestionSupplementaireDTO>();
 		}
-		return "goToFicheEtudiant";
+
+		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_evaluationsEtudiant");
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void updateFicheEtudiant(){
 		if (this.ficheEvaluation != null){
@@ -2078,10 +1979,10 @@ public class CentreController extends AbstractContextAwareController {
 				getFicheEvaluationDomainService().updateFicheEvaluationEtudiant(this.ficheEvaluation);
 				addInfoMessage("formFicheEtudiant", "CENTRE.FICHE_EVALUATION.CONFIRMATION_MODIF");
 			} catch (DataUpdateException d){
-				logger.error("DataUpdateException",d.fillInStackTrace());
+				logger.error("DataUpdateException",d);
 				addErrorMessage("formFicheEtudiant","CENTRE.FICHE_EVALUATION.ERREUR");
 			} catch (WebServiceDataBaseException w){
-				logger.error("WebServiceDataBaseException", w.fillInStackTrace());
+				logger.error("WebServiceDataBaseException", w);
 				addErrorMessage("formFicheEtudiant", "CENTRE.FICHE_EVALUATION.ERREUR");
 			}
 		}
@@ -2090,7 +1991,7 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return String
 	 */
-	public String goToFicheEnseignant(){
+	public void goToFicheEnseignant(){
 		this.listeQuestionsSupplementairesEnseignant1 = getFicheEvaluationDomainService().getQuestionsSupplementairesFromIdPlacement(this.ficheEvaluation.getIdFicheEvaluation(),4);
 		if(this.listeQuestionsSupplementairesEnseignant1 == null){
 			this.listeQuestionsSupplementairesEnseignant1 = new ArrayList<QuestionSupplementaireDTO>();
@@ -2099,11 +2000,11 @@ public class CentreController extends AbstractContextAwareController {
 		if(this.listeQuestionsSupplementairesEnseignant2 == null){
 			this.listeQuestionsSupplementairesEnseignant2 = new ArrayList<QuestionSupplementaireDTO>();
 		}
-		return "goToFicheEnseignant";
+		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_evaluationsEnseignant");
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void updateFicheEntreprise(){
 		if (this.ficheEvaluation != null){
@@ -2112,10 +2013,10 @@ public class CentreController extends AbstractContextAwareController {
 				getFicheEvaluationDomainService().updateFicheEvaluationEntreprise(this.ficheEvaluation);
 				addInfoMessage("formFicheEntreprise", "CENTRE.FICHE_EVALUATION.CONFIRMATION_MODIF");
 			} catch (DataUpdateException d){
-				logger.error("DataUpdateException",d.fillInStackTrace());
+				logger.error("DataUpdateException",d);
 				addErrorMessage("formFicheEntreprise","CENTRE.FICHE_EVALUATION.ERREUR");
 			} catch (WebServiceDataBaseException w){
-				logger.error("WebServiceDataBaseException", w.fillInStackTrace());
+				logger.error("WebServiceDataBaseException", w);
 				addErrorMessage("formFicheEntreprise", "CENTRE.FICHE_EVALUATION.ERREUR");
 			}
 		}
@@ -2124,7 +2025,7 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return String
 	 */
-	public String goToFicheEntreprise(){
+	public void goToFicheEntreprise(){
 
 		this.listeQuestionsSupplementairesEntreprise1 = getFicheEvaluationDomainService().getQuestionsSupplementairesFromIdPlacement(this.ficheEvaluation.getIdFicheEvaluation(),6);
 		if(this.listeQuestionsSupplementairesEntreprise1 == null){
@@ -2138,12 +2039,12 @@ public class CentreController extends AbstractContextAwareController {
 		if(this.listeQuestionsSupplementairesEntreprise3 == null){
 			this.listeQuestionsSupplementairesEntreprise3 = new ArrayList<QuestionSupplementaireDTO>();
 		}
-		
-		return "goToFicheEntreprise";
+
+		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_evaluationsEntreprise");
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void updateFicheEnseignant(){
 		if (this.ficheEvaluation != null){
@@ -2152,10 +2053,10 @@ public class CentreController extends AbstractContextAwareController {
 				getFicheEvaluationDomainService().updateFicheEvaluationEnseignant(this.ficheEvaluation);
 				addInfoMessage("formFicheEnseignant", "CENTRE.FICHE_EVALUATION.CONFIRMATION_MODIF");
 			} catch (DataUpdateException d){
-				logger.error("DataUpdateException",d.fillInStackTrace());
+				logger.error("DataUpdateException",d);
 				addErrorMessage("formFicheEnseignant","CENTRE.FICHE_EVALUATION.ERREUR");
 			} catch (WebServiceDataBaseException w){
-				logger.error("WebServiceDataBaseException", w.fillInStackTrace());
+				logger.error("WebServiceDataBaseException", w);
 				addErrorMessage("formFicheEnseignant", "CENTRE.FICHE_EVALUATION.ERREUR");
 			}
 		}
@@ -2219,7 +2120,7 @@ public class CentreController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void ajouterQuestionSupplementaire(){
 		try{
@@ -2227,57 +2128,57 @@ public class CentreController extends AbstractContextAwareController {
 			this.questionSupplementaire.setIdFicheEvaluation(this.ficheEvaluation.getIdFicheEvaluation());
 
 			int idQuestionSupplementaire = getFicheEvaluationDomainService().addQuestionSupplementaire(this.questionSupplementaire);
-			
+
 			if (idQuestionSupplementaire > 0) {
 				this.questionSupplementaire.setIdQuestionSupplementaire(idQuestionSupplementaire);
 
 				int idPlacement = this.questionSupplementaire.getIdPlacement();
 				switch (idPlacement) {
-				case 1 :
-					this.listeQuestionsSupplementairesEtudiant1.add(this.questionSupplementaire);
-					break;
-				case 2 :
-					this.listeQuestionsSupplementairesEtudiant2.add(this.questionSupplementaire);
-					break;
-				case 3 :
-					this.listeQuestionsSupplementairesEtudiant3.add(this.questionSupplementaire);
-					break;
-				case 4 :
-					this.listeQuestionsSupplementairesEnseignant1.add(this.questionSupplementaire);
-					break;
-				case 5 :
-					this.listeQuestionsSupplementairesEnseignant2.add(this.questionSupplementaire);
-					break;
-				case 6 :
-					this.listeQuestionsSupplementairesEntreprise1.add(this.questionSupplementaire);
-					break;
-				case 7 :
-					this.listeQuestionsSupplementairesEntreprise2.add(this.questionSupplementaire);
-					break;
-				case 8 :
-					this.listeQuestionsSupplementairesEntreprise3.add(this.questionSupplementaire);
-					break;
-				default:
-					break;
+					case 1 :
+						this.listeQuestionsSupplementairesEtudiant1.add(this.questionSupplementaire);
+						break;
+					case 2 :
+						this.listeQuestionsSupplementairesEtudiant2.add(this.questionSupplementaire);
+						break;
+					case 3 :
+						this.listeQuestionsSupplementairesEtudiant3.add(this.questionSupplementaire);
+						break;
+					case 4 :
+						this.listeQuestionsSupplementairesEnseignant1.add(this.questionSupplementaire);
+						break;
+					case 5 :
+						this.listeQuestionsSupplementairesEnseignant2.add(this.questionSupplementaire);
+						break;
+					case 6 :
+						this.listeQuestionsSupplementairesEntreprise1.add(this.questionSupplementaire);
+						break;
+					case 7 :
+						this.listeQuestionsSupplementairesEntreprise2.add(this.questionSupplementaire);
+						break;
+					case 8 :
+						this.listeQuestionsSupplementairesEntreprise3.add(this.questionSupplementaire);
+						break;
+					default:
+						break;
 				}
 
 				addInfoMessage(null, "CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.CONFIRMATION_AJOUT");
 				logger.info("Ajout de la question supplementaire n°"+idQuestionSupplementaire+" pour la fiche n°" +this.ficheEvaluation.getIdFicheEvaluation());
 			} else {
 				logger.error(getString("CENTRE.FICHE_EVALUATION.ERREUR"));
-				addErrorMessage("formEditQuestionEval", "CENTRE.FICHE_EVALUATION.ERREUR");
+				addErrorMessage(null, "CENTRE.FICHE_EVALUATION.ERREUR");
 			}
 		} catch (DataAddException d){
-			logger.error("DataAddException",d.fillInStackTrace());
-			addErrorMessage("formEditQuestionEval","CENTRE.FICHE_EVALUATION.CONFIRMATION_MODIF");
+			logger.error("DataAddException",d);
+			addErrorMessage(null,"CENTRE.FICHE_EVALUATION.CONFIRMATION_MODIF");
 		} catch (WebServiceDataBaseException w){
-			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
-			addErrorMessage("formEditQuestionEval", "CENTRE.FICHE_EVALUATION.ERREUR");
+			logger.error("WebServiceDataBaseException", w);
+			addErrorMessage(null, "CENTRE.FICHE_EVALUATION.ERREUR");
 		}
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void modifierQuestionSupplementaire(){
 		try {
@@ -2292,10 +2193,10 @@ public class CentreController extends AbstractContextAwareController {
 			}
 
 		} catch (DataUpdateException d){
-			logger.error("DataUpdateException",d.fillInStackTrace());
+			logger.error("DataUpdateException",d);
 			addErrorMessage("formEditQuestionEval","CENTRE.FICHE_EVALUATION.ERREUR");
 		} catch (WebServiceDataBaseException w){
-			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", w);
 			addErrorMessage("formEditQuestionEval", "CENTRE.FICHE_EVALUATION.ERREUR");
 		}
 	}
@@ -2309,32 +2210,32 @@ public class CentreController extends AbstractContextAwareController {
 			if (getFicheEvaluationDomainService().deleteQuestionSupplementaire(this.questionSupplementaire.getIdQuestionSupplementaire())){
 				int idPlacement = this.questionSupplementaire.getIdPlacement();
 				switch (idPlacement) {
-				case 1 :
-					this.listeQuestionsSupplementairesEtudiant1.remove(this.questionSupplementaire);
-					break;
-				case 2 :
-					this.listeQuestionsSupplementairesEtudiant2.remove(this.questionSupplementaire);
-					break;
-				case 3 :
-					this.listeQuestionsSupplementairesEtudiant3.remove(this.questionSupplementaire);
-					break;
-				case 4 :
-					this.listeQuestionsSupplementairesEnseignant1.remove(this.questionSupplementaire);
-					break;
-				case 5 :
-					this.listeQuestionsSupplementairesEnseignant2.remove(this.questionSupplementaire);
-					break;
-				case 6 :
-					this.listeQuestionsSupplementairesEntreprise1.remove(this.questionSupplementaire);
-					break;
-				case 7 :
-					this.listeQuestionsSupplementairesEntreprise2.remove(this.questionSupplementaire);
-					break;
-				case 8 :
-					this.listeQuestionsSupplementairesEntreprise3.remove(this.questionSupplementaire);
-					break;
-				default:
-					break;
+					case 1 :
+						this.listeQuestionsSupplementairesEtudiant1.remove(this.questionSupplementaire);
+						break;
+					case 2 :
+						this.listeQuestionsSupplementairesEtudiant2.remove(this.questionSupplementaire);
+						break;
+					case 3 :
+						this.listeQuestionsSupplementairesEtudiant3.remove(this.questionSupplementaire);
+						break;
+					case 4 :
+						this.listeQuestionsSupplementairesEnseignant1.remove(this.questionSupplementaire);
+						break;
+					case 5 :
+						this.listeQuestionsSupplementairesEnseignant2.remove(this.questionSupplementaire);
+						break;
+					case 6 :
+						this.listeQuestionsSupplementairesEntreprise1.remove(this.questionSupplementaire);
+						break;
+					case 7 :
+						this.listeQuestionsSupplementairesEntreprise2.remove(this.questionSupplementaire);
+						break;
+					case 8 :
+						this.listeQuestionsSupplementairesEntreprise3.remove(this.questionSupplementaire);
+						break;
+					default:
+						break;
 				}
 
 				logger.info(getSessionController().getCurrentLogin()+" supprime la question : "
@@ -2346,14 +2247,14 @@ public class CentreController extends AbstractContextAwareController {
 			}
 
 		}catch (DataDeleteException de) {
-//			logger.error("DataDeleteException ",de.fillInStackTrace());
+			logger.error("DataDeleteException ",de);
 			if (de.getMessage().contains("foreign key constraint fails")){
 				addErrorMessage("formSupprCentre:erreurListeCentre", "CENTRE.SUPPRESSION.ERREUR_CONSTRAINT");
 			} else {
 				addErrorMessage("formSupprCentre:erreurListeCentre", "CENTRE.SUPPRESSION.ERREUR");
 			}
 		}catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ",we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ",we);
 			addErrorMessage("formSupprCentre:erreurListeCentre", "CENTRE.SUPPRESSION.ERREUR");
 		}
 	}
@@ -2764,5 +2665,17 @@ public class CentreController extends AbstractContextAwareController {
 	}
 	public void setCritereNotFound(boolean critereNotFound) {
 		this.critereNotFound = critereNotFound;
+	}
+	public int getIndexMenu() {
+		return indexMenu;
+	}
+	public void setIndexMenu(int indexMenu) {
+		this.indexMenu = indexMenu;
+	}
+	public boolean isRechercheViseur() {
+		return rechercheViseur;
+	}
+	public void setRechercheViseur(boolean rechercheViseur) {
+		this.rechercheViseur = rechercheViseur;
 	}
 }

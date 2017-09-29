@@ -1,32 +1,28 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:panel
-		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-		<f:facet name="header">
-			<h:outputText
-				value="#{msgs['CONVENTION.ETAPE5.CONFIRMATIONINFOSSTAGE']}" />
-		</f:facet>
+    <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+    <h:outputText value="#{msgs['CONVENTION.ETAPE1.CONFIRMATIONINFOSETU.DEMANDE']} " styleClass="ml5" escape="false" />
 
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text">
-			<h:outputText style="font-weight:bold;"
-				value="#{msgs['CONVENTION.ETAPE5.CONFIRMATIONINFOSSTAGE.DEMANDE']} : " />
-			<ui:include
-				src="/stylesheets/stage/_conventionEtape5DetailsStage.xhtml" />
-		</h:panelGrid>
-		<t:htmlTag value="center">
-			<h:commandButton value="#{msgs['FORM.VALIDER']}"
-				style=" font-size:14px; border:solid 1px;"
-				action="#{conventionController.goToCreerConventionEtape6RespPedago}" />
-		</t:htmlTag>
-		<t:htmlTag value="div" style="height:30px;" />
-		<h:commandButton value="#{msgs['FORM.CANCEL']}"
-			action="#{conventionController.goToCreerConventionEtape5StageR}" />
-	</rich:panel>
+    <ui:include src="/stylesheets/stage/_detailsStage.xhtml" />
+
+    <t:div styleClass="clearFloat textCenter mt20">
+        <p:commandButton
+                value="#{msgs['FORM.CONFIRMER']}"
+                action="#{conventionController.goToCreerConventionEtape6RechEnseignant}" />
+    </t:div>
+
+    <p:commandButton
+            value="#{msgs['FORM.PREVIOUS']}"
+            immediate="true" update="@form"
+            styleClass="mt20 mb20">
+        <f:setPropertyActionListener
+                value="_creerConventionEtape5Stage"
+                target="#{sessionController.creationConventionEtape5CurrentPage}" />
+    </p:commandButton>
+
 </ui:composition>

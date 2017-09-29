@@ -52,7 +52,7 @@ public class TypeConventionConverter implements Serializable, Converter {
 					"object " + value + " is not a TypeConventionDTO.");
 		}
 		TypeConventionDTO e = (TypeConventionDTO) value;
-		return ""+e.getId();
+		return Integer.toString(e.getId());
 	}
 	
 	/**

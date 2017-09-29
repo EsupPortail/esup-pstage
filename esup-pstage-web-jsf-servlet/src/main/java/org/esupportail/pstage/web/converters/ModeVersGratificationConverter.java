@@ -52,7 +52,7 @@ public class ModeVersGratificationConverter implements Serializable, Converter {
 					"object " + value + " is not a ModeVersGratificationDTO.");
 		}
 		ModeVersGratificationDTO e = (ModeVersGratificationDTO) value;
-		return ""+e.getId();
+		return Integer.toString(e.getId());
 	}
 	
 	/**

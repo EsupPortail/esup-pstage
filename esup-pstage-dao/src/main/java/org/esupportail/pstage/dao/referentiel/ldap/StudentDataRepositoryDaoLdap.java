@@ -21,6 +21,7 @@ import org.esupportail.pstage.domain.beans.EtudiantRef;
 import org.esupportail.pstage.domain.beans.LdapAttributes;
 import org.esupportail.pstage.domain.beans.LdapGroupeAttributs;
 import org.esupportail.pstage.utils.DonneesStatic;
+import org.esupportail.pstage.utils.Utils;
 import org.springframework.ldap.filter.AndFilter;
 import org.springframework.ldap.filter.EqualsFilter;
 import org.springframework.ldap.filter.Filter;
@@ -80,7 +81,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 			errorldap(ldae,"getLdapUsersFromFilter");
 		}
 		EtudiantRef etudiantRef = new EtudiantRef();
-		if(!ldapUsersFromFilter.isEmpty()){
+		if(ldapUsersFromFilter != null && !ldapUsersFromFilter.isEmpty()){
 			LdapUser ldapUser = ldapUsersFromFilter.get(0);
 			if(logger.isInfoEnabled()){
 				logger.info("attributsNames= " +ldapUser.getAttributeNames());
@@ -111,7 +112,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 			try {
 				etudiantRef.setDateNais(new SimpleDateFormat("dd/MM/yyyy").parse(ldapUser.getAttribute("dateNaissance")));
 			} catch (ParseException e) {
-				e.printStackTrace();
+				logger.error(e);
 			}
 		}
 
@@ -156,20 +157,30 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 		Map<String, String>  mapEtudes =null;
 		String affectationEtd =ldapAttributes.getLdapStudentAffectation();
 		Map<String, String> ufrRef = getComposantesPrincipalesRef(null);
+
 		if(StringUtils.hasText(ldapUser.getAttribute(affectationEtd))){
 			mapEtudes = new LinkedHashMap<String, String>();
 			List<String> list = ldapUser.getAttributes().get(affectationEtd);
 			for(String uneAffectation : list ){
-				mapEtudes.put(uneAffectation, ufrRef.get(uneAffectation));
 				etudiantRef.setThecodeUFR(uneAffectation);
-				etudiantRef.setTheUfr(ufrRef.get(uneAffectation));
+				if (ufrRef != null) {
+					mapEtudes.put(uneAffectation, ufrRef.get(uneAffectation));
+					etudiantRef.setTheUfr(ufrRef.get(uneAffectation));
+				} else {
+					mapEtudes.put(uneAffectation, "");
+					etudiantRef.setTheUfr("");
+				}
 				if (logger.isDebugEnabled()){
-					logger.debug("Code UFR etudiant = " + uneAffectation);
-					logger.debug("Libelle UFR etudiant = " + ufrRef.get(uneAffectation));
+					logger.debug("Code UFR etudiant = " + etudiantRef.getThecodeUFR());
+					logger.debug("Libelle UFR etudiant = " + etudiantRef.getTheUfr());
 				}
 			}
 			etudiantRef.setStudys(mapEtudes);
 		}
+
+		List<String> listeAnneesUniv = new ArrayList<>();
+		listeAnneesUniv.add(Utils.getCurrentYear(false));
+		etudiantRef.setListeAnneesUniv(listeAnneesUniv);
 
 		AdministrationApogee adminApogee = new AdministrationApogee();
 		adminApogee.setStatusApogee(false);
@@ -209,7 +220,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 			errorldap(ldae,"getLdapUsersFromFilter");
 		}
 		List<EtudiantRef> etudiants = null;
-		if(!etudiantsDansLdap.isEmpty()){
+		if(etudiantsDansLdap != null && !etudiantsDansLdap.isEmpty()){
 			etudiants = new ArrayList<EtudiantRef>(etudiantsDansLdap.size());
 			for(LdapUser user : etudiantsDansLdap){
 				String id = user.getAttribute(ldapAttributes.getLdapStudentId());
@@ -237,24 +248,21 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 		}
 		try {
 			ldapGroups= ldapGroupServiceSpecial.getLdapGroupsFromFilter(encode);
-		}
-		catch (LdapException ldae) {
+		} catch (LdapException ldae) {
 			logger.error("Probleme lors de l'appel de getLdapGroupsFromFilter dans "+this.getClass().getSimpleName()+" : ",ldae.getCause());
 		}
-
-		if(!ldapGroups.isEmpty()){
+		if(ldapGroups != null && !ldapGroups.isEmpty()){
 			String etapeCode=null;
 			String etapeLibelle =null;
-			etapes = new LinkedHashMap<String, String>(ldapGroups.size());
+			etapes = new LinkedHashMap<>(ldapGroups.size());
 
 			//on formate pour la map
 			for(LdapGroup group : ldapGroups){
 				etapeCode = group.getAttribute(ldapGroupeAttributs.getLdapComposanteCode());
 				etapeLibelle = group.getAttribute(ldapGroupeAttributs.getLdapComposanteLibelle());
 				etapes.put(etapeCode, etapeLibelle);
-			}     
+			}
 		}
-		logger.info("Resultat etape 1 : " + etapes);
 		return etapes;
 	}
 
@@ -283,11 +291,11 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 		try {
 			ldapGroups= ldapGroupService.getLdapGroupsFromFilter(encode);
 			logger.info("ldapGroups="+ldapGroups);
-			if(!ldapGroups.isEmpty()){
+			if(ldapGroups != null && !ldapGroups.isEmpty()){
 				String compCode=null;
 				String compLibelle =null;
 				composantes = new LinkedHashMap<String, String>(ldapGroups.size());
-				//on formate pour le map
+				//on formate pour la map
 				for(LdapGroup group : ldapGroups){
 					compCode = group.getAttribute(ldapGroupeAttributs.getLdapComposanteCode());
 					compLibelle = group.getAttribute(ldapGroupeAttributs.getLdapComposanteLibelle());
@@ -305,7 +313,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 	}
 
 	/**
-	 * @param ldapGroupServiceSpecial the ldapGroupServiceSpecial to set
+	 * @param ldapGroupService the ldapGroupService to set
 	 */
 	public void setLdapGroupServiceSpecial(LdapGroupService ldapGroupService) {
 		this.ldapGroupServiceSpecial = ldapGroupService;

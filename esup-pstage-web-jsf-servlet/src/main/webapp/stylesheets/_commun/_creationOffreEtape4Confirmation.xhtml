@@ -1,22 +1,14 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
 
-	<ui:include src="_confirmationMessages.xhtml"/>
+    <p:messages />
 
-	<t:htmlTag value="center">
-		<h:commandButton value="#{msgs['OFFRE.RECAPITULATIF']}"
-			rendered="#{(welcomeController.personnel || welcomeController.admin) and !sessionController.pageAuthorized and !sessionController.adminPageAuthorized}"
-			action="recapitulatifOffreEtabCentre"
-			alt="#{msgs['OFFRE.RECAPITULATIF']}"
-			title="#{msgs['OFFRE.RECAPITULATIF']}" />
-		<h:commandButton value="#{msgs['OFFRE.RECAPITULATIF']}"
-			rendered="#{sessionController.pageAuthorized || sessionController.adminPageAuthorized}"
-			action="recapitulatifOffreEtab" alt="#{msgs['OFFRE.RECAPITULATIF']}"
-			title="#{msgs['OFFRE.RECAPITULATIF']}" />
-	</t:htmlTag>
+    <t:div styleClass="textCenter" rendered="#{offreController.creationOffre != 'creationOffreAnon'}">
+        <p:commandButton value="#{msgs['OFFRE.RECAPITULATIF']}" update="@form"
+                         action="#{offreController.goToRecapitulatifOffrePostCreation}"
+                         onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" />
+    </t:div>
+
 </ui:composition>

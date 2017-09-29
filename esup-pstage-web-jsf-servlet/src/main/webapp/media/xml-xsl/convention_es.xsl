@@ -837,9 +837,16 @@
 							<fo:inline font-weight="bold">
 								:
 							</fo:inline>
-							<fo:inline>
-								............................
-							</fo:inline>
+							<xsl:choose>
+								<xsl:when test="volume-horaire-formation and volume-horaire-formation != '0'">
+									<xsl:value-of select="volume-horaire-formation" />
+								</xsl:when>
+								<xsl:otherwise>
+									<fo:inline>
+										.........................................
+									</fo:inline>
+								</xsl:otherwise>
+							</xsl:choose>
 						</fo:block>
 					</fo:table-cell>
 				</fo:table-row>
@@ -1014,7 +1021,7 @@
 											<xsl:text> horas  </xsl:text>
 											<fo:inline font-style="italic" font-size="8pt">
 												(... mois
-												... jours ... semaines)
+												... jours ... heures)
 											</fo:inline>
 										</fo:block>
 									</xsl:otherwise>
@@ -3856,6 +3863,9 @@
 								</fo:inline>
 
 								<fo:inline font-weight="bold">
+									<xsl:value-of select="nature-travail/libelle" />
+								</fo:inline>,
+								<fo:inline font-weight="bold">
 									<xsl:value-of select="mode-validation-stage/libelle" />
 								</fo:inline>
 							</fo:block>
@@ -3973,6 +3983,9 @@
 									pédagogiques
 								</fo:inline>
 								:
+								<fo:inline font-weight="bold">
+									<xsl:value-of select="nature-travail/libelle" />
+								</fo:inline>,
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="mode-validation-stage/libelle" />
 								</fo:inline>

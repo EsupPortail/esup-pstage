@@ -1,69 +1,65 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:column sortBy="#{offre.idOffre}">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['OFFRE.ID']}" />
-		</f:facet>
-		<h:outputText value="#{offre.idOffre}" />
-	</rich:column>
-	<rich:column sortBy="#{offre.intitule}">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['OFFRE.INTITULE']}" />
-		</f:facet>
-		<h:outputText value="#{offre.intitule}" title="#{offre.intitule}">
-			<f:converter binding="#{limitCharactersShownUpTo50Converter}" />
-		</h:outputText>
-	</rich:column>
-	<rich:column sortBy="#{offre.typeOffre.libelle}">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['OFFRE.TYPEOFFRE']}" />
-		</f:facet>
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  style="font-size:12px;" columns="1">
-			<h:outputText value="#{offre.typeOffre.libelle}" />
-			<t:htmlTag value="bold" rendered="#{not empty offre.contratOffre}">
-				<h:outputText value="#{offre.contratOffre.libelle}" />
-			</t:htmlTag>
-		</h:panelGrid>
-	</rich:column>
-	<rich:column sortBy="#{offre.structure.raisonSociale}">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['OFFRE.ETABLISSEMENT']}" />
-		</f:facet>
-		<h:outputText value="#{offre.structure.raisonSociale}"
-			title="#{offre.structure.raisonSociale}">
-			<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
-		</h:outputText>
-	</rich:column>
-	<rich:column sortBy="#{offre.lieuCodePostal}">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
-		</f:facet>
-		<h:outputText value="#{offre.lieuCodePostal}" />
-	</rich:column>
-	<rich:column sortBy="#{offre.lieuCommune}">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['STRUCTURE.COMMUNE']}" />
-		</f:facet>
-		<h:outputText value="#{offre.lieuCommune}" />
-	</rich:column>
-	<rich:column sortBy="#{offre.lieuPays.libelle}"
-		sortable="#{not empty offre.lieuPays}">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['STRUCTURE.PAYS']}" />
-		</f:facet>
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="2" style="font-size:12px;">
-			<h:graphicImage id="flag" rendered="#{not empty offre.lieuPays}"
-				value="../../media/images/flags/#{offre.lieuPays.iso2}.png"
-				alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-				title="#{offre.lieuPays.libelle}" />
-			<h:outputText value="#{offre.lieuPays.libelle}"
-				rendered="#{not empty offre.lieuPays}" />
-		</h:panelGrid>
-	</rich:column>
+    <p:column sortBy="#{offre.idOffre}">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['OFFRE.ID']}" />
+        </f:facet>
+        <h:outputText value="#{offre.idOffre}" />
+    </p:column>
+    <p:column sortBy="#{offre.intitule}">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['OFFRE.INTITULE']}" />
+        </f:facet>
+        <h:outputText value="#{offre.intitule}" title="#{offre.intitule}">
+            <f:converter binding="#{limitCharactersShownUpTo50Converter}" />
+        </h:outputText>
+    </p:column>
+    <p:column sortBy="#{offre.typeOffre.libelle}">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['OFFRE.TYPEOFFRE']}" />
+        </f:facet>
+        <h:outputText value="#{offre.typeOffre.libelle}" />
+        <h:outputText value="#{offre.contratOffre.libelle}" styleClass="mlf5"
+                      rendered="#{not empty offre.contratOffre}" />
+    </p:column>
+    <p:column sortBy="#{offre.structure.raisonSociale}">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['OFFRE.ETABLISSEMENT']}" />
+        </f:facet>
+        <h:outputText value="#{offre.structure.raisonSociale}"
+                      title="#{offre.structure.raisonSociale}">
+            <f:converter binding="#{limitCharactersShownUpTo30Converter}" />
+        </h:outputText>
+    </p:column>
+    <p:column sortBy="#{offre.lieuCodePostal}">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+        </f:facet>
+        <h:outputText value="#{offre.lieuCodePostal}" />
+    </p:column>
+    <p:column sortBy="#{offre.lieuCommune}">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['STRUCTURE.COMMUNE']}" />
+        </f:facet>
+        <h:outputText value="#{offre.lieuCommune}" />
+    </p:column>
+    <p:column sortBy="#{offre.lieuPays.libelle}"
+              sortable="#{not empty offre.lieuPays}">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['STRUCTURE.PAYS']}" />
+        </f:facet>
+        <t:htmlTag value="span" style="white-space:nowrap;">
+            <h:graphicImage id="flag" rendered="#{not empty offre.lieuPays}"
+                            value="../../media/images/flags/#{offre.lieuPays.iso2}.png"
+                            alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+                            title="#{offre.lieuPays.libelle}" />
+            <h:outputText value="#{offre.lieuPays.libelle}" styleClass="ml5" style="white-space: normal;"
+                          rendered="#{not empty offre.lieuPays}" />
+        </t:htmlTag>
+    </p:column>
 </ui:composition>

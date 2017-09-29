@@ -8,3 +8,5 @@ config.properties
 configUrlServices.properties
 config.xml
 log4j.properties
+.idea
+*.iml

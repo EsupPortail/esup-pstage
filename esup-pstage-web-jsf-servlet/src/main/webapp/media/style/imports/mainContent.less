@@ -1,0 +1,560 @@
+@import "commun/variables";
+
+#MAIN_CONTENT {
+  margin: @TopbarPhoneHeight 0 0 0;
+  padding: @MainContentPhonePadding;
+
+  @media (min-width: @MediaTablet) and (max-width: @MediaPC) {
+    margin: 0 0 0 @SidebarTabletWidth;
+    padding: @MainContentPCPadding;
+  }
+  @media (min-width: @MediaPC) {
+    margin: 0 0 0 @SidebarPCWidth;
+    padding: @MainContentPCPadding;
+  }
+  a {
+    color: @MainLinkFontColor;
+    text-decoration: none;
+  }
+
+  & > * {
+    font-size: @MainFontSize;
+  }
+
+  .ui-panel {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+
+    .ui-panel-titlebar {
+      border: 0;
+      margin: 0 0 15px 0;
+      padding: 0;
+      background: transparent;
+      font-size: @MainPanelTitleFontSize;
+      color: @MainPanelTitleFontColor;
+      text-align: left;
+
+    }
+
+    .ui-panel-content {
+      border: 0;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+    }
+  }
+
+  .ui-tabmenu, .ui-tabs {
+    .ui-tabmenu-nav, .ui-tabs-nav {
+      .ui-tabmenuitem, li {
+        &.ui-state-active {
+          background: @MainSelectCheckboxBackground;
+          & > .ui-menuitem-link, a {
+            color: @White;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+.legendLabel {
+  //margin-left: 10px;
+  font-size: 0.8em;
+  font-style: italic;
+
+  & > * {
+    font-size: 0.8em;
+    font-style: italic;
+  }
+
+  & > i {
+    font-size: 1.2em;
+    font-style: normal;
+    margin-right: 2px;
+  }
+}
+
+
+.formUL {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  label {
+    margin-bottom: 2px;
+  }
+
+  input, .ui-selectonemenu {
+    width: 100%;
+    box-sizing: border-box;
+
+    @media (min-width: @MediaTablet) {
+      width: @InputWidth;
+    }
+  }
+
+  li {
+    width: 100%;
+    margin: 0 auto 15px auto;
+    //margin-bottom: 15px;
+    @media (min-width: @MediaTablet) {
+      width: @InputWidth;
+    }
+
+    &.widthAuto {
+      width: auto !important;
+      input, .ui-selectonemenu {
+        width: auto !important;
+      }
+    }
+  }
+}
+
+.ui-autocomplete .ui-autocomplete-input.ui-inputfield, .ui-inputfield.ui-inputtext, .ui-inputfield.ui-widget, .ui-inputfield.ui-inputtextarea {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  border: 1px solid @Gray;
+  border-radius: 0;
+
+  &:focus {
+    -webkit-box-shadow: 0px 0px 4px @MainInputTextFocusColor;
+    -moz-box-shadow: 0px 0px 4px @MainInputTextFocusColor;
+    box-shadow: 0px 0px 4px @MainInputTextFocusColor;
+  }
+
+  box-sizing: border-box;
+
+  width: 100%;
+
+  @media (min-width: @MediaTablet) {
+
+  }
+}
+
+.ui-button {
+  color: @ButtonColors;
+  font-weight: 500;
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 5px 0;
+  font-family: @ButtonFontFamily;
+
+  &:hover, &.ui-state-hover {
+    color: @ButtonHoverColors;
+    font-weight: 500;
+  }
+
+  @media (min-width: @MediaTablet) {
+    display: inline-block;
+    width: auto;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.ui-selectonebutton {
+
+  &.customRecherche {
+    width: 100%;
+    box-sizing: border-box;
+    @media (min-width: @MediaTablet) {
+      width: auto;
+    }
+    .ui-button {
+      box-sizing: border-box;
+      width: 50%;
+      @media (min-width: @MediaTablet) {
+        width: auto;
+      }
+      &:first-child {
+        float: left;
+        @media (min-width: @MediaTablet) {
+          float: none;
+        }
+      }
+      &:last-child {
+        float: right;
+        @media (min-width: @MediaTablet) {
+          float: none;
+        }
+      }
+    }
+  }
+
+  .ui-button {
+    color: @ButtonColors;
+    font-weight: 500;
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 5px 0;
+
+    &:hover {
+      color: @ButtonHoverColors;
+      font-weight: 500;
+    }
+    &.ui-state-active {
+      color: @White;
+      &:hover {
+        color: @White;
+        font-weight: 500;
+      }
+      &.ui-state-active {
+        background: @MainSelectCheckboxBackground;
+      }
+    }
+    @media (min-width: @MediaTablet) {
+      display: inline-block;
+      width: auto;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  @media (min-width: @MediaTablet) {
+    display: inline-block;
+    width: auto;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.ui-selectonemenu {
+  border-radius: 0;
+  box-shadow: none;
+  background: @White;
+  border: 1px solid @Gray;
+
+  .ui-helper-hidden-accessible { // a retirer, inutile si on repasse tout en h:selectOneMenu au lieu de p:selectOneMenu
+    min-width: 100%;
+    min-height: 100%;
+
+    & > select {
+      position: absolute;
+      z-index: 4000;
+      min-width: 100%;
+      min-height: 100%;
+    }
+  }
+
+  .ui-selectonemenu-trigger {
+    border-left: 1px solid @Gray;
+  }
+
+  .ui-selectonemenu-label, .ui-selectonemenu-trigger {
+    border-radius: 0;
+    box-shadow: none;
+  }
+  box-sizing: border-box;
+
+  width: 100%;
+}
+
+.ui-selectoneradio .ui-radiobutton .ui-radiobutton-box.ui-state-active {
+  background: @MainSelectRadioBackground;
+}
+
+.ui-chkbox .ui-chkbox-box {
+  margin-right: 5px;
+
+  &.ui-state-active {
+    background: @MainSelectCheckboxBackground;
+  }
+}
+
+.ui-state-highlight { /* en attendant de trouver mieux */
+  background: @MainSelectLineHighlightBackground !important;
+  color: @White !important;
+  text-shadow: none !important;
+}
+
+.ui-datatable-reflow .ui-datatable-data td .ui-column-title {
+  padding: .4em;
+  min-width: 30%;
+  display: inline-block;
+  margin: -.4em 1em -.4em -.4em;
+  font-weight: bold;
+
+  @media (min-width: @MediaPhone) {
+    display: none;
+  }
+}
+
+.columns-2 {
+  position: relative;
+
+  &.verticalCenter {
+    display: block;
+    align-items: stretch;
+    @media (min-width: @MediaTablet) {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .row {
+    clear: both;
+  }
+
+  & > .row > .column, & > .column {
+    float: none;
+    box-sizing: border-box;
+    width: 100%;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+
+    &.forceColumn {
+      width: 50%;
+    }
+
+    &.widthAuto {
+      & > li {
+        width: auto !important;
+        input, .ui-selectonemenu {
+          width: auto !important;
+        }
+      }
+    }
+
+    @media (min-width: @MediaTablet) {
+      float: left;
+      width: 50%;
+
+      &.column-1 {
+        width: 100% * 1/3;
+        line-height: 27px;
+      }
+      &.column-2 {
+        width: 100% * 2/3;
+        line-height: 27px;
+      }
+    }
+
+    @media (max-width: (@SidebarPCWidth + @InputWidth * 2 + extract(@MainContentPCPadding, 2) + extract(@MainContentPCPadding, 4) + 60px)) { // empecher interpolation des input dans les 2 columns
+      float: none;
+      width: 100%;
+      padding: 5px;
+    }
+  }
+}
+
+.ui-selectmanymenu {
+  &.customPstage {
+    li {
+      width: auto !important;
+    }
+    input.ui-selectlistbox-filter {
+      width: 100% !important;
+      box-sizing: border-box;
+    }
+  }
+}
+
+.block {
+  max-width:@BlockSize;
+}
+
+.centerBlock {
+  margin: 0 auto;
+}
+
+#blackScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 222;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .25s ease-in-out, visibility 0s .25s;
+  -moz-transition: opacity .25s ease-in-out, visibility 0s .25s;
+  -webkit-transition: opacity .25s ease-in-out, visibility 0s .25s;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .25s ease-in-out, visibility 0s;
+    -moz-transition: opacity .25s ease-in-out, visibility 0s;
+    -webkit-transition: opacity .25s ease-in-out, visibility 0s;
+  }
+
+  @media(min-width: @MediaTablet) {
+    display: none;
+  }
+}
+
+div.questionnaireEvaluation > div:nth-of-type(odd) {
+  background: #f2f2f2;
+  padding:10px;
+}
+
+.noBorder{
+  & tr, & .ui-panelgrid-cell {
+    border: none;
+    background-color: #e9e9e9;
+  }
+}
+
+.noPointer {
+  cursor: default !important;
+}
+
+.panelInfos {
+  & tr, & .ui-panelgrid-cell {
+    border: none;
+    background-color: #e9e9e9;
+  }
+  input, .ui-selectonemenu {
+    @media (min-width: @MediaTablet) {
+      width: @InputWidth;
+    }
+  }
+}
+.blueHover {
+  tbody > tr:hover {
+    background-color: #74B1D2;
+    cursor: default;
+  }
+}
+
+.alignTop td {
+  vertical-align: top;
+}
+
+.unbold label {
+  font-weight: initial;
+}
+
+.background-color-grey{
+  background-color: #A5A5A5 !important;
+}
+.padding-5{
+  padding: 5px !important;
+}
+
+.underline{
+  text-decoration: underline !important;
+}
+
+.autoWidth {
+  width: auto !important;
+
+  @media (max-width: @MediaPhone) {
+    width: 100% !important;
+  }
+}
+
+.ui-button {
+  &.buttonMenuTablet {
+    height: @SidebarItemHeightTablet;
+    width: 100%;
+    margin-bottom: 1rem;
+    .ui-button-icon-left {
+      position: relative;
+      display: block;
+      margin: 0;
+      width: 100%;
+      padding: 0;
+      top: initial;
+      left: initial;
+      font-size: 2rem;
+      height: 2rem;
+    }
+    .ui-button-text {
+      padding: .3em 1em;
+      font-size: 1.3rem;
+    }
+  }
+}
+
+.ui-scrollpanel.customPstage {
+  height: auto;
+  white-space: nowrap;
+  margin: 0 auto 1rem auto;
+  border: 0;
+  text-align: center;
+  width: 100%;
+  & > .ui-button {
+    width: auto;
+    display: inline-block;
+  }
+}
+
+.ui-dialog {
+  @media (max-width: @MediaTablet) {
+    height: 100% !important;
+    width: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+}
+
+
+select.customPstage {
+  margin: 0px;
+  width: 100%;
+  min-width: 70px; // width dropdown.png * 3 ~~
+  border: 1px solid #A5A5A5;
+  cursor: pointer;
+  padding: 5px;
+  font-family: inherit;
+  font-size: 1em;
+  box-sizing: border-box;
+  line-height: normal;
+  color: #222222;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  height: 27px;
+  background: url('../images/dropdown.png') no-repeat 100% 50% #ffffff;
+  background-size: 23px 25px;
+  &::-ms-expand {
+    display: none;
+  }
+  &.fix-selectOneMenu{
+    padding-right:28px;
+  }
+}
+
+.ui-fieldset {
+  &.legendWarning {
+    .ui-fieldset-legend {
+      font-family: FontAwesome, sans-serif;
+      font-size: 1.3rem;
+      color: @Red;
+      &:before {
+        content: "\f071";
+        margin-right: 0.5em;
+      }
+    }
+  }
+}
+
+.verticalAlignDiv{
+  display: flex;
+  align-items: center;
+}
+
+.ui-picklist .ui-picklist-list {
+  height: 100px;
+}
+.ui-picklist .ui-picklist-buttons {
+  height: 100px;
+}

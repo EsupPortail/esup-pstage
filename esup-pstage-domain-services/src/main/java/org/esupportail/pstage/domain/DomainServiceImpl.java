@@ -50,7 +50,7 @@ public class DomainServiceImpl implements DomainService, InitializingBean {
 	/**
 	 * A logger.
 	 */
-	private final Logger logger = new LoggerImpl(getClass());
+	private final transient Logger logger = new LoggerImpl(getClass());
 
 	/**
 	 * Bean constructor.

@@ -1,0 +1,77 @@
+@import "imports/commun/variables";
+@import "imports/commun/utils";
+
+html {
+	overflow: auto;
+	font-size: @FontSize;
+	background-color: @BackgroundColor;
+	color: @Black;
+	font-family: @FontFamily;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.phoneOnly {
+	display: block !important;
+	@media (min-width: @MediaTablet) {
+		display: none !important;
+	}
+}
+
+.tabletOnly {
+	display: none !important;
+	@media (min-width: @MediaTablet) and (max-width: @MediaPC) {
+		display: block !important;
+	}
+}
+
+.PCOnly {
+	display: none;
+	@media (min-width: @MediaPC) {
+		display: block !important;
+	}
+}
+
+.noTablet {
+	display: block !important;
+	@media (min-width: @MediaTablet) {
+		display: none !important;
+	}
+	@media (min-width: @MediaPC) {
+		display: block !important;
+	}
+}
+
+.ui-widget {
+	font-family: @FontFamily;
+}
+
+@import "imports/sidebar";
+@import "imports/topbar";
+@import "imports/mainContent";
+
+.fz30 {
+  font-size: 3rem;
+}
+
+.fz20 {
+	font-size: 2rem;
+}
+
+.fz16 {
+	font-size: 1.6rem;
+}
+
+.fz13 {
+	font-size: 1.3rem;
+}
+
+.fz09 {
+  font-size: 0.9rem !important;
+}
+
+.generate-fontColors(1);
+.generate-margins-paddings-by(5, 8);

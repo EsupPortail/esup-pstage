@@ -1,123 +1,59 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
 
-	<h:outputText value="#{msgs['ACCORD.PREACCORD']}"
-		style="font-size:14px" />
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text">
-		<ui:include src="../_commun/_champsObligatoires.xhtml" />
-		<h:outputLabel value="#{msgs['STRUCTURE.RAISON_SOCIALE']} * "
-			for="raisonSociale" />
-		<h:panelGrid columns="4">
-			<h:graphicImage id="imgInfo" alt="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"
-				value="../../media/images/information.png" style="border:0">
-				<rich:tooltip value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"/>
-			</h:graphicImage>
-			<h:inputText id="raisonSociale" size="50" maxlength="150"
-				style="text-transform:uppercase;"
-				value="#{accordController.preAccord.structure.raisonSociale}"
-				required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<f:converter binding="#{sansAccentEnMAJConverter}" />
-				<a4j:ajax event="blur" />
-			</h:inputText>
-			<t:htmlTag value="div" style="width: 5px;" />
-			<rich:message for="raisonSociale">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-		</h:panelGrid>
-		<h:outputLabel value="#{msgs['STRUCTURE.TYPE_STRUCTURE']} *"
-			for="typeStructure" />
-		<h:selectOneMenu id="typeStructure"
-			value="#{accordController.preAccord.structure.typeStructure}"
-			converter="#{typeStructureConverter}" required="true"
-			valueChangeListener="#{accordController.valueTypeStructureChanged}"
-			requiredMessage="#{requiredMessageController.champObligatoire}">
-			<f:selectItem itemValue="" />
-			<f:selectItems value="#{nomenclatureController.typesStructure}" />
-			<a4j:ajax event="valueChange" render="siret, olSiret" execute="@this" />
-		</h:selectOneMenu>
-		<rich:message for="typeStructure">
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
-		<h:panelGrid id="olSiret" columns="2">
-			<h:outputLabel value="#{msgs['STRUCTURE.NUM_SIRET']}" for="siret" />
-			<h:outputLabel value=" *" for="siret"
-				rendered="#{(accordController.preAccord.structure.pays==beanUtils.france || accordController.preAccord.structure.pays.cog==beanUtils.cogFrance)
-						and accordController.preAccord.structure.typeStructure.siretObligatoire}" />
-		</h:panelGrid>
-		<h:panelGrid columns="4">
-			<h:graphicImage id="infoNumsiret"
-				alt="#{msgs['INFOSBULLES.NUMERO_SIRET']}"
-				value="../../media/images/information.png" style="border:0">
-				<rich:tooltip value="#{msgs['INFOSBULLES.NUMERO_SIRET']}" />
-			</h:graphicImage>
-			<h:inputText id="siret" size="20" maxlength="14"
-				value="#{accordController.preAccord.structure.numeroSiret}"
-				required="#{(accordController.preAccord.structure.pays==beanUtils.france || accordController.preAccord.structure.pays.cog==beanUtils.cogFrance)
-						and accordController.preAccord.structure.typeStructure.siretObligatoire}"
-				requiredMessage="#{requiredMessageController.champObligatoire}"
-				validatorMessage="#{requiredMessageController.numeroSiretNonValide}">
-				<f:validator binding="#{numSiretValidator}" />
-				<a4j:ajax event="blur" />
-			</h:inputText>
-			<t:htmlTag value="div" style="width: 10px;" />
-			<rich:message for="siret" id="rmS">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-		</h:panelGrid>
-		<h:outputText value="#{msgs['STRUCTURE.NUM_SIRET.AIDE']}"
-			escape="false" />
-		<a4j:outputPanel id="opSiretOblig">
-			<h:panelGrid columns="3"
-				rendered="#{(accordController.preAccord.structure.pays==beanUtils.france || accordController.preAccord.structure.pays.cog==beanUtils.cogFrance)
-						and accordController.preAccord.structure.typeStructure.siretObligatoire}">
-				<h:graphicImage id="arrow"
-					value="../../media/images/arrow_turn_up.png"
-					alt="#{msgs['GENERAL.ARROW_UP']}"
-					title="#{msgs['GENERAL.ARROW_UP']}" />
-				<t:htmlTag value="div" style="width: 5px;" />
-				<h:outputText value="#{msgs['STRUCTURE.NUM_SIRET.OBLIGATOIRE']}" />
-			</h:panelGrid>
-		</a4j:outputPanel>
-		<h:outputLabel value="#{msgs['STRUCTURE.PAYS']}" for="pays" />
-		<h:panelGrid columns="5">
-			<a4j:outputPanel id="opFlag">
-				<t:htmlTag value="div" style="width: 16px;"
-					rendered="#{empty accordController.preAccord.structure.pays}" />
-				<h:graphicImage id="flag"
-					rendered="#{not empty accordController.preAccord.structure.pays}"
-					value="../../media/images/flags/#{accordController.preAccord.structure.pays.iso2}.png"
-					alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-					title="#{accordController.preAccord.structure.pays.libelle}" />
-			</a4j:outputPanel>
-			<t:htmlTag value="div" style="width: 5px;" />
-			<h:selectOneMenu id="pays"
-				value="#{accordController.preAccord.structure.pays}"
-				converter="#{paysConverter}" styleClass="paysInput">
-				<a4j:ajax event="blur" render="opFlag, opSiretOblig, siret, olSiret"
-					execute="@this" />
-				<f:selectItems value="#{nomenclatureController.pays}" />
-			</h:selectOneMenu>
-			<t:htmlTag value="div" style="width: 10px;" />
-			<rich:message for="pays">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-		</h:panelGrid>
-	</h:panelGrid>
-	<t:htmlTag value="div" style="height:10px;" />
-	<a4j:commandButton value="#{msgs['GENERAL.RETOUR']}" action="welcome"
-		immediate="true"/>
-	<h:commandButton action="#{accordController.goToEtabTrouve}"
-		value="#{msgs['FORM.NEXT']}">
-		<f:setPropertyActionListener value="#{false}"
-			target="#{accordController.structureDejaExistante}" />
-		<f:setPropertyActionListener
-			value="#{accordController.preAccord.structure}"
-			target="#{accordController.accord.structure}" />
-	</h:commandButton>
+    <h:outputText value="#{msgs['ACCORD.PREACCORD']}" styleClass="fontBold" />
+
+
+    <t:div styleClass="mt10 ml20">
+        <t:div>
+            <t:htmlTag id="imgInfo" value="i" styleClass="fa fa-info-circle fz13 fontBlue2">
+                <p:tooltip for="imgInfo" value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"/>
+            </t:htmlTag>
+            <h:outputText styleClass="fontBold mlf5"
+                          value="#{msgs['STRUCTURE.RAISON_SOCIALE']} * "/>
+        </t:div>
+        <p:inputText id="raisonSociale" maxlength="150" styleClass="autoWidth"
+                     style="text-transform:uppercase;"
+                     value="#{accordController.preAccord.structure.raisonSociale}"
+                     required="true">
+            <f:converter binding="#{sansAccentEnMAJConverter}" />
+        </p:inputText>
+        <p:message for="raisonSociale"/>
+
+        <t:htmlTag value="div" style="height:10px;" />
+
+        <t:htmlTag id="infoNumsiret" value="i" styleClass="fa fa-info-circle fz13 fontBlue2">
+            <p:tooltip for="infoNumsiret" value="#{msgs['INFOSBULLES.NUMERO_SIRET']}"
+                       escape="false"/>
+        </t:htmlTag>
+        <h:outputText styleClass="fontBold mlf5" value="#{msgs['STRUCTURE.NUM_SIRET']}" />
+
+        <t:div>
+            <p:inputText id="siret" maxlength="14" styleClass="autoWidth"
+                         value="#{accordController.preAccord.structure.numeroSiret}"
+                         validatorMessage="#{requiredMessageController.numeroSiretNonValide}">
+                <f:validator binding="#{numSiretValidator}" />
+            </p:inputText>
+        </t:div>
+        <p:message for="siret" />
+    </t:div>
+
+    <t:div styleClass="mt10 mb20 textCenter">
+        <p:commandButton action="#{accordController.goToEtabTrouve}"
+                         value="#{msgs['FORM.CONFIRMERCONTINUER']}"
+                         onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                         update="@form">
+            <f:setPropertyActionListener value="#{false}"
+                                         target="#{accordController.structureDejaExistante}" />
+            <f:setPropertyActionListener value="#{accordController.preAccord.structure}"
+                                         target="#{accordController.accord.structure}" />
+        </p:commandButton>
+    </t:div>
+
+    <p:commandButton value="#{msgs['GENERAL.RETOUR']}"
+                     action="welcome" immediate="true"
+                     ajax="false" styleClass="mb20"/>
 </ui:composition>

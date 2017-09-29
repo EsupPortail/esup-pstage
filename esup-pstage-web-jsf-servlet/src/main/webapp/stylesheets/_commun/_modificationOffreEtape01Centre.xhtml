@@ -1,49 +1,50 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1">
-		<h:outputText value="#{msgs['OFFRE.ERREUR.AUCUNETABSELECT']}"
-			rendered="#{empty offreController.formOffre.structure}" />
-		<h:panelGrid columns="2"
-			rendered="#{not empty offreController.formOffre.structure and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
-			<t:panelGroup colspan="2">
-				<h:outputText value="#{msgs['OFFRE.TEXT.ETAPE01NOMODIF']}" />
-			</t:panelGroup>
-			<h:panelGrid columns="1"
-				rendered="#{not empty offreController.formOffre.centreGestion}">
-				<h:outputText
-					value="(#{offreController.formOffre.centreGestion.idCentreGestion}) #{offreController.formOffre.centreGestion.nomCentre}" />
-			</h:panelGrid>
-		</h:panelGrid>
-		<h:panelGrid columns="2"
-			rendered="#{not empty offreController.formOffre.structure and offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
-			<t:panelGroup colspan="2">
-				<h:outputText value="#{msgs['OFFRE.TEXT.ETAPE01MODIF']}" />
-			</t:panelGroup>
-			<h:selectOneMenu id="centreGestion"
-				value="#{offreController.formOffre.idCentreGestion}" required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}"
-				style="width:300px;">
-				<f:selectItems
-					value="#{offreController.listeItemsCurrentCentresGestion}" />
-				<a4j:ajax event="valueChange"/>
-			</h:selectOneMenu>
-			<rich:message for="centreGestion">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-			<t:panelGroup colspan="2">
-				<h:panelGrid columns="2">
-					<h:commandButton value="#{msgs['FORM.NEXT']}"
-						action="#{offreController.goToModificationOffreDetailsEtab}"
-						alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}"
-						rendered="#{not empty offreController.listeItemsCurrentCentresGestion}" />
-				</h:panelGrid>
-			</t:panelGroup>
-		</h:panelGrid>
-	</h:panelGrid>
-</ui:fragment>
+    <h:outputText value="#{msgs['OFFRE.ERREUR.AUCUNETABSELECT']}"
+                  rendered="#{empty offreController.formOffre.structure}" />
+
+    <t:div rendered="#{not empty offreController.formOffre.centreGestion
+        and not empty offreController.formOffre.structure and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
+        <h:outputText value="(#{offreController.formOffre.centreGestion.idCentreGestion}) #{offreController.formOffre.centreGestion.nomCentre}"
+                      styleClass="fontBold"/>
+        <h:outputText value="#{msgs['OFFRE.TEXT.ETAPE01NOMODIF']}"
+                      styleClass="ml5" />
+    </t:div>
+
+    <t:div rendered="#{not empty offreController.formOffre.structure and offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
+
+        <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2"/>
+        <h:outputText value="#{msgs['OFFRE.TEXT.ETAPE01MODIF']}"
+                      styleClass="ml5"
+                      escape="false"/>
+
+        <t:htmlTag value="div" style="height: 5px;" />
+
+        <h:selectOneMenu id="centreGestion" required="true"
+                         styleClass="customPstage fix-selectOneMenu ml20"
+                         value="#{offreController.formOffre.idCentreGestion}">
+            <f:selectItems
+                    value="#{offreController.listeItemsCurrentCentresGestion}" />
+            <p:ajax event="valueChange"/>
+        </h:selectOneMenu>
+        <p:message for="centreGestion"/>
+
+        <t:htmlTag value="div" style="height: 10px;" />
+
+        <t:div styleClass="textCenter mt10 mb20">
+            <p:commandButton value="#{msgs['FORM.ENREGISTRER']} les modifications"
+                             update="formModificationOffre"
+                             action="#{offreController.modificationOffreDetailsEtab}"
+                             onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" />
+        </t:div>
+        <!--<p:commandButton value="#{msgs['FORM.NEXT']}"-->
+                         <!--action="#{offreController.goToModificationOffreDetailsEtab}"-->
+                         <!--update="@form" styleClass="ml40"-->
+                         <!--rendered="#{not empty offreController.listeItemsCurrentCentresGestion}" />-->
+    </t:div>
+</ui:composition>

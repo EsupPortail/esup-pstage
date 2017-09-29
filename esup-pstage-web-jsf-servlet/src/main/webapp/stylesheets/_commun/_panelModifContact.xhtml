@@ -2,16 +2,14 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:p="http://primefaces.org/ui">
 
-	<rich:popupPanel id="modifContact" styleClass="panel" width="750" height="370">
+	<p:dialog id="modifContact" widgetVar="modifContact" resizable="false" modal="true">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CONTACT.GESTION.MODIF']}" />
 		</f:facet>
 		<h:form id="formModifContact">
 			<ui:include	src="/stylesheets/_commun/#{sessionController.modifContactCurrentPage}.xhtml" />
 		</h:form>
-	</rich:popupPanel>
+	</p:dialog>
 </ui:composition>

@@ -1,116 +1,111 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:panel
-		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-		<f:facet name="header">
-			<h:outputText
-				value="#{msgs['CONVENTION.ETAPE1.CONFIRMATIONINFOSETU']}" />
-		</f:facet>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="2" >
-			<h:graphicImage alt="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.INFO']}"
-				title="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.INFO']}"
-				value="../../media/images/information.png" style="border:0" />
-			<h:outputText style="font-weight:bold; font-size:15px;"
-				value="#{msgs['CONVENTION.ETAPE1.CONFIRMATIONINFOSETU.DEMANDE']}" />
-		</h:panelGrid>
-		<h:panelGrid columns="2" columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" style="padding-top:10px; padding-left:10px;">
-			<h:outputLabel for="numeroetudiant1"
-				value="#{msgs['CONVENTION.NUMETUDIANT']}" />
-			<h:outputText id="numeroetudiant1"
-				value="#{conventionController.etudiantRef.numEtudiant}" />
-			<h:outputLabel for="nom1" value="#{msgs['CONVENTION.NOM']}" />
-			<h:outputText id="nom1"
-				value="#{conventionController.etudiantRef.nom}   #{conventionController.etudiantRef.nomMarital}" />
-			<h:outputLabel for="prenom1" value="#{msgs['CONVENTION.PRENOM']}" />
-			<h:outputText id="prenom1"
-				value="#{conventionController.etudiantRef.prenom}" />
-			<h:outputLabel for="ufr1" value="#{msgs['CONVENTION.VOTREUFR']}" />
-			<h:outputText id="ufr1"
-				value="#{conventionController.etudiantRef.thecodeUFR} - #{conventionController.etudiantRef.theUfr}" />
-			<h:outputLabel for="etape1" value="#{msgs['CONVENTION.VOTREETAPE']}" />
-			<h:outputText id="etape1"
-				value="#{conventionController.etudiantRef.theCodeEtape}- #{conventionController.etudiantRef.theEtape}" />
-			<h:outputLabel for="elp1"
-				rendered="#{not empty conventionController.etudiantRef.theCodeElp}"
-				value="#{msgs['CONVENTION.ELP']}" />
-			<h:outputText id="elp1"
-				rendered="#{not empty conventionController.etudiantRef.theCodeElp}"
-				value="#{conventionController.etudiantRef.theCodeElp} - #{conventionController.etudiantRef.theLibElp} - #{conventionController.etudiantRef.theCreditECTS} crédit(s)" />
-			<h:outputLabel value="#{msgs['CONVENTION.ETU.ADRESSE']}"
-				for="mainAddress1" />
-			<h:outputText id="mainAddress1"
-				value="#{conventionController.etudiantRef.mainAddress}" />
-			<h:outputLabel value="#{msgs['CONVENTION.ETU.CODEPOSTAL']}"
-				for="codePostal1" />
-			<h:outputText id="codePostal1"
-				value="#{conventionController.etudiantRef.postalCode}" />
-			<h:outputLabel value="#{msgs['CONVENTION.ETU.COMMUNE']}"
-				for="commune1" />
-			<h:outputText id="commune1"
-				value="#{conventionController.etudiantRef.town}" />
-			<h:outputLabel value="#{msgs['CONVENTION.ETU.PAYS']}" for="pays1" />
-			<h:outputText id="pays1"
-				value="#{conventionController.etudiantRef.country}" />
-			<h:outputLabel value="#{msgs['CONVENTION.ETU.TELEPHONE']}"
-				for="telephone1" />
-			<h:outputText id="telephone1"
-				value="#{conventionController.etudiantRef.tel}" />
-			<h:outputLabel value="#{msgs['CONVENTION.ETU.TELEPHONE.PORTABLE']}"
-				for="telephoneportable1" />
-			<h:outputText id="telephoneportable1"
-				value="#{conventionController.etudiantRef.portablePhone}" />
-			<h:outputLabel value="#{msgs['CONVENTION.ETU.MAILINSTITU']}"
-				for="mailinstitu1" />
-			<h:outputText id="mailinstitu1"
-				value="#{conventionController.etudiantRef.mail}" />
-			<h:outputLabel value="#{msgs['CONVENTION.ETU.MAILPERSO']}"
-				for="mailperso1" />
-			<h:outputText id="mailperso1"
-				value="#{conventionController.etudiantRef.mailPerso}" />
-			<h:outputLabel value="#{msgs['CONVENTION.ETU.AFFILSS']}"
-				for="affilss1" />
-			<h:outputText id="affilss1"
-				value="#{conventionController.etudiantRef.theAssurance.libelle}" />
-			<h:outputLabel value="#{msgs['CONVENTION.ETU.CPAM']}" for="caisses1" />
-			<h:outputText id="caisses1"
-				value="#{conventionController.etudiantRef.theCaisseRegime.libelle}" />
-		</h:panelGrid>
-		<h:panelGrid columns="2" columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" style="padding-left:10px;">
-			<h:outputLabel for="centregestion1"
-				value="#{msgs['CONVENTION.NOMCENTRE']}" />
-			<h:outputText id="centregestion1"
-				value="#{conventionController.convention.centreGestion.idCentreGestion} - #{conventionController.convention.centreGestion.nomCentre}" />
-		</h:panelGrid>
-		<t:htmlTag value="div" style="height:20px;" />
+    <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+    <h:outputText value="#{msgs['CONVENTION.ETAPE1.CONFIRMATIONINFOSETU.DEMANDE']}" styleClass="ml5" escape="false"/>
 
-		<a4j:commandButton value="#{msgs['FORM.VALIDER']}"
-			style="font-size:14px; border:solid 1px; margin-left:200px;"
-			rendered="#{sessionController.utilisationEntreprise}"
-			render="formConvention">
-			<f:setPropertyActionListener
-				value="_creerConventionEtape1DemandeLienOffre"
-				target="#{sessionController.creationConventionEtape1CurrentPage}" />
-		</a4j:commandButton>
-		<h:commandButton value="#{msgs['FORM.VALIDER']}"
-			style="font-size:14px; border:solid 1px; margin-left:200px;"
-			rendered="#{!sessionController.utilisationEntreprise}"
-			action="#{conventionController.goToCreerConventionEtape2Etab}" />
+    <h:panelGrid columns="2" styleClass="blueHover mt10 ml40" cellspacing="5">
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.NUMETUDIANT']}" />
+        <h:outputText id="numeroetudiant1"
+                      value="#{conventionController.etudiantRef.numEtudiant}" />
 
-		<t:htmlTag value="div" style="height:30px;" />
-		<h:commandButton value="#{msgs['FORM.CANCEL']}"
-			action="creerConventionEtape1Etudiant">
-			<f:setPropertyActionListener
-				value="_creerConventionEtape1ChoixEtapeEtudiant"
-				target="#{sessionController.creationConventionEtape1CurrentPage}" />
-		</h:commandButton>
-	</rich:panel>
+        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.NOM']}" />
+        <h:outputText id="nom1"
+                      value="#{conventionController.etudiantRef.nom}   #{conventionController.etudiantRef.nomMarital}" />
+
+        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.PRENOM']}" />
+        <h:outputText id="prenom1"
+                      value="#{conventionController.etudiantRef.prenom}" />
+    </h:panelGrid>
+
+    <p:separator style="height:2px;" styleClass="mr30 ml30"/>
+
+    <h:panelGrid columns="2" styleClass="blueHover mt5 ml40" cellspacing="5">
+        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.ADRESSE']}" />
+        <h:outputText id="mainAddress1"
+                      value="#{conventionController.etudiantRef.mainAddress}" />
+
+        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.CODEPOSTAL']}" />
+        <h:outputText id="codePostal1"
+                      value="#{conventionController.etudiantRef.postalCode}" />
+
+        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.COMMUNE']}"/>
+        <h:outputText id="commune1"
+                      value="#{conventionController.etudiantRef.town}" />
+
+        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.PAYS']}"/>
+        <h:outputText id="pays1"
+                      value="#{conventionController.etudiantRef.country}" />
+
+        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.TELEPHONE']}"/>
+        <h:outputText id="telephone1"
+                      value="#{conventionController.etudiantRef.tel}" />
+
+        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.TELEPHONE.PORTABLE']}"/>
+        <h:outputText id="telephoneportable1"
+                      value="#{conventionController.etudiantRef.portablePhone}" />
+
+        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.MAILPERSO']}"/>
+        <h:outputText id="mailperso1"
+                      value="#{conventionController.etudiantRef.mailPerso}" />
+
+        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.MAILINSTITU']}"/>
+        <h:outputText id="mailinstitu1"
+                      value="#{conventionController.etudiantRef.mail}" />
+    </h:panelGrid>
+
+    <p:separator style="height:2px;" styleClass="mr30 ml30"/>
+
+    <h:panelGrid columns="2" styleClass="blueHover mt5 ml40" cellspacing="5">
+
+        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.VOTREETAPE']}" />
+        <h:outputText id="etape1"
+                      value="#{conventionController.etudiantRef.theCodeEtape}- #{conventionController.etudiantRef.theEtape}" />
+
+        <h:outputText styleClass="fontBold"
+                      rendered="#{not empty conventionController.etudiantRef.theCodeElp}"
+                      value="#{msgs['CONVENTION.ELP']}" />
+        <h:outputText id="elp1"
+                      rendered="#{not empty conventionController.etudiantRef.theCodeElp}"
+                      value="#{conventionController.etudiantRef.theCodeElp} - #{conventionController.etudiantRef.theLibElp} - #{conventionController.etudiantRef.theCreditECTS} crédit(s)" />
+
+        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.VOTREUFR']}" />
+        <h:outputText id="ufr1"
+                      value="#{conventionController.etudiantRef.thecodeUFR} - #{conventionController.etudiantRef.theUfr}" />
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE']}" />
+        <h:outputText value="#{conventionController.convention.volumeHoraireFormation}" />
+    </h:panelGrid>
+    <h:panelGrid columns="2" styleClass="blueHover mb20 ml40" cellspacing="5"
+                 rendered="#{welcomeController.superAdmin || welcomeController.personnel}">
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.NOMCENTRE']}" />
+        <h:outputText id="centregestion1"
+                      value="#{conventionController.convention.centreGestion.idCentreGestion} - #{conventionController.convention.centreGestion.nomCentre}" />
+    </h:panelGrid>
+
+    <t:div styleClass="mt20 textCenter">
+        <p:commandButton value="#{msgs['FORM.CONFIRMER']}"
+                         rendered="#{sessionController.utilisationEntreprise}"
+                         action="#{conventionController.goToCreerConventionEtape2Offre}"
+                         icon="fa fa-check"/>
+        <p:commandButton value="#{msgs['FORM.CONFIRMER']}"
+                         rendered="#{!sessionController.utilisationEntreprise}"
+                         action="#{conventionController.goToCreerConventionEtape2Etab}"
+                         icon="fa fa-check" />
+    </t:div>
+
+    <p:commandButton value="#{msgs['FORM.PREVIOUS']}"
+                     immediate="true" update="@form"
+                     styleClass="mt20 mb20">
+        <f:setPropertyActionListener
+                value="_creerConventionEtape1ChoixEtapeEtudiant"
+                target="#{sessionController.creationConventionEtape1CurrentPage}" />
+    </p:commandButton>
 </ui:composition>

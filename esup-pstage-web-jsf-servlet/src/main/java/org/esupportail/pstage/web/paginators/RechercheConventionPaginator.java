@@ -18,7 +18,7 @@ public class RechercheConventionPaginator extends ListPaginator<ConventionDTO> {
 	/**
 	 * Liste
 	 */
-	private List<ConventionDTO> liste=null;
+	private List<ConventionDTO> liste;
 	
 	/**
 	 * Constructeur
@@ -35,9 +35,6 @@ public class RechercheConventionPaginator extends ListPaginator<ConventionDTO> {
 		super();
 	}
 
-	/**
-	 * @see org.esupportail.commons.web.beans.ListPaginator#getData()
-	 */
 	@Override
 	protected ArrayList<ConventionDTO> getData() {
 		if(this.liste!=null && !this.liste.isEmpty()){

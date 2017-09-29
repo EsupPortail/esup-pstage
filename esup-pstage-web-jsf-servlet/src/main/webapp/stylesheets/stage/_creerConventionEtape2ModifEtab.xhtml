@@ -1,42 +1,34 @@
 <ui:fragment xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1">
-		<h:outputText value=" " id="formModifEtab" />
-		<rich:message for="formModifEtab">
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
+    <h:outputText value="#{msgs['STRUCTURE.AUCUN']}"
+                  rendered="#{empty etablissementController.formStructure}" />
 
-		<h:outputText value="#{msgs['STRUCTURE.AUCUN']}"
-			rendered="#{empty etablissementController.formStructure}" />
-		<t:div rendered="#{not empty etablissementController.formStructure}">
-			<ui:include src="../_commun/_etablissementForm.xhtml" />
-		</t:div>
+    <t:div rendered="#{not empty etablissementController.formStructure}">
 
-		<h:panelGrid columns="3" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-			<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
-				alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-				render="formConvention"
-				immediate="true">
-				<f:setPropertyActionListener
-					value="_creerConventionEtape2DetailsEtab"
-					target="#{sessionController.creationConventionEtape2CurrentPage}" />
-			</a4j:commandButton>
-			<t:htmlTag value="div" style="width: 20px;" />
-			<a4j:commandButton id="modifEtab2" value="#{msgs['FORM.MODIFIER']}"
-				alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
-				action="#{conventionController.modifierEtablissement}"
-				render="formConvention"
-				rendered="#{not empty etablissementController.formStructure}">
-				<f:setPropertyActionListener
-					value="#{etablissementController.formStructure}"
-					target="#{rechercheController.resultatRechercheStructure}" />
-			</a4j:commandButton>
-		</h:panelGrid>
-	</h:panelGrid>
+        <ui:include src="/stylesheets/_commun/_etablissementForm.xhtml" />
+
+        <t:div styleClass="textCenter mt20">
+            <p:commandButton id="modifEtab2" value="#{msgs['FORM.MODIFIER']}"
+                             action="#{conventionController.modifierEtablissement}"
+                             update="formConvention"
+                             rendered="#{not empty etablissementController.formStructure}">
+                <f:setPropertyActionListener
+                        value="#{etablissementController.formStructure}"
+                        target="#{rechercheController.resultatRechercheStructure}" />
+            </p:commandButton>
+        </t:div>
+    </t:div>
+
+    <p:commandButton value="#{msgs['FORM.PREVIOUS']}"
+                     update="formConvention" immediate="true"
+                     styleClass="mt20 mb20">
+        <f:setPropertyActionListener
+                value="_creerConventionEtape2DetailsEtab"
+                target="#{sessionController.creationConventionEtape2CurrentPage}" />
+    </p:commandButton>
 </ui:fragment>

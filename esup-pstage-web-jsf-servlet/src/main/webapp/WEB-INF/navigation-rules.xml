@@ -146,108 +146,6 @@
 
 	<!-- FIN Nous Contacter -->
 
-	<!-- Mot de Passe Perdu -->
-
-	<navigation-rule>
-		<display-name>_motDePassePerduEtape1Mail</display-name>
-		<from-view-id>/stylesheets/depot/_motDePassePerduEtape1Mail.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_motDePassePerduEtape2SelectionEtab</from-outcome>
-			<to-view-id>/stylesheets/depot/_motDePassePerduEtape2SelectionEtab.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_motDePassePerduEtape3Confirmation</from-outcome>
-			<to-view-id>/stylesheets/depot/_motDePassePerduEtape3Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_motDePassePerduEtape2SelectionEtab</display-name>
-		<from-view-id>/stylesheets/depot/_motDePassePerduEtape2SelectionEtab.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_motDePassePerduEtape3Confirmation</from-outcome>
-			<to-view-id>/stylesheets/depot/_motDePassePerduEtape3Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_motDePassePerduEtape3Confirmation</display-name>
-		<from-view-id>/stylesheets/depot/_motDePassePerduEtape3Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>accueilEntr</from-outcome>
-			<to-view-id>/stylesheets/depot/welcome.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
-
-	<!-- FIN Mot de Passe Perdu -->
-
-	<!-- Administrateur -->
-	<navigation-rule>
-		<display-name>_ajoutAdministrateurEtape1</display-name>
-		<from-view-id>/stylesheets/depot/_ajoutAdministrateurEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_ajoutAdministrateurEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/depot/_ajoutAdministrateurEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_ajoutAdministrateurEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/depot/_ajoutAdministrateurEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_ajoutAdministrateurEtape1</from-outcome>
-			<to-view-id>/stylesheets/depot/_ajoutAdministrateurEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-
-	<navigation-rule>
-		<display-name>_modifAdministrateurEtape0</display-name>
-		<from-view-id>/stylesheets/depot/_modifAdministrateurEtape0.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_modifAdministrateurEtape1</from-outcome>
-			<to-view-id>/stylesheets/depot/_modifAdministrateurEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_modifAdministrateurEtape1</display-name>
-		<from-view-id>/stylesheets/depot/_modifAdministrateurEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_modifAdministrateurEtape0</from-outcome>
-			<to-view-id>/stylesheets/depot/_modifAdministrateurEtape0.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_modifAdministrateurEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/depot/_modifAdministrateurEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_modifAdministrateurEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/depot/_modifAdministrateurEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_modifAdministrateurEtape0</from-outcome>
-			<to-view-id>/stylesheets/depot/_modifAdministrateurEtape0.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_modifAdministrateurEtape1</from-outcome>
-			<to-view-id>/stylesheets/depot/_modifAdministrateurEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-
-	<navigation-rule>
-		<display-name>_supprAdministrateurEtape1</display-name>
-		<from-view-id>/stylesheets/depot/_supprAdministrateurEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_supprAdministrateurEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/depot/_supprAdministrateurEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_supprAdministrateurEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/depot/_supprAdministrateurEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_supprAdministrateurEtape1</from-outcome>
-			<to-view-id>/stylesheets/depot/_supprAdministrateurEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<!-- FIN Administrateur -->
 
 	<!-- Établissement -->
 	<navigation-rule>
@@ -287,23 +185,6 @@
 			<from-outcome>affichageRechercheEtablissement</from-outcome>
 			<to-view-id>/stylesheets/depot/affichageRechercheEtablissement.xhtml</to-view-id>
 			<redirect/>
-		</navigation-case>
-	</navigation-rule>
-
-	<navigation-rule>
-		<display-name>_supprStructureEtape1</display-name>
-		<from-view-id>/stylesheets/_commun/_supprStructureEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_supprStructureEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/_commun/_supprStructureEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_supprStructureEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/_commun/_supprStructureEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_supprStructureEtape1</from-outcome>
-			<to-view-id>/stylesheets/_commun/_supprStructureEtape1.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
@@ -367,601 +248,142 @@
 		</navigation-case>
 	</navigation-rule>
 
-	<navigation-rule>
-		<display-name>_validationAccordEtape1FormulaireAccord</display-name>
-		<from-view-id>/stylesheets/depot/_validationAccordEtape1FormulaireAccord.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_validationAccordEtape2Confirm</from-outcome>
-			<to-view-id>/stylesheets/depot/_validationAccordEtape2Confirm.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>rechercheEtablissement</from-outcome>
-			<to-view-id>/stylesheets/depot/rechercheEtablissement.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_validationAccordEtape2Confirm</display-name>
-		<from-view-id>/stylesheets/depot/_validationAccordEtape2Confirm.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_validationAccordEtape1FormulaireAccord</from-outcome>
-			<to-view-id>/stylesheets/depot/_validationAccordEtape1FormulaireAccord.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_validationAccordEtape3Confirmation</from-outcome>
-			<to-view-id>/stylesheets/depot/_validationAccordEtape3Confirmation.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>rechercheEtablissement</from-outcome>
-			<to-view-id>/stylesheets/depot/rechercheEtablissement.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_validationAccordEtape3Confirmation</display-name>
-		<from-view-id>/stylesheets/depot/_validationAccordEtape3Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>rechercheEtablissement</from-outcome>
-			<to-view-id>/stylesheets/depot/rechercheEtablissement.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
+	<!--<navigation-rule>-->
+		<!--<display-name>_validationAccordEtape1FormulaireAccord</display-name>-->
+		<!--<from-view-id>/stylesheets/depot/_validationAccordEtape1FormulaireAccord.xhtml</from-view-id>-->
+		<!--<navigation-case>-->
+			<!--<from-outcome>_validationAccordEtape2Confirm</from-outcome>-->
+			<!--<to-view-id>/stylesheets/depot/_validationAccordEtape2Confirm.xhtml</to-view-id>-->
+		<!--</navigation-case>-->
+		<!--<navigation-case>-->
+			<!--<from-outcome>rechercheEtablissement</from-outcome>-->
+			<!--<to-view-id>/stylesheets/depot/rechercheEtablissement.xhtml</to-view-id>-->
+			<!--<redirect />-->
+		<!--</navigation-case>-->
+	<!--</navigation-rule>-->
 	<!-- FIN Validation d'un accord -->
-
-	<!-- Suppression d'un accord -->
-	<navigation-rule>
-		<display-name>_supprAccordEtape1</display-name>
-		<from-view-id>/stylesheets/depot/_supprAccordEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_supprAccordEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/depot/_supprAccordEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_supprAccordEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/depot/_supprAccordEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_supprAccordEtape1</from-outcome>
-			<to-view-id>/stylesheets/depot/_supprAccordEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<!-- FIN Suppression d'un accord -->
-
-	<!-- Gestion des services -->
-	<navigation-rule>
-		<display-name>_ajoutServiceEtape1</display-name>
-		<from-view-id>/stylesheets/_commun/_ajoutServiceEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_ajoutServiceEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/_commun/_ajoutServiceEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_ajoutServiceEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/_commun/_ajoutServiceEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_ajoutServiceEtape1</from-outcome>
-			<to-view-id>/stylesheets/_commun/_ajoutServiceEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-
-	<navigation-rule>
-		<display-name>_modifServiceEtape1</display-name>
-		<from-view-id>/stylesheets/_commun/_modifServiceEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_modifServiceEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modifServiceEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-
-	<navigation-rule>
-		<display-name>_supprServiceEtape1</display-name>
-		<from-view-id>/stylesheets/_commun/_supprServiceEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_supprServiceEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/_commun/_supprServiceEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_supprServiceEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/_commun/_supprServiceEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_supprServiceEtape1</from-outcome>
-			<to-view-id>/stylesheets/_commun/_supprServiceEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<!-- FIN Gestion des services -->
-
-	<!-- Gestion des contacts -->
-	<navigation-rule>
-		<display-name>_ajoutContactEtape1</display-name>
-		<from-view-id>/stylesheets/_commun/_ajoutContactEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_ajoutContactEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/_commun/_ajoutContactEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_ajoutContactEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/_commun/_ajoutContactEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_ajoutContactEtape1</from-outcome>
-			<to-view-id>/stylesheets/_commun/_ajoutContactEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-
-	<navigation-rule>
-		<display-name>_modifContactEtape1</display-name>
-		<from-view-id>/stylesheets/_commun/_modifContactEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_modifContactEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modifContactEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-
-	<navigation-rule>
-		<display-name>_supprContactEtape1</display-name>
-		<from-view-id>/stylesheets/_commun/_supprContactEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_supprContactEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/_commun/_supprContactEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_supprContactEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/_commun/_supprContactEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_supprContactEtape1</from-outcome>
-			<to-view-id>/stylesheets/_commun/_supprContactEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-
-	<navigation-rule>
-		<display-name>_creationCompteContactEtape1</display-name>
-		<from-view-id>/stylesheets/depot/_creationCompteContactEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creationCompteContactEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/depot/_creationCompteContactEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_creationCompteContactEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/depot/_creationCompteContactEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creationCompteContactEtape1</from-outcome>
-			<to-view-id>/stylesheets/depot/_creationCompteContactEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-
-	<navigation-rule>
-		<display-name>_supprCompteContactEtape1</display-name>
-		<from-view-id>/stylesheets/depot/_supprCompteContactEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_supprCompteContactEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/depot/_supprCompteContactEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_supprCompteContactEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/depot/_supprCompteContactEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_supprCompteContactEtape1</from-outcome>
-			<to-view-id>/stylesheets/depot/_supprCompteContactEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-
-	<navigation-rule>
-		<display-name>_resetMdpContactEtape1</display-name>
-		<from-view-id>/stylesheets/depot/_resetMdpContactEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_resetMdpContactEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/depot/_resetMdpContactEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_resetMdpContactEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/depot/_resetMdpContactEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_resetMdpContactEtape1</from-outcome>
-			<to-view-id>/stylesheets/depot/_resetMdpContactEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	
-	<!-- Modification de mot de passe -->
-	<navigation-rule>
-		<display-name>_changementMotDePasseEtape1</display-name>
-		<from-view-id>/stylesheets/depot/_changementMotDePasseEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_changementMotDePasseEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/depot/_changementMotDePasseEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_changementMotDePasseEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/depot/_changementMotDePasseEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_changementMotDePasseEtape1</from-outcome>
-			<to-view-id>/stylesheets/depot/_changementMotDePasseEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<!-- FIN Gestion des contacts -->
-	
-	<!-- Fiche Signalétique -->
-	<navigation-rule>
-		<display-name>_modifFicheSignaletiqueEtape1</display-name>
-		<from-view-id>/stylesheets/depot/_modifFicheSignaletiqueEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_modifFicheSignaletiqueEtape2</from-outcome>
-			<to-view-id>/stylesheets/depot/_modifFicheSignaletiqueEtape2.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_modifFicheSignaletiqueEtape2</display-name>
-		<from-view-id>/stylesheets/depot/_modifFicheSignaletiqueEtape2.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_modifFicheSignaletiqueEtape1</from-outcome>
-			<to-view-id>/stylesheets/depot/_modifFicheSignaletiqueEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<!-- FIN Fiche Signalétique -->
 	
 	<!-- Gestion des offres -->
 	<!-- Gestion des offres : AJOUT -->
-	<navigation-rule>
-		<display-name>_creationOffreEtape01Centre</display-name>
-		<from-view-id>/stylesheets/_commun/_creationOffreEtape01Centre.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape02Etab</from-outcome>
-			<to-view-id>/stylesheets/_commun/_creationOffreEtape02Etab.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_creationOffreEtape02Etab</display-name>
-		<from-view-id>/stylesheets/_commun/_creationOffreEtape02Etab.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape01Centre</from-outcome>
-			<to-view-id>/stylesheets/_commun/_creationOffreEtape01Centre.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape03CreaEtab</from-outcome>
-			<to-view-id>/stylesheets/_commun/_creationOffreEtape03CreaEtab.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape04DetailsEtab</from-outcome>
-			<to-view-id>/stylesheets/_commun/_creationOffreEtape04DetailsEtab.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_creationOffreEtape03CreaEtab</display-name>
-		<from-view-id>/stylesheets/_commun/_creationOffreEtape03CreaEtab.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape04DetailsEtab</from-outcome>
-			<to-view-id>/stylesheets/_commun/_creationOffreEtape04DetailsEtab.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape02Etab</from-outcome>
-			<to-view-id>/stylesheets/_commun/_creationOffreEtape02Etab.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_creationOffreEtape04DetailsEtab</display-name>
-		<from-view-id>/stylesheets/_commun/_creationOffreEtape04DetailsEtab.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape1</from-outcome>
-			<to-view-id>/stylesheets/_commun/_creationOffreEtape1.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape02Etab</from-outcome>
-			<to-view-id>/stylesheets/_commun/_creationOffreEtape02Etab.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape05ModifEtab</from-outcome>
-			<to-view-id>/stylesheets/_commun/_creationOffreEtape05ModifEtab.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_creationOffreEtape05ModifEtab</display-name>
-		<from-view-id>/stylesheets/_commun/_creationOffreEtape05ModifEtab.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape04DetailsEtab</from-outcome>
-			<to-view-id>/stylesheets/_commun/_creationOffreEtape04DetailsEtab.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_creationOffreEtape1</display-name>
-		<from-view-id>/stylesheets/_commun/_creationOffreEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape02Etab</from-outcome>
-			<to-view-id>/stylesheets/_commun/_creationOffreEtape02Etab.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape2</from-outcome>
-			<to-view-id>/stylesheets/_commun/_creationOffreEtape2.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_creationOffreEtape2</display-name>
-		<from-view-id>/stylesheets/_commun/_creationOffreEtape2.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape1</from-outcome>
-			<to-view-id>/stylesheets/_commun/_creationOffreEtape1.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape3</from-outcome>
-			<to-view-id>/stylesheets/_commun/_creationOffreEtape3.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape3Contacts</from-outcome>
-			<to-view-id>/stylesheets/_commun/_creationOffreEtape3Contacts.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_creationOffreEtape3</display-name>
-		<from-view-id>/stylesheets/_commun/_creationOffreEtape3.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape2</from-outcome>
-			<to-view-id>/stylesheets/_commun/_creationOffreEtape2.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape4Confirmation</from-outcome>
-			<to-view-id>/stylesheets/_commun/_creationOffreEtape4Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_creationOffreEtape3Contacts</display-name>
-		<from-view-id>/stylesheets/_commun/_creationOffreEtape3Contacts.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape2</from-outcome>
-			<to-view-id>/stylesheets/_commun/_creationOffreEtape2.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape4Confirmation</from-outcome>
-			<to-view-id>/stylesheets/_commun/_creationOffreEtape4Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>recapitulatifOffreCentre</display-name>
-		<from-view-id>/stylesheets/_commun/_creationOffreEtape4Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>recapitulatifOffreEtabCentre</from-outcome>
-			<to-view-id>/stylesheets/stage/recapitulatifOffreEtabCentre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-	</navigation-rule>
+	<!--<navigation-rule>-->
+		<!--<display-name>_creationOffreEtape01Centre</display-name>-->
+		<!--<from-view-id>/stylesheets/_commun/_creationOffreEtape01Centre.xhtml</from-view-id>-->
+		<!--<navigation-case>-->
+			<!--<from-outcome>_creationOffreEtape02Etab</from-outcome>-->
+			<!--<to-view-id>/stylesheets/_commun/_creationOffreEtape02Etab.xhtml</to-view-id>-->
+		<!--</navigation-case>-->
+	<!--</navigation-rule>-->
+	<!--<navigation-rule>-->
+		<!--<display-name>_creationOffreEtape02Etab</display-name>-->
+		<!--<from-view-id>/stylesheets/_commun/_creationOffreEtape02Etab.xhtml</from-view-id>-->
+		<!--<navigation-case>-->
+			<!--<from-outcome>_creationOffreEtape01Centre</from-outcome>-->
+			<!--<to-view-id>/stylesheets/_commun/_creationOffreEtape01Centre.xhtml</to-view-id>-->
+		<!--</navigation-case>-->
+		<!--<navigation-case>-->
+			<!--<from-outcome>_creationOffreEtape03CreaEtab</from-outcome>-->
+			<!--<to-view-id>/stylesheets/_commun/_creationOffreEtape03CreaEtab.xhtml</to-view-id>-->
+		<!--</navigation-case>-->
+		<!--<navigation-case>-->
+			<!--<from-outcome>_creationOffreEtape04DetailsEtab</from-outcome>-->
+			<!--<to-view-id>/stylesheets/_commun/_creationOffreEtape04DetailsEtab.xhtml</to-view-id>-->
+		<!--</navigation-case>-->
+	<!--</navigation-rule>-->
+	<!--<navigation-rule>-->
+		<!--<display-name>_creationOffreEtape03CreaEtab</display-name>-->
+		<!--<from-view-id>/stylesheets/_commun/_creationOffreEtape03CreaEtab.xhtml</from-view-id>-->
+		<!--<navigation-case>-->
+			<!--<from-outcome>_creationOffreEtape04DetailsEtab</from-outcome>-->
+			<!--<to-view-id>/stylesheets/_commun/_creationOffreEtape04DetailsEtab.xhtml</to-view-id>-->
+		<!--</navigation-case>-->
+		<!--<navigation-case>-->
+			<!--<from-outcome>_creationOffreEtape02Etab</from-outcome>-->
+			<!--<to-view-id>/stylesheets/_commun/_creationOffreEtape02Etab.xhtml</to-view-id>-->
+		<!--</navigation-case>-->
+	<!--</navigation-rule>-->
+	<!--<navigation-rule>-->
+		<!--<display-name>_creationOffreEtape04DetailsEtab</display-name>-->
+		<!--<from-view-id>/stylesheets/_commun/_creationOffreEtape04DetailsEtab.xhtml</from-view-id>-->
+		<!--<navigation-case>-->
+			<!--<from-outcome>_creationOffreEtape1</from-outcome>-->
+			<!--<to-view-id>/stylesheets/_commun/_creationOffreEtape1.xhtml</to-view-id>-->
+		<!--</navigation-case>-->
+		<!--<navigation-case>-->
+			<!--<from-outcome>_creationOffreEtape02Etab</from-outcome>-->
+			<!--<to-view-id>/stylesheets/_commun/_creationOffreEtape02Etab.xhtml</to-view-id>-->
+		<!--</navigation-case>-->
+		<!--<navigation-case>-->
+			<!--<from-outcome>_creationOffreEtape05ModifEtab</from-outcome>-->
+			<!--<to-view-id>/stylesheets/_commun/_creationOffreEtape05ModifEtab.xhtml</to-view-id>-->
+		<!--</navigation-case>-->
+	<!--</navigation-rule>-->
+	<!--<navigation-rule>-->
+		<!--<display-name>_creationOffreEtape05ModifEtab</display-name>-->
+		<!--<from-view-id>/stylesheets/_commun/_creationOffreEtape05ModifEtab.xhtml</from-view-id>-->
+		<!--<navigation-case>-->
+			<!--<from-outcome>_creationOffreEtape04DetailsEtab</from-outcome>-->
+			<!--<to-view-id>/stylesheets/_commun/_creationOffreEtape04DetailsEtab.xhtml</to-view-id>-->
+		<!--</navigation-case>-->
+	<!--</navigation-rule>-->
+	<!--<navigation-rule>-->
+		<!--<display-name>_creationOffreEtape1</display-name>-->
+		<!--<from-view-id>/stylesheets/_commun/_creationOffreEtape1.xhtml</from-view-id>-->
+		<!--<navigation-case>-->
+			<!--<from-outcome>_creationOffreEtape02Etab</from-outcome>-->
+			<!--<to-view-id>/stylesheets/_commun/_creationOffreEtape02Etab.xhtml</to-view-id>-->
+		<!--</navigation-case>-->
+		<!--<navigation-case>-->
+			<!--<from-outcome>_creationOffreEtape2</from-outcome>-->
+			<!--<to-view-id>/stylesheets/_commun/_creationOffreEtape2.xhtml</to-view-id>-->
+		<!--</navigation-case>-->
+	<!--</navigation-rule>-->
+	<!--<navigation-rule>-->
+		<!--<display-name>_creationOffreEtape2</display-name>-->
+		<!--<from-view-id>/stylesheets/_commun/_creationOffreEtape2.xhtml</from-view-id>-->
+		<!--<navigation-case>-->
+			<!--<from-outcome>_creationOffreEtape1</from-outcome>-->
+			<!--<to-view-id>/stylesheets/_commun/_creationOffreEtape1.xhtml</to-view-id>-->
+		<!--</navigation-case>-->
+		<!--<navigation-case>-->
+			<!--<from-outcome>_creationOffreEtape3</from-outcome>-->
+			<!--<to-view-id>/stylesheets/_commun/_creationOffreEtape3.xhtml</to-view-id>-->
+		<!--</navigation-case>-->
+	<!--</navigation-rule>-->
+	<!--<navigation-rule>-->
+		<!--<display-name>_creationOffreEtape3</display-name>-->
+		<!--<from-view-id>/stylesheets/_commun/_creationOffreEtape3.xhtml</from-view-id>-->
+		<!--<navigation-case>-->
+			<!--<from-outcome>_creationOffreEtape2</from-outcome>-->
+			<!--<to-view-id>/stylesheets/_commun/_creationOffreEtape2.xhtml</to-view-id>-->
+		<!--</navigation-case>-->
+		<!--<navigation-case>-->
+			<!--<from-outcome>_creationOffreEtape4Confirmation</from-outcome>-->
+			<!--<to-view-id>/stylesheets/_commun/_creationOffreEtape4Confirmation.xhtml</to-view-id>-->
+		<!--</navigation-case>-->
+	<!--</navigation-rule>-->
+
 	<navigation-rule>
 		<display-name>recapitulatifOffre</display-name>
-		<from-view-id>/stylesheets/_commun/_creationOffreEtape4Confirmation.xhtml</from-view-id>
+		<from-view-id>/stylesheets/depot/creationOffre.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>recapitulatifOffreEtab</from-outcome>
 			<to-view-id>/stylesheets/depot/recapitulatifOffreEtab.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>recapitulatifOffre</from-outcome>
+			<to-view-id>/stylesheets/depot/recapitulatifOffre.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
 	
 	<!-- Gestion des offres : MODIF -->
 	<navigation-rule>
-		<display-name>_modificationOffreEtape01Centre</display-name>
-		<from-view-id>/stylesheets/_commun/_modificationOffreEtape01Centre.xhtml</from-view-id>
+		<display-name>modificationOffre</display-name>
+		<from-view-id>/stylesheets/depot/*</from-view-id>
 		<navigation-case>
-			<from-outcome>_modificationOffreEtape04DetailsEtab</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modificationOffreEtape04DetailsEtab.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_modificationOffreEtape04DetailsEtab</display-name>
-		<from-view-id>/stylesheets/_commun/_modificationOffreEtape04DetailsEtab.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_modificationOffreEtape01Centre</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modificationOffreEtape01Centre.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_modificationOffreEtape1</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modificationOffreEtape1.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_modificationOffreEtape05ModifEtab</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modificationOffreEtape05ModifEtab.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_modificationOffreEtape05ModifEtab</display-name>
-		<from-view-id>/stylesheets/_commun/_modificationOffreEtape05ModifEtab.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_modificationOffreEtape04DetailsEtab</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modificationOffreEtape04DetailsEtab.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_modificationOffreEtape1</display-name>
-		<from-view-id>/stylesheets/_commun/_modificationOffreEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_modificationOffreEtape04DetailsEtab</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modificationOffreEtape04DetailsEtab.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_modificationOffreEtape2</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modificationOffreEtape2.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_modificationOffreEtape2</display-name>
-		<from-view-id>/stylesheets/_commun/_modificationOffreEtape2.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_modificationOffreEtape1</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modificationOffreEtape1.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_modificationOffreEtape3</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modificationOffreEtape3.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_modificationOffreEtape3Contacts</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modificationOffreEtape3Contacts.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_modificationOffreEtape3</display-name>
-		<from-view-id>/stylesheets/_commun/_modificationOffreEtape3.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_modificationOffreEtape2</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modificationOffreEtape2.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_modificationOffreEtape4Confirmation</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modificationOffreEtape4Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_modificationOffreEtape3Contacts</display-name>
-		<from-view-id>/stylesheets/_commun/_modificationOffreEtape3Contacts.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_modificationOffreEtape2</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modificationOffreEtape2.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_modificationOffreEtape4Confirmation</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modificationOffreEtape4Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>recapitulatifOffreCentre</display-name>
-		<from-view-id>/stylesheets/_commun/_modificationOffreEtape4Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>recapitulatifOffreEtabCentre</from-outcome>
-			<to-view-id>/stylesheets/stage/recapitulatifOffreEtabCentre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>recapitulatifOffre</display-name>
-		<from-view-id>/stylesheets/_commun/_modificationOffreEtape4Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>recapitulatifOffreEtab</from-outcome>
-			<to-view-id>/stylesheets/depot/recapitulatifOffreEtab.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-	</navigation-rule>
-	
-	<!-- Gestion des offres : Suppression -->
-	<navigation-rule>
-		<display-name>_supprOffreEtape1</display-name>
-		<from-view-id>/stylesheets/_commun/_supprOffreEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_supprOffreEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/_commun/_supprOffreEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_supprOffreEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/_commun/_supprOffreEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_supprOffreEtape1</from-outcome>
-			<to-view-id>/stylesheets/_commun/_supprOffreEtape1.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>gestionOffres</from-outcome>
-			<to-view-id>/stylesheets/depot/offres.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>resultatsRechercheOffre</from-outcome>
-			<to-view-id>/stylesheets/depot/rechercheOffreResultats.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>offresEtablissement</from-outcome>
-			<to-view-id>/stylesheets/stage/offresEtablissement.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>defaut</from-outcome>
-			<to-view-id>/stylesheets/depot/welcome.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-	</navigation-rule>
-	<!-- Gestion des offres : Diffusion -->
-	<navigation-rule>
-		<display-name>_diffusionOffreEtape1</display-name>
-		<from-view-id>/stylesheets/_commun/_diffusionOffreEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_diffusionOffreEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/_commun/_diffusionOffreEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_diffusionOffreEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/_commun/_diffusionOffreEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_diffusionOffreEtape1</from-outcome>
-			<to-view-id>/stylesheets/_commun/_diffusionOffreEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<!-- Gestion des offres : Stop Diffusion -->
-	<navigation-rule>
-		<display-name>_stopDiffusionOffreEtape1</display-name>
-		<from-view-id>/stylesheets/_commun/_stopDiffusionOffreEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_stopDiffusionOffreEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/_commun/_stopDiffusionOffreEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_stopDiffusionOffreEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/_commun/_stopDiffusionOffreEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_stopDiffusionOffreEtape1</from-outcome>
-			<to-view-id>/stylesheets/_commun/_stopDiffusionOffreEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<!-- Gestion des offres : Offre pourvue  -->
-	<navigation-rule>
-		<display-name>_offrePourvueEtape1</display-name>
-		<from-view-id>/stylesheets/_commun/_offrePourvueEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_offrePourvueEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/_commun/_offrePourvueEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_offrePourvueEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/_commun/_offrePourvueEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_offrePourvueEtape1</from-outcome>
-			<to-view-id>/stylesheets/_commun/_offrePourvueEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<!-- Gestion des offres : Transfert d'offre -->
-	<navigation-rule>
-		<display-name>_transfertOffreEtape1</display-name>
-		<from-view-id>/stylesheets/_commun/_transfertOffreEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_transfertOffreEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/_commun/_transfertOffreEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_transfertOffreEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/_commun/_transfertOffreEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_transfertOffreEtape1</from-outcome>
-			<to-view-id>/stylesheets/_commun/_transfertOffreEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<!-- Gestion des offres : Diffusion aux autres centres -->
-	<navigation-rule>
-		<display-name>_diffusionCentreOffreEtape1</display-name>
-		<from-view-id>/stylesheets/_commun/_diffusionCentreOffreEtape1.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_diffusionCentreOffreEtape2Confirmation</from-outcome>
-			<to-view-id>/stylesheets/_commun/_diffusionCentreOffreEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_diffusionCentreOffreEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/_commun/_diffusionCentreOffreEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_diffusionCentreOffreEtape1</from-outcome>
-			<to-view-id>/stylesheets/_commun/_diffusionCentreOffreEtape1.xhtml</to-view-id>
+			<from-outcome>modificationOffre</from-outcome>
+			<to-view-id>/stylesheets/depot/modificationOffre.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<!-- Gestion des offres : Liste des offres -->
@@ -988,16 +410,6 @@
 			<redirect/>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>modificationOffre3</from-outcome>
-			<to-view-id>/stylesheets/depot/modificationOffre3.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>modificationOffre3C</from-outcome>
-			<to-view-id>/stylesheets/depot/modificationOffre3C.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
 			<from-outcome>gestionOffres</from-outcome>
 			<to-view-id>/stylesheets/depot/offres.xhtml</to-view-id>
 			<redirect/>
@@ -1006,44 +418,6 @@
 	<navigation-rule>
 		<display-name>modificationOffre</display-name>
 		<from-view-id>/stylesheets/depot/modificationOffre.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>gestionOffres</from-outcome>
-			<to-view-id>/stylesheets/depot/offres.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>recapitulatifOffre</from-outcome>
-			<to-view-id>/stylesheets/depot/recapitulatifOffre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>defaut</from-outcome>
-			<to-view-id>/stylesheets/depot/offres.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>modificationOffre3</display-name>
-		<from-view-id>/stylesheets/depot/modificationOffre3.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>gestionOffres</from-outcome>
-			<to-view-id>/stylesheets/depot/offres.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>recapitulatifOffre</from-outcome>
-			<to-view-id>/stylesheets/depot/recapitulatifOffre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>defaut</from-outcome>
-			<to-view-id>/stylesheets/depot/offres.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>modificationOffre3C</display-name>
-		<from-view-id>/stylesheets/depot/modificationOffre3C.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>gestionOffres</from-outcome>
 			<to-view-id>/stylesheets/depot/offres.xhtml</to-view-id>
@@ -1075,11 +449,6 @@
 		<display-name>resultatsRechercheOffre</display-name>
 		<from-view-id>/stylesheets/depot/rechercheOffreResultats.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>modificationEtabOffre</from-outcome>
-			<to-view-id>/stylesheets/depot/modificationEtabOffre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
 			<from-outcome>recapitulatifOffreEtab</from-outcome>
 			<to-view-id>/stylesheets/depot/recapitulatifOffreEtab.xhtml</to-view-id>
 			<redirect/>
@@ -1094,42 +463,8 @@
 			<redirect/>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>modificationEtabOffre</from-outcome>
-			<to-view-id>/stylesheets/depot/modificationEtabOffre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
 			<from-outcome>modificationOffre</from-outcome>
 			<to-view-id>/stylesheets/depot/modificationOffre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>modificationOffre3</from-outcome>
-			<to-view-id>/stylesheets/depot/modificationOffre3.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>modificationOffre3C</from-outcome>
-			<to-view-id>/stylesheets/depot/modificationOffre3C.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>modificationEtabOffre</display-name>
-		<from-view-id>/stylesheets/depot/modificationEtabOffre.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>recapitulatifOffreEtab</from-outcome>
-			<to-view-id>/stylesheets/depot/recapitulatifOffreEtab.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>resultatsRechercheOffre</from-outcome>
-			<to-view-id>/stylesheets/depot/rechercheOffreResultats.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>defaut</from-outcome>
-			<to-view-id>/stylesheets/depot/rechercheOffreResultats.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
@@ -1173,16 +508,6 @@
 		PARTIE PSTAGE
 		*************************************************************************
 	-->
-	<!-- navigation pour menuIE -->
-	<navigation-rule>
-		<display-name>menuIE</display-name>
-		<from-view-id>*</from-view-id>
-		<navigation-case>
-			<from-outcome>menuIE</from-outcome>
-			<to-view-id>/stylesheets/stage/menuIE.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
 	<!-- navigation pour le fil d'ariane -->
 	<navigation-rule>
 		<display-name>creerConvention</display-name>
@@ -1197,11 +522,11 @@
 			<to-view-id>/stylesheets/stage/creerConventionEtape1Etudiant.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionEtape2DetailsEtab</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape2DetailsEtab.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
+        <navigation-case>
+            <from-outcome>creerConventionEtape2Etab</from-outcome>
+            <to-view-id>/stylesheets/stage/creerConventionEtape2Etab.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
 		<navigation-case>
 			<from-outcome>creerConventionEtape3Service</from-outcome>
 			<to-view-id>/stylesheets/stage/creerConventionEtape3Service.xhtml</to-view-id>
@@ -1230,16 +555,6 @@
 		<navigation-case>
 			<from-outcome>creerConventionEtape8Recap</from-outcome>
 			<to-view-id>/stylesheets/stage/creerConventionEtape8Recap.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionEtape8DetailsRecap</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape8DetailsRecap.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionEtape9Impression</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape9Impression.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
@@ -1276,13 +591,18 @@
 			<redirect />
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>conventionEtape2ModifEtabServiceContact</from-outcome>
-			<to-view-id>/stylesheets/stage/conventionEtape2ModifEtabServiceContact.xhtml</to-view-id>
+			<from-outcome>conventionModifEtabService</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionModifEtabService.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>conventionEtape2ModifEtabServiceSignataire</from-outcome>
-			<to-view-id>/stylesheets/stage/conventionEtape2ModifEtabServiceSignataire.xhtml</to-view-id>
+			<from-outcome>conventionModifEtabServiceContact</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionModifEtabServiceContact.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionModifEtabServiceSignataire</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionModifEtabServiceSignataire.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
@@ -1293,16 +613,6 @@
 		<navigation-case>
 			<from-outcome>conventionEtape3Service</from-outcome>
 			<to-view-id>/stylesheets/stage/conventionEtape3Service.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>conventionEtape3ModifServiceContact</from-outcome>
-			<to-view-id>/stylesheets/stage/conventionEtape3ModifServiceContact.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>conventionEtape3ModifServiceSignataire</from-outcome>
-			<to-view-id>/stylesheets/stage/conventionEtape3ModifServiceSignataire.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
@@ -1454,120 +764,9 @@
 	<!-- creation convention -->
 	<navigation-rule>
 		<display-name>creerConvention</display-name>
-		<from-view-id>/stylesheets/stage/creerConvention.xhtml</from-view-id> 
-		<!-- suivant-->
-		<navigation-case>
-			<from-outcome>creerConventionRechercheEtudiant</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionRechercheEtudiant.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-	</navigation-rule>
-	
-	<navigation-rule>
-		<display-name>creerConventionEtape1ListeEtudiant</display-name>
-		<from-view-id>/stylesheets/stage/creerConventionEtape1ListeEtudiant.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creerConventionEtape1ListeEtudiant</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1ListeEtudiant.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	
-	<!-- creation etape 1 - choix etude etudiant -->
-	<navigation-rule>
-		<display-name>creerConventionEtape1Etudiant</display-name>
-		<from-view-id>/stylesheets/stage/creerConventionEtape1Etudiant.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>creerConventionEtape5Stage</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape5Stage.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
+		<from-view-id>/stylesheets/stage/creerConvention.xhtml</from-view-id>
 	</navigation-rule>
 
-	<!-- creation etape 1 - DemandeLienOffre  -->
-	<navigation-rule>
-		<display-name>_creerConventionEtape1DemandeLienOffre</display-name>
-		<from-view-id>/stylesheets/stage/_creerConventionEtape1DemandeLienOffre.xhtml</from-view-id>
-		<!-- annuler -->
-		<navigation-case>
-			<from-outcome>creerConventionEtape1Etudiant</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape1Etudiant.xhtml</to-view-id>
-		</navigation-case>
-		<!--  annuler -->
-		<navigation-case>
-			<from-outcome>_creerConventionEtape1ConfirmInfosEtu</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.xhtml</to-view-id>
-		</navigation-case>
-		<!-- envoyer -->
-		<navigation-case>
-			<from-outcome>creerConventionEtape2Etab</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape2Etab.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionEtape1Offre</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape1Offre.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		
-	</navigation-rule>
-<!-- 	NEW -->
-	<navigation-rule>
-		<display-name>creerConventionEtape1Etudiant</display-name>
-		<from-view-id>/stylesheets/stage/creerConventionEtape1Etudiant.xhtml</from-view-id>
-		<!-- annuler -->
-		<navigation-case>
-			<from-outcome>creerConventionEtape1Etudiant</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape1Etudiant.xhtml</to-view-id>
-		</navigation-case>
-		<!-- envoyer -->
-		<navigation-case>
-			<from-outcome>creerConventionEtape2Etab</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape2Etab.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
-	<!-- creation etape 1 - lien Offre  -->
-	<navigation-rule>
-		<display-name>creerConventionEtape1Offre</display-name>
-		<from-view-id>/stylesheets/stage/creerConventionEtape1Offre.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creerConventionEtape1Offre</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1Offre.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_creerConventionEtape1ConfirmInfosEtu</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.xhtml</to-view-id>
-		</navigation-case>
-		<!-- envoyer -->
-		<navigation-case>
-			<from-outcome>_creerConventionEtape1DemandeLienOffre</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1DemandeLienOffre.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionEtape2DetailsEtab</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape2DetailsEtab.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_creerConventionEtape1Offre</display-name>
-		<from-view-id>/stylesheets/stage/_creerConventionEtape1Offre.xhtml</from-view-id>
-		
-		<navigation-case>
-			<from-outcome>_creerConventionEtape1DemandeLienOffre</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1DemandeLienOffre.xhtml</to-view-id>
-		</navigation-case>
-		
-		<navigation-case>
-			<from-outcome>_creerConventionEtape1ConfirmInfosEtu</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionEtape2DetailsEtab</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape2DetailsEtab.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
 	<!-- creation etape 2 - Recherche Etablissement  -->
 	<navigation-rule>
 		<display-name>creerConventionEtape2Etab</display-name>
@@ -1581,8 +780,8 @@
 			<to-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>_creerConventionEtape1DemandeLienOffre</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1DemandeLienOffre.xhtml</to-view-id>
+			<from-outcome>_creerConventionEtape2DemandeLienOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape2DemandeLienOffre.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>creationEtablissement</from-outcome>
@@ -1606,8 +805,8 @@
 			<to-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>_creerConventionEtape1DemandeLienOffre</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1DemandeLienOffre.xhtml</to-view-id>
+			<from-outcome>_creerConventionEtape2DemandeLienOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape2DemandeLienOffre.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>creationEtablissement</from-outcome>
@@ -1618,10 +817,6 @@
 	<navigation-rule>
 		<display-name>_creerConventionEtape2DetailsEtab</display-name>
 		<from-view-id>/stylesheets/stage/_creerConventionEtape2DetailsEtab.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creationOffreEtape1</from-outcome>
-			<to-view-id>/stylesheets/depot/_creationOffreEtape1.xhtml</to-view-id>
-		</navigation-case>
 		<navigation-case>
 			<from-outcome>_creerConventionEtape2Etab</from-outcome>
 			<to-view-id>/stylesheets/stage/_creerConventionEtape2Etab.xhtml</to-view-id>
@@ -1634,11 +829,6 @@
 			<from-outcome>creerConventionEtape3Service</from-outcome>
 			<to-view-id>/stylesheets/stage/creerConventionEtape3Service.xhtml</to-view-id>
 			<redirect />
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionEtape1Offre</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape1Offre.xhtml</to-view-id>
-			<redirect/>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -1661,42 +851,11 @@
 			<to-view-id>/stylesheets/stage/_creerConventionEtape2DetailsEtab.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	<navigation-rule>
-		<display-name>creerConventionEtape2DetailsEtab</display-name>
-		<from-view-id>/stylesheets/stage/creerConventionEtape2DetailsEtab.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creerConventionEtape2DetailsEtab</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape2DetailsEtab.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionEtape1Offre</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape1Offre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-
-	</navigation-rule>
 	
 	<!-- creation etape 3 - Service  -->
 	<navigation-rule>
 		<display-name>creerConventionEtape3Service</display-name>
 		<from-view-id>/stylesheets/stage/creerConventionEtape3Service.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creerConventionEtape3Service</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape3Service.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_creerConventionEtape2DetailsEtab</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape2DetailsEtab.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionEtape4Contact</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape4Contact.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_creerConventionEtape3Service</display-name>
-		<from-view-id>/stylesheets/stage/_creerConventionEtape3Service.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>_creerConventionEtape2DetailsEtab</from-outcome>
 			<to-view-id>/stylesheets/stage/_creerConventionEtape2DetailsEtab.xhtml</to-view-id>
@@ -1712,25 +871,8 @@
 		<display-name>creerConventionEtape4Contact</display-name>
 		<from-view-id>/stylesheets/stage/creerConventionEtape4Contact.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>_creerConventionEtape4Contact</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape4Contact.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
 			<from-outcome>creerConventionEtape3Service</from-outcome>
 			<to-view-id>/stylesheets/stage/creerConventionEtape3Service.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_creerConventionEtape4Contact</display-name>
-		<from-view-id>/stylesheets/stage/_creerConventionEtape4Contact.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creerConventionEtape3Service</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape3Service.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionEtape5Stage</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape5Stage.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
@@ -1752,12 +894,7 @@
 			<from-outcome>_creerConventionEtape6RechEnseignant</from-outcome>
 			<to-view-id>/stylesheets/stage/_creerConventionEtape6RechEnseignant.xhtml</to-view-id>
 		</navigation-case>
-		
-		<navigation-case>
-			<from-outcome>creerConventionEtape6ListeEnseignant</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape6ListeEnseignant.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
+
 		<navigation-case>
 			<from-outcome>_creerConventionEtape6ListeEnseignant</from-outcome>
 			<to-view-id>/stylesheets/stage/_creerConventionEtape6ListeEnseignant.xhtml</to-view-id>
@@ -1793,11 +930,6 @@
 		<navigation-case>
 			<from-outcome>creerConventionEtape4Contact</from-outcome>
 			<to-view-id>/stylesheets/stage/creerConventionEtape4Contact.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionEtape6ListeEnseignant</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape6ListeEnseignant.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		
@@ -1843,21 +975,10 @@
 		</navigation-case>
 		
 		<navigation-case>
-			<from-outcome>creerConventionEtape6ListeEnseignant</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape6ListeEnseignant.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		
-		<navigation-case>
 			<from-outcome>_creerConventionEtape6ListeEnseignant</from-outcome>
 			<to-view-id>/stylesheets/stage/_creerConventionEtape6ListeEnseignant.xhtml</to-view-id>
 		</navigation-case>
-		
-		<navigation-case>
-			<from-outcome>creerConventionEtape6DetailsEnseignant</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape6DetailsEnseignant.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
+
 		<navigation-case>
 			<from-outcome>_creerConventionEtape5Stage</from-outcome>
 			<to-view-id>/stylesheets/stage/_creerConventionEtape5Stage.xhtml</to-view-id>
@@ -1880,47 +1001,12 @@
 		</navigation-case>
 		
 		<navigation-case>
-			<from-outcome>creerConventionEtape6ListeEnseignant</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape6ListeEnseignant.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		
-		<navigation-case>
 			<from-outcome>creerConventionEtape7Signataire</from-outcome>
 			<to-view-id>/stylesheets/stage/creerConventionEtape7Signataire.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
-	
-	<navigation-rule>
-		<display-name>creerConventionEtape6DetailsEnseignant</display-name>
-		<from-view-id>/stylesheets/stage/creerConventionEtape6DetailsEnseignant.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creerConventionEtape6Enseignant</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape6Enseignant.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	
-	<!-- creation etape 6 - liste enseignant du stage  -->
-	<navigation-rule>
-		<display-name>creerConventionEtape6ListeEnseignant</display-name>
-		<from-view-id>/stylesheets/stage/creerConventionEtape6ListeEnseignant.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creerConventionEtape6Enseignant</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape6Enseignant.xhtml</to-view-id>
-		</navigation-case>
-		
-		<navigation-case>
-			<from-outcome>_creerConventionEtape6ListeEnseignant</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape6ListeEnseignant.xhtml</to-view-id>
-		</navigation-case>
-		
-		<navigation-case>
-			<from-outcome>_creerConventionEtape6RechEnseignant</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape6RechEnseignant.xhtml</to-view-id>
-		</navigation-case>
-				
-	</navigation-rule>
+
 	<navigation-rule>
 		<display-name>_creerConventionEtape6ListeEnseignant</display-name>
 		<from-view-id>/stylesheets/stage/_creerConventionEtape6ListeEnseignant.xhtml</from-view-id>
@@ -1945,88 +1031,11 @@
 		<display-name>creerConventionEtape7Signataire</display-name>
 		<from-view-id>/stylesheets/stage/creerConventionEtape7Signataire.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>_creerConventionEtape7Signataire</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape7Signataire.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
 			<from-outcome>_creerConventionEtape6Enseignant</from-outcome>
 			<to-view-id>/stylesheets/stage/_creerConventionEtape6Enseignant.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	<navigation-rule>
-		<display-name>_creerConventionEtape7Signataire</display-name>
-		<from-view-id>/stylesheets/stage/_creerConventionEtape7Signataire.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creerConventionEtape6Enseignant</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape6Enseignant.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionEtape8Recap</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape8Recap.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
-	
-	<!-- creation etape 8 - Recapitulatif  -->
-	<navigation-rule>
-		<display-name>creerConventionEtape8Recap</display-name>
-		<from-view-id>/stylesheets/stage/creerConventionEtape8Recap.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creerConventionEtape7Signataire</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape7Signataire.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_creerConventionEtape8Recap</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape8Recap.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_creerConventionEtape8Recap</display-name>
-		<from-view-id>/stylesheets/stage/_creerConventionEtape8Recap.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creerConventionEtape7Signataire</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape7Signataire.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionEtape8DetailsRecap</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape8DetailsRecap.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
-	
-	<navigation-rule>
-		<display-name>creerConventionEtape8DetailsRecap</display-name>
-		<from-view-id>/stylesheets/stage/creerConventionEtape8DetailsRecap.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creerConventionEtape8Recap</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape8Recap.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_creerConventionEtape8DetailsRecap</display-name>
-		<from-view-id>/stylesheets/stage/_creerConventionEtape8DetailsRecap.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>creerConventionEtape8DetailsRecap</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape8DetailsRecap.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<!-- etape 9 Impression -->
-	<navigation-rule>
-		<display-name>creerConventionEtape9Impression</display-name>
-		<from-view-id>/stylesheets/stage/creerConventionEEtape9Impression.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_creerConventionEtape9Impression</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape9Impression.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_creerConventionEtape9Impression</display-name>
-		<from-view-id>/stylesheets/stage/_creerConventionEtape9Impression.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>creerConventionEtape9Impression</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape9Impression.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
+
 	
 	<!-- Recherche entreprise -->
 	<navigation-rule>
@@ -2108,33 +1117,13 @@
 			<redirect/>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>modificationCentreEtabOffre</from-outcome>
-			<to-view-id>/stylesheets/stage/modificationCentreEtabOffre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>modificationCentreEtabOffre04</from-outcome>
-			<to-view-id>/stylesheets/stage/modificationEtabOffre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>modificationCentreEtabOffre1</from-outcome>
+			<from-outcome>modificationOffre</from-outcome>
 			<to-view-id>/stylesheets/stage/modificationOffre.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>recapitulatifOffreEtabCentre</from-outcome>
 			<to-view-id>/stylesheets/stage/recapitulatifOffreCentre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>recapitulatifOffreEtabCentre3</from-outcome>
-			<to-view-id>/stylesheets/stage/recapitulatifOffreCentre3.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>recapitulatifOffreEtabCentre3C</from-outcome>
-			<to-view-id>/stylesheets/stage/recapitulatifOffreCentre3C.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
@@ -2147,17 +1136,7 @@
 			<redirect/>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>modificationCentreEtabOffre</from-outcome>
-			<to-view-id>/stylesheets/stage/modificationCentreEtabOffre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>modificationCentreEtabOffre04</from-outcome>
-			<to-view-id>/stylesheets/stage/modificationEtabOffre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>modificationCentreEtabOffre1</from-outcome>
+			<from-outcome>modificationOffre</from-outcome>
 			<to-view-id>/stylesheets/stage/modificationOffre.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
@@ -2187,11 +1166,6 @@
 		<display-name>resultatsRechercheOffre</display-name>
 		<from-view-id>/stylesheets/stage/rechercheOffreResultats.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>modificationCentreEtabOffre</from-outcome>
-			<to-view-id>/stylesheets/stage/modificationCentreEtabOffre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
 			<from-outcome>recapitulatifOffreEtabCentre</from-outcome>
 			<to-view-id>/stylesheets/stage/recapitulatifOffreEtabCentre.xhtml</to-view-id>
 			<redirect/>
@@ -2206,175 +1180,14 @@
 			<redirect/>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>modificationCentreEtabOffre</from-outcome>
-			<to-view-id>/stylesheets/stage/modificationCentreEtabOffre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>modificationCentreEtabOffre04</from-outcome>
-			<to-view-id>/stylesheets/stage/modificationEtabOffre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>modificationCentreEtabOffre1</from-outcome>
+			<from-outcome>modificationOffre</from-outcome>
 			<to-view-id>/stylesheets/stage/modificationOffre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>modificationCentreEtabOffre3</from-outcome>
-			<to-view-id>/stylesheets/stage/modificationOffre3.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>modificationCentreEtabOffre3C</from-outcome>
-			<to-view-id>/stylesheets/stage/modificationOffre3C.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>modificationCentreEtabOffre</display-name>
-		<from-view-id>/stylesheets/stage/modificationCentreEtabOffre.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>recapitulatifOffreEtabCentre</from-outcome>
-			<to-view-id>/stylesheets/stage/recapitulatifOffreEtabCentre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>recapitulatifOffreCentre</from-outcome>
-			<to-view-id>/stylesheets/stage/recapitulatifOffreCentre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>affichageRechercheEtablissement</from-outcome>
-			<to-view-id>/stylesheets/stage/affichageRechercheEtablissement.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>offresEtablissement</from-outcome>
-			<to-view-id>/stylesheets/stage/offresEtablissement.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>resultatsRechercheOffre</from-outcome>
-			<to-view-id>/stylesheets/stage/rechercheOffreResultats.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>defaut</from-outcome>
-			<to-view-id>/stylesheets/stage/rechercheOffreResultats.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>modificationEtabOffre</from-outcome>
-			<to-view-id>/stylesheets/stage/modificationEtabOffre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>modificationEtabOffre</display-name>
-		<from-view-id>/stylesheets/stage/modificationEtabOffre.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>recapitulatifOffreEtabCentre</from-outcome>
-			<to-view-id>/stylesheets/stage/recapitulatifOffreEtabCentre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>recapitulatifOffreCentre</from-outcome>
-			<to-view-id>/stylesheets/stage/recapitulatifOffreCentre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>affichageRechercheEtablissement</from-outcome>
-			<to-view-id>/stylesheets/stage/affichageRechercheEtablissement.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>offresEtablissement</from-outcome>
-			<to-view-id>/stylesheets/stage/offresEtablissement.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>resultatsRechercheOffre</from-outcome>
-			<to-view-id>/stylesheets/stage/rechercheOffreResultats.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>defaut</from-outcome>
-			<to-view-id>/stylesheets/stage/rechercheOffreResultats.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<display-name>modificationOffre</display-name>
 		<from-view-id>/stylesheets/stage/modificationOffre.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>recapitulatifOffreEtabCentre</from-outcome>
-			<to-view-id>/stylesheets/stage/recapitulatifOffreEtabCentre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>recapitulatifOffreCentre</from-outcome>
-			<to-view-id>/stylesheets/stage/recapitulatifOffreCentre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>affichageRechercheEtablissement</from-outcome>
-			<to-view-id>/stylesheets/stage/affichageRechercheEtablissement.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>offresEtablissement</from-outcome>
-			<to-view-id>/stylesheets/stage/offresEtablissement.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>resultatsRechercheOffre</from-outcome>
-			<to-view-id>/stylesheets/stage/rechercheOffreResultats.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>defaut</from-outcome>
-			<to-view-id>/stylesheets/stage/rechercheOffreResultats.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>modificationOffre3</display-name>
-		<from-view-id>/stylesheets/stage/modificationOffre3.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>recapitulatifOffreEtabCentre</from-outcome>
-			<to-view-id>/stylesheets/stage/recapitulatifOffreEtabCentre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>recapitulatifOffreCentre</from-outcome>
-			<to-view-id>/stylesheets/stage/recapitulatifOffreCentre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>affichageRechercheEtablissement</from-outcome>
-			<to-view-id>/stylesheets/stage/affichageRechercheEtablissement.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>offresEtablissement</from-outcome>
-			<to-view-id>/stylesheets/stage/offresEtablissement.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>resultatsRechercheOffre</from-outcome>
-			<to-view-id>/stylesheets/stage/rechercheOffreResultats.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>defaut</from-outcome>
-			<to-view-id>/stylesheets/stage/rechercheOffreResultats.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>modificationOffre3C</display-name>
-		<from-view-id>/stylesheets/stage/modificationOffre3C.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>recapitulatifOffreEtabCentre</from-outcome>
 			<to-view-id>/stylesheets/stage/recapitulatifOffreEtabCentre.xhtml</to-view-id>
@@ -2453,17 +1266,7 @@
 		</navigation-case>
 		
 	</navigation-rule>
-	
-	<!--  etape 8 - Recapitulatif  -->
-	<navigation-rule>
-		<display-name>conventionEtape8Recap</display-name>
-		<from-view-id>/stylesheets/stage/conventionEtape8Recap.xhtml</from-view-id>
-		
-		<navigation-case>
-			<from-outcome>_conventionEtape8Recap</from-outcome>
-			<to-view-id>/stylesheets/stage/_conventionEtape8Recap.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
+
 	<!-- FIN Recherche Conventions-->
 	
 	
@@ -2471,26 +1274,6 @@
 	<navigation-rule>
 		<display-name>goToFicheEvaluation</display-name>
 		<from-view-id>*</from-view-id>
-		<navigation-case>
-			<from-outcome>goToFicheEvaluation</from-outcome>
-			<to-view-id>/stylesheets/stage/ficheEvaluation.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>goToFicheEtudiant</from-outcome>
-			<to-view-id>/stylesheets/stage/ficheEvaluation_etudiant.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>goToFicheEnseignant</from-outcome>
-			<to-view-id>/stylesheets/stage/ficheEvaluation_enseignant.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>goToFicheEntreprise</from-outcome>
-			<to-view-id>/stylesheets/stage/ficheEvaluation_entreprise.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
 		<navigation-case>
 			<from-outcome>goToAccueilFicheEntrepriseTuteurPro</from-outcome>
 			<to-view-id>/stylesheets/evaluationStage/index.xhtml</to-view-id>
@@ -2550,6 +1333,29 @@
 		*************************************************************************
 	-->
 
+	<!--
+		*********************************************************************
+		PARTIE DEPOT ANONYME
+		*************************************************************************
+	-->
+	<navigation-rule>
+		<from-view-id>/stylesheets/depotAnonyme/*</from-view-id>
+		<navigation-case>
+			<from-outcome>creationOffre</from-outcome>
+			<to-view-id>/stylesheets/depotAnonyme/creationOffreAnon.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creationCentreEtabOffre</from-outcome>
+			<to-view-id>/stylesheets/depotAnonyme/creationOffreAnon.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creationOffreAnon</from-outcome>
+			<to-view-id>/stylesheets/depotAnonyme/creationOffreAnon.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
 	<!-- Règles de navigation générales -->
 	<navigation-rule>
 		<!--
@@ -2557,6 +1363,7 @@
 			PARTIE ENTREPRISE
 			*************************************************************************
 		-->
+		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>accueilEntr</from-outcome>
 			<to-view-id>/stylesheets/depot/welcome.xhtml</to-view-id>
@@ -2593,16 +1400,6 @@
 			<redirect/>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>accordsAValider</from-outcome>
-			<to-view-id>/stylesheets/depot/accordsAValider.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>accordsValides</from-outcome>
-			<to-view-id>/stylesheets/depot/accordsValides.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
 			<from-outcome>ficheSignaletique</from-outcome>
 			<to-view-id>/stylesheets/depot/ficheSignaletique.xhtml</to-view-id>
 			<redirect/>
@@ -2631,11 +1428,6 @@
 			FIN PARTIE ENTREPRISE
 			*************************************************************************
 		-->
-		<navigation-case>
-			<from-outcome>depotAnonyme</from-outcome>
-			<to-view-id>/stylesheets/depotAnonyme/</to-view-id>
-			<redirect/>
-		</navigation-case>
 		<!--
 			*********************************************************************
 			PARTIE MOTEUR OFFRE PUBLIC
@@ -2672,21 +1464,6 @@
 			<redirect />
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>navigationPreferences</from-outcome>
-			<to-view-id>/stylesheets/preferences.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>navigationAbout</from-outcome>
-			<to-view-id>/stylesheets/about.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>casLogin</from-outcome>
-			<to-view-id>/stylesheets/cas.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<navigation-case>
 			<from-outcome>accueilStage</from-outcome>
 			<to-view-id>/stylesheets/stage/welcome.xhtml</to-view-id>
 			<redirect/> 
@@ -2701,6 +1478,16 @@
 			<to-view-id>/stylesheets/stage/rechercheEtablissement.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
+        <navigation-case>
+            <from-outcome>etablissementsAValider</from-outcome>
+            <to-view-id>/stylesheets/stage/etablissementsAValider.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>etablissementsTemFalse</from-outcome>
+            <to-view-id>/stylesheets/stage/etablissementsTemFalse.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
 		<navigation-case>
 			<from-outcome>creationCentreEtabOffre</from-outcome>
 			<to-view-id>/stylesheets/stage/creationCentreEtabOffre.xhtml</to-view-id>
@@ -2739,82 +1526,17 @@
 		-->
 		<navigation-case>
 			<from-outcome>listeCentres</from-outcome>
-			<to-view-id>/stylesheets/stage/liste_centres.xhtml</to-view-id>
+			<to-view-id>/stylesheets/stage/centreGestion/liste_centres.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>ajoutCentre</from-outcome>
-			<to-view-id>/stylesheets/stage/ajout_centre.xhtml</to-view-id>
+			<to-view-id>/stylesheets/stage/centreGestion/ajoutCentre.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>voirCentre</from-outcome>
-			<to-view-id>/stylesheets/stage/voir_centre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>modifCentre</from-outcome>
-			<to-view-id>/stylesheets/stage/modif_centre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>modifLogo</from-outcome>
-			<to-view-id>/stylesheets/stage/modif_logo.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>ajoutCritere</from-outcome>
-			<to-view-id>/stylesheets/stage/ajout_criteres.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>listeCriteres</from-outcome>
-			<to-view-id>/stylesheets/stage/liste_criteres.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>rattachPersonnelRecherche</from-outcome>
-			<to-view-id>/stylesheets/stage/rattachementPersonnel_recherche.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>rattachPersonnelResultat</from-outcome>
-			<to-view-id>/stylesheets/stage/rattachementPersonnel_resultat.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>rattachPersonnelAjout</from-outcome>
-			<to-view-id>/stylesheets/stage/rattachementPersonnel_ajout.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>listePersonnels</from-outcome>
-			<to-view-id>/stylesheets/stage/liste_personnels.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>indicateurStat</from-outcome>
-			<to-view-id>/stylesheets/stage/stats/indicateurs_statistiques.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>resultatStagesStats</from-outcome>
-			<to-view-id>/stylesheets/stage/stats/resultat_stagesStats.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>resultatOffresStats</from-outcome>
-			<to-view-id>/stylesheets/stage/stats/resultat_offresStats.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>voirPersonnel</from-outcome>
-			<to-view-id>/stylesheets/stage/voir_personnel.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>modifPersonnel</from-outcome>
-			<to-view-id>/stylesheets/stage/modif_personnel.xhtml</to-view-id>
+			<to-view-id>/stylesheets/stage/centreGestion/consultationCentre.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 		<!--
@@ -2870,8 +1592,40 @@
 		<from-view-id>/stylesheets/stage/*</from-view-id>
 		<navigation-case>
 			<from-outcome>gestionNomenclatures</from-outcome>
-			<to-view-id>/stylesheets/stage/gestionNomenclatures.xhtml</to-view-id>
+			<to-view-id>/stylesheets/stage/nomenclature/gestionNomenclatures.xhtml</to-view-id>
 			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<description>Menu Sidebar pour affichage en mode Tablette</description>
+
+		<navigation-case>
+			<description>Menu Conventions de Stage pour l'affichage en mode Tablette</description>
+			<from-outcome>menuConventionsStageTablette</from-outcome>
+			<to-view-id>/stylesheets/stage/menuConventionsStageTablette.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+
+		<navigation-case>
+			<description>Menu Etablissements d'accueil pour l'affichage en mode Tablette</description>
+			<from-outcome>menuEtablissementsAccueilTablette</from-outcome>
+			<to-view-id>/stylesheets/stage/menuEtablissementsAccueilTablette.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+
+		<navigation-case>
+			<description>Menu Offres pour l'affichage en mode Tablette</description>
+			<from-outcome>menuOffresTablette</from-outcome>
+			<to-view-id>/stylesheets/stage/menuOffresTablette.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+
+		<navigation-case>
+			<description>Menu Evaluations des Stages pour l'affichage en mode Tablette</description>
+			<from-outcome>menuEvaluationsStagesTablette</from-outcome>
+			<to-view-id>/stylesheets/stage/menuEvaluationsStagesTablette.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 	</navigation-rule>
 </faces-config>

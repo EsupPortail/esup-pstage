@@ -1,19 +1,17 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-	<rich:popupPanel id="resetMdpContact" autosized="true" width="400"
-		styleClass="panel">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['CONTACT.GESTION.COMPTE.RESETMDP']}" />
-		</f:facet>
-		<a4j:outputPanel ajaxRendered="true">
-			<h:form id="formResetMdp">
-				<ui:include
-					src="/stylesheets/depot/#{sessionController.resetMdpContactCurrentPage}.xhtml" />
-			</h:form>
-		</a4j:outputPanel>
-	</rich:popupPanel>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog id="resetMdpContact" widgetVar="resetMdpContact" modal="true" resizable="false">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['CONTACT.GESTION.COMPTE.RESETMDP']}" />
+        </f:facet>
+        <p:outputPanel>
+            <h:form id="formResetMdp">
+                <ui:include src="/stylesheets/depot/#{sessionController.resetMdpContactCurrentPage}.xhtml" />
+            </h:form>
+        </p:outputPanel>
+    </p:dialog>
 </ui:composition>

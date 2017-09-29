@@ -1,0 +1,211 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+
+    <t:div styleClass="mt10 ml40">
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.LANGUECONVENTION']}" />
+        #{conventionController.convention.langueConvention.libelle}
+    </t:div>
+
+    <h:panelGrid styleClass="blueHover mt5 ml40" style="border-top:solid 1px; border-bottom:solid 1px;" columns="2" cellspacing="5">
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.TYPECONVENTION']}" />
+        <h:outputText id="typeConvention1"
+                      value="#{conventionController.convention.typeConvention.libelle}" />
+
+        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.THEME']}" />
+        <h:outputText id="theme1"
+                      value="#{conventionController.convention.theme.libelle}" />
+
+        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.SUJET']}" />
+        <h:outputText id="sujetStage1"
+                      value="#{conventionController.convention.sujetStage}"
+                      escape="false" />
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.FONCTION']}" />
+        <h:outputText id="fonctionsEtTaches1"
+                      value="#{conventionController.convention.fonctionsEtTaches}"
+                      style="word-break:break-all; white-space:normal;"
+                      escape="false" />
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.COMPETENCES']}" />
+        <h:outputText id="competences1"
+                      value="#{conventionController.convention.competences}"
+                      style="word-break:break-all; white-space:normal;"
+                      escape="false" />
+
+        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.DETAILS']}" />
+        <h:outputText id="details1"
+                      value="#{conventionController.convention.details}" escape="false" />
+    </h:panelGrid>
+
+    <h:panelGrid styleClass="blueHover mt5 ml40" columns="2" cellspacing="5">
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.DEBUTSTAGE']}" />
+        <h:outputText id="dateDebutStage1"
+                      value="#{conventionController.convention.dateDebutStage}">
+            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+        </h:outputText>
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.FINSTAGE']}" />
+        <h:outputText id="dateFinStage1"
+                      value="#{conventionController.convention.dateFinStage}">
+            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+        </h:outputText>
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.INTERRUPTION']}"
+                      rendered="#{!conventionController.convention.interruptionStage}" />
+        <h:outputText id="interruptionStage1" value="#{msgs['FORM.NON']}"
+                      rendered="#{!conventionController.convention.interruptionStage}" />
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.INTERRUPTION']}"
+                      rendered="#{conventionController.convention.interruptionStage}" />
+        <h:outputText id="interruptionStage2" value="#{msgs['FORM.OUI']}"
+                      rendered="#{conventionController.convention.interruptionStage}" />
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.INTERRUPDEBSTAGE']}"
+                      rendered="#{conventionController.convention.interruptionStage}" />
+        <h:outputText id="dateDebutInterruption1"
+                      value="#{conventionController.convention.dateDebutInterruption}"
+                      rendered="#{conventionController.convention.interruptionStage}">
+            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+        </h:outputText>
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.INTERRUPFINSTAGE']}"
+                      rendered="#{conventionController.convention.interruptionStage}" />
+        <h:outputText id="dateFinInterruption1"
+                      value="#{conventionController.convention.dateFinInterruption}"
+                      rendered="#{conventionController.convention.interruptionStage}">
+            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+        </h:outputText>
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.DUREEEXCEPT.INFO']}"
+                      rendered="#{not empty conventionController.convention.dureeExceptionnelle}" />
+        <t:div rendered="#{not empty conventionController.convention.dureeExceptionnelle}">
+            <h:outputText id="dureeExceptionnelle1"
+                          value="#{conventionController.convention.dureeExceptionnelle}" />
+            <h:outputText styleClass="ml5"
+                          rendered="#{empty conventionController.convention.idUniteDureeExceptionnelle or conventionController.convention.idUniteDureeExceptionnelle == 0}"
+                          value="heure(s)" />
+            <h:outputText value="heure(s)" styleClass="ml5"
+                          rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle
+                              and conventionController.convention.idUniteDureeExceptionnelle == 1}" />
+            <h:outputText value="jour(s)" styleClass="ml5"
+                          rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle
+                              and conventionController.convention.idUniteDureeExceptionnelle == 2}" />
+            <h:outputText value="semaine(s)" styleClass="ml5"
+                          rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle
+                              and conventionController.convention.idUniteDureeExceptionnelle == 3}" />
+            <h:outputText value="mois" styleClass="ml5"
+                          rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle
+                              and conventionController.convention.idUniteDureeExceptionnelle == 4}" />
+            <h:outputText value="annee(s)" styleClass="ml5"
+                          rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle
+                              and conventionController.convention.idUniteDureeExceptionnelle == 5}" />
+        </t:div>
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.TYPEPRESENCE']}" />
+        <h:outputText id="typePresence1"
+                      value="#{conventionController.convention.typePresence}" />
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.TEMPSTRAVAIL']}" />
+        <h:outputText id="tempsTravail1"
+                      value="#{conventionController.convention.tempsTravail.libelle}" />
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.NBJOURSHEBDO']}" />
+        <h:outputText id="nbJoursHebdo1"
+                      value="#{conventionController.convention.nbJoursHebdo}" />
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.NBHEURESHEBDO.INFO']}" />
+        <h:outputText id="nbHeuresHebdo1"
+                      value="#{conventionController.convention.nbHeuresHebdo}" />
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.NBCONGES']}" />
+        <h:outputText id="nbconges1"
+                      value="#{conventionController.convention.nbConges}" />
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.COMMENTDUREETRAVAIL.RECAP']}" />
+        <h:outputText id="commentaireDureeTravail1"
+                      value="#{conventionController.convention.commentaireDureeTravail}"
+                      escape="false" />
+    </h:panelGrid>
+
+    <h:panelGrid styleClass="blueHover mt5 ml40" style="border-top:solid 1px; border-bottom:solid 1px;" columns="2" cellspacing="5">
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.INDEMNISATION']}" />
+        <h:outputText id="indemnisation1"
+                      value="#{conventionController.convention.indemnisation.libelle}" />
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.MTGRATIFICATION']}"
+                      rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" />
+        <h:outputText id="montantGratification1"
+                      value="#{conventionController.convention.montantGratification} #{conventionController.convention.monnaieGratification} par #{conventionController.convention.uniteDureeGratification.libelle} - #{conventionController.convention.uniteGratification.libelle}"
+                      rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" />
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.MODEVERSGRAT']}"
+                      rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" />
+        <h:outputText id="modeVersGratification1"
+                      value="#{conventionController.convention.modeVersGratification.libelle}"
+                      rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" />
+
+    </h:panelGrid>
+
+    <h:panelGrid styleClass="blueHover mt5 ml40" columns="2" cellspacing="5">
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.ORIGINESTAGE']}" />
+        <h:outputText id="origineStage1"
+                      value="#{conventionController.convention.origineStage.libelle}" />
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.TEMCONFSUJET']}" />
+        <h:outputText id="temConfSujetTeme1"
+                      value="#{conventionController.convention.temConfSujetTeme}" />
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.NATURETRAVAIL']}" />
+        <h:outputText id="natureTravail1"
+                      value="#{conventionController.convention.natureTravail.libelle}" />
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.MODEVALIDSTAGE']}" />
+        <h:outputText id="modeValidationStage1"
+                      value="#{conventionController.convention.modeValidationStage.libelle}" />
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.MODESUIVI']}" />
+        <h:outputText id="modeEncadreSuivi1"
+                      value="#{conventionController.convention.modeEncadreSuivi}"
+                      escape="false" />
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.AVANTAGESNATURE.INFO']}" />
+        <h:outputText id="avantagesNature1"
+                      value="#{conventionController.convention.avantagesNature}"
+                      escape="false" />
+
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['CONVENTION.TRAVAILNUITFERIE.INFO']}" />
+        <h:outputText id="travailNuitFerie1"
+                      value="#{conventionController.convention.travailNuitFerie}"
+                      escape="false" />
+    </h:panelGrid>
+</ui:composition>

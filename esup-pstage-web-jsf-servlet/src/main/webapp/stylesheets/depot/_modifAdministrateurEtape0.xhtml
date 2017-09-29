@@ -1,59 +1,53 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-	<h:outputText value="#{msgs['ADMINSTRUCTURE.MODIF.QUESTION']}"
-		escape="false" />
-	<t:htmlTag value="div" style="height:10px" />
-	<a4j:outputPanel ajaxRendered="true">
-		<h:panelGrid columns="2" align="center"
-			columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-			<h:outputLabel for="nomAd" value="#{msgs['ADMINSTRUCTURE.NOM']}" />
-			<h:outputText id="nomAd"
-				value="#{adminController.formAdminStructure.nom}" />
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
 
-			<h:outputLabel for="prenomAd"
-				value="#{msgs['ADMINSTRUCTURE.PRENOM']}" />
-			<h:outputText id="prenomAd"
-				value="#{adminController.formAdminStructure.prenom}" />
+    <h:panelGrid columns="2">
+        <h:outputText styleClass="fontBold" for="nomAd" value="#{msgs['ADMINSTRUCTURE.NOM']}" />
+        <h:outputText id="nomAd"
+                      value="#{adminController.formAdminStructure.nom}" />
 
-			<h:outputLabel for="mailAd" value="#{msgs['ADMINSTRUCTURE.MAIL']}" />
-			<h:outputText id="mailAd"
-				value="#{adminController.formAdminStructure.mail}" />
+        <h:outputText styleClass="fontBold" for="prenomAd"
+                      value="#{msgs['ADMINSTRUCTURE.PRENOM']}" />
+        <h:outputText id="prenomAd"
+                      value="#{adminController.formAdminStructure.prenom}" />
 
-			<h:outputLabel for="typeCpt"
-				value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE']}" />
-			<h:panelGrid id="typeCpt">
-				<h:outputText value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_LOCAL']}"
-					rendered="#{not empty adminController.formAdminStructure.login and not empty adminController.formAdminStructure.mdp and empty adminController.formAdminStructure.eppn}" />
-				<h:outputText value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_CAS']}"
-					rendered="#{not empty adminController.formAdminStructure.login and empty adminController.formAdminStructure.mdp and empty adminController.formAdminStructure.eppn}" />
-				<h:outputText value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_SHIBB']}"
-					rendered="#{empty adminController.formAdminStructure.login and empty adminController.formAdminStructure.mdp and not empty adminController.formAdminStructure.eppn}" />
-			</h:panelGrid>
+        <h:outputText styleClass="fontBold" for="mailAd" value="#{msgs['ADMINSTRUCTURE.MAIL']}" />
+        <h:outputText id="mailAd"
+                      value="#{adminController.formAdminStructure.mail}" />
 
-			<h:outputLabel for="login" value="#{msgs['ADMINSTRUCTURE.LOGIN']}" />
-			<h:panelGrid id="login">
-				<h:outputText value="#{adminController.formAdminStructure.login}"
-					rendered="#{(not empty adminController.formAdminStructure.login and not empty adminController.formAdminStructure.mdp and empty adminController.formAdminStructure.eppn)
+        <h:outputText styleClass="fontBold" for="typeCpt"
+                      value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE']}" />
+        <t:div id="typeCpt">
+            <h:outputText value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_LOCAL']}"
+                          rendered="#{not empty adminController.formAdminStructure.login and not empty adminController.formAdminStructure.mdp and empty adminController.formAdminStructure.eppn}" />
+            <h:outputText value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_CAS']}"
+                          rendered="#{not empty adminController.formAdminStructure.login and empty adminController.formAdminStructure.mdp and empty adminController.formAdminStructure.eppn}" />
+            <h:outputText value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_SHIBB']}"
+                          rendered="#{empty adminController.formAdminStructure.login and empty adminController.formAdminStructure.mdp and not empty adminController.formAdminStructure.eppn}" />
+        </t:div>
+
+        <h:outputText styleClass="fontBold" for="login" value="#{msgs['ADMINSTRUCTURE.LOGIN']}" />
+        <t:div id="login">
+            <h:outputText value="#{adminController.formAdminStructure.login}"
+                          rendered="#{(not empty adminController.formAdminStructure.login and not empty adminController.formAdminStructure.mdp and empty adminController.formAdminStructure.eppn)
 					|| (not empty adminController.formAdminStructure.login and empty adminController.formAdminStructure.mdp and empty adminController.formAdminStructure.eppn)}" />
-				<h:outputText value="#{adminController.formAdminStructure.eppn}"
-					rendered="#{empty adminController.formAdminStructure.login and empty adminController.formAdminStructure.mdp and not empty adminController.formAdminStructure.eppn}" />
-			</h:panelGrid>
+            <h:outputText value="#{adminController.formAdminStructure.eppn}"
+                          rendered="#{empty adminController.formAdminStructure.login and empty adminController.formAdminStructure.mdp and not empty adminController.formAdminStructure.eppn}" />
+        </t:div>
 
-		</h:panelGrid>
-	</a4j:outputPanel>
-	<t:htmlTag value="div" style="height:10px;" />
-	<h:panelGrid columns="3" align="center">
-		<a4j:commandButton render="formModifAdminStructure"
-			value="#{msgs['FORM.OUI']}" execute="@this">
-			<f:setPropertyActionListener value="_modifAdministrateurEtape1"
-				target="#{sessionController.modifAdminStructureCurrentPage}" />
-		</a4j:commandButton>
-		<t:htmlTag value="div" style="width:70px;" />
-		<a4j:commandButton value="#{msgs['FORM.NON']}"
-			onclick="#{rich:component('modifAdministrateur')}.hide();return false;" />
-	</h:panelGrid>
+    </h:panelGrid>
+
+    <t:div styleClass="mt10 mb20 textCenter">
+        <p:commandButton value="#{msgs['FORM.OUI']}"
+                         update="@form">
+            <f:setPropertyActionListener value="_modifAdministrateurEtape1"
+                                         target="#{sessionController.modifAdminStructureCurrentPage}" />
+        </p:commandButton>
+
+        <p:commandButton value="#{msgs['FORM.NON']}" styleClass="ml20"
+                         onclick="PF('modifAdministrateur').hide();" />
+    </t:div>
 </ui:composition>

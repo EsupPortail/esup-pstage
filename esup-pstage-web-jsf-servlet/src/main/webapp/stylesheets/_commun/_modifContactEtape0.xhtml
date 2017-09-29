@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <t:htmlTag value="div" style="height:15px;"/>
+
+	<h:outputText value="#{msgs['CONVENTION.CREERCONVENTION.CONTACT.MODIF']}"/>
+
+	<t:div styleClass="textCenter mt20 mb20">
+		<p:commandButton value="#{msgs['FORM.OUI']}" update="@form">
+            <f:setPropertyActionListener value="_modifContactEtape1"
+                                         target="#{sessionController.modifContactCurrentPage}" />
+        </p:commandButton>
+		<p:commandButton value="#{msgs['FORM.NON']}" styleClass="ml40"
+			onclick="PF('modifContact').hide();" immediate="true" />
+	</t:div>
+
+</ui:composition>

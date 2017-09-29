@@ -1,5 +1,6 @@
 package org.esupportail.pstage.domain.referentiel;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.esupportail.pstage.dao.referentiel.StudentDataRepositoryDao;
@@ -57,10 +58,25 @@ public void setStudentDataRepositoryDao(
 
 
 	/**
-	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtapesByEtudiantAndAnnee(java.lang.String, java.lang.String)
+	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtapesByEtudiantAndAnnee(String, String, String)
 	 */
-	public ApogeeMap getEtapesByEtudiantAndAnnee(String cod, String anneeScolaire){
-		throw new UnsupportedOperationException(Configuration.getString("method.nom.implementee"));
+	public ApogeeMap getEtapesByEtudiantAndAnnee(String cod, String anneeScolaire, String codeUniversite){
+		// "Pont" pour la nouvelle methode utilisee avec Apogee, adaptee pour le fonctionnement Full Ldap
+		ApogeeMap apogeeMap = new ApogeeMap();
+		EtudiantRef stud = this.getEtudiantRefByNum(codeUniversite, cod, anneeScolaire);
+
+		apogeeMap.setStudentStudys(new LinkedHashMap(stud.getStudys()));
+		// recuperation de la liste des etapes
+		apogeeMap.setStudentSteps(new LinkedHashMap(stud.getSteps()));
+		// recuperation Map des elements pedagogiques
+		apogeeMap.setElementPedagogiques(new LinkedHashMap(stud.getElementPedagogiques()));
+		// recuperation liste des ElPs
+		apogeeMap.setListeELPs(stud.getListeELPs());
+		// recuperation liste des etapes inscriptions
+		apogeeMap.setListeEtapeInscriptions(stud.getListeEtapeInscriptions());
+
+
+		return apogeeMap;
 	}
 
 

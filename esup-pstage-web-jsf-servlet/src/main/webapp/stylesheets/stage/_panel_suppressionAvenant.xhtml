@@ -1,38 +1,34 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:popupPanel id="suppressionAvenant" autosized="true" width="400">
-		<f:facet name="header">
-			<h:outputText
-				value="#{msgs['CONVENTION.ETAPE11.SUPPRESSION.HEAD']} #{avenantController.avenant.idAvenant}" />
-		</f:facet>
-		<h:form id="formSupprAvenant">
-			<h:panelGrid columns="1" align="center">
-				<t:htmlTag value="div" style="height: 10px;" />
-				<h:outputLabel for="delete"
-					value="#{msgs['CONVENTION.ETAPE11.SUPPRESSION.QUESTION']}" />
-				<t:htmlTag value="div" style="height: 10px;" />
-			</h:panelGrid>
-			<t:htmlTag value="div" style="height: 10px;" />
-			<h:panelGrid id="delete" columns="3" align="center">
-				<a4j:commandButton value="#{msgs['FORM.OUI']}"
-					action="#{avenantController.supprimerAvenant}"
-					render="listeAvenant" />
-				<t:htmlTag value="div" style="width: 30px;" />
-				<h:commandButton value="#{msgs['FORM.NON']}"
-					onclick="#{rich:component('suppressionAvenant')}.hide();return false;" />
-			</h:panelGrid>
-			<t:htmlTag value="center">
-				<h:outputText id="erreurSupprAvenant" value="" />
-				<rich:message for="erreurSupprAvenant">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
-			</t:htmlTag>
-		</h:form>
-	</rich:popupPanel>
+    <p:dialog id="suppressionAvenant" widgetVar="suppressionAvenant" resizable="false" modal="true">
+        <f:facet name="header">
+            <h:outputText
+                    value="#{msgs['CONVENTION.ETAPE11.SUPPRESSION.HEAD']} #{avenantController.avenant.idAvenant}" />
+        </f:facet>
+        <h:form id="formSupprAvenant">
+            <t:div styleClass="mt10">
+                <h:outputText styleClass="fontBold"
+                              value="#{msgs['CONVENTION.ETAPE11.SUPPRESSION.QUESTION']}" />
+            </t:div>
+
+            <t:htmlTag value="div" style="height: 10px;" />
+
+            <t:div id="delete" styleClass="textCenter mb20">
+                <p:commandButton value="#{msgs['FORM.OUI']}"
+                                 action="#{avenantController.supprimerAvenant}"
+                                 update="@form" />
+
+                <p:commandButton value="#{msgs['FORM.NON']}" styleClass="ml40"
+                                 onclick="PF('suppressionAvenant').hide();" />
+            </t:div>
+
+            <p:messages />
+
+        </h:form>
+    </p:dialog>
 </ui:composition>

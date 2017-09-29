@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 	<!-- /properties/web/controllers.xml This file declares the visual beans 
 		used by the web interface. It should not be modified but by the developers. 
 		This file is referenced by /properties/applicationContext.xml. -->
 
 	<bean id="beanUtils" class="org.esupportail.pstage.web.controllers.BeanUtils"
-		parent="abstractDomainAwareBean" scope="session">
+		  parent="abstractDomainAwareBean" scope="session">
 		<property name="nomenclatureDomainService" ref="nomenclatureDomainService" />
 		<property name="startYearDay" value="${start.year.day}" />
 		<property name="startYearMonth" value="${start.year.month}" />
@@ -25,61 +25,61 @@
 	</bean>
 
 	<bean id="managedRoadMap" class="org.esupportail.pstage.domain.beans.ManagedRoadMap"
-		scope="session">
+		  scope="session">
 		<description>
 			A bean to managed the user's road on this application.
 		</description>
 	</bean>
 
 	<bean id="accordController" class="org.esupportail.pstage.web.controllers.AccordController"
-		parent="abstractContextAwareController" scope="session" />
+		  parent="abstractContextAwareController" scope="session" />
 
 	<bean id="avenantController"
-		class="org.esupportail.pstage.web.controllers.AvenantController"
-		parent="abstractContextAwareController" scope="session">
+		  class="org.esupportail.pstage.web.controllers.AvenantController"
+		  parent="abstractContextAwareController" scope="session">
 		<property name="etablissementController" ref="etablissementController" />
 		<property name="conventionController" ref="conventionController" />
 		<property name="castorService" ref="castorService" />
 	</bean>
 
 	<bean id="etablissementController"
-		class="org.esupportail.pstage.web.controllers.EtablissementController"
-		parent="abstractContextAwareController" scope="session">
+		  class="org.esupportail.pstage.web.controllers.EtablissementController"
+		  parent="abstractContextAwareController" scope="session">
 		<property name="rechercheController" ref="rechercheController" />
 		<property name="codeNafObligatoire" value="${codeNafObligatoire}" />
 	</bean>
 
 	<bean id="offreController" class="org.esupportail.pstage.web.controllers.OffreController"
-		parent="abstractContextAwareController" scope="session">
+		  parent="abstractContextAwareController" scope="session">
 		<property name="etablissementController" ref="etablissementController" />
 		<property name="rechercheOffrePaginator" ref="rechercheOffrePaginator" />
 		<property name="castorService" ref="castorService" />
 	</bean>
 
 	<bean id="nomenclatureController"
-		class="org.esupportail.pstage.web.controllers.NomenclatureController"
-		parent="abstractContextAwareController" scope="session">
+		  class="org.esupportail.pstage.web.controllers.NomenclatureController"
+		  parent="abstractContextAwareController" scope="session">
 	</bean>
 
 	<bean id="rechercheController"
-		class="org.esupportail.pstage.web.controllers.RechercheController"
-		parent="abstractContextAwareController" scope="session">
+		  class="org.esupportail.pstage.web.controllers.RechercheController"
+		  parent="abstractContextAwareController" scope="session">
 		<property name="rechercheStructurePaginator" ref="rechercheStructurePaginator" />
 	</bean>
 
 	<bean id="adminController" class="org.esupportail.pstage.web.controllers.AdminController"
-		parent="abstractContextAwareController" scope="session">
+		  parent="abstractContextAwareController" scope="session">
 		<property name="rechercheController" ref="rechercheController" />
 	</bean>
 
 	<bean id="requiredMessageController"
-		class="org.esupportail.pstage.web.controllers.RequiredMessageController"
-		parent="abstractContextAwareController" scope="session">
+		  class="org.esupportail.pstage.web.controllers.RequiredMessageController"
+		  parent="abstractContextAwareController" scope="session">
 	</bean>
 
 	<bean id="conventionController"
-		class="org.esupportail.pstage.web.controllers.ConventionController"
-		parent="abstractContextAwareController" scope="session">
+		  class="org.esupportail.pstage.web.controllers.ConventionController"
+		  parent="abstractContextAwareController" scope="session">
 		<property name="etablissementController" ref="etablissementController" />
 		<property name="centreController" ref="centreController" />
 		<property name="rechercheConventionPaginator" ref="rechercheConventionPaginator" />
@@ -91,15 +91,15 @@
 	</bean>
 
 	<bean id="exportController" class="org.esupportail.pstage.web.controllers.ExportController"
-		parent="abstractContextAwareController" scope="session">
+		  parent="abstractContextAwareController" scope="session">
 	</bean>
 
 	<bean id="centreController" class="org.esupportail.pstage.web.controllers.CentreController"
-		parent="abstractContextAwareController" scope="session" />
+		  parent="abstractContextAwareController" scope="session" />
 
 	<bean id="sessionController"
-		class="org.esupportail.pstage.web.controllers.SessionController"
-		parent="abstractDomainAwareBean" scope="session">
+		  class="org.esupportail.pstage.web.controllers.SessionController"
+		  parent="abstractDomainAwareBean" scope="session">
 		<description>
 			A bean to store the context of the application.
 		</description>
@@ -114,17 +114,17 @@
 		</property>
 		<property name="mailingListEntr" value="${smtp.mailingListEntr}" />
 		<property name="mailingListEntrMailAvertissementAjoutEtab"
-			value="${mailingListEntr.mailAvertissementAjoutEtab}" />
+				  value="${mailingListEntr.mailAvertissementAjoutEtab}" />
 		<property name="mailingListEntrMailAvertissementModifEtab"
-			value="${mailingListEntr.mailAvertissementModifEtab}" />
+				  value="${mailingListEntr.mailAvertissementModifEtab}" />
 		<property name="mailingListEntrMailAvertissementSupprEtab"
-			value="${mailingListEntr.mailAvertissementSupprEtab}" />
+				  value="${mailingListEntr.mailAvertissementSupprEtab}" />
 		<property name="mailingListEntrMailAvertissementAjoutOffre"
-			value="${mailingListEntr.mailAvertissementAjoutOffre}" />
+				  value="${mailingListEntr.mailAvertissementAjoutOffre}" />
 		<property name="mailingListEntrMailAvertissementModifOffre"
-			value="${mailingListEntr.mailAvertissementModifOffre}" />
+				  value="${mailingListEntr.mailAvertissementModifOffre}" />
 		<property name="mailingListEntrMailAvertissementSupprOffre"
-			value="${mailingListEntr.mailAvertissementSupprOffre}" />
+				  value="${mailingListEntr.mailAvertissementSupprOffre}" />
 		<property name="applicationNameEntreprise" value="${applicationName.entreprise}" />
 		<property name="entrepriseUrl" value="${base.url}/stylesheets/depot/" />
 		<property name="baseUrl" value="${base.url}" />
@@ -141,10 +141,10 @@
 		<property name="uploadFilesOffresPath" value="${uploadFiles.offres.path}" />
 		<property name="uploadFilesLogosCentrePath" value="${uploadFiles.logosCentre.path}" />
 		<property name="recupererCommunesDepuisApogee"
-			value="${donnees.communes.recupererCommunesDepuisApogee}" />
+				  value="${donnees.communes.recupererCommunesDepuisApogee}" />
 		<property name="autoriserConventionsOrphelines" value="${autoriserConventionsOrphelines}" />
 		<property name="autoriserCentresBloquerImpressionConvention"
-			value="${autoriserCentresBloquerImpressionConvention}" />
+				  value="${autoriserCentresBloquerImpressionConvention}" />
 		<property name="autoriserEntrepriseAReserverOffre" value="${autoriserEntrepriseAReserverOffre}" />
 		<property name="autoriserEtudiantAModifierEntreprise" value="${autoriserEtudiantAModifierEntreprise}" />
 		<property name="critereGestion" value="${criterium.university.center}" />
@@ -155,20 +155,20 @@
 		<property name="moderationActive" value="${moderationActive}" />
 		<property name="validationPedagogique" value="${validationPedagogique}" />
 		<property name="avertissementTuteurPedago"
-			value="${alerteMail.avertissementTuteurPedago}" />
+				  value="${alerteMail.avertissementTuteurPedago}" />
 		<property name="avertissementEtudiantConvention"
-			value="${alerteMail.avertissementEtudiantConvention}" />
+				  value="${alerteMail.avertissementEtudiantConvention}" />
 		<property name="avertissementEtudiantAvenant" value="${alerteMail.avertissementEtudiantAvenant}" />
 		<property name="avertissementPersonnelCreaConvention"
-			value="${alerteMail.avertissementPersonnelCreaConvention}" />
+				  value="${alerteMail.avertissementPersonnelCreaConvention}" />
 		<property name="avertissementPersonnelModifConvention"
-			value="${alerteMail.avertissementPersonnelModifConvention}" />
+				  value="${alerteMail.avertissementPersonnelModifConvention}" />
 		<property name="avertissementPersonnelCreaAvenant"
-			value="${alerteMail.avertissementPersonnelCreaAvenant}" />
+				  value="${alerteMail.avertissementPersonnelCreaAvenant}" />
 		<property name="avertissementPersonnelModifAvenant"
-			value="${alerteMail.avertissementPersonnelModifAvenant}" />
+				  value="${alerteMail.avertissementPersonnelModifAvenant}" />
 		<property name="avertissementEntrepriseDiffusion"
-			value="${alerteMail.avertissementEntrepriseDiffusion}" />
+				  value="${alerteMail.avertissementEntrepriseDiffusion}" />
 		<property name="moderationStructures" value="${moderationStructures}" />
 		<property name="utilisationEntreprise" value="${utilisationEntreprise}" />
 		<property name="utilisationStage" value="${utilisationStage}" />
@@ -176,20 +176,20 @@
 		<property name="surchargeTuteur" value="${surchargeTuteur}" />
 		<property name="courrierRemerciement" value="${courrierRemerciement}" />
 		<property name="isEnt" value="${isEnt}" />
-		
+
 		<!-- props pour l'envoi de mail sans esupcommons -->
-        <property name="fromEmail" value="${smtp.fromEmail}" />
-        <property name="fromName" value="${smtp.fromName}" />
+		<property name="fromEmail" value="${smtp.fromEmail}" />
+		<property name="fromName" value="${smtp.fromName}" />
 		<property name="interceptAll" value="${smtp.interceptAll}" />
-		<property name="interceptMail" value="${smtp.interceptEmail}" /> 
-		<property name="interceptName" value="${smtp.interceptName}" /> 
-        <property name="smtpHost" value="${smtp.host}" />
+		<property name="interceptMail" value="${smtp.interceptEmail}" />
+		<property name="interceptName" value="${smtp.interceptName}" />
+		<property name="smtpHost" value="${smtp.host}" />
 		<property name="smtpUser" value="${smtp.user}" />
 		<property name="smtpPassword" value="${smtp.password}" />
 	</bean>
 
 	<bean id="abstractContextAwareController" abstract="true"
-		parent="abstractDomainAwareBean" scope="session">
+		  parent="abstractDomainAwareBean" scope="session">
 		<description>
 			An abstract bean to factorize the declaration of beans of
 			which class inherits from AbstractContextAwareController.
@@ -221,8 +221,8 @@
 	</bean>
 
 	<bean id="administratorsController"
-		class="org.esupportail.pstage.web.controllers.AdministratorsController"
-		parent="abstractContextAwareController" scope="session">
+		  class="org.esupportail.pstage.web.controllers.AdministratorsController"
+		  parent="abstractContextAwareController" scope="session">
 		<description>A bean to manage administrators.</description>
 		<property name="ldapUserService" ref="ldapUserService">
 			<description>The LDAP service.</description>
@@ -230,14 +230,14 @@
 	</bean>
 
 	<bean id="preferencesController"
-		class="org.esupportail.pstage.web.controllers.PreferencesController"
-		parent="abstractContextAwareController" scope="session">
+		  class="org.esupportail.pstage.web.controllers.PreferencesController"
+		  parent="abstractContextAwareController" scope="session">
 		<description>A bean to manage user preferences.</description>
 	</bean>
 
 	<bean id="welcomeController"
-		class="org.esupportail.pstage.web.controllers.WelcomeController"
-		parent="abstractContextAwareController" scope="session">
+		  class="org.esupportail.pstage.web.controllers.WelcomeController"
+		  parent="abstractContextAwareController" scope="session">
 		<description>A bean to manage the welcome page.</description>
 		<property name="etablissementController" ref="etablissementController" />
 		<property name="conventionController" ref="conventionController" />
@@ -250,13 +250,13 @@
 	</bean>
 
 	<bean id="aboutController" class="org.esupportail.pstage.web.controllers.AboutController"
-		parent="abstractContextAwareController" scope="session">
+		  parent="abstractContextAwareController" scope="session">
 		<description>A bean to manage the about page.</description>
 	</bean>
 
 	<bean id="ldapSearchController"
-		class="org.esupportail.pstage.web.controllers.LdapSearchController"
-		parent="abstractApplicationAwareBean" scope="session">
+		  class="org.esupportail.pstage.web.controllers.LdapSearchController"
+		  parent="abstractApplicationAwareBean" scope="session">
 		<description>A bean to manage LDAP searches.</description>
 		<property name="ldapUserService" ref="ldapUserService">
 			<description>The LDAP service.</description>
@@ -267,14 +267,14 @@
 	</bean>
 
 	<bean id="exceptionController"
-		class="org.esupportail.commons.web.controllers.ExceptionController"
-		scope="session">
+		  class="org.esupportail.commons.web.controllers.ExceptionController"
+		  scope="session">
 		<description>A bean to manage exception reports.</description>
 	</bean>
 
 	<bean id="evaluationController"
-		class="org.esupportail.pstage.web.controllers.EvaluationController"
-		parent="abstractContextAwareController" scope="session">
+		  class="org.esupportail.pstage.web.controllers.EvaluationController"
+		  parent="abstractContextAwareController" scope="session">
 		<property name="conventionController" ref="conventionController" />
 		<property name="castorService" ref="castorService" />
 	</bean>
@@ -287,16 +287,16 @@
 	</bean>
 
 	<bean id="statistiquesConventionController"
-		class="org.esupportail.pstage.web.controllers.StatistiquesConventionController"
-		lazy-init="true" parent="abstractContextAwareController" scope="session"
-		init-method="initAll">
+		  class="org.esupportail.pstage.web.controllers.StatistiquesConventionController"
+		  lazy-init="true" parent="abstractContextAwareController" scope="session"
+		  init-method="initAll">
 		<property name="statistiquesDomainService" ref="statistiquesDomainService" />
 	</bean>
 
 	<bean id="statistiquesOffresController"
-		class="org.esupportail.pstage.web.controllers.StatistiquesOffresController"
-		lazy-init="true" parent="abstractContextAwareController" scope="session"
-		init-method="prepareOffres">
+		  class="org.esupportail.pstage.web.controllers.StatistiquesOffresController"
+		  lazy-init="true" parent="abstractContextAwareController" scope="session"
+		  init-method="prepareOffres">
 		<property name="statistiquesDomainService" ref="statistiquesDomainService" />
 	</bean>
 

@@ -42,7 +42,7 @@ StudentComponentRepositoryDao {
 	/**
 	 * 
 	 */
-	final Logger logger = Logger.getLogger(StudentComponentRepositoryDaoWS.class);
+	final transient Logger logger = Logger.getLogger(StudentComponentRepositoryDaoWS.class);
 
 	/**
 	 * Can read the education Apogee.
@@ -154,7 +154,6 @@ StudentComponentRepositoryDao {
 			SECritereDTO2 param = new SECritereDTO2();
 			
 			// Retrait du filtre sur l'annee pour permettre de rattacher les codes etape des annees autres que celle en cours
-//			param.setCodAnu(getYear().toString());
 			param.setTemOuvertRecrutement("O");
 			param.setCodEtp("tous");
 			param.setCodVrsVet("tous");
@@ -185,44 +184,6 @@ StudentComponentRepositoryDao {
 			return null;
 		}
 	}
-
-	/**
-	 * @see org.esupportail.pstage.dao.referentiel.StudentComponentRepositoryDao#getEtapesRef(java.lang.String)
-	 */
-	//	public LinkedHashMap<String, String> getEtapesRef(String universityCode) {
-	//		// Recuperation des etapes depuis Apogee, cod et lib
-	//		if (logger.isDebugEnabled()) {
-	//			logger.debug("StudentComponentRepositoryDaoWS:: getEtapesRef . universityCode  = "+universityCode);
-	//		}
-	//		LinkedHashMap<String,String> lSI = new LinkedHashMap<String, String>();
-	//
-	//		try {
-	//			String t = null;
-	//			List<VersionEtapeDTO> letape = remoteCriApogeeEns.getVersionEtapes(t, null, null, getYear());
-	//			if (letape != null) {
-	//				if (logger.isDebugEnabled()) {
-	//					logger.debug("getEtapesRef. letape  = " + letape.size());
-	//				}
-	//				for (Iterator<VersionEtapeDTO> ite = letape.iterator(); ite.hasNext();) {
-	//					VersionEtapeDTO versionEtapeDTO = (VersionEtapeDTO) ite.next();
-	//					Object idl = versionEtapeDTO.getCodEtp();
-	//					String lib = versionEtapeDTO.getLibWebVet();
-	//					lSI.put(idl + "", lib);
-	//				}
-	//				if (logger.isDebugEnabled()) {
-	//					logger.debug("getEtapesRef. lSI  = " + lSI.size());
-	//				}
-	//			}
-	//		} catch (WebBaseException e) {
-	//			logger.error("WebBaseException in getEtapesRef = " + e );
-	//		} catch (Exception e) {
-	//			logger.error("StudentComponentRepositoryDaoWS::getEtapesRef - Exception= "+e);
-	//			logger.error("Exception= "+e.getCause());
-	//			throw new CommunicationApogeeException(e);
-	//		}
-	//
-	//		return lSI;
-	//	}
 
 
 	/**
@@ -320,49 +281,6 @@ StudentComponentRepositoryDao {
 			}
 		}
 	}
-
-
-	/**
-	 * @return String Year
-	 */
-	public String getYear() {
-		String year = "";
-		Date d = new Date();
-		DateFormat formatY = new SimpleDateFormat("yyyy");
-		DateFormat formatM = new SimpleDateFormat("MM");
-		DateFormat formatD = new SimpleDateFormat("dd");
-		int month = Integer.parseInt(formatM.format(d));
-		int day = Integer.parseInt(formatD.format(d));
-		try {
-			int sYM = Integer.parseInt(this.startYearMonth);
-			int sYD = Integer.parseInt(this.startYearDay);
-			if (sYM <= month && sYD <= day) {
-				year = formatY.format(d);
-			} else {
-				year = Integer.parseInt(formatY.format(d)) - 1 + "";
-			}
-		} catch (NumberFormatException e) {
-			logger.error("Les valeurs de start.year.day et de start.year.month doivent etre des entiers", e);
-			return null; 
-		}
-		return year.trim();
-	}
-
-	/**
-	 * @return the remoteCriApogeeEns
-	 */
-	//	public ReadEnseignement getRemoteCriApogeeEns() {
-	//		return remoteCriApogeeEns;
-	//	}
-
-
-	/**
-	 * @param remoteCriApogeeEns the remoteCriApogeeEns to set
-	 */
-	//	public void setRemoteCriApogeeEns(final ReadEnseignement remoteCriApogeeEns) {
-	//		this.remoteCriApogeeEns = remoteCriApogeeEns;
-	//	}
-
 
 	/**
 	 * @return the startYearDay

@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+
+    <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+    <h:outputText value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT.DEMANDE']}" styleClass="ml5" escape="false" />
+
+    <h:panelGrid columns="3" cellspacing="5" styleClass="mt10 ml40">
+        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.NOM']}" />
+        <p:inputText id="nom" size="30" maxlength="30"
+                     style="text-transform:uppercase; width: auto;"
+                     value="#{conventionController.rechNomEnseignant}">
+            <f:converter binding="#{sansAccentEnMAJConverter}" />
+        </p:inputText>
+        <p:message for="nom"/>
+
+        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.PRENOM']}" />
+        <p:inputText id="prenom" size="30" maxlength="30"
+                     style="text-transform:uppercase; width: auto;"
+                     value="#{conventionController.rechPrenomEnseignant}">
+            <f:converter binding="#{sansAccentEnMAJConverter}" />
+        </p:inputText>
+        <p:message for="prenom"/>
+    </h:panelGrid>
+
+    <p:message for="@form"/>
+</ui:composition>

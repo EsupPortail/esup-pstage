@@ -1,0 +1,31 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="formCentre">
+        <ui:include src="./_formCentre.xhtml" />
+
+        <t:htmlTag value="div" style="height:20px;" />
+
+        <t:div styleClass="textCenter">
+            <p:commandButton immediate="true" style="font-size:14px;"
+                             update="divConsultation" value="#{msgs['FORM.ANNULER']}">
+                <f:setPropertyActionListener value="_consultationCentre_detail"
+                                             target="#{sessionController.consultationCentreCurrentPage}" />
+            </p:commandButton>
+
+            <p:commandButton action="#{centreController.modifierCentre}"
+                             styleClass="fz16 ml10"
+                             update="divConsultation" value="#{msgs['FORM.ENREGISTRER']}" />
+        </t:div>
+
+        <p:message for="formCentre" />
+    </h:form>
+
+    <ui:include src="./_panel_recherchePersonnel.xhtml" />
+
+    <t:htmlTag value="div" style="height:20px;" />
+
+</ui:composition>

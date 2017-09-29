@@ -1,47 +1,86 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="../_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<rich:panel>
-			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
-			</f:facet>
-			<h:form id="formSelConvention">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text">
-					<f:facet name="header">
-						<h:outputText value="#{msgs['CONVENTION.ETAPE1.ETUDIANT']}" />
-					</f:facet>
-					<t:htmlTag value="div" style="height: 20px;" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text">
-						<ui:include
-							src="/stylesheets/stage/_conventionEtape1DetailsEtudiant.xhtml" />
-					</h:panelGrid>
-					<a4j:commandButton id="modifEtudiant"
-						value="#{msgs['FORM.MODIFIER']}"
-						action="#{conventionController.goToConventionModifEtudiant}"
-						alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
-						status="statusGoModifEtudiant"
-						rendered="#{not empty conventionController.convention.etudiant and !conventionController.conventionValide
-							and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
-							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
-							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}" />
-					<a4j:status name="statusGoModifEtudiant">
-						<f:facet name="start">
-							<ui:include src="../_commun/_veuillezPatienter.xhtml" />
-						</f:facet>
-					</a4j:status>
-				</h:panelGrid>
-			</h:form>
-		</rich:panel>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention} #{conventionController.convention.etudiant.nom} #{conventionController.convention.etudiant.prenom}" />
+            </f:facet>
+            <h:form id="formSelConvention">
+                <ui:include src="_roadmapSel.xhtml" />
+
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20 block">
+
+                        <t:htmlTag value="i" styleClass="fa fa-user fz16 fontBlue2"/>
+                        <h:outputText value="#{msgs['CONVENTION.ETAPE1.ETUDIANT']}"
+                                      styleClass="fontBold fontBlue2 fz16 ml5"
+                                      escape="false"/>
+
+                        <h:panelGrid columns="2" cellspacing="5" styleClass="blueHover mt5 ml20">
+                            <h:outputText styleClass="fontBold"
+                                          value="#{msgs['CONVENTION.NUMETUDIANT']}" />
+                            <h:outputText id="numeroetudiant1"
+                                          value="#{conventionController.convention.etudiant.numEtudiant}" />
+                            <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.NOM']}" />
+                            <h:outputText id="nom1"
+                                          value="#{conventionController.convention.etudiant.nom}   #{conventionController.convention.etudiant.nomMarital}" />
+                            <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.PRENOM']}" />
+                            <h:outputText id="prenom1"
+                                          value="#{conventionController.convention.etudiant.prenom}" />
+                            <h:outputText styleClass="fontBold"
+                                          value="#{msgs['CONVENTION.VOTREETAPE']}" />
+                            <h:outputText id="etape1"
+                                          value="#{conventionController.convention.etape.code} ; #{conventionController.convention.etape.codeVersionEtape} - #{conventionController.convention.etape.libelle}" />
+                            <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.VOTREUFR']}" />
+                            <h:outputText id="ufr1"
+                                          value="#{conventionController.convention.ufr.code} - #{conventionController.convention.ufr.libelle}" />
+
+                            <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE']}" />
+                            <h:outputText value="#{conventionController.convention.volumeHoraireFormation}"
+                                          rendered="#{not empty conventionController.convention.volumeHoraireFormation
+                              and conventionController.convention.volumeHoraireFormation != '0'}"/>
+                            <h:outputText value="Non saisi"
+                                          rendered="#{empty conventionController.convention.volumeHoraireFormation
+                              or conventionController.convention.volumeHoraireFormation == '0'}"/>
+
+                            <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ELP']}" />
+                            <h:outputText id="elp"
+                                          value="#{conventionController.convention.codeElp} - #{conventionController.convention.creditECTS} credit(s)" />
+                            <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.ADRESSE']}" />
+                            <h:outputText id="mainAddress1"
+                                          value="#{conventionController.convention.adresseEtudiant}" />
+                            <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.CODEPOSTAL']}" />
+                            <h:outputText id="codePostal1"
+                                          value="#{conventionController.convention.codePostalEtudiant} - #{conventionController.convention.villeEtudiant} - #{conventionController.convention.paysEtudiant}" />
+                            <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.TELEPHONE']}" />
+                            <h:outputText id="telephone1"
+                                          value="#{conventionController.convention.telEtudiant}" />
+                            <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.TELEPHONE.PORTABLE']}" />
+                            <h:outputText id="telephoneportable1"
+                                          value="#{conventionController.convention.telPortableEtudiant}" />
+                            <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.MAILINSTITU']}"/>
+                            <h:outputText id="mailinstitu1"
+                                          value="#{conventionController.convention.etudiant.mail}" />
+                            <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.MAILPERSO']}" />
+                            <h:outputText id="mailperso1"
+                                          value="#{conventionController.convention.courrielPersoEtudiant}" />
+                        </h:panelGrid>
+                        <p:commandButton id="modifEtudiant" value="#{msgs['FORM.MODIFIER']}"
+                                         action="#{conventionController.goToConventionModifEtudiant}"
+                                         onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                         styleClass="mt15 ml20"
+                                         rendered="#{not empty conventionController.convention.etudiant and !conventionController.conventionValide
+                                and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+							    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)}" />
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>

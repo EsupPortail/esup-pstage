@@ -52,7 +52,7 @@ public class UniteGratificationConverter implements Serializable, Converter {
 					"object " + value + " is not a UniteGratificationDTO.");
 		}
 		UniteGratificationDTO e = (UniteGratificationDTO) value;
-		return ""+e.getId();
+		return Integer.toString(e.getId());
 	}
 	
 	/**

@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
+
+	<t:htmlTag value="div" style="height:5px;" />
+
+	<h:panelGrid columns="3">
+		<h:outputLabel value="#{msgs['NOMENCLATURES.AJOUT.CODE']}"
+			for="codeCaisse" />
+		<t:htmlTag value="div" style="width:5px;" />
+		<h:panelGrid columns="2">
+			<h:inputText id="codeCaisse"
+				value="#{nomenclatureController.caisseRegime.code}" size="5"
+				maxlength="5" style="text-transform:uppercase;"
+				converter="#{sansAccentEnMAJConverter}" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}">
+				<p:ajax event="blur" update="msgCodeCaisse" global="false"/>
+			</h:inputText>
+			<p:message id="msgCodeCaisse" for="codeCaisse"/>
+		</h:panelGrid>
+
+		<h:outputLabel value="#{msgs['NOMENCLATURES.AJOUT.LIBELLE']}"
+			for="libelleCaisse" />
+		<t:htmlTag value="div" style="width:5px;" />
+		<h:panelGrid columns="2">
+			<h:inputText id="libelleCaisse"
+				value="#{nomenclatureController.caisseRegime.libelle}" size="30"
+				maxlength="100" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}">
+				<p:ajax event="blur" update="msgLibelleCaisse" />
+			</h:inputText>
+			<p:message id="msgLibelleCaisse" for="libelleCaisse"/>
+		</h:panelGrid>
+
+		<h:outputLabel value="#{msgs['NOMENCLATURES.AJOUT.INFOCAISSE']}"
+			for="infoCaisse" />
+		<t:htmlTag value="div" style="width:5px;" />
+		<h:inputText id="infoCaisse"
+			value="#{nomenclatureController.caisseRegime.infoCaisse}" size="30"
+			maxlength="100" />
+	</h:panelGrid>
+</ui:composition>

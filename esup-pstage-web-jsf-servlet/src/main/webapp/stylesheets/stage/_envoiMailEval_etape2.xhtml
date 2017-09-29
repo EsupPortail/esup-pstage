@@ -1,18 +1,12 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid align="center">
-		<rich:messages />
+    <t:div styleClass="textCenter">
+        <p:messages />
 
-		<t:htmlTag value="center">
-			<a4j:commandButton value="#{msgs['GENERAL.CLOSE']}"
-				render="rechercheEvaluationDataTable"
-				onclick="#{rich:component('envoiMailEvalPanel')}.hide();" />
-		</t:htmlTag>
-	</h:panelGrid>
+        <p:commandButton value="#{msgs['GENERAL.CLOSE']}" ajax="false"  />
+    </t:div>
+
 </ui:composition>

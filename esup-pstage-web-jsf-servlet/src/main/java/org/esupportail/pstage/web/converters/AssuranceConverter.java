@@ -52,7 +52,7 @@ public class AssuranceConverter implements Serializable, Converter {
 					"object " + value + " is not a AssuranceDTO.");
 		}
 		AssuranceDTO e = (AssuranceDTO) value;
-		return ""+e.getId();
+		return Integer.toString(e.getId());
 	}
 
 	/**

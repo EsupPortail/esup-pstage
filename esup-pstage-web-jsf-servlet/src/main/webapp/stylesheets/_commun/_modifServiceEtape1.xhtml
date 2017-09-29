@@ -1,20 +1,15 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<ui:include src="_formService.xhtml" />
 
-	<h:panelGrid columns="3" align="center">
-		<a4j:commandButton action="#{etablissementController.modifierService}"
-			value="#{msgs['FORM.MODIFIER']}"
-			render="opService, opActionsService, opContactsDataTable, formModifService" />
-		<t:htmlTag value="div" style="width:50px;" />
-		<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
-			onclick="#{rich:component('modifService')}.hide();" immediate="true" />
-	</h:panelGrid>
+	<t:div styleClass="clearFloat textCenter mt20 mb20">
+		<p:commandButton action="#{etablissementController.modifierService}"
+			value="#{msgs['FORM.MODIFIER']}" update="@form" />
+		<p:commandButton value="#{msgs['FORM.ANNULER']}" styleClass="ml40"
+			onclick="PF('modifService').hide();" immediate="true" />
+	</t:div>
 
 </ui:composition>

@@ -2,21 +2,19 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:popupPanel id="envoiMailEvalPanel" width="600" autosized="true"
-		modal="true">
+	<p:dialog id="envoiMailEvalPanel" widgetVar="envoiMailEvalPanel"
+		resizable="false" modal="true">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL']}" />
 		</f:facet>
 		<h:form id="formEnvoiMailEval">
 			<t:htmlTag value="div" style="height:10px;" />
-			<ui:include
-				src="/stylesheets/stage/#{sessionController.envoiMailEvalCurrentPage}.xhtml" />
+			<ui:include src="/stylesheets/stage/#{sessionController.envoiMailEvalCurrentPage}.xhtml" />
 			<t:htmlTag value="div" style="height:10px;" />
 		</h:form>
-	</rich:popupPanel>
+	</p:dialog>
 
 </ui:composition>

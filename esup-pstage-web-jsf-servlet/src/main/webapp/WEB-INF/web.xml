@@ -85,7 +85,10 @@
 		</param-name>
 		<param-value>true</param-value>
 	</context-param>
-
+	<context-param>
+		<param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
+		<param-value>true</param-value>
+	</context-param>
 	<!-- <context-param> -->
 	<!-- <param-name>org.apache.myfaces.ERROR_HANDLING</param-name> -->
 	<!-- <param-value>true</param-value> -->
@@ -116,37 +119,15 @@
 		</listener-class>
 	</listener>
 
-<!-- 	<context-param> -->
-<!-- 	<param-name>javax.faces.PROJECT_STAGE</param-name> -->
-<!-- 	<param-value>Production</param-value> -->
-<!-- 	</context-param> -->
-	<context-param>
-		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Development</param-value>
-	</context-param>
+	 <context-param>
+	 <param-name>javax.faces.PROJECT_STAGE</param-name>
+	 <param-value>Production</param-value>
+	 </context-param>
+	<!--<context-param>-->
+		<!--<param-name>javax.faces.PROJECT_STAGE</param-name>-->
+		<!--<param-value>Development</param-value>-->
+	<!--</context-param>-->
 
-	<context-param>
-		<param-name>org.fckfaces.CUSTOM_CONFIGURATIONS_PATH
-		</param-name>
-		<param-value>/media/FCKeditor/custom-fckconfig.js
-		</param-value>
-	</context-param>
-
-	<!--BEGIN-RICHFACES -->
-	<!-- Plugging the skin into the project -->
-	<context-param>
-		<param-name>org.richfaces.skin</param-name>
-		<param-value>classic</param-value>
-	</context-param>
-
-	<!-- Making the RichFaces skin spread to standard HTML controls -->
-	<context-param>
-		<param-name>org.richfaces.enableControlSkinning
-		</param-name>
-		<param-value>true</param-value>
-	</context-param>
-
-	<!--END-RICHFACES -->
 
 	<!--BEGIN CAS -->
 
@@ -185,15 +166,6 @@
 	<!-- END CAS -->
 
 	<servlet>
-		<servlet-name>Resource Servlet</servlet-name>
-		<servlet-class>org.richfaces.webapp.ResourceServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Resource Servlet</servlet-name>
-		<url-pattern>/org.richfaces.resources/*</url-pattern>
-	</servlet-mapping>
-	<servlet>
 		<description>
 			The main servlet of the application. This class inherits
 			from the MyFaces implementation and handles exceptions thrown for
@@ -228,11 +200,11 @@
 		</servlet-class>
 		<init-param>
 			<param-name>uploadLogoEntreprisePath</param-name>
-			<param-value>C:/esup-pstage-files/logosEntreprise</param-value>
+			<param-value>/usr/local/src/esup-pstage-files/logosEntreprise</param-value>
 		</init-param>
 		<init-param>
 			<param-name>uploadLogoCentrePath</param-name>
-			<param-value>C:/esup-pstage-files/logosCentre</param-value>
+			<param-value>/usr/local/src/esup-pstage-files/logosCentre</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -246,7 +218,7 @@
 		</servlet-class>
 		<init-param>
 			<param-name>uploadFilesPath</param-name>
-			<param-value>C:/esup-pstage-files/offresEntreprise</param-value>
+			<param-value>/usr/local/src/esup-pstage-files/offresEntreprise</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -254,14 +226,35 @@
 		<url-pattern>*.file</url-pattern>
 	</servlet-mapping>
 
-	<context-param>
-		<param-name>org.richfaces.fileUpload.maxRequestSize</param-name>
-		<param-value>51200000</param-value>
-	</context-param>
+	<filter>
+		<filter-name>primeFacesFileUploadFilter</filter-name>
+		<filter-class>org.primefaces.webapp.filter.FileUploadFilter
+		</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>primeFacesFileUploadFilter</filter-name>
+	    <servlet-name>Faces Servlet</servlet-name>
+	    <dispatcher>REQUEST</dispatcher>
+	    <dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
 
 	<context-param>
 		<param-name>org.apache.myfaces.LOG_WEB_CONTEXT_PARAMS</param-name>
 		<param-value>false</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<!--<param-value>delta</param-value>-->
+<!-- 		<param-value>aristo</param-value> -->
+		<!--<param-value>flick</param-value>-->
+		<param-value>afterwork</param-value>
+		<!--<param-value>delta</param-value>-->
+	</context-param>
+
+	<context-param>
+		<param-name>primefaces.FONT_AWESOME</param-name>
+		<param-value>true</param-value>
 	</context-param>
 
 	<welcome-file-list>

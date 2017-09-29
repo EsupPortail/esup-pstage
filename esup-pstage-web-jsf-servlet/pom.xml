@@ -5,14 +5,22 @@
 	<parent>
 		<artifactId>esup-pstage</artifactId>
 		<groupId>org.esupportail</groupId>
-		<version>2.2.5-SNAPSHOT</version>
+		<version>3.0.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>esup-pstage-web-jsf-servlet</artifactId>
 	<packaging>war</packaging>
 	<description>couche vue-controller</description>
-	<properties>
-		<org.richfaces.bom.version>4.3.7.Final</org.richfaces.bom.version>
-	</properties>
+<!-- 	<properties> -->
+<!-- 		<org.richfaces.bom.version>4.3.7.Final</org.richfaces.bom.version> -->
+<!-- 	</properties> -->
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>Prime Technology Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
 	<build>
 		<defaultGoal>install</defaultGoal>
 		<resources>
@@ -32,37 +40,16 @@
 		</plugins>
 	</build>
 	<dependencies>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.jasig.cas.client</groupId> -->
-<!-- 			<artifactId>cas-client-core</artifactId> -->
-<!-- 			<version>3.3.3</version> -->
-<!-- 			<exclusions> -->
-<!-- 				<exclusion> -->
-<!-- 					<groupId>org.opensaml</groupId> -->
-<!-- 					<artifactId>opensaml</artifactId> -->
-<!-- 				</exclusion> -->
-<!-- 			</exclusions> -->
-<!-- 		</dependency> -->
 		<dependency>
 			<groupId>org.esupportail</groupId>
 			<artifactId>esup-pstage-domain-services</artifactId>
-			<version>2.2.5-SNAPSHOT</version>
+			<version>3.0.0-SNAPSHOT</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.opensaml</groupId>
 					<artifactId>opensaml</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.richfaces.ui</groupId>
-			<artifactId>richfaces-components-ui</artifactId>
-			<version>${org.richfaces.bom.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.richfaces.core</groupId>
-			<artifactId>richfaces-core-impl</artifactId>
-			<version>${org.richfaces.bom.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
@@ -97,6 +84,26 @@
 			<version>0.5</version>
 			<type>jar</type>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>all-themes</artifactId>
+			<version>1.0.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>primefaces-extensions</artifactId>
+			<version>6.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>resources-ckeditor</artifactId>
+			<version>6.0.0</version>
 		</dependency>
 	</dependencies>
 </project>

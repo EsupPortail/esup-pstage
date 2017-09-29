@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <xsl:stylesheet version="2.0"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format"
-	xmlns:java="http://xml.apache.org/xalan/java" xmlns:str="http://exslt.org/strings"
-	exclude-result-prefixes="java">
+				xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format"
+				xmlns:java="http://xml.apache.org/xalan/java" xmlns:str="http://exslt.org/strings"
+				exclude-result-prefixes="java">
 
 	<!-- definition du noeud convention -->
 	<xsl:template match="convention-dTO">
@@ -21,15 +21,15 @@
 
 	<xsl:template match="/">
 		<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format"
-			xmlns:fox="http://xml.apache.org/fo/extensions">
+				 xmlns:fox="http://xml.apache.org/fo/extensions">
 			<fo:layout-master-set>
 				<fo:simple-page-master master-name="all"
-					border="" page-height="29.699cm" page-width="20.999cm"
-					margin-right="1cm" margin-left="0.9cm" margin-bottom="0.4cm"
-					margin-top="0.794cm">
+									   border="" page-height="29.699cm" page-width="20.999cm"
+									   margin-right="1cm" margin-left="0.9cm" margin-bottom="0.4cm"
+									   margin-top="0.794cm">
 					<fo:region-body margin-bottom="0cm" />
 					<fo:region-after display-align="after"
-						space-before="0cm" extent="0.55cm" />
+									 space-before="0cm" extent="0.55cm" />
 				</fo:simple-page-master>
 			</fo:layout-master-set>
 
@@ -37,7 +37,7 @@
 				<fo:static-content flow-name="xsl-footnote-separator">
 					<fo:block>
 						<fo:leader rule-thickness="0.5pt" rule-style="solid"
-							leader-length="100%" leader-pattern="rule" />
+								   leader-length="100%" leader-pattern="rule" />
 					</fo:block>
 				</fo:static-content>
 				<fo:flow flow-name="xsl-region-body">
@@ -51,30 +51,30 @@
 
 	<xsl:template name="Attestation">
 		<fo:block margin-right="1.5cm" margin-left="1.5cm"
-			margin-bottom="1.09cm" font-family="Times New Roman,serif"
-			padding-top="1cm">
+				  margin-bottom="1.09cm" font-family="Times New Roman,serif"
+				  padding-top="1cm">
 			<fo:block text-align="center" hyphenate="false" language="fr"
-				country="FR" font-weight="bold" font-size="18pt">
+					  country="FR" font-weight="bold" font-size="18pt">
 				CERTIFICADO DE PRÁCTICAS
 			</fo:block>
 			<fo:block text-align="center" line-height="110%"
-				padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-				font-size="10pt" font-family="Times New Roman,serif" font-style="italic">
+					  padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+					  font-size="10pt" font-family="Times New Roman,serif" font-style="italic">
 				(ATTESTATION DE STAGE )
 			</fo:block>
 			<fo:block line-height="110%" hyphenate="false" language="fr"
-				country="FR" font-size="10pt" font-family="Times New Roman,serif">
+					  country="FR" font-size="10pt" font-family="Times New Roman,serif">
 				<fo:leader />
 			</fo:block>
 			<fo:block text-align="center" padding-top="5pt" hyphenate="false"
-				language="fr" country="FR" font-weight="bold" font-size="16pt"
-				font-style="italic">
+					  language="fr" country="FR" font-weight="bold" font-size="16pt"
+					  font-style="italic">
 				a entregar al
 				estudiante al finalizar las prácticas
 			</fo:block>
 			<fo:block text-align="center" line-height="110%"
-				padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-				font-size="10pt" font-family="Times New Roman,serif" font-style="italic">
+					  padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+					  font-size="10pt" font-family="Times New Roman,serif" font-style="italic">
 				(à
 				remettre au
 				stagiaire à l'issue du
@@ -82,15 +82,15 @@
 			</fo:block>
 			<fo:block padding-top="10pt">
 				<fo:table border="0.018cm solid #000000" padding="3pt"
-					width="100%" table-layout="fixed">
+						  width="100%" table-layout="fixed">
 					<fo:table-column column-width="proportional-column-width(1)" />
 					<fo:table-body>
 						<fo:table-row>
 							<fo:table-cell border="1" margin-left="0.2cm"
-								padding-top="0.2cm">
+										   padding-top="0.2cm">
 								<fo:block>
 									<fo:inline font-weight="bold" text-decoration="underline"
-										font-size="9pt">
+											   font-size="9pt">
 										ORGANISMO DE ACOGIDA
 									</fo:inline>
 									<fo:inline font-size="8pt" font-style="italic">
@@ -99,13 +99,13 @@
 									</fo:inline>
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
+										  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
 									<fo:leader />
 								</fo:block>
 								<fo:block line-height="150%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">
 										Nombre o Denominación social
 									</fo:inline>
@@ -121,9 +121,9 @@
 									</fo:inline>
 								</fo:block>
 								<fo:block line-height="150%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">Dirección
 									</fo:inline>
 									<fo:inline font-size="8pt" font-style="italic">(Adresse)
@@ -144,9 +144,9 @@
 								</fo:block>
 
 								<fo:block line-height="150%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">Tel : </fo:inline>
 									<xsl:value-of select="structure/telephone" />
 								</fo:block>
@@ -163,15 +163,15 @@
 					</fo:inline>
 				</fo:block>
 				<fo:table border="0.018cm solid #000000" padding="3pt"
-					width="100%" table-layout="fixed">
+						  width="100%" table-layout="fixed">
 					<fo:table-column column-width="proportional-column-width(1)" />
 					<fo:table-body>
 						<fo:table-row>
 							<fo:table-cell border="1" margin-left="0.2cm"
-								padding-top="0.2cm">
+										   padding-top="0.2cm">
 								<fo:block font-size="9pt">
 									<fo:inline font-weight="bold" font-size="9pt"
-										text-decoration="underline">
+											   text-decoration="underline">
 										EL ESTUDIANTE
 									</fo:inline>
 									<fo:inline font-size="8pt" font-style="italic">
@@ -180,13 +180,13 @@
 									</fo:inline>
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif">
 									<fo:leader />
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">
 										Apellidos
 									</fo:inline>
@@ -236,18 +236,18 @@
 									</fo:inline>
 									<fo:inline>
 										<xsl:value-of
-											select="concat(substring(./etudiant/date-nais,9,2),'/',substring(./etudiant/date-nais,6,2), '/',substring(./etudiant/date-nais,1,4))" />
+												select="concat(substring(./etudiant/date-nais,9,2),'/',substring(./etudiant/date-nais,6,2), '/',substring(./etudiant/date-nais,1,4))" />
 									</fo:inline>
 								</fo:block>
 							</fo:table-cell>
 						</fo:table-row>
 						<fo:table-row>
 							<fo:table-cell border="1" margin-left="0.2cm"
-								padding-top="0.2cm">
+										   padding-top="0.2cm">
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">
 										Dirección
 									</fo:inline>
@@ -271,11 +271,11 @@
 						</fo:table-row>
 						<fo:table-row>
 							<fo:table-cell border="1" margin-left="0.2cm"
-								padding-top="0.2cm">
+										   padding-top="0.2cm">
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">
 										Tel :
 									</fo:inline>
@@ -295,11 +295,11 @@
 						</fo:table-row>
 						<fo:table-row>
 							<fo:table-cell border="1" margin-left="0.2cm"
-								padding-top="0.2cm">
+										   padding-top="0.2cm">
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold" font-size="11pt">
 										QUE
 										CURSA
@@ -310,9 +310,9 @@
 									</fo:inline>
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-style="italic" font-size="8pt">
 										(ETUDIANT
 										EN(intitulé de la formation ou du cursus de
@@ -321,20 +321,20 @@
 									</fo:inline>
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<xsl:value-of select="etape/libelle" />
 								</fo:block>
 							</fo:table-cell>
 						</fo:table-row>
 						<fo:table-row>
 							<fo:table-cell border="1" margin-left="0.2cm"
-								padding-top="0.2cm">
+										   padding-top="0.2cm">
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold" font-size="11pt">
 										EN
 									</fo:inline>
@@ -379,16 +379,16 @@
 					</fo:inline>
 				</fo:block>
 				<fo:table table-layout="fixed" width="100%"
-					border="0.018cm solid #000000">
+						  border="0.018cm solid #000000">
 					<fo:table-column column-width="proportional-column-width(1)" />
 					<fo:table-body>
 						<fo:table-row>
 							<fo:table-cell>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									margin-left="0.5cm" padding-top="0.3cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  margin-left="0.5cm" padding-top="0.3cm">
 									<fo:inline font-size="11pt" font-weight="bold"
-										text-decoration="underline">
+											   text-decoration="underline">
 										DURACIÓN DE LAS PRÁCTICAS
 									</fo:inline>
 									<fo:inline font-size="8pt" font-style="italic">
@@ -401,9 +401,9 @@
 						<fo:table-row>
 							<fo:table-cell padding-top="0.2cm">
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">
 										Fechas de inicio y de fin de
 										las prácticas
@@ -418,9 +418,9 @@
 									</fo:inline>
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">
 										Del
 									</fo:inline>
@@ -465,9 +465,9 @@
 						<fo:table-row>
 							<fo:table-cell padding-top="0.2cm">
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">
 										Representan una
 										duración total
@@ -479,9 +479,9 @@
 									</fo:inline>
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm" font-style="italic">
+										  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										  padding-bottom="0.035cm" font-style="italic">
 									<fo:inline>
 										(Représentant une durée totale de)
 										<xsl:text>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</xsl:text>
@@ -491,202 +491,207 @@
 								</fo:block>
 							</fo:table-cell>
 						</fo:table-row>
-						<fo:table-row>
-							<fo:table-cell padding-top="0.2cm">
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm" margin-left="0.5cm" text-align="justify">
-									La
-									duración total de las prácticas se computa teniendo en cuenta
-									la presencia efectiva del
-									estudiante en el organismo, sin
-									perjuicio del derecho a
-									las ausencias
-									previstas
-									en el artículo
-									L.124-13 del Código de la Educación
-									(art. L.124-18 del Código de
-									la Educación). Cada periodo de como
-									mínimo 7 horas de presencia,
-									consecutivas o no, equivale a
-									un día de prácticas y cada período
-									de cómo mínimo 22 días de
-									presencia, consecutivos o
-									no, es
-									considerado como equivalente a un mes.
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									margin-left="0.5cm" text-align="justify" font-style="italic"
-									background-color="#E6E6E6">
-									(La durée totale du stage
-									est appréciée en
-									tenant compte de la
-									présence effective du
-									stagiaire dans
-									l'organisme, sous réserve
-									des droits à congés et
-									autorisations
-									d'absence prévus à
-									l'article L.124-13 du code de
-									l'éducation
-									(art. L.124-18 du code
-									de l'éducation). Chaque
-									période au moins
-									égale à 7 heures de
-									présence consécutives ou
-									non est considérée
-									comme équivalente à
-									un jour de stage et
-									chaque période au moins
-									égale à 22 jours de
-									présence
-									consécutifs
-									ou non est considérée
-									comme équivalente à
-									un mois.)
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
-						<fo:table-row>
-							<fo:table-cell padding-top="0.2cm" border-top="0.018cm solid #000000">
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
-									<fo:leader />
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									margin-left="0.5cm">
-									<fo:inline font-weight="bold" text-decoration="underline">
-										CUANTÍA DE LA GRATIFICACIÓN PAGADA AL ESTUDIANTE
-									</fo:inline>
-									<fo:inline font-size="8pt">
-										(MONTANT DE LA GRATIFICATION
-										VERSÉE AU STAGIAIRE)
-									</fo:inline>
-								</fo:block>
-								<fo:block line-height="110%" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									padding-top="0.2cm">
-									El estudiante ha recibido una gratificación de prácticas de una
-									<fo:inline font-weight="bold"> cuantía total
-									</fo:inline>
-									de ..................................
-									&#8364;
-								</fo:block>
-								<fo:block line-height="110%" language="fr" country="FR"
-									font-size="8pt" font-family="Times New Roman,serif"
-									padding-top="0.035cm" font-style="italic">
-									(Le stagiaire a perçu une
-									gratification de stage
-									pour un
-									montant total de)
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
-									<fo:leader />
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
+						<xsl:if test="type-convention/code-ctrl != 'FC'">
+							<fo:table-row>
+								<fo:table-cell padding-top="0.2cm">
+									<fo:block line-height="110%" hyphenate="false"
+											  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+											  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+											  padding-bottom="0.035cm" margin-left="0.5cm" text-align="justify">
+										La
+										duración total de las prácticas se computa teniendo en cuenta
+										la presencia efectiva del
+										estudiante en el organismo, sin
+										perjuicio del derecho a
+										las ausencias
+										previstas
+										en el artículo
+										L.124-13 del Código de la Educación
+										(art. L.124-18 del Código de
+										la Educación). Cada periodo de como
+										mínimo 7 horas de presencia,
+										consecutivas o no, equivale a
+										un día de prácticas y cada período
+										de cómo mínimo 22 días de
+										presencia, consecutivos o
+										no, es
+										considerado como equivalente a un mes.
+									</fo:block>
+									<fo:block line-height="110%" hyphenate="false"
+											  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+											  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+											  margin-left="0.5cm" text-align="justify" font-style="italic"
+											  background-color="#E6E6E6">
+										(La durée totale du stage
+										est appréciée en
+										tenant compte de la
+										présence effective du
+										stagiaire dans
+										l'organisme, sous réserve
+										des droits à congés et
+										autorisations
+										d'absence prévus à
+										l'article L.124-13 du code de
+										l'éducation
+										(art. L.124-18 du code
+										de l'éducation). Chaque
+										période au moins
+										égale à 7 heures de
+										présence consécutives ou
+										non est considérée
+										comme équivalente à
+										un jour de stage et
+										chaque période au moins
+										égale à 22 jours de
+										présence
+										consécutifs
+										ou non est considérée
+										comme équivalente à
+										un mois.)
+									</fo:block>
+								</fo:table-cell>
+							</fo:table-row>
+							<fo:table-row>
+								<fo:table-cell padding-top="0.2cm" border-top="0.018cm solid #000000">
+									<fo:block line-height="110%" hyphenate="false"
+											  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
+										<fo:leader />
+									</fo:block>
+									<fo:block line-height="110%" hyphenate="false"
+											  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+											  margin-left="0.5cm">
+										<fo:inline font-weight="bold" text-decoration="underline">
+											CUANTÍA DE LA GRATIFICACIÓN PAGADA AL ESTUDIANTE
+										</fo:inline>
+										<fo:inline font-size="8pt">
+											(MONTANT DE LA GRATIFICATION
+											VERSÉE AU STAGIAIRE)
+										</fo:inline>
+									</fo:block>
+									<fo:block line-height="110%" language="fr" country="FR"
+											  font-size="10pt" font-family="Times New Roman,serif"
+											  padding-top="0.2cm">
+										El estudiante ha recibido una gratificación de prácticas de una
+										<fo:inline font-weight="bold"> cuantía total
+										</fo:inline>
+										de ..................................
+										&#8364;
+									</fo:block>
+									<fo:block line-height="110%" language="fr" country="FR"
+											  font-size="8pt" font-family="Times New Roman,serif"
+											  padding-top="0.035cm" font-style="italic">
+										(Le stagiaire a perçu une
+										gratification de stage
+										pour un
+										montant total de)
+									</fo:block>
+									<fo:block line-height="110%" hyphenate="false"
+											  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
+										<fo:leader />
+									</fo:block>
+								</fo:table-cell>
+							</fo:table-row>
+						</xsl:if>
 					</fo:table-body>
 				</fo:table>
 
 
 				<fo:table table-layout="fixed" width="100%" margin-left="0cm"
-					padding-top="0.5cm">
+						  padding-top="0.5cm">
 					<fo:table-column column-width="proportional-column-width(1)" />
 					<fo:table-column column-width="proportional-column-width(1)" />
 					<fo:table-body>
 						<fo:table-row>
 							<fo:table-cell>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm" font-style="italic" text-align="justify">
-									<fo:inline font-weight="bold">
-										El certificado de prácticas
-									</fo:inline>
-									es indispensable para que, previo pago de una cotización,
-									se
-									pueda tener en cuenta
-									las prácticas en los derechos a la
-									jubilación.
-									La legislación sobre
-									jubilaciones (Ley n° 2014-40 de
-									20 de enero
-									de 2014) otorga a los estudiantes
-									<fo:inline font-weight="bold">
-										cuyas prácticas han sido
-										objeto de gratificación
-									</fo:inline>
-									la posibilidad de validarlas, con un
-									<fo:inline font-weight="bold">máximo de dos trimestres,
-									</fo:inline>
-									a condición de pagar una cotización.
-									<fo:inline font-weight="bold">El estudiante debe hacer la
-										solicitud en los dos años
-									</fo:inline>
-									siguientes a la finalización de las prácticas
-									<fo:inline font-weight="bold">debiendo presentar
-										obligatoriamente el certificado de prácticas
-									</fo:inline>
-									indicando la duración total de las mismas y la
-									cuantía total de
-									la
-									gratificación percibida. Solicitar información
-									exacta sobre la
-									cotización a abonar y el procedimiento a seguir
-									a la Seguridad
-									Social
-									(Código de la Seguridad social art.
-									L.351-17
-									-Código de la
-									Educación art.D.124-9).
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="7pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm" font-style="italic" text-align="justify"
-									background-color="#E6E6E6">
-									(L'attestation de stage est indispensable pour
-									pouvoir, sous
-									réserve du versement d'une
-									cotisation, faire
-									prendre en compte
-									le stage dans les droits à
-									retraite. La
-									législation sur les
-									retraites (loi n°2014-40 du 20
-									Janvier 2014)
-									ouvre aux étudiants
-									dont le stage a été gratifié, la possibilité
-									de faire valider
-									celui-ci dans la limite de deux trimestres,
-									sous réserve du
-									versement d'une cotisation. La demande est à
-									faire par
-									l'étudiant dans les deux années
-									suivant la fin du stage
-									et sur
-									présentation obligatoire de l'attestation de stage
-									mentionnant
-									la durée totale du stage et le montant total de la
-									gratification perçue. Les informations
-									précises sur la
-									cotisation à verser et sur la procédure à suivre
-									sont à demander
-									auprès de la Sécurité sociale (code de la sécurité sociale art.
-									L.351-17 - code de
-									l'éducation art.D.124-9).
-								</fo:block>
+
+								<xsl:if test="type-convention/code-ctrl != 'FC'">
+									<fo:block line-height="110%" hyphenate="false"
+											  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+											  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+											  padding-bottom="0.035cm" font-style="italic" text-align="justify">
+										<fo:inline font-weight="bold">
+											El certificado de prácticas
+										</fo:inline>
+										es indispensable para que, previo pago de una cotización,
+										se
+										pueda tener en cuenta
+										las prácticas en los derechos a la
+										jubilación.
+										La legislación sobre
+										jubilaciones (Ley n° 2014-40 de
+										20 de enero
+										de 2014) otorga a los estudiantes
+										<fo:inline font-weight="bold">
+											cuyas prácticas han sido
+											objeto de gratificación
+										</fo:inline>
+										la posibilidad de validarlas, con un
+										<fo:inline font-weight="bold">máximo de dos trimestres,
+										</fo:inline>
+										a condición de pagar una cotización.
+										<fo:inline font-weight="bold">El estudiante debe hacer la
+											solicitud en los dos años
+										</fo:inline>
+										siguientes a la finalización de las prácticas
+										<fo:inline font-weight="bold">debiendo presentar
+											obligatoriamente el certificado de prácticas
+										</fo:inline>
+										indicando la duración total de las mismas y la
+										cuantía total de
+										la
+										gratificación percibida. Solicitar información
+										exacta sobre la
+										cotización a abonar y el procedimiento a seguir
+										a la Seguridad
+										Social
+										(Código de la Seguridad social art.
+										L.351-17
+										-Código de la
+										Educación art.D.124-9).
+									</fo:block>
+									<fo:block line-height="110%" hyphenate="false"
+											  language="fr" country="FR" font-size="7pt" font-family="Times New Roman,serif"
+											  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+											  padding-bottom="0.035cm" font-style="italic" text-align="justify"
+											  background-color="#E6E6E6">
+										(L'attestation de stage est indispensable pour
+										pouvoir, sous
+										réserve du versement d'une
+										cotisation, faire
+										prendre en compte
+										le stage dans les droits à
+										retraite. La
+										législation sur les
+										retraites (loi n°2014-40 du 20
+										Janvier 2014)
+										ouvre aux étudiants
+										dont le stage a été gratifié, la possibilité
+										de faire valider
+										celui-ci dans la limite de deux trimestres,
+										sous réserve du
+										versement d'une cotisation. La demande est à
+										faire par
+										l'étudiant dans les deux années
+										suivant la fin du stage
+										et sur
+										présentation obligatoire de l'attestation de stage
+										mentionnant
+										la durée totale du stage et le montant total de la
+										gratification perçue. Les informations
+										précises sur la
+										cotisation à verser et sur la procédure à suivre
+										sont à demander
+										auprès de la Sécurité sociale (code de la sécurité sociale art.
+										L.351-17 - code de
+										l'éducation art.D.124-9).
+									</fo:block>
+								</xsl:if>
 							</fo:table-cell>
 							<fo:table-cell>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold" font-size="11pt">
 										HECHO EN
 									</fo:inline>
@@ -697,9 +702,9 @@
 								</fo:block>
 
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.1cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.1cm"
+										  padding-bottom="0.035cm">
 									<fo:inline font-weight="bold" font-size="11pt">
 										EL
 									</fo:inline>
@@ -710,31 +715,31 @@
 								</fo:block>
 
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.3cm"
-									padding-bottom="0.035cm">
+										  language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.3cm"
+										  padding-bottom="0.035cm">
 									Nombre, cargo y firma del representante del
 									organismo de acogida
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.1cm"
-									padding-bottom="0.035cm" font-style="italic">
+										  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+										  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.1cm"
+										  padding-bottom="0.035cm" font-style="italic">
 									(Nom, fonction et signature
 									du représentant de
 									l'organisme
 									d'accueil)
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-top="90pt" text-align="center">
+										  language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+										  padding-top="90pt" text-align="center">
 									Fecha de imprenta :
 									<xsl:value-of
-										select="java:format (java:java.text.SimpleDateFormat.new('dd-MM-yyyy kk:mm:ss'), java:java.util.Date.new())" />
+											select="java:format (java:java.text.SimpleDateFormat.new('dd-MM-yyyy kk:mm:ss'), java:java.util.Date.new())" />
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="7pt" font-family="Times New Roman,serif"
-									text-align="center" font-style="italic">
+										  language="fr" country="FR" font-size="7pt" font-family="Times New Roman,serif"
+										  text-align="center" font-style="italic">
 									(Date d'impression : ...)
 								</fo:block>
 							</fo:table-cell>
@@ -747,9 +752,9 @@
 
 	<!-- mises en majuscules -->
 	<xsl:variable name='lowers'
-		select='"abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ"' />
+				  select='"abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ"' />
 	<xsl:variable name='uppers'
-		select='"ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß"' />
+				  select='"ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß"' />
 	<!-- majuscule pour 1er lettre de chaque terme (cas prenom composés) -->
 	<xsl:template name="start_upper">
 		<xsl:param name="prenom" />
@@ -763,9 +768,9 @@
 		<xsl:variable name="clean-temp-prenom">
 			<xsl:choose>
 				<xsl:when
-					test="substring($temp-prenom, string-length($temp-prenom),  string-length($temp-prenom) +1  ) = '-'">
+						test="substring($temp-prenom, string-length($temp-prenom),  string-length($temp-prenom) +1  ) = '-'">
 					<xsl:value-of
-						select='substring($temp-prenom,1, string-length($temp-prenom)-1 )' />
+							select='substring($temp-prenom,1, string-length($temp-prenom)-1 )' />
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:value-of select='$temp-prenom' />
@@ -774,7 +779,7 @@
 		</xsl:variable>
 		<xsl:for-each select='str:split($clean-temp-prenom, " ")'>
 			<xsl:value-of
-				select='concat(
+					select='concat(
           translate(substring(., 1, 1), $lowers, $uppers),
           substring(., 2),
           " "
@@ -785,7 +790,7 @@
 		<xsl:param name="prenom" />
 		<xsl:for-each select='str:split($prenom, "-")'>
 			<xsl:value-of
-				select='concat(
+					select='concat(
           translate(substring(., 1, 1), $lowers, $uppers),
           translate(substring(., 2),$uppers,$lowers),
           "-"

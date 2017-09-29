@@ -52,7 +52,7 @@ public class StatutJuridiqueConverter implements Serializable, Converter {
 					"object " + value + " is not a StatutJuridiqueDTO.");
 		}
 		StatutJuridiqueDTO s = (StatutJuridiqueDTO) value;
-		return ""+s.getId();
+		return Integer.toString(s.getId());
 	}
 	
 	/**

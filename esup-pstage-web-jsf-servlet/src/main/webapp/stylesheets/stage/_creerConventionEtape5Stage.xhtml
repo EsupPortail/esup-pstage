@@ -1,44 +1,29 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:panel
-		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE']}" />
-		</f:facet>
+    <ui:include src="/stylesheets/stage/_formStage.xhtml" />
 
-		<t:htmlTag value="div" style="height: 20px;" />
+    <t:htmlTag value="div" style="height:20px;" />
 
-		<ui:include src="/stylesheets/stage/_conventionEtape5StageForm.xhtml" />
+    <p:outputPanel id="opFCE">
+        <t:div styleClass="textCenter mb10" rendered="#{facesContext.maximumSeverity != null}">
+            <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
+            <h:outputText value="#{msgs['FORM.FORMERROR']}" styleClass="fontBold mr5 ml5"/>
+            <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
+        </t:div>
+    </p:outputPanel>
 
-		<t:htmlTag value="div" style="height:20px;" />
-		<a4j:outputPanel id="opFCE">
-			<h:panelGrid columns="3" align="center" style="margin-bottom:10px;"
-				rendered="#{facesContext.maximumSeverity != null}">
-				<h:graphicImage value="../../media/images/arrow_up.png"
-					alt="#{msgs['GENERAL.ARROW_UP']}"
-					title="#{msgs['GENERAL.ARROW_UP']}" />
-				<h:outputText value="#{msgs['FORM.FORMERROR']}" />
-				<h:graphicImage value="../../media/images/arrow_up.png"
-					alt="#{msgs['GENERAL.ARROW_UP']}"
-					title="#{msgs['GENERAL.ARROW_UP']}" />
-			</h:panelGrid>
-		</a4j:outputPanel>
-		<t:htmlTag value="center">
-			<a4j:commandButton
-				action="#{conventionController.goToCreerConventionCtrlStage}"
-				value="#{msgs['FORM.VALIDER']}"
-				render="opFCE,formConvention,tableEtape5"
-				style="font-size:14px; border:solid 1px;" />
-		</t:htmlTag>
-		<t:htmlTag value="div" style="height: 30px;" />
-		<h:commandButton
-			action="#{conventionController.goToCreerConventionEtape4Contact}"
-			value="#{msgs['FORM.PREVIOUS']}" immediate="true" />
-	</rich:panel>
+    <t:div styleClass="clearFloat textCenter">
+        <p:commandButton id="confirmForm"
+                action="#{conventionController.goToCreerConventionCtrlStage}"
+                value="#{msgs['FORM.VALIDER']}" update="opFCE,@form"/>
+    </t:div>
+
+    <p:commandButton value="#{msgs['FORM.PREVIOUS']}"
+                     action="#{conventionController.retourCreationEtape4}"
+                     immediate="true"
+                     styleClass="mt30 mb20"/>
 </ui:composition>

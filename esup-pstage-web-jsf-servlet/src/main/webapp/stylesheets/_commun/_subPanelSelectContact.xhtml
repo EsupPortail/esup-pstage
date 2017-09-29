@@ -1,139 +1,119 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<f:facet name="header">
-		<h:outputText value="#{msgs['OFFRE.SELECTIONCONTACT']}" />
-	</f:facet>
-	<a4j:outputPanel id="opService" ajaxRendered="true">
-		<t:panelGrid columns="2">
-			<t:panelGroup colspan="2">
-				<h:outputText value="#{msgs['SERVICE.AUCUNSERVICE']}"
-					rendered="#{empty etablissementController.listeServices}"
-					escape="false" />
-			</t:panelGroup>
-			<h:panelGrid columns="2" columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text">
-				<h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
-					escape="false"
-					rendered="#{not empty etablissementController.listeServices}" />
-				<h:selectOneMenu id="sOMService"
-					value="#{etablissementController.idServiceSel}"
-					converter="#{intConverter}"
-					valueChangeListener="#{etablissementController.valueIdServiceChanged}"
-					rendered="#{not empty etablissementController.listeServices}">
-					<f:selectItems value="#{etablissementController.servicesItems}" />
-					<a4j:ajax event="valueChange"
-						render="opContactsDataTable, opActionsService" execute="@this" />
-				</h:selectOneMenu>
-			</h:panelGrid>
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text"
-				rendered="#{empty offreController.centreGestionDepotAnonyme
-			and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
-			welcomeController.admin || welcomeController.personnel || welcomeController.writer)
-			|| (welcomeController.etudiant and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized)
-			|| ((sessionController.autoriserEtudiantAModifierEntreprise ||
-								(!sessionController.autoriserEtudiantAModifierEntreprise 
-								and ((empty etablissementController.serviceSel.loginModif and
-								etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
-								|| (etablissementController.serviceSel.loginModif==sessionController.currentLogin))))))))}">
-				<a4j:outputPanel id="opActionsService" ajaxRendered="true">
-					<a4j:commandLink execute="@this" id="modif"
-						rendered="#{not empty etablissementController.listeServices and 
-					not empty etablissementController.idServiceSel}"
-						oncomplete="#{rich:component('modifService')}.show()"
-						render="modifService">
-						<f:setPropertyActionListener value="#{false}"
-							target="#{etablissementController.memeAdresseStructure}" />
-						<f:setPropertyActionListener
-							value="#{etablissementController.serviceSel}"
-							target="#{etablissementController.formService}" />
-						<f:setPropertyActionListener value="#{false}"
-							target="#{etablissementController.afficherSelectionCentreContact}" />
-						<f:setPropertyActionListener value="_modifServiceEtape1"
-							target="#{sessionController.modifServiceCurrentPage}" />
-						<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-							value="../../media/images/edit.png" style="border:0" />
-						<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
-					</a4j:commandLink>
-				</a4j:outputPanel>
-			</h:panelGrid>
-		</t:panelGrid>
-		<h:panelGrid columns="2" columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text"
-			rendered="#{empty offreController.centreGestionDepotAnonyme}">
-			<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
-			<a4j:commandLink execute="@this" id="ajout"
-				oncomplete="#{rich:component('ajoutService')}.show()"
-				action="#{etablissementController.ajoutService}"
-				render="ajoutService">
-				<f:setPropertyActionListener value="#{true}"
-					target="#{etablissementController.memeAdresseStructure}" />
-				<f:setPropertyActionListener value="_ajoutServiceEtape1"
-					target="#{sessionController.ajoutServiceCurrentPage}" />
-				<h:graphicImage alt="#{msgs['FORM.CREER']}"
-					value="../../media/images/new.png" style="border:0" />
-				<rich:tooltip value="#{msgs['FORM.CREER']}" />
-			</a4j:commandLink>
-		</h:panelGrid>
-	</a4j:outputPanel>
+    <f:facet name="header">
+        <h:outputText value="#{msgs['OFFRE.SELECTIONCONTACT']}" />
+    </f:facet>
 
-	<t:htmlTag value="div" style="height:5px;" />
-	<t:htmlTag value="div"
-		style="height:2px; width:100%; background-color: #{a4jSkin.panelBorderColor};" />
-	<t:htmlTag value="div" style="height:5px;" />
+    <p:fieldset legend="#{msgs['CONTACT.GESTION.SELECTSERVICE']}">
+        <p:outputPanel id="${idOpService}">
+            <h:outputText value="#{msgs['SERVICE.AUCUNSERVICE']}"
+                          rendered="#{empty etablissementController.listeServices}"
+                          escape="false" />
 
-	<a4j:outputPanel id="opContactsDataTable" ajaxRendered="true">
-		<h:panelGrid columns="3" columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text"
-			rendered="#{not empty etablissementController.listeContacts}">
-			<h:outputText value="#{msgs['CONTACT.GESTION.SELECTCONTACT']}"
-				escape="false" />
-			<h:selectOneMenu id="sOMContact"
-				value="#{etablissementController.idContactSel}"
-				converter="#{intConverter}"
-				valueChangeListener="#{etablissementController.valueIdContactChanged}"
-				required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<f:selectItems value="#{etablissementController.contactsItems}" />
-				<a4j:ajax event="valueChange" render="opContact" execute="@this" />
-			</h:selectOneMenu>
-			<rich:message for="sOMContact">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-		</h:panelGrid>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text">
-			<h:outputText value="#{msgs['CONTACT.GESTION.AUCUN']}"
-				rendered="#{not empty etablissementController.serviceSel
-					and not empty etablissementController.listeServices
-					and empty etablissementController.listeContacts}"
-				escape="false" />
-			<h:panelGrid columns="2" columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text"
-				rendered="#{empty offreController.centreGestionDepotAnonyme}">
-				<h:outputText value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}"
-					escape="false"
-					rendered="#{not empty etablissementController.serviceSel
-								and not empty etablissementController.listeServices}" />
-				<a4j:commandLink execute="@this" id="ajoutC"
-					rendered="#{not empty etablissementController.serviceSel
-								and not empty etablissementController.listeServices}"
-					oncomplete="#{rich:component('ajoutContact')}.show()"
-					action="#{etablissementController.ajoutContact}"
-					render="ajoutContact">
-					<f:setPropertyActionListener value="_ajoutContactEtape1"
-						target="#{sessionController.ajoutContactCurrentPage}" />
-					<h:graphicImage alt="#{msgs['FORM.CREER']}"
-						value="../../media/images/new.png" style="border:0" />
-					<rich:tooltip value="#{msgs['FORM.CREER']}" />
-				</a4j:commandLink>
-			</h:panelGrid>
-		</h:panelGrid>
-	</a4j:outputPanel>
+            <t:div rendered="#{not empty etablissementController.listeServices}">
+
+                <h:selectOneMenu id="${idSOMService}" styleClass="customPstage fix-selectOneMenu"
+                                 value="#{etablissementController.idServiceSel}"
+                                 converter="#{intConverter}"
+                                 valueChangeListener="#{etablissementController.valueIdServiceChanged}">
+                    <f:selectItems value="#{etablissementController.servicesItems}" />
+                    <p:ajax event="valueChange"
+                            update="${idOpContactsDataTable}, ${idOpActionsService}, ${idDivButtons}" />
+                </h:selectOneMenu>
+
+                <t:htmlTag value="div" style="height:5px;"/>
+
+                <p:outputPanel id="${idOpActionsService}">
+                    <p:commandLink oncomplete="PF('modifService').show();"
+                                   update="modifService"
+                                   rendered="#{(not empty etablissementController.idServiceSel and not empty etablissementController.serviceSel)
+                        and empty offreController.centreGestionDepotAnonyme
+                        and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+                        welcomeController.admin || welcomeController.personnel || welcomeController.writer)
+                        || (welcomeController.etudiant and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized)
+                        || ((sessionController.autoriserEtudiantAModifierEntreprise ||
+                        (!sessionController.autoriserEtudiantAModifierEntreprise
+                        and ((empty etablissementController.serviceSel.loginModif and
+                        etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
+                        || (etablissementController.serviceSel.loginModif==sessionController.currentLogin))))))))}">
+                        <f:setPropertyActionListener
+                                value="#{false}"
+                                target="#{etablissementController.memeAdresseStructure}" />
+                        <f:setPropertyActionListener
+                                value="#{etablissementController.serviceSel}"
+                                target="#{etablissementController.formService}" />
+                        <f:setPropertyActionListener
+                                value="#{false}"
+                                target="#{etablissementController.afficherSelectionCentreContact}" />
+                        <f:setPropertyActionListener
+                                value="_modifServiceEtape0"
+                                target="#{sessionController.modifServiceCurrentPage}" />
+                        <t:htmlTag value="i" styleClass="fa fa-edit fontBlue2"/>
+                        <h:outputText value="#{msgs['FORM.MODIFIERDONNEES']} du service choisi" styleClass="fz09" />
+                    </p:commandLink>
+                </p:outputPanel>
+            </t:div>
+
+            <t:div styleClass="mt5">
+                <h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" styleClass="fontItalic" />
+                <p:commandButton icon="fa fa-plus fz13" styleClass="ml5 fz09"
+                                 value="#{msgs['STRUCTURE.AJOUT.CREER_2']}"
+                                 action="#{etablissementController.ajoutService}"
+                                 oncomplete="PF('ajoutService').show();"
+                                 update="ajoutService">
+                    <f:setPropertyActionListener
+                            value="#{true}"
+                            target="#{etablissementController.memeAdresseStructure}" />
+                    <f:setPropertyActionListener
+                            value="_ajoutServiceEtape0"
+                            target="#{sessionController.ajoutServiceCurrentPage}" />
+                </p:commandButton>
+            </t:div>
+        </p:outputPanel>
+
+    </p:fieldset>
+
+    <p:outputPanel id="${idOpContactsDataTable}">
+        <p:fieldset legend="#{msgs['CONTACT.GESTION.SELECTCONTACT']}" styleClass="mt20 mb20"
+                    rendered="#{not empty etablissementController.serviceSel
+					and not empty etablissementController.listeServices}">
+
+            <h:outputText value="#{msgs['CONTACT.GESTION.AUCUN']}"
+                          rendered="#{empty etablissementController.listeContacts}"
+                          escape="false" />
+
+            <t:div rendered="#{not empty etablissementController.listeContacts}">
+                <h:selectOneMenu id="${idSOMContact}" styleClass="customPstage fix-selectOneMenu"
+                                 value="#{etablissementController.idContactSel}"
+                                 converter="#{intConverter}"
+                                 valueChangeListener="#{etablissementController.valueIdContactChanged}">
+                    <f:selectItems value="#{etablissementController.contactsItems}" />
+                    <p:ajax event="valueChange" update="#{idOpContactsDataTable}, #{idDivButtons}" />
+                </h:selectOneMenu>
+            </t:div>
+            <t:div styleClass="mt5"
+                   rendered="#{not empty etablissementController.serviceSel
+                    and not empty etablissementController.listeServices}">
+                <h:outputText value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}" styleClass="fontItalic"
+                              escape="false" />
+                <p:commandButton icon="fa fa-plus fz13" styleClass="ml5" style="font-size :11px;"
+                                 value="#{msgs['CONTACT.GESTION.AJOUT.CREER_2']}"
+                                 action="#{etablissementController.ajoutContact}"
+                                 oncomplete="PF('ajoutContact').show();"
+                                 update="ajoutContact">
+                    <f:setPropertyActionListener
+                            value="#{false}"
+                            target="#{etablissementController.afficherSelectionCentreContact}" />
+                    <f:setPropertyActionListener
+                            value="_ajoutContactEtape0"
+                            target="#{sessionController.ajoutContactCurrentPage}" />
+                </p:commandButton>
+            </t:div>
+        </p:fieldset>
+    </p:outputPanel>
 </ui:composition>

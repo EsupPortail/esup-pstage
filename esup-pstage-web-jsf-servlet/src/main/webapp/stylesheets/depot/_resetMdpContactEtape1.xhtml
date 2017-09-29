@@ -1,26 +1,26 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-	<h:column>
-		<h:panelGrid>
-			<h:outputText
-				value="#{msgs['CONTACT.GESTION.COMPTE.RESETMDP.QUESTION']}"
-				escape="false" />
-			<rich:dataTable value="#{etablissementController.formContact}">
-				<ui:include src="../_commun/_contactColumns.xhtml" />
-			</rich:dataTable>
-		</h:panelGrid>
-		<h:panelGrid columns="3">
-			<a4j:commandButton action="#{etablissementController.resetMdp}"
-				value="#{msgs['FORM.RESET']}"
-				render="formResetMdp" />
-			<t:htmlTag value="div" style="width:150px;" />
-			<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
-				onclick="#{rich:component('resetMdpContact')}.hide();"
-				immediate="true"/>
-		</h:panelGrid>
-	</h:column>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:outputText
+            value="#{msgs['CONTACT.GESTION.COMPTE.RESETMDP.QUESTION']}"
+            escape="false" />
+
+    <p:dataTable styleClass="mt10"
+                 value="#{etablissementController.formContact}"
+                 reflow="true" tableStyle="table-layout: auto;">
+        <ui:include src="/stylesheets/_commun/_contactColumns.xhtml" />
+    </p:dataTable>
+
+    <t:div styleClass="textCenter mt20 mb20">
+        <p:commandButton action="#{etablissementController.resetMdp}"
+                         value="#{msgs['FORM.RESET']}"
+                         update="@form" />
+        <p:commandButton value="#{msgs['FORM.ANNULER']}" styleClass="ml40"
+                         onclick="PF('resetMdpContact').hide();"
+                         immediate="true"/>
+    </t:div>
+
 </ui:composition>

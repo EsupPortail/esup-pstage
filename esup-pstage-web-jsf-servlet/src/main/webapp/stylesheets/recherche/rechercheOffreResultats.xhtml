@@ -1,56 +1,48 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j" template="../_basicTemplate.xhtml">
-	<ui:define name="content">
-		<h:panelGrid columns="1" styleClass="panelRecherche">
-			<rich:panel>
-				<f:facet name="header">
-					<h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
-				</f:facet>
-				<h:form id="formRechOffre">
-					<t:div
-						rendered="#{not empty offreController.rechercheOffrePaginator.visibleItems}">
-						<ui:include src="../_commun/_rechercheOffreNbResultats.xhtml" />
-						<rich:dataTable id="rechercheOffreDataTable"
-							value="#{offreController.rechercheOffrePaginator.visibleItems}"
-							var="offre" columnClasses="center">
-							<f:facet name="footer">
-								<rich:dataScroller align="center" for="rechercheOffreDataTable"
-									maxPages="20" page="1" id="listeOffreScroller"
-									renderIfSinglePage="false" />
-							</f:facet>
-							<ui:include src="../_commun/_rechercheOffreResultatsEtudiantColumns.xhtml" />
-							<rich:column>
-								<h:commandLink id="recap"
-									action="#{offreController.goToRecapitulatifOffrePublic}">
-									<h:graphicImage alt="#{msgs['OFFRE.GESTION.DETAILS']}"
-										title="#{msgs['OFFRE.GESTION.DETAILS']}"
-										value="../../media/images/document.png" style="border:0" />
-									<rich:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
-									<f:setPropertyActionListener value="#{offre}" target="#{offreController.currentOffre}" />
-								</h:commandLink>
-<!-- 								<h:outputLink id="recap" -->
-<!-- 									value="#{sessionController.baseUrl}/stylesheets/recherche/detailOffre.xhtml?args=idOffre=#{offre.idOffre}"> -->
-<!-- 									<h:graphicImage alt="#{msgs['OFFRE.GESTION.DETAILS']}" -->
-<!-- 										title="#{msgs['OFFRE.GESTION.DETAILS']}" -->
-<!-- 										value="../../media/images/document.png" style="border:0" /> -->
-<!-- 									<rich:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" /> -->
-<!-- 									<f:setPropertyActionListener value="#{offre}" target="#{offreController.currentOffre}" /> -->
-<!-- 								</h:outputLink> -->
-							</rich:column>
-						</rich:dataTable>
-					</t:div>
-					<h:panelGrid columns="1">
-						<t:htmlTag value="div" style="height: 20px;" />
-						<h:commandButton
-							value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}"
-							action="#{offreController.goToRechercheOffrePublic}" />
-					</h:panelGrid>
-				</h:form>
-			</rich:panel>
-		</h:panelGrid>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui" template="../_basicTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
+            </f:facet>
+            <h:form id="formRechOffre">
+                <t:div rendered="#{not empty offreController.rechercheOffrePaginator.visibleItems}">
+
+                    <ui:include src="/stylesheets/_commun/_rechercheOffreNbResultats.xhtml" />
+
+                    <p:dataTable id="rechercheOffreDataTable"
+                                 value="#{offreController.rechercheOffrePaginator.visibleItems}"
+                                 var="offre" rows="15" rowHover="true" rowStyleClass="noPointer"
+                                 paginator="true" reflow="true" tableStyle="table-layout: auto;"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15,20" paginatorPosition="bottom">
+
+                        <ui:include
+                                src="/stylesheets/_commun/_rechercheOffreResultatsEtudiantColumns.xhtml" />
+
+                        <p:column>
+                            <p:commandLink id="recap"
+                                           action="#{offreController.goToRecapitulatifOffrePublic}">
+                                <h:graphicImage alt="#{msgs['OFFRE.GESTION.DETAILS']}"
+                                                title="#{msgs['OFFRE.GESTION.DETAILS']}"
+                                                value="../../media/images/document.png" />
+                                <p:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
+                                <f:setPropertyActionListener value="#{offre}"
+                                                             target="#{offreController.currentOffre}" />
+                            </p:commandLink>
+                        </p:column>
+                    </p:dataTable>
+                </t:div>
+
+                <t:htmlTag value="div" style="height: 20px;" />
+
+                <p:commandButton value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}"
+                                 action="#{offreController.goToRechercheOffrePublic}"
+                                 update="@form"/>
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>

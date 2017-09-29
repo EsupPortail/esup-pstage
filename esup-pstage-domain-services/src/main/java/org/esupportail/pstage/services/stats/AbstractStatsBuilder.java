@@ -19,7 +19,7 @@ public abstract class AbstractStatsBuilder {
 
 
 
-	private final Logger logger = Logger.getLogger(this.getClass());
+	private final transient Logger logger = Logger.getLogger(this.getClass());
 	private static final double CENT = 100.0;
 	private RemoteServices remoteServices;
 	public RemoteServices getRemoteServices() {

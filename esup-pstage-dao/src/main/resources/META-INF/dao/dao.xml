@@ -44,6 +44,8 @@
 		<property name="ldapStudentIdIsCODETU" value="${ldap.student.id.isCODETU}" />
 		<property name="ldapUserService" ref="ldapUserService" />
 		<property name="ldapAttributes" ref="ldapAttributes" />
+
+		<property name="codesRegimeInscriptionFC" value="${codesRegimeInscriptionFC}" />
 	</bean>
 
 	<bean id="personalComponentRepositoryDaoLdap"

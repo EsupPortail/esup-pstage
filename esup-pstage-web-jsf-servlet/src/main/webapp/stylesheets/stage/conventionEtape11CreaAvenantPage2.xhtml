@@ -1,51 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="../_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<rich:panel
-			rendered="#{conventionController.convention != null and avenantController.avenant != null}">
-			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CONVENTION.ETAPE11.RECAP']} #{conventionController.convention.idConvention}" />
-			</f:facet>
-			<h:form id="formCreaAvenantPage2">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1"
-					style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel rendered="#{conventionController.convention != null and  avenantController.avenant != null}">
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention} #{conventionController.convention.etudiant.nom} #{conventionController.convention.etudiant.prenom}" />
+            </f:facet>
+            <h:form id="formConfirmCreaAvenant">
+                <ui:include src="_roadmapSel.xhtml" />
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20 block">
 
-					<ui:include src="/stylesheets/stage/_conventionEtape11FormAvenantPage2.xhtml" />
-					
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" align="center" columns="1">
-						<h:commandButton
-							value="#{msgs['CONVENTION.ETAPE11.CONFIRMATION']}"
-							action="#{avenantController.creerAvenant}" />
-						<h:outputText id="erreurAjoutAvenant" value="" />
-						<rich:message for="erreurAjoutAvenant">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
-					</h:panelGrid>
-					<br />
+                        <ui:include src="/stylesheets/stage/_detailsAvenant.xhtml" />
 
-					<h:commandButton id="retour" style="float:left;"
-						value="#{msgs['GENERAL.RETOUR']}"
-						action="#{avenantController.rectifierAvenant}">
-						<rich:tooltip value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
-					</h:commandButton>
-					<t:htmlTag value="div" style="height: 20px;" />
-				</h:panelGrid>
-			</h:form>
-		</rich:panel>
-		<t:div
-			rendered="#{conventionController.convention == null || avenantController.avenant == null}">
-			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />
-		</t:div>
-	</ui:define>
+                        <t:div styleClass="textCenter">
+                            <p:commandButton value="#{msgs['CONVENTION.ETAPE11.CONFIRMATION']}"
+                                             action="#{avenantController.creerAvenant}"
+                                             onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                             update="@form" />
+                        </t:div>
+
+                        <t:htmlTag value="div" style="height: 10px;" />
+
+                        <p:message for="formConfirmCreaAvenant"/>
+
+                        <t:htmlTag value="div" style="height: 10px;" />
+
+                        <p:commandButton id="retour" styleClass="mt20"
+                                         value="#{msgs['GENERAL.RETOUR']}" immediate="true"
+                                         action="#{avenantController.rectifierAvenant}"/>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+        </p:panel>
+        <t:div rendered="#{conventionController.convention == null || avenantController.avenant == null}">
+            <ui:include src="./_redirection_accesDirectImpossible.xhtml" />
+        </t:div>
+    </ui:define>
 </ui:composition>

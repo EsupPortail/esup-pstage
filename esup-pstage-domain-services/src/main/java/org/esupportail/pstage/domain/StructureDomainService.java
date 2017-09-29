@@ -163,13 +163,22 @@ public interface StructureDomainService extends Serializable {
 	public boolean updateContactDerniereConnexion(int idContact, Date avantDerniereConnexion) throws DataUpdateException, WebServiceDataBaseException;
 
 	/**
-	 * @param idContact 
+	 * @param idContact
 	 * @return boolean
 	 * @throws DataDeleteException 
 	 * @throws WebServiceDataBaseException 
 	 * @throws ContactDeleteException 
 	 */
 	public boolean deleteContact(int idContact) throws DataDeleteException, WebServiceDataBaseException, ContactDeleteException;
+
+	/**
+	 * @param idService
+	 * @return boolean
+	 * @throws DataDeleteException
+	 * @throws WebServiceDataBaseException
+	 */
+	public boolean deleteComptesContactFromIdService(int idService) throws DataDeleteException, WebServiceDataBaseException;
+
 	/* ****************************************************************************
 	 * SERVICE
 	 *****************************************************************************/

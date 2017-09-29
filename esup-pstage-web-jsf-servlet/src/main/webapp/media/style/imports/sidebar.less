@@ -1,0 +1,334 @@
+@import "commun/variables";
+
+#SIDEBAR_CONTAINER {
+  overflow: hidden;
+  position: fixed;
+  width: @SidebarPhoneWidth;
+  margin: 0;
+  padding: 0;
+  bottom: 0;
+  left: -@SidebarPhoneWidth;
+  top: @TopbarPhoneHeight;
+  box-sizing: border-box;
+  background: @SidebarBackground;
+  z-index: 500;
+  border: 0;
+  -webkit-transition: transform 0.7s;
+  -moz-transition: transform 0.7s;
+  -ms-transition: transform 0.7s;
+  -o-transition: transform 0.7s;
+  transition: transform 0.7s;
+
+  @media (min-width: @MediaTablet) {
+    width: @SidebarTabletWidth;
+    left: 0;
+    top: 0;
+    -webkit-transition: transform 0s !important;
+    -moz-transition: transform 0s !important;
+    -ms-transition: transform 0s !important;
+    -o-transition: transform 0s !important;
+    transition: transform 0s !important;
+    -webkit-transform: translateX(0%) !important;
+    -moz-transform: translateX(0%) !important;
+    -ms-transform: translateX(0%) !important;
+    -o-transform: translateX(0%) !important;
+    transform: translateX(0%) !important;
+  }
+
+  @media (min-width: @MediaPC) {
+    width: @SidebarPCWidth;
+    left: 0;
+    top: 0;
+    -webkit-transition: transform 0s !important;
+    -moz-transition: transform 0s !important;
+    -ms-transition: transform 0s !important;
+    -o-transition: transform 0s !important;
+    transition: transform 0s !important;
+    -webkit-transform: translateX(0%) !important;
+    -moz-transform: translateX(0%) !important;
+    -ms-transform: translateX(0%) !important;
+    -o-transform: translateX(0%) !important;
+    transform: translateX(0%) !important;
+  }
+
+
+  #SIDEBAR {
+    overflow-y: scroll;
+    width: @SidebarPhoneWidth + 17;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    z-index: 500;
+    border: 0;
+
+    @media (min-width: @MediaTablet) {
+      width: @SidebarTabletWidth + 17;
+    }
+
+    @media (min-width: @MediaPC) {
+      width: @SidebarPCWidth + 17;
+    }
+
+    #SIDEBAR_LOGO {
+      display: none;
+
+      @media (min-width: @MediaTablet) {
+        display: block;
+      }
+
+      height: 100px;
+      margin: 0;
+      padding: 0;
+      background: @LogoBackground;
+      border-bottom: 1px solid @Blue2;
+
+      img { // pas utilisé sur phone donc tablet first
+        height: 90px;
+        padding: 5px 0;
+        margin: 0 0 0 (@SidebarTabletWidth / 2);
+        @media (min-width: @MediaPC) {
+          margin: 0 0 0 (@SidebarPCWidth / 2);
+        }
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+        transform: translateX(-50%);
+      }
+    }
+
+    #SIDEBAR_MENU {
+      height: auto;
+      overflow: hidden;
+      padding-top: 10px;
+
+      .ui-button.customPstage {
+        width: 100%;
+        border: 0;
+        background: transparent;
+        box-sizing: border-box;
+        padding: 0;
+        height: @SidebarItemHeightPhone;
+        color: @White;
+        margin: 0;
+        text-align: left;
+        font-weight: bold;
+        font-family: @FontFamily;
+
+        @media (min-width: @MediaTablet) and (max-width: @MediaPC) {
+          height: @SidebarItemHeightTablet;
+          margin: 0 0 10px 0;
+          padding: 0;
+        }
+
+        @media (min-width: @MediaPC) {
+          height: @SidebarItemHeightPC;
+          margin: 0 0 10px 0;
+        }
+
+        & > .ui-button-icon-left {
+          @media (min-width: @MediaTablet) and (max-width: @MediaPC) {
+            //width: @SidebarItemHeightTablet;
+            height: @SidebarItemHeightTablet;
+            font-size: (@SidebarTabletWidth / 2) - 10;
+            margin: 0;
+            padding: 0;
+            top: 3px;
+            left: 0;
+            text-align: center;
+            width: 85%;
+          }
+        }
+
+        & > .ui-button-text {
+          display: block;
+          @media (min-width: @MediaTablet) and (max-width: @MediaPC) {
+            font-size: 0.8em;
+            margin-top: 40px;
+            padding: 0;
+            width: @SidebarTabletWidth * 0.90;
+            margin-left: (@SidebarTabletWidth - (@SidebarTabletWidth * 0.90)) / 2;
+            text-align: center;
+          }
+        }
+
+        &:hover {
+          font-weight: bold;
+          & > * {
+            text-shadow: 2px 2px 2px @Black;
+          }
+        }
+
+        &:active > * {
+          text-shadow: 2px 2px 2px @HalfBlack;
+        }
+
+        &.selected {
+          background: @Blue2;
+          border-radius: 0;
+        }
+
+        &:last-child {
+          padding-left: 27px;
+        }
+
+        & > * {
+          text-shadow: 2px 2px 2px @HalfBlack;
+        }
+      }
+
+      .ui-panelmenu.customPstage {
+        width: 100%;
+        border: 0;
+        background: transparent;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+
+        .ui-panelmenu-header {
+          border: 0;
+          background: transparent;
+          box-sizing: border-box;
+          margin: 0;
+          height: @SidebarItemHeightPhone;
+
+          @media (min-width: @MediaTablet) {
+            height: @SidebarItemHeightPC;
+            margin: 0 0 10px 0;
+          }
+
+          *:first-child {
+            background: transparent;
+            font-family: FontAwesome, sans-serif;
+            text-indent: 0;
+
+            &:before {
+              content: "\f054";
+            }
+          }
+
+          &:hover > * {
+            text-shadow: 2px 2px 2px @Black;
+          }
+
+          &:active > * {
+            text-shadow: 2px 2px 2px @HalfBlack;
+          }
+
+          &.ui-state-active *:first-child:before {
+            content: "\f078";
+          }
+
+          & > * {
+            color: @White;
+            text-shadow: 2px 2px 2px @HalfBlack;
+          }
+
+          a {
+            line-height: @SidebarItemHeightPhone;
+            padding: 0 0 0 27px;
+
+            @media (min-width: @MediaTablet) {
+              line-height: @SidebarItemHeightPC;
+            }
+
+            &:active {
+              border: 0;
+            }
+          }
+        }
+
+        .ui-panelmenu-content {
+          border: 0;
+          margin: 0;
+          padding: 0;
+          background: transparent;
+
+          .ui-menu-list {
+            padding-left: 15px;
+            margin-bottom: 10px;
+
+            .ui-menuitem {
+              margin: 0;
+              padding: 0;
+
+              & > .ui-menuitem-link {
+                border: 0;
+                line-height: (@SidebarItemHeightPhone * 0.75);
+                padding-top: 0;
+                padding-right: 0;
+                padding-bottom: 0;
+                height: (@SidebarItemHeightPhone * 0.75);
+
+                @media (min-width: @MediaTablet) {
+                  height: (@SidebarItemHeightPC * 0.92);
+                  line-height: (@SidebarItemHeightPC * 0.92);
+                }
+
+                & > * {
+                  color: @White;
+                  text-shadow: 2px 2px 2px @HalfBlack;
+                }
+
+                &.selected {
+                  background: @Blue2;
+                  border-radius: 0;
+                }
+
+                &:active > * {
+                  text-shadow: 2px 2px 2px @HalfBlack;
+                }
+
+                &:hover, &.ui-state-hover {
+                  background: transparent;
+                  border: 0;
+
+                  & > * {
+                    text-shadow: 2px 2px 2px @Black;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .menuSidebarPhone {
+        font-size: 13px;
+        //margin: 0 0 0 .5em;
+        h3 {
+          font-size: 13px;
+          color: @White;
+          text-shadow: 2px 2px 2px @HalfBlack;
+        }
+        button.customPstage {
+          opacity: 1;
+          &:active, &:focus {
+            text-shadow: 2px 2px 2px @HalfBlack;
+          }
+        }
+        ul {
+          padding: 0 1em 0 2.1em;
+          list-style: none;
+          margin: 0;
+          //padding:0;
+          //padding: .3em 1em .3em 2.1em;
+          li {
+            a {
+              text-decoration: none;
+              color: @White;
+              text-shadow: 2px 2px 2px @HalfBlack;
+              font-size: 13px;
+              height: @SidebarItemHeightPhone;
+              line-height: @SidebarItemHeightPhone;
+              &:before {
+                margin: 0 .5em 0 0;
+              }
+            }
+          }
+        }
+      }
+
+    }
+  }
+}

@@ -58,7 +58,7 @@ public class EtudiantRef extends EtudiantDTO implements Serializable{
 	/**
 	 * liste des Elps.
 	 */
-	public List<ElementPedagogique> listeELPs = new ArrayList<ElementPedagogique>();
+	private List<ElementPedagogique> listeELPs = new ArrayList<ElementPedagogique>();
 	
 	/**
 	 * le code Elp 
@@ -125,7 +125,7 @@ public class EtudiantRef extends EtudiantDTO implements Serializable{
 	/**
 	 * liste etape - version etape inscriptions
 	 */
-	public List<EtapeInscription> listeEtapeInscriptions;
+	private List<EtapeInscription> listeEtapeInscriptions;
 	
 	/**
 	 * Affiliation a la securite sociale
@@ -140,15 +140,24 @@ public class EtudiantRef extends EtudiantDTO implements Serializable{
 	/**
 	 * administrationApogee
 	 */
-	private AdministrationApogee administrationApogee;		
-	
-	/* **
-	 * Objets
+	private AdministrationApogee administrationApogee;
+
+	/**
+	 * liste des annees d'inscription disponibles
 	 */
 	private List<String> listeAnneesUniv;
 
+	/**
+	 * volumeHoraire de l'etape d'inscription choisie
+	 */
+	private String volumeHoraireFormation= "";
 
-	
+	/**
+	 * Liste des eventuelles années d'inscription en FC pour l'etudiant
+	 */
+	private List<String> anneesInscriptionFC;
+
+
 	/**
 	 * Constructeur
 	 */
@@ -588,7 +597,19 @@ public class EtudiantRef extends EtudiantDTO implements Serializable{
 	}
 
 
-	
-	
+	public String getVolumeHoraireFormation() {
+		return volumeHoraireFormation;
+	}
 
+	public void setVolumeHoraireFormation(String volumeHoraireFormation) {
+		this.volumeHoraireFormation = volumeHoraireFormation;
+	}
+
+	public List<String> getAnneesInscriptionFC() {
+		return anneesInscriptionFC;
+	}
+
+	public void setAnneesInscriptionFC(List<String> anneesInscriptionFC) {
+		this.anneesInscriptionFC = anneesInscriptionFC;
+	}
 }

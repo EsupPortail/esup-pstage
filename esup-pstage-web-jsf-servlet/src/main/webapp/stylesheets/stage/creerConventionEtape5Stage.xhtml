@@ -1,21 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="../_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmap.xhtml" />
-		<rich:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.TITRE']}" />
-			</f:facet>
-			<h:form id="formConvention">
-				<ui:include src="/stylesheets/stage/#{sessionController.creationConventionEtape5CurrentPage}.xhtml" />
-			</h:form>
-		</rich:panel>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE']}" />
+            </f:facet>
+            <h:form id="formConvention">
+                <ui:include src="_roadmap.xhtml" />
+                <t:fieldset>
+                    <t:div styleClass="mt20 ml30 block">
+                        <ui:include src="/stylesheets/stage/#{sessionController.creationConventionEtape5CurrentPage}.xhtml" />
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+        </p:panel>
+        <t:htmlTag value="div" style="height:300px;"/>
+    </ui:define>
 </ui:composition>

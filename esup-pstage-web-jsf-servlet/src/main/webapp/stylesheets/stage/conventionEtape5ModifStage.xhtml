@@ -1,31 +1,44 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="../_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<rich:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']}" />
-			</f:facet>
-			<h:form id="formSelConvention">
-				<h:panelGrid columns="1">
-					<f:facet name="header">
-						<h:outputText value="#{msgs['CONVENTION.ETAPE5.STAGE']}" />
-					</f:facet>
-					<t:htmlTag value="div" style="height: 20px;" />
-					<h:outputText value="" />
-					<h:panelGrid columns="1">
-						<ui:include
-							src="/stylesheets/stage/_conventionEtape5ModifStage.xhtml" />
-					</h:panelGrid>
-				</h:panelGrid>
-			</h:form>
-		</rich:panel>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention} #{conventionController.convention.etudiant.nom} #{conventionController.convention.etudiant.prenom}" />
+            </f:facet>
+            <h:form id="formSelConvention">
+                <ui:include src="_roadmapSel.xhtml" />
+
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20 block">
+
+                        <ui:include src="/stylesheets/stage/_formStage.xhtml" />
+
+                        <p:outputPanel id="opFCE">
+                            <t:div styleClass="textCenter mb10" rendered="#{facesContext.maximumSeverity != null}">
+                                <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
+                                <h:outputText value="#{msgs['FORM.FORMERROR']}" styleClass="fontBold mr5 ml5"/>
+                                <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
+                            </t:div>
+                        </p:outputPanel>
+
+                        <t:div styleClass="textCenter mt10">
+                            <p:commandButton id="modifStage"
+                                             value="#{msgs['FORM.MODIFIER']}"
+                                             action="#{conventionController.modifierStageDetail}"
+                                             rendered="#{not empty conventionController.convention}"
+                                             update="@form" />
+                        </t:div>
+
+                        <p:commandButton value="#{msgs['GENERAL.RETOUR']}"
+                                         action="conventionEtape5Stage"
+                                         immediate="true" styleClass="mt20"/>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>

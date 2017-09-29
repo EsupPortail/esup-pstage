@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+
+    <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+    <h:outputText value="#{msgs['CONVENTION.ETAPE2.RECHERCHE.ETAB']}" styleClass="ml5" escape="false"/>
+
+    <t:div styleClass="mt20 ml40">
+        <h:outputText value="#{msgs['CONVENTION.MINIRECHNUMOFFRE.TITRE']}" escape="false" />
+        <t:div styleClass="mt5 ml5">
+            <p:autoComplete minQueryLength="5" itemValue="#{rechOffre}"
+                            completeMethod="#{conventionController.suggestOffre}"
+                            converter="#{offreConverter}"
+                            var="rechOffre" forceSelection="true">
+                <p:ajax event="itemSelect" listener="#{conventionController.onOffreSelect}" update="@form"/>
+                <p:column>
+                    <h:outputText value="Offre n°#{rechOffre.idOffre}"
+                                  styleClass="fontBold"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{rechOffre.intitule}">
+                        <f:converter binding="#{limitCharactersShownUpTo30Converter}" />
+                    </h:outputText>
+                </p:column>
+                <p:column
+                        rendered="#{not empty rechOffre.structure}">
+                    <h:outputText value="#{rechOffre.structure.raisonSociale}">
+                        <f:converter binding="#{limitCharactersShownUpTo30Converter}" />
+                    </h:outputText>
+                </p:column>
+                <p:column
+                        rendered="#{not empty rechOffre.typeOffre}">
+                    <h:outputText value="#{rechOffre.typeOffre.libelle}" />
+                </p:column>
+                <p:column
+                        rendered="#{not empty rechOffre.contratOffre}">
+                    <h:outputText value="#{rechOffre.contratOffre.libelle}" />
+                </p:column>
+            </p:autoComplete>
+            <h:outputText value="#{msgs['CONVENTION.MINIRECHNUMOFFRE.MINIMUM']}"
+                          styleClass="ml5" style="font-size:10px;" />
+        </t:div>
+        <t:div style="height:20px;" />
+        <h:outputText value="#{msgs['CONVENTION.ETAPE1.RECHERCHE.OFFRE']}" styleClass="fontBold"/>
+        <p:inputText id="idOffre" size="10" styleClass="ml5"
+                     value="#{conventionController.numOffreConvention}"
+                     validatorMessage="#{requiredMessageController.superieurA0}">
+            <f:validator binding="#{entierValidator}" />
+            <f:validateLongRange minimum="1" />
+        </p:inputText>
+    </t:div>
+
+    <t:div styleClass="textCenter mt20 mb5">
+        <p:commandButton action="#{conventionController.rechercheNumOffre}"
+                         update="formConvention" value="#{msgs['FORM.RECHERCHER']}"
+                         icon="fa fa-search"
+                         onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
+            <f:setPropertyActionListener value="_creerConventionEtape1Offre"
+                                         target="#{conventionController.retourAction}" />
+        </p:commandButton>
+    </t:div>
+    <p:messages />
+
+    <p:commandButton value="#{msgs['FORM.PREVIOUS']}"
+                     immediate="true" update="@form"
+                     styleClass="mt20 mb20">
+        <f:setPropertyActionListener
+                value="_creerConventionEtape2DemandeLienOffre"
+                target="#{sessionController.creationConventionEtape2CurrentPage}" />
+    </p:commandButton>
+</ui:composition>

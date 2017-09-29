@@ -1,37 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="../_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<rich:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
-			</f:facet>
-			<h:form id="formRechOffre">
-				<ui:include src="../_commun/_rechercheOffre.xhtml" />
-				<h:panelGrid columns="5">
-					<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHER']}"
-						action="#{offreController.rechercherOffre}" />
-					<t:htmlTag value="div" style="width: 100px;" />
-					<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHESIMPLE']}"
-						action="#{offreController.rechercheSimpleAvancee}"
-						rendered="#{offreController.rechercheAvancee}" />
-					<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHEAVANCEE']}"
-						action="#{offreController.rechercheSimpleAvancee}"
-						rendered="#{!offreController.rechercheAvancee}" />
-					<t:htmlTag value="div" style="width: 20px;" />
-					<h:commandButton value="#{msgs['RECHERCHEOFFRE.REINIT']}"
-						action="#{offreController.resetRechercheOffre}" />
-				</h:panelGrid>
-			</h:form>
-			<rich:message for="formRechOffre" style="color:red;font-weight:bold;">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-		</rich:panel>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
+            </f:facet>
+            <h:form id="formRechOffre" styleClass="block"
+                    onkeypress="if (event.keyCode == 13) { document.getElementById('formRechOffre:rechercherOffre').click(); return false; }">
+                <t:div>
+                    <p:selectOneButton value="#{offreController.rechercheAvancee}" styleClass="customRecherche">
+                        <f:selectItem itemLabel="#{msgs['RECHERCHEOFFRE.RECHERCHESIMPLE']}" itemValue="#{false}" />
+                        <f:selectItem itemLabel="#{msgs['RECHERCHEOFFRE.RECHERCHEAVANCEE']}" itemValue="#{true}" />
+                        <p:ajax event="change" update="@form" onstart="PF('statusDialog').show();"
+                                oncomplete="PF('statusDialog').hide();"/>
+                    </p:selectOneButton>
+                    <p:commandButton value="#{msgs['RECHERCHEOFFRE.REINIT']}" ajax="false"
+                                     action="#{offreController.resetRechercheOffre}" styleClass="floatRight"/>
+                </t:div>
+
+                <t:htmlTag value="div" style="height: 10px;" />
+
+                <ui:include src="/stylesheets/_commun/_rechercheOffre.xhtml" />
+
+                <t:div styleClass="mt10 textCenter fz16">
+                    <p:commandButton id="rechercherOffre" value="#{msgs['RECHERCHEOFFRE.RECHERCHER']}" update="@form"
+                                     action="#{offreController.rechercherOffre}" icon="fa fa-search fz13"
+                                     onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+                </t:div>
+                <p:messages />
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>

@@ -39,7 +39,7 @@ public class AuthenticatorImpl implements Serializable, InitializingBean, Authen
 	/**
 	 * A logger.
 	 */
-	private final Logger logger = new LoggerImpl(getClass());
+	private final transient Logger logger = new LoggerImpl(getClass());
 	
 	/**
 	 * The external authenticator.

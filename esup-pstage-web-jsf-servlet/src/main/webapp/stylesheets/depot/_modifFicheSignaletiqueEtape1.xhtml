@@ -1,34 +1,104 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-	<h:panelGrid columns="1"
-		style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
-		<t:aliasBean alias="#{structure}"
-			value="#{sessionController.currentManageStructure}">
-			<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
-		</t:aliasBean>
-		<h:panelGrid columns="1" style="float:right;"
-			rendered="#{sessionController.adminPageAuthorized}">
-			<t:aliasBean alias="#{objet}"
-				value="#{sessionController.currentManageStructure}">
-				<ui:include src="../_commun/_updateInfos.xhtml" />
-			</t:aliasBean>
-		</h:panelGrid>
-		<h:commandLink
-			rendered="#{not empty sessionController.currentManageStructure}"
-			action="#{etablissementController.goToModifierFicheSignaletique}">
-			<f:ajax render="formModifEtab" />
-			<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-				title="#{msgs['FORM.MODIFIER']}" value="../../media/images/edit.png"
-				style="border:0" />
-			<h:outputText value=" #{msgs['FORM.MODIFIER']}" />
-		</h:commandLink>
-		<h:panelGrid align="center">
-			<rich:messages style="font-size:16px;"/>
-		</h:panelGrid>
-		<t:htmlTag value="div" style="height:5px;" />
-	</h:panelGrid>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+
+    <t:div styleClass="floatRight">
+        <t:aliasBean alias="#{objet}"
+                     value="#{sessionController.currentManageStructure}">
+            <ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
+        </t:aliasBean>
+    </t:div>
+    <t:aliasBean alias="#{structure}"
+                 value="#{sessionController.currentManageStructure}">
+        <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
+        <h:outputText value="#{msgs['STRUCTURE.INFOS']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
+        <ui:include src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
+    </t:aliasBean>
+
+    <t:div styleClass="mt5 ml20 fz09">
+        <p:commandButton value="#{msgs['FORM.MODIFIER']} ces informations"
+                         icon="fa fa-edit fz13" update="formModifEtab"
+                         action="#{etablissementController.goToModifierFicheSignaletique}"
+                         onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                         rendered="#{not empty sessionController.currentManageStructure}" />
+    </t:div>
+
+    <p:fieldset styleClass="mt10" rendered="#{sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure.accordPartenariat}">
+        <f:facet name="legend">
+            <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2 mrf5"/>
+            <h:outputText value="#{msgs['STRUCTURE.AVECACCORD']}"
+                          escape="false" styleClass="fontBold" />
+        </f:facet>
+
+        <t:div styleClass="mt5" rendered="#{sessionController.currentManageStructure.accordPartenariat.estValide}">
+            <t:htmlTag value="i" styleClass="fa fa-check fz16 fontGreen mrf5"/>
+            <h:outputText value="#{msgs['ACCORD.DEJAVALIDE']}" escape="false" styleClass="fontBold fontGreen" />
+
+            <t:htmlTag value="div" style="height:5px;" />
+
+            <h:outputText value="#{msgs['ACCORD.DATECREATION']}" escape="false" styleClass="fontBold" />
+            <h:outputText value="#{sessionController.currentManageStructure.accordPartenariat.dateCreation}"
+                          styleClass="mlf5">
+                <f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+            </h:outputText>
+
+            <t:htmlTag value="div" style="height:5px;" />
+
+            <h:outputText value="#{msgs['ACCORD.DATEVALIDATION']}" escape="false" styleClass="fontBold"/>
+            <h:outputText value="#{sessionController.currentManageStructure.accordPartenariat.dateValidation}"
+                          styleClass="mlf5">
+                <f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+            </h:outputText>
+            <h:outputText value="#{msgs['GENERAL.UPDATEINFOS.PAR']}" styleClass="mlf5" />
+            <h:outputText value="#{sessionController.currentManageStructure.accordPartenariat.loginValidation}"
+                          styleClass="mlf5" />
+        </t:div>
+
+        <t:div styleClass="mt5" rendered="#{!sessionController.currentManageStructure.accordPartenariat.estValide}">
+            <t:htmlTag value="i" styleClass="fa fa-times fz16 fontRed mrf5"/>
+            <h:outputText value="#{msgs['ACCORD.EXIST_INVALIDE']}" escape="false" styleClass="fontBold fontRed" />
+
+            <t:htmlTag value="div" style="height:5px;" />
+
+            <h:outputText value="#{msgs['ACCORD.DATECREATION']}" escape="false" styleClass="fontBold" />
+            <h:outputText value="#{sessionController.currentManageStructure.accordPartenariat.dateCreation}"
+                          styleClass="mlf5">
+                <f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+            </h:outputText>
+        </t:div>
+        
+        <t:div styleClass="mt10 ml20 mb20">
+            <p:commandButton id="consulterAccord" value="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+                             icon="fa fa-search fz13" styleClass="mr10"
+                             action="#{adminController.goToConsulterAccord}"
+                             onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                             rendered="#{sessionController.currentManageStructure.accordPartenariat.estValide}">
+                <f:setPropertyActionListener value="#{sessionController.currentManageStructure}"
+                                             target="#{adminController.structureAccord}" />
+                <f:setPropertyActionListener value="ficheSignaletique"
+                                             target="#{adminController.retourAction}" />
+            </p:commandButton>
+            <p:commandButton id="validerAccord" value="#{msgs['FORM.VALIDER']} l'accord" icon="fa fa-check fz13"
+                             action="#{adminController.goToValidationAccord}"
+                             onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                             rendered="#{!sessionController.currentManageStructure.accordPartenariat.estValide}">
+                <f:setPropertyActionListener value="#{sessionController.currentManageStructure}"
+                                             target="#{adminController.structureAccordAValider}" />
+                <f:setPropertyActionListener value="ficheSignaletique"
+                                             target="#{adminController.retourAction}" />
+            </p:commandButton>
+            <p:commandButton id="supprimerAccord" value="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
+                             styleClass="ml10" icon="fa fa-times fz13"
+                             oncomplete="PF('supprimerAccordPanel').show();"
+                             rendered="#{sessionController.adminPageAuthorized}"
+                             update="supprimerAccordPanel">
+                <f:setPropertyActionListener value="#{sessionController.currentManageStructure}"
+                                             target="#{adminController.accordASupprimer}" />
+                <f:setPropertyActionListener value="_supprAccordEtape1"
+                                             target="#{sessionController.suppressionAccordCurrentPage}" />
+            </p:commandButton>
+        </t:div>
+    </p:fieldset>
 </ui:composition>

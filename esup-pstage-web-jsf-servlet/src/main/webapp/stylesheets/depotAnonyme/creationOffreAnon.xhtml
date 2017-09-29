@@ -1,0 +1,34 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="../_basicTemplate.xhtml">
+    <ui:define name="content">
+        <t:div rendered="#{not empty offreController.centreGestionDepotAnonyme}">
+            <p:panel>
+                <f:facet name="header">
+                    <h:outputText value="#{msgs['DEPOTANONYME.CREATION']} " />
+                </f:facet>
+                <h:form id="formCreationOffre">
+                    <p:fieldset styleClass="block">
+                        <t:div styleClass="mt10 ml30">
+                            <ui:include src="/stylesheets/_commun/#{sessionController.creationOffreStageCurrentPage}.xhtml" />
+                            <p:message for="formCreationOffre" />
+                        </t:div>
+                    </p:fieldset>
+                </h:form>
+                <ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
+                <ui:include src="/stylesheets/_commun/_panelModifService.xhtml" />
+                <ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
+                <ui:include src="/stylesheets/_commun/_panelModifContact.xhtml" />
+                <ui:include src="/stylesheets/_commun/_subPanelSelectContactCand.xhtml">
+                    <ui:param name="idForm" value="formCreationOffre" />
+                </ui:include>
+                <ui:include src="/stylesheets/_commun/_subPanelSelectContactInfo.xhtml">
+                    <ui:param name="idForm" value="formCreationOffre" />
+                </ui:include>
+            </p:panel>
+        </t:div>
+    </ui:define>
+</ui:composition>

@@ -52,7 +52,7 @@ public class IndemnisationConverter implements Serializable, Converter {
 					"object " + value + " is not a IndemnisationDTO.");
 		}
 		IndemnisationDTO e = (IndemnisationDTO) value;
-		return ""+e.getId();
+		return Integer.toString(e.getId());
 	}
 	
 	/**

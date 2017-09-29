@@ -217,11 +217,6 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	//	}
 	public List<ConventionDTO> getConventionsFromExport(List<Integer> idsConventionsExport) {
 		List<ConventionDTO> lc = this.remoteServices.getConventionsFromExport(idsConventionsExport);
-		if(lc!=null){
-			for(ConventionDTO c : lc){
-				setObjectsExport(c);
-			}
-		}
 		return lc;
 	}
 
@@ -273,7 +268,7 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	}
 
 	/**
-	 * @see org.esupportail.pstagedata.domain.ConventionDomainService#updateConventionValidation(org.esupportail.pstagedata.domain.dto.ConventionDTO)
+	 * @see org.esupportail.pstage.domain.ConventionDomainService#updateConventionValidation(ConventionDTO)
 	 */
 	public boolean updateConventionValidation(ConventionDTO convention)
 			throws DataUpdateException, WebServiceDataBaseException {

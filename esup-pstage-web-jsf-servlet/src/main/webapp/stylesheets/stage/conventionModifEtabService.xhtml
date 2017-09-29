@@ -1,0 +1,119 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention} #{conventionController.convention.etudiant.nom} #{conventionController.convention.etudiant.prenom}" />
+            </f:facet>
+            <h:form id="formSelConvention">
+                <ui:include src="_roadmapSel.xhtml" />
+
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20 block">
+
+                        <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
+                        <h:outputText value="#{msgs['CONVENTION.ETAPE2.MODIFSERVICE']}"
+                                      styleClass="fontBold fontBlue2 fz16 ml5"
+                                      escape="false"/>
+
+                        <t:htmlTag value="div" style="height: 10px;" />
+
+                        <t:div styleClass="ml20">
+                            <t:div rendered="#{empty etablissementController.listeServices}"
+                                   styleClass="fontRed">
+                                <t:htmlTag value="i" styleClass="fa fa-ban"/>
+                                <h:outputText value="#{msgs['SERVICE.AUCUNSERVICE']}"
+                                              styleClass="ml5" escape="false" />
+                            </t:div>
+                            <t:div rendered="#{not empty etablissementController.listeServices}">
+                                <h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
+                                              escape="false" />
+                                <h:selectOneMenu id="sOMService" styleClass="customPstage fix-selectOneMenu mt5"
+                                                 value="#{etablissementController.idServiceSel}"
+                                                 converter="#{intConverter}"
+                                                 valueChangeListener="#{etablissementController.valueIdServiceChanged}">
+                                    <f:selectItems value="#{etablissementController.servicesItems}" />
+                                    <p:ajax event="valueChange" update="actionsService" />
+                                </h:selectOneMenu>
+                            </t:div>
+
+                            <t:div id="actionsService" styleClass="mt10"
+                                   rendered="#{not empty etablissementController.listeServices}">
+                                <h:outputText value="#{msgs['CONTACT.GESTION.SERVICESELECT']} : "
+                                              escape="false" />
+                                <p:dataTable value="#{etablissementController.serviceSel}" var="service"
+                                             rows="5" rowHover="true" rowStyleClass="noPointer"
+                                             paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="5,10,15,20" styleClass="mt5"
+                                             reflow="true" tableStyle="table-layout: auto;">
+
+                                    <ui:include src="/stylesheets/_commun/_serviceColumns.xhtml" />
+
+                                    <p:column styleClass="background-color-grey textCenter">
+                                        <f:facet name="header">
+                                            <t:div>
+                                                <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2"/>
+                                                <h:outputText value="#{msgs['GENERAL.ACTIONS']}" styleClass="ml5"/>
+                                            </t:div>
+                                        </f:facet>
+                                        <p:commandLink id="modif" oncomplete="PF('statusDialog').hide(); PF('modifService').show();"
+                                                       update="modifService"
+                                                       action="#{etablissementController.modifService}"
+                                                       onstart="PF('statusDialog').show();"
+                                                       rendered="#{((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+                                            welcomeController.admin || welcomeController.personnel || welcomeController.writer)
+                                            || (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
+                                            (!sessionController.autoriserEtudiantAModifierEntreprise
+                                            and ((empty service.loginModif and service.loginCreation==sessionController.currentLogin)
+                                            || (service.loginModif==sessionController.currentLogin)))))))}">
+                                            <f:setPropertyActionListener value="#{false}"
+                                                                         target="#{etablissementController.memeAdresseStructure}" />
+                                            <f:setPropertyActionListener value="#{service}"
+                                                                         target="#{etablissementController.formService}" />
+                                            <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontBlue2"/>
+                                            <p:tooltip for="modif" value="#{msgs['FORM.MODIFIER']}" />
+                                        </p:commandLink>
+
+                                        <p:commandButton id="selC" styleClass="fontBlue2"
+                                                         value="#{msgs['FORM.SELECTIONNER']}"
+                                                         action="#{conventionController.goToConventionModifEtabServiceContact}">
+                                            <f:setPropertyActionListener
+                                                    value="#{service}"
+                                                    target="#{conventionController.convention.service}" />
+                                        </p:commandButton>
+                                    </p:column>
+                                </p:dataTable>
+                            </t:div>
+                        </t:div>
+
+                        <t:div styleClass="mt20 ml40">
+                            <h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" styleClass="fontBold"/>
+                            <p:commandButton id="ajout" icon="fa fa-plus fz13" styleClass="ml5"
+                                             value="#{msgs['STRUCTURE.AJOUT.CREER_2']}"
+                                             action="#{etablissementController.ajoutService}"
+                                             oncomplete="PF('ajoutService').show();"
+                                             update="ajoutService">
+                                <f:setPropertyActionListener value="#{true}"
+                                                             target="#{etablissementController.memeAdresseStructure}" />
+                                <f:setPropertyActionListener value="_ajoutServiceEtape0"
+                                                             target="#{sessionController.ajoutServiceCurrentPage}" />
+                            </p:commandButton>
+                        </t:div>
+
+                        <p:commandButton value="#{msgs['GENERAL.RETOUR']}"
+                                         action="#{conventionController.goToRetourAction}"
+                                         immediate="true" styleClass="mt20"/>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+            <ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelModifService.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelSupprService.xhtml" />
+        </p:panel>
+    </ui:define>
+</ui:composition>

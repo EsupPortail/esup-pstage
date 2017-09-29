@@ -1,17 +1,16 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:popupPanel id="supprService" autosized="true"	styleClass="panel">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['SERVICE.SUPPR']}" />
-		</f:facet>
-		<h:form id="formSupprService">
-			<ui:include src="/stylesheets/_commun/#{sessionController.suppressionServiceCurrentPage}.xhtml" />
-		</h:form>
-	</rich:popupPanel>
+    <p:dialog id="supprService" widgetVar="supprService" resizable="false" modal="true" closable="false">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['SERVICE.SUPPR']}" />
+        </f:facet>
+        <h:form id="formSupprService" styleClass="block">
+            <ui:include src="/stylesheets/_commun/#{sessionController.suppressionServiceCurrentPage}.xhtml" />
+        </h:form>
+    </p:dialog>
 </ui:composition>

@@ -1,27 +1,18 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1">
-		<h:outputText value="#{msgs['SERVICE.SUPPR.QUESTION']}"
-			escape="false" />
-		<rich:dataTable value="#{etablissementController.serviceSel}">
-			<ui:include src="../_commun/_serviceColumns.xhtml" />
-		</rich:dataTable>
-		<t:htmlTag value="div" style="height:5px;" />
-		<h:panelGrid columns="3">
-			<a4j:commandButton
-				action="#{etablissementController.supprimerService}"
-				value="#{msgs['FORM.SUPPRIMER']}"
-				render="opService, opActionsService, opContactsDataTable, formSupprService" />
-			<t:htmlTag value="div" style="width: 50px;" />
-			<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
-				onclick="#{rich:component('supprService')}.hide();"
-				immediate="true" />
-		</h:panelGrid>
-	</h:panelGrid>
+    <h:outputText value="#{msgs['SERVICE.SUPPR.QUESTION']}"
+                  escape="false" />
+
+    <t:div styleClass="textCenter mt20 mb20">
+        <p:commandButton action="#{etablissementController.supprimerService}"
+                         value="#{msgs['FORM.SUPPRIMER']}"
+                         update="@form" />
+        <p:commandButton value="#{msgs['FORM.ANNULER']}"
+                         onclick="PF('supprService').hide();"
+                         immediate="true" styleClass="ml40" />
+    </t:div>
 </ui:composition>

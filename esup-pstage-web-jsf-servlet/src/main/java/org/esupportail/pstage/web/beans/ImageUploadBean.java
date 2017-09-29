@@ -16,9 +16,11 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+import org.esupportail.commons.services.logging.Logger;
+import org.esupportail.commons.services.logging.LoggerImpl;
 import org.esupportail.pstage.utils.Utils;
-import org.richfaces.event.FileUploadEvent;
-import org.richfaces.model.UploadedFile;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 /**
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr
@@ -49,8 +51,13 @@ public class ImageUploadBean{
 	private String extension;
 
 	/**
+	 * A logger.
+	 */
+	private final Logger logger = new LoggerImpl(this.getClass());
+
+	/**
 	 * Constructeur
-	 * @param directory 
+	 * @param directory
 	 */
 	public ImageUploadBean(String directory) {
 		this.directory=directory;
@@ -61,14 +68,12 @@ public class ImageUploadBean{
 	 * @param event the upload event
 	 */
 	public void imageUploadListener(FileUploadEvent event) {
-		if (event == null) {
-			//			logger.warn("Invalid upload event");
-		} else {
+		if (event != null) {
 			// on recupere l'item envoye
-			UploadedFile uploadItem = event.getUploadedFile();
-			String imageName = uploadItem.getName();
+			UploadedFile uploadItem = event.getFile();
+			String imageName = uploadItem.getFileName();
 
-			int i=imageName.lastIndexOf(".");
+			int i=imageName.lastIndexOf('.');
 			this.extension="";
 			if(i>0){
 				this.extension=imageName.substring(i+1);
@@ -79,16 +84,12 @@ public class ImageUploadBean{
 			if (this.prefix >=0)
 				imageName = this.prefix+"_"+imageName;
 
-			//code ici on recupere le path vers le repertoire ou stocker le fichier
+			// ici on recupere le path vers le repertoire ou stocker le fichier
 			File fileToWrite = new File(this.directory + File.separator + imageName);
 			ByteArrayInputStream is = null;
 			FileOutputStream fos = null;
 			try {
-//				test = scaleImage(uploadItem.getInputStream(), 300, 300, this.extension);
-//				in = ((FileInputStream)test).getChannel();
-//				out = new FileOutputStream(fileToWrite).getChannel();
-//				in.transferTo(0, in.size(), out);
-				is = (ByteArrayInputStream) scaleImage(new BufferedInputStream((FileInputStream)uploadItem.getInputStream()), 300, 300,this.extension);
+				is = (ByteArrayInputStream) scaleImage(new BufferedInputStream((FileInputStream)uploadItem.getInputstream()), 300, 300,this.extension);
 				fos = new FileOutputStream(fileToWrite);
 				int data;
 				while((data=is.read())!=-1){
@@ -96,27 +97,24 @@ public class ImageUploadBean{
 					fos.write(ch);
 				}
 				fos.flush();
-			}catch (IOException ex1){ 
-				ex1.printStackTrace();
-				//
+			}catch (IOException ex1){
+				logger.error(ex1);
 			}catch (Exception e){
-				e.printStackTrace();
+				logger.error(e);
 			}finally{ // fermeture des filechannel
-				if(is != null){
-					try{
+				try{
+					if (is != null) {
 						is.close();
-					}catch(IOException e){
-						e.printStackTrace();
-						//logger.error("Can't close input file channel");
 					}
-					if(fos != null){
-						try{
-							fos.close();
-						}catch (IOException e){
-							e.printStackTrace();
-							// logger.error("Can't close ouput file channel");
-						}
+				}catch(IOException e){
+					logger.error(e);
+				}
+				try{
+					if (fos != null) {
+						fos.close();
 					}
+				}catch (IOException e){
+					logger.error(e);
 				}
 			}
 		}
@@ -127,11 +125,11 @@ public class ImageUploadBean{
 	 * @param p_image
 	 * @param p_width
 	 * @param p_height
-	 * @param extension 
+	 * @param extension
 	 * @return ByteArrayOutputStream
 	 * @throws Exception
 	 */
-	public static InputStream scaleImage(InputStream p_image, int p_width, int p_height, String extension) throws Exception {
+	public static InputStream scaleImage(InputStream p_image, int p_width, int p_height, String extension) throws IOException {
 
 		InputStream imageStream = new BufferedInputStream(p_image);
 		Image image = ImageIO.read(imageStream);
@@ -142,7 +140,7 @@ public class ImageUploadBean{
 
 		if (imageWidth > 300 || imageHeight > 300){
 			thumbWidth = p_width;
-			thumbHeight = p_height;        
+			thumbHeight = p_height;
 		} else {
 			thumbWidth = imageWidth;
 			thumbHeight =imageHeight;
@@ -157,8 +155,8 @@ public class ImageUploadBean{
 			thumbWidth = (int)(thumbHeight * imageRatio);
 		}
 
-		BufferedImage thumbImage = null;
-		Graphics2D graphics2D = null;
+		BufferedImage thumbImage;
+		Graphics2D graphics2D;
 		thumbImage = new BufferedImage(thumbWidth, thumbHeight, BufferedImage.TYPE_INT_RGB);
 		graphics2D = thumbImage.createGraphics();
 		// Gestion image transparence
@@ -173,20 +171,20 @@ public class ImageUploadBean{
 		ImageIO.write(thumbImage, extension, out);
 
 		// Read the outputstream into the inputstream for the return value
-		ByteArrayInputStream bis = new ByteArrayInputStream(out.toByteArray());        
+		ByteArrayInputStream bis = new ByteArrayInputStream(out.toByteArray());
 
 		return bis;
 	}
 
 	/**
 	 * Suppression d'une image
-	 * @param id 
-	 * @param name 
+	 * @param id
+	 * @param name
 	 * @return boolean
 	 */
 	public boolean deleteImageFromDirectory(int id, String name){
 		String imageName=name;
-		if(id>=0) 
+		if(id>=0)
 			imageName = id+"_"+imageName;
 		File f = new File(this.directory + File.separator + imageName);
 		return f.delete();

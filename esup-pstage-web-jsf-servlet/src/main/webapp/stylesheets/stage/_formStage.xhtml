@@ -1,0 +1,455 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+    <p:fieldset legend="#{msgs['CONVENTION.LANGUECONVENTION']}"
+                rendered="#{!conventionController.conventionFormationContinue}">
+        <t:div styleClass="mt10 mb10">
+            <h:selectOneMenu id="langueConvention" required="true"
+                             effect="none" styleClass="customPstage fix-selectOneMenu"
+                             value="#{conventionController.selLangueConvention}"
+                             converter="#{langueConventionConverter}">
+                <f:selectItem itemLabel="" itemValue="#{null}" noSelectionOption="true"/>
+                <f:selectItems value="#{nomenclatureController.langueConventions}" />
+            </h:selectOneMenu>
+            <p:message for="langueConvention"/>
+        </t:div>
+    </p:fieldset>
+    <p:fieldset legend="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.CONTENU']}" styleClass="mt10">
+        <t:htmlTag value="ul" styleClass="formUL columns-2">
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <t:div rendered="#{!conventionController.conventionFormationContinue}">
+                        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.TYPECONVENTION']} #{msgs['CONVENTION.ETOILE']}" />
+                        <h:selectOneMenu id="typeConventionFI" effect="none" styleClass="mt5 customPstage"
+                                         value="#{conventionController.selTypeConvention}"
+                                         converter="#{typeConventionConverter}">
+                            <f:selectItems value="#{nomenclatureController.typeConventionsFI}" />
+                        </h:selectOneMenu>
+                    </t:div>
+                    <t:div rendered="#{conventionController.conventionFormationContinue}">
+                        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.TYPECONVENTION']} #{msgs['CONVENTION.ETOILE']}" />
+                        <h:selectOneMenu id="typeConventionFC" effect="none" styleClass="mt5 customPstage"
+                                         value="#{conventionController.selTypeConvention}"
+                                         converter="#{typeConventionConverter}">
+                            <f:selectItems value="#{nomenclatureController.typeConventionsFC}" />
+                        </h:selectOneMenu>
+                    </t:div>
+                </t:htmlTag>
+                <t:htmlTag value="li">
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.THEME']} #{msgs['CONVENTION.ETOILE']}" />
+                    <h:selectOneMenu id="theme" effect="none" styleClass="mt5 customPstage"
+                                     value="#{conventionController.selTheme}"
+                                     converter="#{themeConverter}" required="true">
+                        <f:selectItem itemValue="" />
+                        <f:selectItems value="#{nomenclatureController.themes}" />
+                        <p:ajax event="valueChange" update="msgTheme"/>
+                    </h:selectOneMenu>
+                    <p:message id="msgTheme" for="theme"/>
+                </t:htmlTag>
+                <t:htmlTag value="li">
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.SUJET']} #{msgs['CONVENTION.ETOILE']}" />
+                    <p:inputTextarea id="sujetStage"
+                                     value="#{conventionController.convention.sujetStage}"
+                                     required="true">
+                        <p:ajax event="blur" update="msgSujet"/>
+                    </p:inputTextarea>
+                    <p:message id="msgSujet" for="sujetStage"/>
+                </t:htmlTag>
+            </t:div>
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.FONCTION']} #{msgs['CONVENTION.ETOILE']}" />
+                    <h:outputText id="cptFonctionsEtTaches" styleClass="fontItalic"/>
+                    <p:inputTextarea id="fonctionsEtTaches" maxlength="140" lang="html"
+                                     value="#{conventionController.convention.fonctionsEtTaches}"
+                                     counter="cptFonctionsEtTaches" counterTemplate="({0} caractères restants.)"
+                                     required="true">
+                        <f:validateLength maximum="140" />
+                        <p:ajax event="blur" update="msgFonction" />
+                    </p:inputTextarea>
+                    <p:message id="msgFonction" for="fonctionsEtTaches"/>
+                </t:htmlTag>
+                <t:htmlTag value="li">
+                    <t:htmlTag id="imgInfoComp" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
+                        <p:tooltip for="imgInfoComp" value="#{msgs['INFOSBULLES.COMPETENCES']}" />
+                    </t:htmlTag>
+                    <h:outputText styleClass="fontBold ml5" value="#{msgs['CONVENTION.COMPETENCES']} #{msgs['CONVENTION.ETOILE']}" />
+                    <h:outputText id="cptCompetences" styleClass="fontItalic"/>
+                    <p:inputTextarea id="competences" maxlength="140" lang="html"
+                                     value="#{conventionController.convention.competences}"
+                                     counter="cptCompetences" counterTemplate="({0} caractères restants.)"
+                                     required="true">
+                        <f:validateLength maximum="140" />
+                        <p:ajax event="blur" update="msgCompetences"/>
+                    </p:inputTextarea>
+                    <p:message id="msgCompetences" for="competences"/>
+
+                </t:htmlTag>
+                <t:htmlTag value="li">
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.DETAILS']}" />
+                    <p:inputTextarea id="details" value="#{conventionController.convention.details}"/>
+                </t:htmlTag>
+            </t:div>
+        </t:htmlTag>
+    </p:fieldset>
+
+    <p:fieldset legend="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.DATES']}" styleClass="mt10">
+        <t:htmlTag value="ul" styleClass="formUL columns-2">
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <h:outputText styleClass="fontBold"
+                                  value="#{msgs['CONVENTION.DEBUTSTAGE']} #{msgs['CONVENTION.ETOILE']}" />
+                    <p:calendar id="dateDebutStage"
+                                value="#{conventionController.convention.dateDebutStage}"
+                                datePattern="dd/MM/yyyy"
+                                showApplyButton="false" cellWidth="24px" cellHeight="22px"
+                                required="true" />
+                    <p:message for="dateDebutStage"/>
+                </t:htmlTag>
+                <t:htmlTag value="li">
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.FINSTAGE']} #{msgs['CONVENTION.ETOILE']}" />
+                    <p:calendar id="dateFinStage"
+                                value="#{conventionController.convention.dateFinStage}"
+                                locale="#{sessionController.locale}" datePattern="dd/MM/yyyy"
+                                showApplyButton="false" cellWidth="24px" cellHeight="22px"
+                                required="true" />
+                    <p:message for="dateFinStage"/>
+                </t:htmlTag>
+                <t:htmlTag value="li">
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.INTERRUPTION']} " />
+                    <p:selectOneRadio id="interruptionStage"
+                                      value="#{conventionController.convention.interruptionStage}">
+                        <f:selectItem itemLabel="Oui" itemValue="true" />
+                        <f:selectItem itemLabel="Non" itemValue="false" noSelectionOption="true" />
+                        <p:ajax event="valueChange" update="interruptPanel" />
+                    </p:selectOneRadio>
+                    <p:message for="interruptionStage"/>
+                </t:htmlTag>
+                <p:outputPanel id="interruptPanel">
+                    <t:div styleClass="mt10" rendered="#{conventionController.convention.interruptionStage}">
+                        <t:htmlTag value="li">
+                            <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.INTERRUPDEBSTAGE']} #{msgs['CONVENTION.ETOILE']}" />
+                            <p:calendar id="dateDebutInterruption"
+                                        value="#{conventionController.convention.dateDebutInterruption}"
+                                        locale="#{sessionController.locale}" datePattern="dd/MM/yyyy"
+                                        showApplyButton="false" cellWidth="24px" cellHeight="22px"
+                                        required="true" />
+                            <p:message for="dateDebutInterruption"/>
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.INTERRUPFINSTAGE']} #{msgs['CONVENTION.ETOILE']}" />
+                            <p:calendar id="dateFinInterruption"
+                                        value="#{conventionController.convention.dateFinInterruption}"
+                                        locale="#{sessionController.locale}" datePattern="dd/MM/yyyy"
+                                        showApplyButton="false" cellWidth="24px" cellHeight="22px"
+                                        required="true" />
+                            <p:message for="dateFinInterruption"/>
+                        </t:htmlTag>
+                    </t:div>
+
+
+                    <t:div rendered="#{empty conventionController.convention.idUniteDureeExceptionnelle or conventionController.convention.idUniteDureeExceptionnelle == 0}">
+                        <t:htmlTag value="li">
+                            <t:htmlTag id="imgInfoDuree" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
+                                <p:tooltip for="imgInfoDuree" value="#{msgs['INFOSBULLES.DUREE_EXCEPT']}" />
+                            </t:htmlTag>
+                            <h:outputText value="#{msgs['CONVENTION.DUREEEXCEPT']} #{msgs['CONVENTION.ETOILE']}" escape="false"
+                                          styleClass="ml5 fontBold" />
+                            <p:inputText id="dureeExceptionnelle" size="3" styleClass="mt5"
+                                         value="#{conventionController.convention.dureeExceptionnelle}"
+                                         required="true">
+                                <f:validateLength maximum="4" />
+                                <f:validateLongRange for="dureeExceptionnelle" minimum="1" maximum="9999" />
+                                <p:ajax event="blur" update="alerte6mois, msgDureeExcept" />
+                            </p:inputText>
+                            <p:message id="msgDureeExcept" for="dureeExceptionnelle"/>
+                        </t:htmlTag>
+                        <p:outputPanel id="alerte6mois">
+                            <t:htmlTag value="li">
+                                <t:div styleClass="textCenter"
+                                       rendered="#{!conventionController.conventionFormationContinue and conventionController.dureeSuperieureA6mois}">
+                                    <t:htmlTag value="i" styleClass="fa fa-warning fz13 fontBlue2 noPointer" />
+                                    <h:outputText styleClass="ml5" value="#{msgs['CONVENTION.CREERCONVENTION.DUREEMAX']}" />
+                                </t:div>
+                            </t:htmlTag>
+                        </p:outputPanel>
+                    </t:div>
+                    <t:div rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle and conventionController.convention.idUniteDureeExceptionnelle != 0}">
+                        <t:htmlTag value="li">
+                            <h:outputText styleClass="fontBold"
+                                          value="#{msgs['CONVENTION.DUREEEXCEPT.ANCIEN']} #{msgs['CONVENTION.ETOILE']} (#{msgs['CONVENTION.EN']}" />
+                            <h:outputText value="heure(s) )" styleClass="fontBold"
+                                          rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 1}" />
+                            <h:outputText value="jour(s) )" styleClass="fontBold"
+                                          rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 2}" />
+                            <h:outputText value="semaine(s) )" styleClass="fontBold"
+                                          rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 3}" />
+                            <h:outputText value="mois )" styleClass="fontBold"
+                                          rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 4}" />
+                            <h:outputText value="annee(s) )" styleClass="fontBold"
+                                          rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 5}" />
+
+                            <p:inputText id="dureeExceptionnelleOld" size="3" styleClass="mt5"
+                                         value="#{conventionController.convention.dureeExceptionnelle}"
+                                         required="true">
+                                <f:validateLength maximum="4" />
+                                <f:validateLongRange minimum="1" maximum="9999" />
+                            </p:inputText>
+                            <p:message for="dureeExceptionnelleOld"/>
+                        </t:htmlTag>
+                    </t:div>
+                </p:outputPanel>
+            </t:div>
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.TEMPSTRAVAIL']} #{msgs['CONVENTION.ETOILE']}" />
+                    <h:selectOneMenu id="tempsTravail" effect="none" styleClass="mt5 customPstage"
+                                     value="#{conventionController.selTempsTravail}"
+                                     converter="#{tempsTravailConverter}">
+                        <f:selectItems value="#{nomenclatureController.tempsTravailEnServ}" />
+                    </h:selectOneMenu>
+                    <p:message for="tempsTravail"/>
+                </t:htmlTag>
+                <t:htmlTag value="li" rendered="#{conventionController.conventionFormationContinue}">
+                    <h:outputText value="#{msgs['CONVENTION.TYPEPRESENCE']} *" styleClass="fontBold" />
+                    <h:selectOneMenu id="typePresence" effect="none"
+                                     required="true" styleClass="mt5 customPstage"
+                                     value="#{conventionController.convention.typePresence}">
+                        <f:selectItem itemValue="" itemLabel="" />
+                        <f:selectItem itemValue="#{msgs['CONVENTION.TYPEPRESENCE.CONTINUE']}"
+                                      itemLabel="#{msgs['CONVENTION.TYPEPRESENCE.CONTINUE']}" />
+                        <f:selectItem itemValue="#{msgs['CONVENTION.TYPEPRESENCE.DISCONTINUE']}"
+                                      itemLabel="#{msgs['CONVENTION.TYPEPRESENCE.DISCONTINUE']}" />
+                        <p:ajax event="valueChange" update="msgTypePresence" />
+                    </h:selectOneMenu>
+                    <p:message id="msgTypePresence" for="typePresence"/>
+                </t:htmlTag>
+                <t:htmlTag value="li">
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.NBJOURSHEBDO']} #{msgs['CONVENTION.ETOILE']}" />
+                    <h:selectOneMenu id="nbJoursHebdo" effect="none" styleClass="mt5 customPstage" required="true"
+                                     value="#{conventionController.convention.nbJoursHebdo}">
+                        <f:selectItems value="#{conventionController.nbJoursHebdoItems}" />
+                        <p:ajax event="valueChange" update="msgNbJours" />
+                    </h:selectOneMenu>
+                    <p:message id="msgNbJours" for="nbJoursHebdo"/>
+                </t:htmlTag>
+                <t:htmlTag value="li">
+                    <t:htmlTag id="imgInfoHrHebdo" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
+                        <p:tooltip for="imgInfoHrHebdo" value="#{msgs['CONVENTION.NBHEURESHEBDO.COMPLEMENT']}" />
+                    </t:htmlTag>
+                    <h:outputText value="#{msgs['CONVENTION.NBHEURESHEBDO']} #{msgs['CONVENTION.ETOILE']}"
+                                  styleClass="ml5 fontBold"/>
+                    <p:inputText id="nbHeuresHebdo" styleClass="mt5" required="true"
+                                 value="#{conventionController.convention.nbHeuresHebdo}"
+                                 validatorMessage="#{requiredMessageController.mtGratificationNonValide}">
+                        <f:validator binding="#{mtGratificationValidator}" />
+                        <p:ajax event="blur" update="msgHrHebdo" />
+                    </p:inputText>
+                    <p:message id="msgHrHebdo" for="nbHeuresHebdo"/>
+                </t:htmlTag>
+                <t:htmlTag value="li">
+                    <t:htmlTag id="imgInfoConges" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
+                        <p:tooltip for="imgInfoConges" value="#{msgs['INFOSBULLES.NBCONGES']}" />
+                    </t:htmlTag>
+                    <h:outputText value="#{msgs['CONVENTION.NBCONGES']}" styleClass="ml5 fontBold" />
+                    <p:inputText id="nbConges" styleClass="mt5"
+                                 value="#{conventionController.convention.nbConges}" />
+                    <p:message for="nbConges"/>
+                </t:htmlTag>
+                <t:htmlTag value="li">
+                    <t:htmlTag id="imgInfoComDuree" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
+                        <p:tooltip for="imgInfoComDuree" value="#{msgs['INFOSBULLES.COMMENTDUREETRAVAIL']}" />
+                    </t:htmlTag>
+                    <h:outputText value="#{msgs['CONVENTION.COMMENTDUREETRAVAIL']}" styleClass="ml5 fontBold" />
+                    <p:inputTextarea id="commentaireDureeTravail"
+                                     value="#{conventionController.convention.commentaireDureeTravail}" />
+                    <p:message for="commentaireDureeTravail"/>
+                </t:htmlTag>
+            </t:div>
+        </t:htmlTag>
+    </p:fieldset>
+
+    <p:fieldset legend="#{conventionController.conventionFormationContinue ? msgs['OFFRE.INDEMNITE'] : msgs['CONVENTION.ETAPE5.CHOIXSTAGE.GRATIFICATION']}" styleClass="mt10">
+        <t:div styleClass="ml40 verticalAlignDiv">
+            <t:htmlTag id="infoGratification" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer"
+                       rendered="#{!conventionController.conventionFormationContinue}">
+                <p:tooltip for="infoGratification" value="#{msgs['INFOSBULLES.GRATIFICATION']}" escape="false"/>
+            </t:htmlTag>
+            <h:outputText styleClass="fontBold ml5"
+                          value="#{conventionController.conventionFormationContinue ? msgs['CONVENTION.INDEMNISATION.FORMATION_CONTINUE'] : msgs['CONVENTION.INDEMNISATION']} #{msgs['CONVENTION.ETOILE']}" />
+            <h:selectOneMenu id="indemnisation" required="true"
+                             styleClass="ml5 customPstage autoWidth"
+                             value="#{conventionController.selIndemnisation}"
+                             converter="#{indemnisationConverter}">
+                <p:ajax event="valueChange"
+                        update="opMessageMontantGratificationOblig" />
+                <f:selectItem itemValue="" />
+                <f:selectItems value="#{nomenclatureController.indemnisations}" />
+            </h:selectOneMenu>
+            <p:message for="indemnisation"/>
+        </t:div>
+
+        <p:outputPanel id="opMessageMontantGratificationOblig">
+            <t:div styleClass="mt20"
+                   rendered="#{conventionController.selIndemnisation.libelle == beanUtils.indemnisationOui}">
+                <t:htmlTag value="ul" styleClass="formUL columns-2">
+                    <t:div styleClass="column">
+                        <t:htmlTag value="li">
+                            <h:outputText value="#{conventionController.conventionFormationContinue ? msgs['CONVENTION.SIMTGRATIFICATION.FORMATION_CONTINUE'] : msgs['CONVENTION.SIMTGRATIFICATION']}"
+                                          styleClass="fontBold" style="white-space: nowrap;"/>
+                            <t:div styleClass="mt5 verticalAlignDiv">
+                                <p:inputText id="montantGratification" size="4" styleClass="autoWidth"
+                                             required="true"
+                                             value="#{conventionController.convention.montantGratification}"
+                                             validatorMessage="#{requiredMessageController.mtGratificationNonValide}">
+                                    <f:validator binding="#{mtGratificationValidator}" />
+                                    <p:ajax event="blur" update="msgGratification"/>
+                                </p:inputText>
+                                <h:selectOneMenu id="uniteGratification" effect="none" styleClass="ml5 customPstage fix-selectOneMenu autoWidth"
+                                                 value="#{conventionController.selUniteGratification}"
+                                                 converter="#{uniteGratificationConverter}">
+                                    <f:selectItems value="#{nomenclatureController.uniteGratifications}" />
+                                </h:selectOneMenu>
+                                <h:outputText styleClass="fontBold mr5 ml5" value=" par " />
+                                <h:selectOneMenu id="uniteDureeGratification" effect="none" styleClass="customPstage fix-selectOneMenu autoWidth"
+                                                 value="#{conventionController.selUniteDureeGratification}"
+                                                 converter="#{uniteDureeConverter}" required="true">
+                                    <f:selectItem itemValue="" />
+                                    <f:selectItems value="#{nomenclatureController.unitesDurees}" />
+                                </h:selectOneMenu>
+                            </t:div>
+                            <p:message id="msgGratification" for="montantGratification"/>
+                            <p:message id="msgUniteDureeGratification" for="uniteDureeGratification"/>
+
+                            <t:htmlTag value="div" style="height:10px;" />
+
+                            <h:outputText value="#{msgs['CONVENTION.CREERCONVENTION.GRATIFICATION.MONNAIE']}"
+                                          styleClass="fontBold" />
+                            <t:div styleClass="mt5 verticalAlignDiv">
+                                <h:selectOneMenu id="monnaieGratification" effect="none"
+                                                 value="#{conventionController.selMonnaieGratification}"
+                                                 styleClass="ml5 customPstage autoWidth">
+                                    <f:selectItem itemValue="euros" itemLabel="euros" />
+                                    <f:selectItem itemValue="autre" itemLabel="autre"/>
+                                    <p:ajax event="valueChange" update="opMonnaieGratification" />
+                                </h:selectOneMenu>
+                                <p:outputPanel id="opMonnaieGratification" styleClass="ml5">
+                                    <t:div rendered="#{conventionController.selMonnaieGratification == 'autre'}">
+                                        <h:outputText styleClass="fontBold" value="Devise : " />
+                                        <p:inputText id="autreMonnaie" size="10" styleClass="autoWidth"
+                                                     value="#{conventionController.convention.monnaieGratification}" />
+                                    </t:div>
+                                </p:outputPanel>
+                            </t:div>
+                        </t:htmlTag>
+                    </t:div>
+                    <t:div styleClass="column">
+                        <t:htmlTag value="li">
+                            <h:outputText value="#{msgs['CONVENTION.MODEVERSGRAT']} *"
+                                          styleClass="fontBold"/>
+                            <t:div styleClass="mt5">
+                                <h:selectOneMenu id="modeVersGratification" effect="none" styleClass="ml5 customPstage"
+                                                 value="#{conventionController.selModeVersGratification}"
+                                                 converter="#{modeVersGratificationConverter}">
+                                    <f:selectItems value="#{nomenclatureController.modeVersGratifications}" />
+                                </h:selectOneMenu>
+                            </t:div>
+                            <p:message for="modeVersGratification"/>
+                        </t:htmlTag>
+                    </t:div>
+                </t:htmlTag>
+            </t:div>
+        </p:outputPanel>
+    </p:fieldset>
+
+    <t:htmlTag value="div" style="height:10px;" />
+
+    <p:fieldset legend="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.MISC']}">
+
+        <t:htmlTag value="ul" styleClass="formUL columns-2">
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ORIGINESTAGE.COMMENT']} #{msgs['CONVENTION.ETOILE']}" />
+                    <h:selectOneMenu id="origineStage" effect="none" styleClass="mt5 customPstage"
+                                     value="#{conventionController.selOrigineStage}"
+                                     converter="#{origineStageConverter}" required="true">
+                        <f:selectItem itemValue="" />
+                        <f:selectItems value="#{nomenclatureController.origineStagesEnServ}" />
+                        <p:ajax event="valueChange" update="msgOrigineStage" />
+                    </h:selectOneMenu>
+                    <p:message id="msgOrigineStage" for="origineStage"/>
+
+                    <t:htmlTag value="div" style="height:10px;" />
+
+                    <t:htmlTag id="imgInfoConfidentialite" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
+                        <p:tooltip for="imgInfoConfidentialite" value="#{msgs['INFOSBULLES.CONFIDENTIEL']}" escape="false" />
+                    </t:htmlTag>
+                    <h:outputText styleClass="fontBold ml5" value="#{msgs['CONVENTION.TEMCONFSUJET']}" />
+                    <p:selectOneRadio id="temConfSujetTeme"
+                                      value="#{conventionController.booltemConfSujetTeme}">
+                        <f:selectItem itemLabel="oui" itemValue="true" />
+                        <f:selectItem itemLabel="non" itemValue="false" />
+                    </p:selectOneRadio>
+
+                    <t:htmlTag value="div" style="height:10px;" />
+
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.NATURETRAVAIL']} *" />
+                    <h:selectOneMenu id="natureTravail" effect="none" styleClass="mt5 customPstage"
+                                     value="#{conventionController.selNatureTravail}"
+                                     converter="#{natureTravailConverter}" required="true">
+                        <f:selectItem itemValue="" />
+                        <f:selectItems value="#{nomenclatureController.natureTravails}" />
+                    </h:selectOneMenu>
+                    <p:message for="natureTravail" />
+
+                    <t:htmlTag value="div" style="height:10px;" />
+
+                    <t:div rendered="#{empty conventionController.convention.centreGestion.modeValidationStage}">
+                        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.MODEVALIDSTAGE']} *" />
+                        <h:selectOneMenu id="modeValidationStage" effect="none" styleClass="mt5 customPstage"
+                                         rendered="#{empty conventionController.convention.centreGestion.modeValidationStage}"
+                                         value="#{conventionController.selModeValidationStage}"
+                                         converter="#{modeValidationStageConverter}" required="true">
+                            <f:selectItem itemValue="" itemLabel="" />
+                            <f:selectItems value="#{nomenclatureController.modeValidationStagesEnServ}" />
+                        </h:selectOneMenu>
+                        <p:message for="modeValidationStage" />
+                    </t:div>
+                </t:htmlTag>
+            </t:div>
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <t:htmlTag id="imgInfoModeSuivi" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
+                        <p:tooltip for="imgInfoModeSuivi" value="#{msgs['CONVENTION.MODESUIVI.INFO']}" />
+                    </t:htmlTag>
+                    <h:outputText value="#{msgs['CONVENTION.MODESUIVI']}" styleClass="fontBold ml5" />
+                    <t:div styleClass="mt5">
+                        <p:inputTextarea id="modeEncadreSuivi"
+                                         value="#{conventionController.convention.modeEncadreSuivi}" />
+                    </t:div>
+
+                    <t:htmlTag value="div" style="height:10px;" />
+
+                    <t:htmlTag id="imgInfoAvantages" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
+                        <p:tooltip for="imgInfoAvantages" value="#{msgs['INFOSBULLES.AVANTAGES']}" />
+                    </t:htmlTag>
+                    <h:outputText styleClass="fontBold ml5" value="#{msgs['CONVENTION.AVANTAGESNATURE']}" />
+                    <t:div styleClass="mt5">
+                        <p:inputTextarea id="avantagesNature"
+                                         value="#{conventionController.convention.avantagesNature}" />
+                    </t:div>
+                    <t:htmlTag value="div" style="height:10px;" />
+
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.TRAVAILNUITFERIE']}" />
+                    <t:div styleClass="mt5">
+                        <p:inputTextarea id="travailNuitFerie"
+                                         value="#{conventionController.convention.travailNuitFerie}" />
+                    </t:div>
+                </t:htmlTag>
+            </t:div>
+        </t:htmlTag>
+    </p:fieldset>
+</ui:composition>

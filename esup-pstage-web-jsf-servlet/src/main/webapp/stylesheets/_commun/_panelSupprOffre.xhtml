@@ -2,17 +2,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:popupPanel id="supprOffre" autosized="true" styleClass="panel">
+	<p:dialog id="supprOffre" widgetVar="supprOffre" modal="true" resizable="false">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.SUPPR']}" />
 		</f:facet>
 		<h:form id="formSupprOffre">
-			<ui:include id="include"
-				src="/stylesheets/_commun/#{sessionController.suppressionOffreCurrentPage}.xhtml" />
+			<ui:include src="/stylesheets/_commun/#{sessionController.suppressionOffreCurrentPage}.xhtml" />
 		</h:form>
-	</rich:popupPanel>
+	</p:dialog>
 </ui:composition>

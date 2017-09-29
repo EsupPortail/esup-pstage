@@ -1,25 +1,184 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="../_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmap.xhtml" />
-		<rich:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.TITRE']}" />
-			</f:facet>
-			<h:form id="formConvention">
-				<ui:include src="/stylesheets/stage/_creerConventionEtape7Signataire.xhtml" />
-			</h:form>
-			<ui:include src="../_commun/_panelAjoutContact.xhtml" />
-			<ui:include src="../_commun/_panelModifContact.xhtml" />
-			<ui:include src="../_commun/_panelAjoutService.xhtml" />
-			<ui:include src="../_commun/_panelModifService.xhtml" />
-		</rich:panel>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE']}" />
+            </f:facet>
+            <h:form id="formConvention"
+                    onkeypress="if (event.keyCode == 13) { document.getElementById('formConvention:confirmForm').click(); return false; }">
+                <ui:include src="_roadmap.xhtml" />
+                <t:fieldset>
+                    <t:div styleClass="mt20 ml30 block">
+
+                        <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+                        <h:outputFormat value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.DEMANDE']}"
+                                        styleClass="fontBold ml5"
+                                        rendered="#{conventionController.saisieTuteurProParEtudiant}">
+                            <f:param value="#{conventionController.convention.structure.raisonSociale}" />
+                        </h:outputFormat>
+
+                        <p:message for="@form"/>
+                        <t:div styleClass="ml40">
+                            <p:commandButton value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.SELECTION']}"
+                                             oncomplete="PF('selectSignataire').show();"
+                                             update="selectSignataire" styleClass="mt20 mb20"
+                                             rendered="#{conventionController.saisieTuteurProParEtudiant}">
+                                <f:setPropertyActionListener value="#{0}"
+                                                             target="#{etablissementController.idContactSel}" />
+                                <f:setPropertyActionListener value="#{null}"
+                                                             target="#{etablissementController.contactSel}" />
+                                <f:setPropertyActionListener value="#{false}"
+                                                             target="#{etablissementController.afficherSelectionCentreContact}" />
+                            </p:commandButton>
+
+                            <p:dialog id="selectSignataire" widgetVar="selectSignataire" resizable="false" modal="true">
+
+                                <ui:include src="/stylesheets/_commun/_subPanelSelectContact.xhtml">
+                                    <ui:param name="idOpService" value="opService" />
+                                    <ui:param name="idSOMService" value="sOMService" />
+                                    <ui:param name="idOpActionsService" value="opActionsService" />
+                                    <ui:param name="idOpContactsDataTable" value="opContactsDataTable" />
+                                    <ui:param name="idSOMContact" value="sOMContact" />
+                                    <ui:param name="idDivButtons" value="divButtons" />
+                                </ui:include>
+
+                                <t:div id="divButtons" styleClass="textCenter mt20 mb20">
+                                    <p:commandButton value="#{msgs['FORM.SELECTIONNER']}"
+                                                     oncomplete="PF('selectSignataire').hide();"
+                                                     update="@form"
+                                                     rendered="#{not empty etablissementController.serviceSel
+                                         and not empty etablissementController.contactSel}">
+                                        <f:setPropertyActionListener
+                                                value="#{etablissementController.contactSel}"
+                                                target="#{conventionController.signataireSel}" />
+                                    </p:commandButton>
+
+                                    <p:commandButton value="#{msgs['FORM.CANCEL']}" styleClass="ml40"
+                                                     onclick="PF('selectSignataire').hide();" />
+                                </t:div>
+                            </p:dialog>
+
+                            <p:outputPanel id="opSignataire"
+                                           rendered="#{conventionController.saisieTuteurProParEtudiant
+                                       and not empty conventionController.signataireSel}">
+
+                                <t:htmlTag value="i" styleClass="fa fa-user fz13 fontBlue2"/>
+                                <h:outputText value="#{msgs['CONTACT.GESTION.CONTACTSELECT']}"
+                                              styleClass="fontBold fontBlue2 fz13 ml5"
+                                              escape="false" />
+
+                                <t:div styleClass="ml40" style="display:block;">
+                                    <t:div styleClass="mt5 fontBold fz13">
+                                        <h:outputText id="civC"
+                                                      value="#{conventionController.signataireSel.civilite.libelle} " />
+                                        <h:outputText id="nomC"
+                                                      value="#{conventionController.signataireSel.nom} " />
+                                        <h:outputText id="prenomC"
+                                                      value="#{conventionController.signataireSel.prenom}" />
+                                    </t:div>
+
+                                    <h:panelGrid columns="2" cellspacing="5">
+                                        <h:outputText value="#{msgs['CONTACT.FONCTION']}" styleClass="fontBold" />
+                                        <h:outputText id="fonctionC"
+                                                      value="#{conventionController.signataireSel.fonction}" />
+
+                                        <h:outputText value="#{msgs['CONTACT.TELEPHONE']}" styleClass="fontBold" />
+                                        <h:outputText id="telC"
+                                                      value="#{conventionController.signataireSel.tel}" />
+
+                                        <h:outputText value="#{msgs['CONTACT.FAX']}" styleClass="fontBold" />
+                                        <h:outputText id="faxC"
+                                                      value="#{conventionController.signataireSel.fax}" />
+
+                                        <h:outputText value="#{msgs['CONTACT.MAIL']}" styleClass="fontBold" />
+                                        <h:outputText id="mailC"
+                                                      value="#{conventionController.signataireSel.mail}" />
+                                    </h:panelGrid>
+
+
+                                </t:div>
+
+                                <p:commandButton id="modifC" oncomplete="PF('modifContact').show();"
+                                                 value="#{msgs['FORM.MODIFIER']} ces informations"
+                                                 icon="fa fa-edit fz13" styleClass="ml40 fz09"
+                                                 update="modifContact"
+                                                 disabled="#{!(((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)
+		                        or (welcomeController.etudiant and (sessionController.autoriserEtudiantAModifierEntreprise ||
+								(!sessionController.autoriserEtudiantAModifierEntreprise and (
+						        (empty conventionController.signataireSel.loginModif and conventionController.signataireSel.loginCreation==sessionController.currentLogin)
+						        || (conventionController.signataireSel.loginModif==sessionController.currentLogin))))))
+		                        and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)}">
+                                    <f:setPropertyActionListener value="#{conventionController.signataireSel}"
+                                                                 target="#{etablissementController.formContact}" />
+                                    <f:setPropertyActionListener value="#{false}"
+                                                                 target="#{etablissementController.afficherSelectionCentreContact}" />
+                                    <f:setPropertyActionListener value="_modifContactEtape0"
+                                                                 target="#{sessionController.modifContactCurrentPage}" />
+                                    <p:tooltip for="modifC" value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}"
+                                               rendered="#{!(((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)
+		                        or (welcomeController.etudiant and (sessionController.autoriserEtudiantAModifierEntreprise ||
+								(!sessionController.autoriserEtudiantAModifierEntreprise and (
+						        (empty conventionController.signataireSel.loginModif and conventionController.signataireSel.loginCreation==sessionController.currentLogin)
+						        || (conventionController.signataireSel.loginModif==sessionController.currentLogin))))))
+		                        and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)}" />
+                                </p:commandButton>
+
+
+                                <p:separator style="width:50%; height:2px;" styleClass="mt20 mb10" />
+
+                                <t:div styleClass="textCenter mt30">
+                                    <p:commandButton action="#{conventionController.goToCreerConventionEtape8Recap}"
+                                                     value="#{msgs['FORM.VALIDER']}" />
+                                </t:div>
+                            </p:outputPanel>
+                        </t:div>
+
+                        <t:div rendered="#{!conventionController.saisieTuteurProParEtudiant}"
+                               styleClass="mt20 mb20">
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE.SAISIETUTEURPRONON']}"
+                                          escape="false" />
+                            <p:commandLink id="passeretape"
+                                           action="#{conventionController.goToCreerConventionEtape8Recap}">
+                                <f:setPropertyActionListener value="#{null}"
+                                                             target="#{conventionController.signataireSel}" />
+                                <f:setPropertyActionListener value="#{null}"
+                                                             target="#{conventionController.convention.signataire}" />
+                                <h:outputText value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE.SUIVANTE']}"
+                                              escape="false" />
+                            </p:commandLink>
+                        </t:div>
+
+                        <t:div rendered="#{!conventionController.convention.centreGestion.presenceTuteurPro and conventionController.saisieTuteurProParEtudiant}"
+                               styleClass="mt20 mb20">
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE']}"
+                                          escape="false" />
+                            <p:commandLink id="passeretape2"
+                                           action="#{conventionController.goToCreerConventionEtape8Recap}">
+                                <f:setPropertyActionListener value="#{null}"
+                                                             target="#{conventionController.signataireSel}" />
+                                <f:setPropertyActionListener value="#{null}"
+                                                             target="#{conventionController.convention.signataire}" />
+                                <h:outputText value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE.SUIVANTE']}"
+                                              escape="false" />
+                            </p:commandLink>
+                        </t:div>
+
+                        <p:commandButton value="#{msgs['FORM.PREVIOUS']}"
+                                         action="#{conventionController.retourCreationEtape6}"
+                                         immediate="true"
+                                         styleClass="mt30 mb20"/>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+            <ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelModifContact.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelModifService.xhtml" />
+        </p:panel>
+    </ui:define>
 </ui:composition>

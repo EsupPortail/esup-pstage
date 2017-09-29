@@ -1,0 +1,108 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	template="/stylesheets/_definedStageTemplate.xhtml">
+	<ui:define name="content">
+		<p:panel>
+			<f:facet name="header">
+				<h:outputText value="Gestion des tables de nomenclature" />
+			</f:facet>
+
+			<t:htmlTag value="div" style="height:5px;" />
+
+			<p:fieldset>
+			<h:panelGrid columns="2" cellspacing="5">
+                <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+				<t:div>
+					<t:div>
+						<h:outputText value="#{msgs['NOMENCLATURES.INFOS.PART1']}" />
+					</t:div>
+					<t:div>
+						<h:outputText value="#{msgs['NOMENCLATURES.INFOS.PART2']}" />
+					</t:div>
+					<t:div>
+						<h:outputText value="#{msgs['NOMENCLATURES.INFOS.PART3']}" />
+					</t:div>
+				</t:div>
+			</h:panelGrid>
+			</p:fieldset>
+
+			<t:htmlTag value="div" style="height:10px;" />
+
+			<h:form>
+				<p:tabMenu activeIndex="#{nomenclatureController.indexMenu}"
+					style="display:inline-block;">
+					<!--<p:menuitem value="CaisseRegime" update="@form,divNomenclature">-->
+						<!--<f:setPropertyActionListener value="0"-->
+							<!--target="#{nomenclatureController.indexMenu}" />-->
+						<!--<f:setPropertyActionListener value="_include_caisseRegime"-->
+							<!--target="#{sessionController.nomenclatureCurrentPage}" />-->
+					<!--</p:menuitem>-->
+					<p:menuitem value="ModeValidationStage"
+						update="@form,divNomenclature">
+						<f:setPropertyActionListener value="0"
+							target="#{nomenclatureController.indexMenu}" />
+						<f:setPropertyActionListener value="_include_modeValidationStage"
+							target="#{sessionController.nomenclatureCurrentPage}" />
+					</p:menuitem>
+					<p:menuitem value="NiveauFormation" update="@form,divNomenclature">
+						<f:setPropertyActionListener value="1"
+							target="#{nomenclatureController.indexMenu}" />
+						<f:setPropertyActionListener value="_include_niveauFormation"
+							target="#{sessionController.nomenclatureCurrentPage}" />
+					</p:menuitem>
+					<p:menuitem value="TempsTravail" update="@form,divNomenclature">
+						<f:setPropertyActionListener value="2"
+							target="#{nomenclatureController.indexMenu}" />
+						<f:setPropertyActionListener value="_include_tempsTravail"
+							target="#{sessionController.nomenclatureCurrentPage}" />
+					</p:menuitem>
+					<p:menuitem value="OrigineStage" update="@form,divNomenclature">
+						<f:setPropertyActionListener value="3"
+							target="#{nomenclatureController.indexMenu}" />
+						<f:setPropertyActionListener value="_include_origineStage"
+							target="#{sessionController.nomenclatureCurrentPage}" />
+					</p:menuitem>
+					<p:menuitem value="TypeStructure" update="@form,divNomenclature">
+						<f:setPropertyActionListener value="4"
+							target="#{nomenclatureController.indexMenu}" />
+						<f:setPropertyActionListener value="_include_typeStructure"
+							target="#{sessionController.nomenclatureCurrentPage}" />
+					</p:menuitem>
+					<p:menuitem value="StatutJuridique" update="@form,divNomenclature">
+						<f:setPropertyActionListener value="5"
+							target="#{nomenclatureController.indexMenu}" />
+						<f:setPropertyActionListener value="_include_statutJuridique"
+							target="#{sessionController.nomenclatureCurrentPage}" />
+					</p:menuitem>
+					<p:menuitem value="TypeOffre" update="@form,divNomenclature">
+						<f:setPropertyActionListener value="6"
+							target="#{nomenclatureController.indexMenu}" />
+						<f:setPropertyActionListener value="_include_typeOffre"
+							target="#{sessionController.nomenclatureCurrentPage}" />
+					</p:menuitem>
+					<p:menuitem value="ContratOffre" update="@form,divNomenclature">
+						<f:setPropertyActionListener value="7"
+							target="#{nomenclatureController.indexMenu}" />
+						<f:setPropertyActionListener value="_include_contratOffre"
+							target="#{sessionController.nomenclatureCurrentPage}" />
+					</p:menuitem>
+					<p:menuitem value="Effectif" update="@form,divNomenclature">
+						<f:setPropertyActionListener value="8"
+							target="#{nomenclatureController.indexMenu}" />
+						<f:setPropertyActionListener value="_include_effectif"
+							target="#{sessionController.nomenclatureCurrentPage}" />
+					</p:menuitem>
+				</p:tabMenu>
+			</h:form>
+
+			<t:div id="divNomenclature" styleClass="mt10 ml30" style="display:inline-block;">
+				<ui:include
+					src="/stylesheets/stage/nomenclature/#{sessionController.nomenclatureCurrentPage}.xhtml" />
+			</t:div>
+		</p:panel>
+
+	</ui:define>
+</ui:composition>

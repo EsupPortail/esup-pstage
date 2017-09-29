@@ -1,62 +1,66 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="../_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<rich:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['EXPORTCONVENTION.TITRE']}" />
-			</f:facet>
-			<h:form id="formRechConvention">
-				<h:panelGrid style="width:auto;">
-					<h:outputLabel value="#{msgs['EXPORTCONVENTION.CRITERES']}"
-						for="formRechConvention" />
-					<t:htmlTag value="div" style="height:5px;" />
-					<h:outputLabel for="formRechConvention"
-						value="#{msgs['EXPORTCONVENTION.CRITERES.CONVENTION']}" />
-					<rich:pickList listHeight="250" listWidth="250"
-						addAllText="#{msgs['EXPORTCONVENTION.AJOUTERTOUT']}"
-						addText="#{msgs['EXPORTCONVENTION.AJOUTER']}"
-						removeText="#{msgs['EXPORTCONVENTION.RETIRER']}"
-						removeAllText="#{msgs['EXPORTCONVENTION.RETIRERTOUT']}"
-						value="#{exportController.conventionColonnesChoisies}">
-						<f:selectItems value="#{exportController.conventionColonnes}" />
-					</rich:pickList>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['EXPORTCONVENTION.TITRE']}" />
+            </f:facet>
+            <h:form id="formRechConvention">
+                <p:fieldset>
+                    <t:htmlTag value="i" styleClass="fa fa-info-circle fz16 fontBlue2 noPointer"/>
+                    <h:outputText value="#{msgs['EXPORTCONVENTION.CRITERES']}"
+                                  styleClass="ml5 fz13" escape="false"/>
 
-					<t:htmlTag value="div" style="height:10px;" />
-
-					<h:outputLabel for="formRechConvention"
-						value="#{msgs['EXPORTCONVENTION.CRITERES.ETAB']}" />
-					<rich:pickList listHeight="250" listWidth="250"
-						addAllText="#{msgs['EXPORTCONVENTION.AJOUTERTOUT']}"
-						addText="#{msgs['EXPORTCONVENTION.AJOUTER']}"
-						removeText="#{msgs['EXPORTCONVENTION.RETIRER']}"
-						removeAllText="#{msgs['EXPORTCONVENTION.RETIRERTOUT']}"
-						value="#{exportController.conventionEntrepriseColonnesChoisies}">
-						<f:selectItems
-							value="#{exportController.conventionEntrepriseColonnes}" />
-					</rich:pickList>
-
-					<t:htmlTag value="div" style="height:20px;" />
-					<h:panelGrid columns="3">
-						<h:commandButton id="back" value="#{msgs['FORM.ANNULERETRETOUR']}"
-							action="#{conventionController.goToRetourAction}"
-							immediate="true" />
-						<t:htmlTag value="div" style="width:150px; display:inline;" />
-						<h:commandButton
-							value="#{msgs['RECHERCHECONVENTION.TELECHARGEMENT']}"
-							action="#{exportController.goToExportConvention}" />
-					</h:panelGrid>
-				</h:panelGrid>
-			</h:form>
-			<rich:message for="formRechConvention" showDetail="true">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-		</rich:panel>
-	</ui:define>
+                    <t:div styleClass="block ml40">
+                        <t:div styleClass="mt15">
+                            <h:outputText styleClass="fz13 fontBold"
+                                          value="#{msgs['EXPORTCONVENTION.CRITERES.CONVENTION']}" />
+                            <p:pickList styleClass="mt10 ml40" converter="#{exportConventionColonnes}"
+                                        var="critConv" itemValue="#{critConv}" responsive="true"
+                                        value="#{exportController.conventionColonnesChoisies}">
+                                <f:facet name="sourceCaption">Champs disponibles</f:facet>
+                                <f:facet name="targetCaption">Champs choisis</f:facet>
+                                <p:column>
+                                    #{msgs[critConv]}
+                                </p:column>
+                            </p:pickList>
+                            <!--addLabel="Ajouter" addAllLabel="Ajouter tout"-->
+                            <!--removeLabel="Retirer" removeAllLabel="Retirer tout"-->
+                        </t:div>
+                        <t:div styleClass="mt25 mb30">
+                            <h:outputText styleClass="fz13 fontBold"
+                                          value="#{msgs['EXPORTCONVENTION.CRITERES.ETAB']}" />
+                            <p:pickList styleClass="mt10 ml40"
+                                        converter="#{conventionEntrepriseColonnesChoisies}"
+                                        var="critEtab" itemValue="#{critEtab}" responsive="true"
+                                        value="#{exportController.conventionEntrepriseColonnesChoisies}">
+                                <f:facet name="sourceCaption">Champs disponibles</f:facet>
+                                <f:facet name="targetCaption">Champs choisis</f:facet>
+                                <p:column>
+                                    #{msgs[critEtab]}
+                                </p:column>
+                            </p:pickList>
+                            <!--addLabel="Ajouter" addAllLabel="Ajouter tout"-->
+                            <!--removeLabel="Retirer" removeAllLabel="Retirer tout"-->
+                        </t:div>
+                        <t:div styleClass="fz16 textCenter">
+                            <p:commandButton ajax="false" icon="fa fa-file-excel-o fz13"
+                                             value="#{msgs['RECHERCHECONVENTION.TELECHARGEMENT']}"
+                                             action="#{exportController.goToExportConvention}" />
+                        </t:div>
+                    </t:div>
+                    <t:htmlTag value="div" style="height:20px;" />
+                    <p:commandButton id="back" value="#{msgs['FORM.ANNULERETRETOUR']}"
+                                     action="#{conventionController.goToRetourAction}" update="@form"
+                                     immediate="true"/>
+                    <t:htmlTag value="div" style="height:10px;" />
+                </p:fieldset>
+            </h:form>
+            <p:message for="formRechConvention" showDetail="true" />
+        </p:panel>
+    </ui:define>
 </ui:composition>

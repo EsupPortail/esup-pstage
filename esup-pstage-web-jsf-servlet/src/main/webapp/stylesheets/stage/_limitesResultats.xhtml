@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+    <p:fieldset toggleable="false">
+
+        <h:panelGrid columns="2">
+            <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fz13 fontYellow"/>
+            <h:outputText escape="false"
+                          value="#{msgs['RECHERCHECONVENTION.LIMITE.WARN']}" />
+        </h:panelGrid>
+        <t:div styleClass="mt5 ml20">
+            <h:outputText style="font-weight: bold; float:left;" value="Limites maximales de resultats :" />
+            <h:panelGrid id="limites" columns="3" style="padding-left:10px;">
+                <h:outputText
+                        value="#{msgs['RECHERCHECONVENTION.LIMITE.RECHERCHE']}" />
+                <p:inputText id="limiteRecherche"
+                             value="#{conventionController.critereRechercheConvention.nbRechercheMaxi}"
+                             size="3" maxlength="4" required="true">
+                    <f:convertNumber integerOnly="true" type="number" />
+                </p:inputText>
+                <p:message for="limiteRecherche" />
+                <h:outputText value="#{msgs['RECHERCHECONVENTION.LIMITE.EXPORT']}" rendered="#{not empty conventionController.critereRechercheConvention.nbExportMaxi}" />
+                <p:inputText id="limiteExport" rendered="#{not empty conventionController.critereRechercheConvention.nbExportMaxi}"
+                             value="#{conventionController.critereRechercheConvention.nbExportMaxi}"
+                             size="3" maxlength="4" required="true">
+                    <f:convertNumber integerOnly="true" type="number" />
+                </p:inputText>
+                <p:message for="limiteExport" rendered="#{not empty conventionController.critereRechercheConvention.nbExportMaxi}" />
+            </h:panelGrid>
+        </t:div>
+    </p:fieldset>
+</ui:composition>

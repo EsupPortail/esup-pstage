@@ -23,7 +23,7 @@ public class PersonalComponentRepositoryDaoWS implements
 	/**
 	 * 
 	 */
-	final Logger logger = Logger.getLogger(PersonalComponentRepositoryDaoWS.class);
+	final transient Logger logger = Logger.getLogger(PersonalComponentRepositoryDaoWS.class);
 
 	LinkedHashMap<String,String> mapComp = new LinkedHashMap<String,String>();
 	

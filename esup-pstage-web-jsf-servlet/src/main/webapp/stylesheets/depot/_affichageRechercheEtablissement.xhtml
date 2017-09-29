@@ -1,90 +1,96 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-	<t:aliasBean alias="#{structure}"
-		value="#{rechercheController.resultatRechercheStructure}">
-		<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
-	</t:aliasBean>
-	<a4j:outputPanel id="opAffAccord" ajaxRendered="true">
-		<rich:toolbar height="26" itemSeparator="none">
-			<ui:include
-				src="../_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
-		</rich:toolbar>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
 
-		<t:htmlTag value="div" style="height:5px;" />
+    <t:aliasBean alias="#{structure}"
+                 value="#{rechercheController.resultatRechercheStructure}">
+        <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
+        <h:outputText value="#{msgs['STRUCTURE.INFOS']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
+        <ui:include src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
+    </t:aliasBean>
 
-		<h:panelGrid columns="5" rowClasses="paginatorData-text"
-			columnClasses="paginatorData-text"
-			rendered="#{sessionController.adminPageAuthorized and 
-				not empty rechercheController.ongletCourant 
-				and rechercheController.ongletCourant==6
-				and not empty rechercheController.resultatRechercheStructure.accordPartenariat}">
-			<h:outputText value="#{msgs['ACCORD.DATECREATION']}" escape="false" />
-			<h:outputText
-				value="#{rechercheController.resultatRechercheStructure.accordPartenariat.dateCreation}">
-				<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
-			</h:outputText>
-			<h:outputText value="#{msgs['ACCORD.DATEVALIDATION']}" escape="false"
-				rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}" />
-			<h:outputText
-				value="#{rechercheController.resultatRechercheStructure.accordPartenariat.dateValidation}"
-				rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}">
-				<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
-			</h:outputText>
-			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.PAR']}"
-				rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}" />
-			<h:outputText
-				value="#{rechercheController.resultatRechercheStructure.accordPartenariat.loginValidation}"
-				rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}" />
-		</h:panelGrid>
+    <p:outputPanel id="opAffAccord">
+        <t:div styleClass="mt5 ml20">
+            <ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
+        </t:div>
 
-		<t:htmlTag value="div" style="height:5px;" />
+        <p:fieldset styleClass="mt10" rendered="#{sessionController.adminPageAuthorized and not empty rechercheController.resultatRechercheStructure.accordPartenariat}">
+            <f:facet name="legend">
+                <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2 mrf5"/>
+                <h:outputText value="#{msgs['STRUCTURE.AVECACCORD']}"
+                              escape="false" styleClass="fontBold" />
+            </f:facet>
 
-		<rich:toolbar height="26" itemSeparator="none">
-			<h:panelGrid columns="4" rowClasses="paginatorData-text"
-				columnClasses="paginatorData-text"
-				rendered="#{sessionController.adminPageAuthorized
-			and not empty rechercheController.resultatRechercheStructure.accordPartenariat}">
-				<h:commandLink id="validerAccord"
-					action="#{adminController.goToValidationAccord}"
-					rendered="#{not rechercheController.resultatRechercheStructure.accordPartenariat.estValide}">
-					<h:graphicImage alt="#{msgs['FORM.VALIDER']}"
-						title="#{msgs['FORM.VALIDER']}"
-						value="../../media/images/tick.png" style="border:0" />
-					<f:setPropertyActionListener
-						value="#{rechercheController.resultatRechercheStructure}"
-						target="#{adminController.structureAccordAValider}" />
-					<h:outputText value="#{msgs['FORM.VALIDER']}" />
-				</h:commandLink>
-				<h:commandLink id="consulterAccord"
-					action="#{adminController.goToConsulterAccord}"
-					rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}">
-					<h:graphicImage alt="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
-						title="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
-						value="../../media/images/see.png" style="border:0" />
-					<f:setPropertyActionListener
-						value="#{rechercheController.resultatRechercheStructure}"
-						target="#{adminController.structureAccord}" />
-					<h:outputText value="#{msgs['ACCORD.CONSULTATION.BUTTON']}" />
-				</h:commandLink>
-				<t:htmlTag value="div" style="width:10px;" />
-				<a4j:commandLink execute="@this" id="supprimerAccord"
-					oncomplete="#{rich:component('supprimerAccordPanel')}.show()"
-					render="supprimerAccordPanel">
-					<h:graphicImage alt="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
-						title="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
-						value="../../media/images/see_block.png" style="border:0" />
-					<h:outputText value="#{msgs['ACCORD.SUPPRESSION.BUTTON']}" />
-					<f:setPropertyActionListener
-						value="#{rechercheController.resultatRechercheStructure}"
-						target="#{adminController.accordASupprimer}" />
-					<f:setPropertyActionListener value="_supprAccordEtape1" 
-						target="#{sessionController.suppressionAccordCurrentPage}" />
-				</a4j:commandLink>
-			</h:panelGrid>
-		</rich:toolbar>
-	</a4j:outputPanel>
+            <t:div styleClass="mt5" rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}">
+                <t:htmlTag value="i" styleClass="fa fa-check fz16 fontGreen mrf5"/>
+                <h:outputText value="#{msgs['ACCORD.DEJAVALIDE']}" escape="false" styleClass="fontBold fontGreen" />
+
+                <t:htmlTag value="div" style="height:5px;" />
+
+                <h:outputText value="#{msgs['ACCORD.DATECREATION']}" escape="false" styleClass="fontBold" />
+                <h:outputText value="#{rechercheController.resultatRechercheStructure.accordPartenariat.dateCreation}"
+                              styleClass="mlf5">
+                    <f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+                </h:outputText>
+
+                <t:htmlTag value="div" style="height:5px;" />
+
+                <h:outputText value="#{msgs['ACCORD.DATEVALIDATION']}" escape="false" styleClass="fontBold"/>
+                <h:outputText value="#{rechercheController.resultatRechercheStructure.accordPartenariat.dateValidation}"
+                              styleClass="mlf5">
+                    <f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+                </h:outputText>
+                <h:outputText value="#{msgs['GENERAL.UPDATEINFOS.PAR']}" styleClass="mlf5" />
+                <h:outputText value="#{rechercheController.resultatRechercheStructure.accordPartenariat.loginValidation}"
+                              styleClass="mlf5" />
+            </t:div>
+
+            <t:div styleClass="mt5" rendered="#{!rechercheController.resultatRechercheStructure.accordPartenariat.estValide}">
+                <t:htmlTag value="i" styleClass="fa fa-times fz16 fontRed mrf5"/>
+                <h:outputText value="#{msgs['ACCORD.EXIST_INVALIDE']}" escape="false" styleClass="fontBold fontRed" />
+
+                <t:htmlTag value="div" style="height:5px;" />
+
+                <h:outputText value="#{msgs['ACCORD.DATECREATION']}" escape="false" styleClass="fontBold" />
+                <h:outputText value="#{rechercheController.resultatRechercheStructure.accordPartenariat.dateCreation}"
+                              styleClass="mlf5">
+                    <f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+                </h:outputText>
+            </t:div>
+
+            <t:div styleClass="mt10 ml20 mb20" rendered="#{sessionController.adminPageAuthorized}">
+                <p:commandButton id="consulterAccord" value="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+                                 icon="fa fa-search fz13" styleClass="mr10"
+                                 action="#{adminController.goToConsulterAccord}"
+                                 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                 rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}">
+                    <f:setPropertyActionListener value="#{rechercheController.resultatRechercheStructure}"
+                                                 target="#{adminController.structureAccord}" />
+                    <f:setPropertyActionListener value="affichageRechercheEtablissement"
+                                                 target="#{adminController.retourAction}" />
+                </p:commandButton>
+                <p:commandButton id="validerAccord" value="#{msgs['FORM.VALIDER']} l'accord" icon="fa fa-check fz13"
+                                 action="#{adminController.goToValidationAccord}"
+                                 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                 rendered="#{!rechercheController.resultatRechercheStructure.accordPartenariat.estValide}">
+                    <f:setPropertyActionListener value="#{rechercheController.resultatRechercheStructure}"
+                                                 target="#{adminController.structureAccordAValider}" />
+                    <f:setPropertyActionListener value="affichageRechercheEtablissement"
+                                                 target="#{adminController.retourAction}" />
+                </p:commandButton>
+                <p:commandButton id="supprimerAccord" value="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
+                                 styleClass="ml10" icon="fa fa-times fz13"
+                                 oncomplete="PF('supprimerAccordPanel').show();"
+                                 rendered="#{sessionController.adminPageAuthorized}"
+                                 update="supprimerAccordPanel">
+                    <f:setPropertyActionListener value="#{rechercheController.resultatRechercheStructure}"
+                                                 target="#{adminController.accordASupprimer}" />
+                    <f:setPropertyActionListener value="_supprAccordEtape1"
+                                                 target="#{sessionController.suppressionAccordCurrentPage}" />
+                </p:commandButton>
+            </t:div>
+        </p:fieldset>
+    </p:outputPanel>
 </ui:composition>

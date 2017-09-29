@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:column>
+		<f:facet name="header">
+			<h:outputText 
+				value="#{msgs['CONVENTION.CIVILITE']}" />
+		</f:facet>
+		<h:outputText value="#{enseignant.civilite.libelle}" />
+	</p:column>
+	<p:column>
+		<f:facet name="header">
+			<h:outputText 
+				value="#{msgs['CONVENTION.NOM']}" />
+		</f:facet>
+		<h:outputText value="#{enseignant.nom}" />
+	</p:column>
+	<p:column>
+		<f:facet name="header">
+			<h:outputText 
+				value="#{msgs['CONVENTION.PRENOM']}" />
+		</f:facet>
+		<h:outputText value="#{enseignant.prenom}" />
+	</p:column>
+	<p:column>
+		<f:facet name="header">
+			<h:outputText 
+				value="#{msgs['CONVENTION.MAIL']}" />
+		</f:facet>
+		<h:outputText value="#{enseignant.mail}" />
+	</p:column>
+	<p:column>
+		<f:facet name="header">
+			<h:outputText
+				value="#{msgs['CONVENTION.DEPARTEMENT']}" />
+		</f:facet>
+		<h:outputText value="#{enseignant.codeAffectation} - #{enseignant.affectation.libelle}" />
+	</p:column>
+</ui:composition>

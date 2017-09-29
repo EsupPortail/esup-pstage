@@ -6,7 +6,6 @@ public class DepartementCvtStatsBuilder extends AbstractStatsBuilder {
 
 	@Override
 	public Map<String, String> prepareStats() {
-		// TODO IMPLEMENTS ME
 		return null;
 	}
 

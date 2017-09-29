@@ -1,141 +1,132 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="../_basicTemplate.xhtml">
-	<ui:define name="content">
-		<t:div
-			rendered="#{not sessionController.pageAuthorized and not sessionController.adminPageAuthorized}">
-			<h:panelGrid columns="1" styleClass="panelEntreprise">
-				<h:outputFormat
-					value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.BIENVENUE']}"
-					escape="false">
-					<f:param value="#{sessionController.applicationNameEntreprise}" />
-				</h:outputFormat>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="../_basicTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['MENU.ACCUEIL']}" />
+            </f:facet>
+            <t:div rendered="#{not sessionController.pageAuthorized and not sessionController.adminPageAuthorized}">
+                <p:fieldset styleClass="block">
+                    <t:div styleClass="mt10 ml30">
+                        <h:outputFormat styleClass="fontBold fz13"
+                                        value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.BIENVENUE']}"
+                                        escape="false">
+                            <f:param value="#{sessionController.applicationNameEntreprise}" />
+                        </h:outputFormat>
 
-				<t:htmlTag value="div" style="height: 20px;" />
-				<h:outputText value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.ACCUEIL']}"
-					escape="false" />
-				<t:htmlTag value="div" style="height: 20px;" />
-				<rich:panel
-					rendered="#{not empty centreController.centreEntreprise}">
-					<f:facet name="header">
-						<h:outputText
-							value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.AVECCOMPTE']}" />
-					</f:facet>
-					<h:panelGrid columns="1" align="center">
-						<t:htmlTag value="div" style="height:10px;" />
-						<h:panelGrid columns="1" align="center">
-							<ui:include src="./_formLogin.xhtml" />
-							<t:htmlTag value="center">
-								<h:form>
-									<h:commandLink value="#{msgs['MOTDEPASSEPERDU.TITRE']}"
-										action="#{welcomeController.goToMotDePassePerdu}" />
-								</h:form>
-							</t:htmlTag>
-						</h:panelGrid>
-						<h:panelGrid columns="3" align="center">
-							<t:htmlTag value="div" style="height: 40px;" />
-							<t:htmlTag value="div"
-								style="width:400px; height: 2px; background-color: #{a4jSkin.panelBorderColor};" />
-							<t:htmlTag value="div" style="height: 40px;" />
-						</h:panelGrid>
-						<h:panelGrid columns="1" align="center">
-							<h:form>
-								<h:panelGrid columns="1" align="center">
-									<t:div
-										rendered="#{sessionController.adminAuthentication == 'cas'}">
-										<h:outputLink
-											value="#{sessionController.baseUrl}/stylesheets/cas/auth.xhtml">
-											<h:outputText
-												value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.ADMIN']}" />
-										</h:outputLink>
-									</t:div>
-									<h:outputText value="#{msgs['GENERAL.NOTAUTHORIZED']}"
-										rendered="#{sessionController.notAdminEntrepriseViaCasShibb}" />
-									<h:commandLink
-										action="#{welcomeController.disconnectEntreprise}"
-										value="#{msgs['GENERAL.DECONNEXION']}" immediate="true"
-										rendered="#{sessionController.notAdminEntrepriseViaCasShibb}" />
-									<t:htmlTag value="div" style="height:20px;" />
-								</h:panelGrid>
-							</h:form>
-						</h:panelGrid>
-					</h:panelGrid>
-				</rich:panel>
-				<t:htmlTag value="div" style="height: 20px;" />
-				<rich:panel
-					rendered="#{not empty centreController.centreEntreprise}">
-					<f:facet name="header">
-						<h:outputText
-							value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.SANSCOMPTE']}" />
-					</f:facet>
-					<h:form>
-						<h:commandButton action="#{accordController.goToPreAccord}"
-							value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.CREERCOMPTE']}"
-							title="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.CREERCOMPTE']}" />
-					</h:form>
-				</rich:panel>
-				<rich:panel rendered="#{empty centreController.centreEntreprise}">
-					<f:facet name="header">
-						<h:outputText value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.CENTRE']}" />
-					</f:facet>
-					<h:panelGrid columns="4">
-						<h:panelGrid>
-							<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
-								value="../../media/images/help32.png" />
-						</h:panelGrid>
-						<h:panelGrid>
-							<h:form>
-								<h:panelGrid columns="1" style="color:red;">
-									<h:outputText
-										value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.CENTREACREER']}" />
-								</h:panelGrid>
-							</h:form>
-						</h:panelGrid>
-						<h:panelGrid columns="3" style="text-align:center;">
-							<t:htmlTag value="div" style="width: 25px;" />
-							<t:htmlTag value="div"
-								style="width: 2px; height: 125px; background-color: #{a4jSkin.panelBorderColor};" />
-							<t:htmlTag value="div" style="width: 25px;" />
-						</h:panelGrid>
-						<h:panelGrid columns="1" style="text-align:center;">
-							<h:outputText value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.ADMIN']}" />
-							<h:form>
-								<t:div
-									rendered="#{sessionController.adminAuthentication == 'cas'}">
-									<h:outputLink value="../../cas/auth.xhtml">
-										<h:graphicImage alt="login_cas" value="../../media/images/cas-login.png"
-											style="border:none;padding-right:2px;" />
-									</h:outputLink>
-								</t:div>
-							</h:form>
-						</h:panelGrid>
-					</h:panelGrid>
-				</rich:panel>
-				<t:htmlTag value="div" style="height: 15px;" />
-				<h:outputText value="#{msgs['MESSAGE_CNIL_ENTREPRISE']}"
-					escape="false"
-					rendered="#{not empty msgs['MESSAGE_CNIL_ENTREPRISE']}" />
-			</h:panelGrid>
-		</t:div>
-		<t:div
-			rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
-			<h:panelGrid style="float:left;">
-				<ui:include src="./_menu.xhtml" />
-			</h:panelGrid>
-			<h:panelGrid columns="1" styleClass="panelEntreprise">
-				<rich:panel>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['MENU.ACCUEIL']}" />
-					</f:facet>
-					<ui:include src="_aide.xhtml" />
-				</rich:panel>
-				<ui:include src="_panelNousContacter.xhtml" />
-			</h:panelGrid>
-		</t:div>
-	</ui:define>
+                        <t:htmlTag value="div" style="height: 10px;" />
+
+                        <h:outputText value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.ACCUEIL']}"
+                                      escape="false" />
+
+                        <p:panel styleClass="mt20" rendered="#{not empty centreController.centreEntreprise}">
+                            <f:facet name="header">
+                                <h:outputText
+                                        value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.AVECCOMPTE']}" />
+                            </f:facet>
+                            <p:tabView styleClass="ml20">
+                                <p:tab id="tgpnl1"
+                                       title="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.TAB1_CPT_ENTREPRISE']}">
+                                    <t:div>
+                                        <ui:include src="./_formLogin.xhtml" />
+
+                                        <h:form styleClass="ml30 mt10">
+                                            <p:commandLink value="#{msgs['MOTDEPASSEPERDU.TITRE']}" immediate="true"
+                                                           action="#{welcomeController.goToMotDePassePerdu}"
+                                                           styleClass="underline"/>
+                                        </h:form>
+                                    </t:div>
+                                </p:tab>
+                                <p:tab id="tgpnl2"
+                                       title="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.TAB2_CPT_GEST']}">
+                                    <t:div>
+                                        <h:form>
+                                            <t:div rendered="#{sessionController.adminAuthentication == 'cas'}">
+                                                <t:htmlTag value="i" styleClass="fa fa-sign-in fz13 fontBlue2"/>
+                                                <h:outputLink value="#{sessionController.baseUrl}/stylesheets/cas/auth.xhtml"
+                                                              styleClass="mlf5 fz13 underline">
+                                                    <h:outputText
+                                                            value="#{msgs['GENERAL.CONNEXION.CAS']}" />
+                                                </h:outputLink>
+                                            </t:div>
+
+                                            <t:div rendered="#{sessionController.notAdminEntrepriseViaCasShibb}">
+                                                <h:outputText value="#{msgs['GENERAL.NOTAUTHORIZED']}" />
+                                                <p:commandLink
+                                                        action="#{welcomeController.disconnectEntreprise}"
+                                                        value="#{msgs['GENERAL.DECONNEXION']}" immediate="true"
+                                                        rendered="#{sessionController.notAdminEntrepriseViaCasShibb}" />
+                                            </t:div>
+                                        </h:form>
+                                    </t:div>
+                                </p:tab>
+                            </p:tabView>
+                        </p:panel>
+
+                        <p:panel styleClass="mt20" rendered="#{not empty centreController.centreEntreprise}">
+                            <f:facet name="header">
+                                <h:outputText
+                                        value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.SANSCOMPTE']}" />
+                            </f:facet>
+                            <h:form styleClass="ml20">
+                                <p:commandButton action="#{accordController.goToPreAccord}"
+                                                 value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.CREERCOMPTE']}" />
+                            </h:form>
+                        </p:panel>
+
+                        <p:panel styleClass="mt20" rendered="#{empty centreController.centreEntreprise}">
+                            <f:facet name="header">
+                                <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fz20"/>
+                                <h:outputText value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.CENTRE']}" />
+                            </f:facet>
+
+                            <h:outputText value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.CENTREACREER']}" />
+
+                            <t:div styleClass="mt10 mb20 verticalAlignDiv">
+                                <h:outputText value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.CENTREACREER_2']}"
+                                              escape="false"/>
+                                <h:form>
+                                    <t:div rendered="#{sessionController.adminAuthentication == 'cas'}">
+                                        <t:htmlTag value="i" styleClass="fa fa-sign-in fz13 fontBlue2"/>
+                                        <h:outputLink value="#{sessionController.baseUrl}/stylesheets/cas/auth.xhtml"
+                                                      styleClass="mlf5 underline">
+                                            <h:outputText value="#{msgs['GENERAL.CONNEXION.CAS']}" />
+                                        </h:outputLink>
+                                    </t:div>
+                                </h:form>
+                            </t:div>
+                        </p:panel>
+
+                        <t:htmlTag value="div" style="height: 15px;" />
+
+                        <h:outputText value="#{msgs['MESSAGE_CNIL_ENTREPRISE']}"
+                                      escape="false"
+                                      rendered="#{not empty msgs['MESSAGE_CNIL_ENTREPRISE']}" />
+                    </t:div>
+                </p:fieldset>
+            </t:div>
+
+            <t:div rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
+                <p:fieldset styleClass="block">
+                    <t:div styleClass="mt10 ml30 mb20">
+                        <h:outputFormat styleClass="fontBold fz13"
+                                        value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.BIENVENUE']}"
+                                        escape="false">
+                            <f:param value="#{sessionController.applicationNameEntreprise}" />
+                        </h:outputFormat>
+
+                        <t:htmlTag value="div" style="height: 10px;" />
+
+                        <h:outputText value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.ACCUEIL']}"
+                                      escape="false" />
+                    </t:div>
+                </p:fieldset>
+            </t:div>
+        </p:panel>
+    </ui:define>
 </ui:composition>
 

@@ -1,542 +1,476 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:pe="http://primefaces.org/ui/extensions">
 
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-		<ui:include src="../_commun/_champsObligatoires.xhtml" />
-		<h:panelGrid columns="3"  columnClasses="paginatorData-text" rowClasses="paginatorData-text"
-			rendered="#{offreController.formOffre.idOffre gt 0}"
-			style="float:right;">
-			<h:outputLabel value="#{msgs['OFFRE']} " for="idOffre" />
-			<h:outputLabel value=" #{msgs['OFFRE.ID']}" for="idOffre" />
-			<h:outputText id="idOffre"
-				value="#{offreController.formOffre.idOffre}" />
-		</h:panelGrid>
-		<h:panelGrid columns="3"  columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-			<h:panelGrid>
-				<h:outputLabel value="#{msgs['OFFRE.INTITULE']} *" for="intitule" />
-				<h:inputText id="intitule" style="text-transform:uppercase;"
-					value="#{offreController.formOffre.intitule}" size="50"
-					maxlength="200" required="true"
-					requiredMessage="#{requiredMessageController.champObligatoire}"
-					converter="#{sansAccentEnMAJConverter}">
-					<a4j:ajax event="blur" />
-				</h:inputText>
-				<rich:message for="intitule">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
-				<h:panelGrid columns="1"
-					rendered="#{!offreController.avecFichierOuLien}">
-					<h:outputLabel value="#{msgs['OFFRE.REFOFFRE']}" for="refOffre" />
-					<h:inputText id="refOffre"
-						value="#{offreController.formOffre.referenceOffreEtablissement}"
-						size="50" maxlength="100">
-						<a4j:ajax event="blur" />
-					</h:inputText>
-					<rich:message for="refOffre">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
-				</h:panelGrid>
-				<h:outputLabel value="#{msgs['OFFRE.TYPEOFFRE']} *" for="typeOffre" />
-				<h:selectOneMenu id="typeOffre"
-					value="#{offreController.formOffre.typeOffre}"
-					converter="#{typeOffreConverter}" required="true"
-					requiredMessage="#{requiredMessageController.champObligatoire}"
-					disabled="true">
-					<f:selectItems value="#{nomenclatureController.typesOffre}" />
-					<a4j:ajax event="valueChange" />
-				</h:selectOneMenu>
-				<h:outputLabel value="#{msgs['OFFRE.CONTRATOFFRE']} *" for="contrat"
-					rendered="#{not empty offreController.contratsListening}" />
-				<h:selectOneMenu id="contrat"
-					value="#{offreController.formOffre.contratOffre}"
-					converter="#{contratOffreConverter}" required="true"
-					requiredMessage="#{requiredMessageController.champObligatoire}"
-					rendered="#{not empty offreController.contratsListening}">
-					<f:selectItem itemValue="" />
-					<f:selectItems value="#{offreController.contratsListening}" />
-					<a4j:ajax event="valueChange" render="opDuree" execute="@this" />
-				</h:selectOneMenu>
-				<rich:message for="contrat">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
-			</h:panelGrid>
-			<h:panelGrid columns="3"
-				rendered="#{!offreController.avecFichierOuLien}">
-				<t:htmlTag value="div" style="width: 25px;" />
-				<t:htmlTag value="div"
-					style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height:180px;" />
-				<t:htmlTag value="div" style="width: 25px;" />
-			</h:panelGrid>
-			<h:panelGrid columns="1"
-				rendered="#{!offreController.avecFichierOuLien}">
-				<a4j:outputPanel id="opDebutMission">
-					<h:panelGrid columns="1">
-						<h:outputText value="#{msgs['OFFRE.DEBUT']}" />
-						<h:panelGrid columns="5">
-							<h:outputLabel value="#{msgs['OFFRE.DEBUT.MOIS']} "
-								for="moisMission" />
-							<h:selectOneMenu id="moisMission"
-								value="#{offreController.formOffre.moisDebut}"
-								required="#{empty offreController.formOffre.precisionDebut}"
-								requiredMessage="#{requiredMessageController.champObligatoire}">
-								<f:selectItem itemValue="" />
-								<f:selectItems value="#{nomenclatureController.mois}" />
-								<a4j:ajax event="valueChange" render="precisionDebutMission"
-									execute="@this" />
-							</h:selectOneMenu>
-							<t:htmlTag value="div" style="width: 20px;" />
-							<h:outputLabel value="#{msgs['OFFRE.DEBUT.ANNEE']} "
-								for="anneeMission" />
-							<h:selectOneMenu id="anneeMission"
-								value="#{offreController.formOffre.anneeDebut}"
-								required="#{empty offreController.formOffre.precisionDebut}"
-								requiredMessage="#{requiredMessageController.champObligatoire}">
-								<f:selectItem itemValue="" />
-								<f:selectItems value="#{nomenclatureController.annees}" />
-								<a4j:ajax event="valueChange" render="precisionDebutMission"
-									execute="@this" />
-							</h:selectOneMenu>
-							<t:panelGroup colspan="3">
-								<rich:message for="moisMission">
-									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
-							</t:panelGroup>
-							<t:panelGroup colspan="2">
-								<rich:message for="anneeMission">
-									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
-							</t:panelGroup>
-						</h:panelGrid>
-						<h:outputLabel value="#{msgs['OFFRE.DEBUT.PRECISION']} "
-							for="precisionDebutMission" />
-						<h:inputText id="precisionDebutMission"
-							value="#{offreController.formOffre.precisionDebut}" size="50"
-							maxlength="200"
-							required="#{empty offreController.formOffre.moisDebut and empty offreController.formOffre.anneeDebut}"
-							requiredMessage="#{requiredMessageController.champObligatoire}">
-							<a4j:ajax event="valueChange" render="moisMission, anneeMission"
-								execute="@this" />
-						</h:inputText>
-						<rich:message for="precisionDebutMission">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
-					</h:panelGrid>
-				</a4j:outputPanel>
-				<a4j:outputPanel id="opDuree">
-					<h:panelGrid columns="1"
-						rendered="#{offreController.formOffre.contratOffre==beanUtils.cdd ||
-				offreController.formOffre.typeOffre==beanUtils.stage ||
-				offreController.formOffre.typeOffre==beanUtils.alternance ||
-				offreController.formOffre.typeOffre==beanUtils.vieVia}">
-						<h:panelGrid columns="2">
-							<h:outputLabel value="#{msgs['OFFRE.DUREE']}" for="duree" />
-							<h:outputLabel value=" *" for="duree" />
-						</h:panelGrid>
-						<t:panelGrid columns="4">
-							<h:inputText id="duree"
-								value="#{offreController.formOffre.duree}" size="6"
-								maxlength="6" required="true"
-								requiredMessage="#{requiredMessageController.champObligatoire}"
-								validatorMessage="#{requiredMessageController.superieurA0}">
-								<f:validator binding="#{entierValidator}" />
-								<a4j:ajax event="blur" />
-								<f:validateLongRange minimum="1" />
-							</h:inputText>
-							<t:htmlTag value="div" style="width: 20px;" />
-							<h:selectOneMenu id="uniteDuree"
-								value="#{offreController.formOffre.uniteDuree}"
-								requiredMessage="#{requiredMessageController.champObligatoire}"
-								required="true" converter="#{uniteDureeConverter}">
-								<f:selectItem itemValue="" />
-								<f:selectItems value="#{nomenclatureController.unitesDurees}" />
-								<a4j:ajax event="valueChange" />
-							</h:selectOneMenu>
-							<rich:message for="uniteDuree">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
-							<t:panelGroup colspan="4">
-								<rich:message for="duree">
-									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
-							</t:panelGroup>
-						</t:panelGrid>
-					</h:panelGrid>
-				</a4j:outputPanel>
-			</h:panelGrid>
-		</h:panelGrid>
-		<h:panelGrid columns="1"  columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-			<h:outputLabel value="#{msgs['OFFRE.DOMAINE']} *" for="fapN3" />
-			<h:selectOneMenu id="fapN3"
-				value="#{offreController.formOffre.fapN1}"
-				converter="#{fapN1Converter}" required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}"
-				style="width:300px;">
-				<f:selectItem itemValue="" />
-				<f:selectItems value="#{nomenclatureController.fapN1}" />
-				<a4j:ajax event="valueChange" />
-			</h:selectOneMenu>
-			<rich:message for="fapN3">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-		</h:panelGrid>
-		<h:panelGrid columns="1"  columnClasses="paginatorData-text" rowClasses="paginatorData-text"
-			rendered="#{offreController.avecFichierOuLien}">
-			<h:outputLabel value="#{msgs['OFFRE.NIVEAUFORMATION']} *"
-				for="niveauFormationF" />
-			<h:selectOneMenu id="niveauFormationF"
-				value="#{offreController.formOffre.niveauFormation}"
-				converter="#{niveauFormationConverter}" required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<f:selectItem itemValue="" />
-				<f:selectItems value="#{nomenclatureController.niveauxFormation}" />
-				<a4j:ajax event="valueChange" />
-			</h:selectOneMenu>
-			<rich:message for="niveauFormationF">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-		</h:panelGrid>
-		<h:outputLabel value="#{msgs['OFFRE.DESCRIPTION']} *"
-			for="description" />
-		<h:inputTextarea id="description" style="width:300px; height:150px;"
-			value="#{offreController.formOffre.description}" required="true"
-			requiredMessage="#{requiredMessageController.champObligatoire}"
-			resizeable="false">
-			<a4j:ajax event="blur" />
-		</h:inputTextarea>
-		<rich:message for="description">
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
-		<h:panelGrid columns="3" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-			<h:panelGrid columns="1">
-				<h:outputText value="#{msgs['OFFRE.LIEU']}" escape="false" />
-				<a4j:region renderRegionOnly="true">
-					<a4j:outputPanel id="opCodePostal">
-						<h:panelGrid columns="1"
-							rendered="#{!sessionController.recupererCommunesDepuisApogee ||
-				(offreController.formOffre.lieuPays!=beanUtils.france and offreController.formOffre.lieuPays.cog!=beanUtils.cogFrance
-				and sessionController.recupererCommunesDepuisApogee)}">
-							<h:panelGrid columns="2">
-								<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} "
-									for="codePostal" />
-								<h:outputLabel value=" *" for="codePostal"
-									rendered="#{!sessionController.recupererCommunesDepuisApogee ||
-				(offreController.formOffre.lieuPays!=beanUtils.france and offreController.formOffre.lieuPays.cog!=beanUtils.cogFrance
-				and sessionController.recupererCommunesDepuisApogee)}" />
-							</h:panelGrid>
-							<h:inputText id="codePostal"
-								value="#{offreController.formOffre.lieuCodePostal}" size="20"
-								maxlength="10"
-								requiredMessage="#{requiredMessageController.champObligatoire}"
-								required="#{!sessionController.recupererCommunesDepuisApogee and 
-								(offreController.formOffre.lieuPays==beanUtils.france || offreController.formOffre.lieuPays.cog==beanUtils.cogFrance)}">
-								<a4j:ajax event="blur" />
-							</h:inputText>
-							<rich:message for="codePostal">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
-						</h:panelGrid>
-						<h:panelGrid columns="1"
-							rendered="#{(offreController.formOffre.lieuPays==beanUtils.france || offreController.formOffre.lieuPays.cog==beanUtils.cogFrance)
-				and sessionController.recupererCommunesDepuisApogee}">
-							<a4j:region id="dynaR">
-								<h:panelGrid columns="1">
-									<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
-										for="dynaCodePostal" />
-									<h:inputText id="dynaCodePostal"
-										value="#{offreController.formOffre.lieuCodePostal}" size="5"
-										maxlength="5" required="true"
-										requiredMessage="#{requiredMessageController.champObligatoire}"
-										validatorMessage="#{requiredMessageController.codePostalNonValide}"
-										valueChangeListener="#{offreController.formOffreValueCodePostalChanged}">
-										<a4j:ajax event="blur" render="opDynaCommune" execute="@this" />
-									</h:inputText>
-								</h:panelGrid>
-							</a4j:region>
-							<rich:message for="dynaCodePostal">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
-						</h:panelGrid>
-					</a4j:outputPanel>
-					<h:outputLabel value="#{msgs['STRUCTURE.COMMUNE']} *" for="commune" />
-					<a4j:outputPanel id="opCommune">
-						<h:panelGrid columns="1"
-							rendered="#{!sessionController.recupererCommunesDepuisApogee ||
-				(offreController.formOffre.lieuPays!=beanUtils.france and offreController.formOffre.lieuPays.cog!=beanUtils.cogFrance
-				and sessionController.recupererCommunesDepuisApogee)}">
-							<h:inputText id="commune" style="text-transform:uppercase;"
-								value="#{offreController.formOffre.lieuCommune}" size="50"
-								maxlength="200" required="true"
-								requiredMessage="#{requiredMessageController.champObligatoire}"
-								converter="#{sansAccentEnMAJConverter}">
-								<a4j:ajax event="blur" />
-							</h:inputText>
-							<rich:message for="commune">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
-						</h:panelGrid>
-						<h:panelGrid columns="1"
-							rendered="#{(offreController.formOffre.lieuPays==beanUtils.france || offreController.formOffre.lieuPays.cog==beanUtils.cogFrance)
-				and sessionController.recupererCommunesDepuisApogee}">
-							<a4j:outputPanel id="opDynaCommune">
-								<h:selectOneMenu id="dynaCommune"
-									value="#{offreController.formOffre.codeCommune}"
-									required="true"
-									requiredMessage="#{requiredMessageController.champObligatoire}">
-									<f:selectItem itemValue="" />
-									<f:selectItems
-										value="#{offreController.formOffreCommunesListening}" />
-									<a4j:ajax event="valueChange" />
-								</h:selectOneMenu>
-								<rich:message for="dynaCommune">
-									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
-							</a4j:outputPanel>
-						</h:panelGrid>
-					</a4j:outputPanel>
-					<h:outputLabel value="#{msgs['STRUCTURE.PAYS']} *" for="pays" />
-					<h:panelGrid columns="2">
-						<a4j:outputPanel id="opFlag">
-							<t:htmlTag value="div" style="width: 16px;"
-								rendered="#{empty offreController.formOffre.lieuPays}" />
-							<h:graphicImage id="flag"
-								rendered="#{not empty offreController.formOffre.lieuPays}"
-								value="../../media/images/flags/#{offreController.formOffre.lieuPays.iso2}.png"
-								alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-								title="#{offreController.formOffre.lieuPays.libelle}" />
-						</a4j:outputPanel>
-						<h:selectOneMenu id="pays"
-							value="#{offreController.formOffre.lieuPays}"
-							converter="#{paysConverter}" required="true"
-							requiredMessage="#{requiredMessageController.champObligatoire}"
-							styleClass="paysInput">
-							<f:selectItems value="#{nomenclatureController.pays}" />
-							<a4j:ajax event="valueChange"
-								render="opFlag, opCommune, opCodePostal" execute="@this" />
-						</h:selectOneMenu>
-					</h:panelGrid>
-					<rich:message for="pays">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
-				</a4j:region>
-				<h:panelGrid columns="1"
-					rendered="#{!offreController.avecFichierOuLien}">
-					<t:htmlTag value="div" style="height: 20px;" />
-					<h:outputLabel value="#{msgs['OFFRE.INDEMNITE']} *" for="indemnite" />
-					<h:selectOneRadio id="indemnite"
-						value="#{offreController.formOffre.remuneration}" required="true"
-						requiredMessage="#{requiredMessageController.champObligatoire}">
-						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
-						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
-						<a4j:ajax event="valueChange" execute="@this"
-							render="opPrecisionsIndemnite" />
-					</h:selectOneRadio>
-					<rich:message for="indemnite">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
-					<a4j:outputPanel id="opPrecisionsIndemnite">
-						<h:panelGrid columns="1">
-							<h:panelGrid columns="2">
-								<h:outputLabel value="#{msgs['OFFRE.INDEMNITE_PRECISIONS']}"
-									for="precisionsIndemnite" />
-								<h:outputLabel value=" *" for="precisionsIndemnite"
-									rendered="#{offreController.formOffre.remuneration}" />
-							</h:panelGrid>
-							<h:inputText id="precisionsIndemnite"
-								value="#{offreController.formOffre.precisionRemuneration}"
-								size="50" maxlength="200"
-								required="#{offreController.formOffre.remuneration}"
-								requiredMessage="#{requiredMessageController.champObligatoire}">
-								<a4j:ajax event="blur" />
-							</h:inputText>
-							<rich:message for="precisionsIndemnite">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
-						</h:panelGrid>
-					</a4j:outputPanel>
-					<h:outputLabel value="#{msgs['OFFRE.AVANTAGES']}" for="avantages" />
-					<h:inputText id="avantages"
-						value="#{offreController.formOffre.avantages}" size="50"
-						maxlength="200">
-					</h:inputText>
-					<rich:message for="avantages">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
-					<t:htmlTag value="div" style="height: 50px;" />
-					<h:outputLabel value="#{msgs['OFFRE.NIVEAUFORMATION']} *"
-						for="niveauFormation" />
-					<h:selectOneMenu id="niveauFormation"
-						value="#{offreController.formOffre.niveauFormation}"
-						converter="#{niveauFormationConverter}" required="true"
-						requiredMessage="#{requiredMessageController.champObligatoire}">
-						<f:selectItem itemValue="" />
-						<f:selectItems value="#{nomenclatureController.niveauxFormation}" />
-						<a4j:ajax event="valueChange" />
-					</h:selectOneMenu>
-					<rich:message for="niveauFormation">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
-					<h:outputLabel value="#{msgs['OFFRE.COMPSOUHAITEES']}"
-						for="compSouhaitees" />
-					<h:inputTextarea id="compSouhaitees" style="width:300px; height:200px;"
-						value="#{offreController.formOffre.competences}" />
-					<rich:message for="compSouhaitees">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
-				</h:panelGrid>
-			</h:panelGrid>
-			<h:panelGrid columns="3"
-				rendered="#{!offreController.avecFichierOuLien}">
-				<t:htmlTag value="div" style="width: 25px;" />
-				<t:htmlTag value="div"
-					style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height: 750px;" />
-				<t:htmlTag value="div" style="width: 25px;" />
-			</h:panelGrid>
-			<h:panelGrid columns="1"
-				rendered="#{!offreController.avecFichierOuLien}">
-				<h:outputLabel value="#{msgs['OFFRE.DEPLACEMENT']} *"
-					for="deplacement" />
-				<h:selectOneRadio id="deplacement"
-					value="#{offreController.formOffre.deplacement}" required="true"
-					requiredMessage="#{requiredMessageController.champObligatoire}">
-					<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
-					<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
-					<a4j:ajax event="valueChange" />
-				</h:selectOneRadio>
-				<rich:message for="deplacement">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
-				<h:outputLabel value="#{msgs['OFFRE.PERMIS']} *" for="permis" />
-				<h:selectOneRadio id="permis"
-					value="#{offreController.formOffre.permis}" required="true"
-					requiredMessage="#{requiredMessageController.champObligatoire}">
-					<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
-					<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
-					<a4j:ajax event="valueChange" />
-				</h:selectOneRadio>
-				<rich:message for="permis">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
-				<t:htmlTag value="div" style="height: 90px;" />
-				<h:panelGrid columns="3">
-					<h:panelGrid columns="1">
-						<h:outputLabel value="#{msgs['OFFRE.TEMPSTRAVAIL']} *"
-							for="tempsTravail" />
-						<h:selectOneMenu id="tempsTravail"
-							value="#{offreController.formOffre.tempsTravail}"
-							converter="#{tempsTravailConverter}" required="true"
-							requiredMessage="#{requiredMessageController.champObligatoire}">
-							<f:selectItem itemValue="" />
-							<f:selectItems value="#{nomenclatureController.tempsTravail}" />
-							<a4j:ajax event="valueChange" render="opQuotiteTravail"
-								execute="@this" />
-						</h:selectOneMenu>
-						<rich:message for="tempsTravail">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
-					</h:panelGrid>
-					<t:htmlTag value="div" style="width: 20px;" />
-					<a4j:outputPanel id="opQuotiteTravail">
-						<h:panelGrid columns="1"
-							rendered="#{offreController.formOffre.tempsTravail==beanUtils.tempsPartiel}">
-							<h:panelGrid columns="2">
-								<h:outputLabel value="#{msgs['OFFRE.QUOTITETRAVAIL']}"
-									for="quotiteTravail" />
-								<h:outputLabel value=" *" for="quotiteTravail" />
-							</h:panelGrid>
-							<h:panelGrid columns="2">
-								<h:inputText id="quotiteTravail"
-									value="#{offreController.formOffre.quotiteTravail}" size="3"
-									maxlength="3"
-									required="#{offreController.formOffre.tempsTravail==beanUtils.tempsPartiel}"
-									requiredMessage="#{requiredMessageController.champObligatoire}"
-									validatorMessage="#{requiredMessageController.pourcentage}">
-									<f:validator binding="#{pourcentageValidator}" />
-									<a4j:ajax event="blur" />
-								</h:inputText>
-								<h:outputText value="%" />
-							</h:panelGrid>
-							<rich:message for="quotiteTravail">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
-						</h:panelGrid>
-					</a4j:outputPanel>
-				</h:panelGrid>
-				<h:outputLabel value="#{msgs['OFFRE.COMTPSTRAVAIL']}"
-					for="comTpsTravail" />
-				<h:inputText id="comTpsTravail"
-					value="#{offreController.formOffre.commentaireTempsTravail}"
-					size="50" maxlength="200">
-				</h:inputText>
-				<rich:message for="comTpsTravail">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
-				<t:htmlTag value="div" style="height: 40px;" />
-				<h:outputLabel value="#{msgs['OFFRE.MODECANDIDATURE']} *"
-					for="modeCand" />
-				<h:selectManyListbox id="modeCand"
-					value="#{offreController.formOffre.modesCandidature}"
-					converter="#{modeCandidatureConverter}" style="width:200px;"
-					requiredMessage="#{requiredMessageController.champObligatoire}"
-					required="true">
-					<f:selectItems value="#{nomenclatureController.modesCandidature}" />
-					<a4j:ajax event="blur" />
-				</h:selectManyListbox>
-				<rich:message for="modeCand">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
-				<h:outputLabel value="#{msgs['OFFRE.COMOBS']}" for="comobs" />
-				<h:inputTextarea id="comobs" style="height:200px; width:300px;"
-					value="#{offreController.formOffre.observations}"/>
-				<rich:message for="comobs">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
-			</h:panelGrid>
-		</h:panelGrid>
-		<t:htmlTag value="div" style="height: 10px;" />
-		<h:panelGrid columns="1" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
-			rendered="#{sessionController.moderationActive and sessionController.pageAuthorized}">
-			<h:panelGrid columns="2"
-				rendered="#{!offreController.formOffre.estDiffusee}">
-				<h:graphicImage value="../../media/images/information.png"
-					alt="#{msgs['GENERAL.OK']}" />
-				<h:outputLabel for="diffusionOffre"
-					value="#{msgs['OFFRE.GESTION.DIFFUSION.MODERATION.MSG_NODIFF']}" />
-			</h:panelGrid>
-		</h:panelGrid>
-		<h:panelGrid columns="1" id="diffusionOffre" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
-			rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.writer
-		|| sessionController.adminPageAuthorized || sessionController.pageAuthorized) and !offreController.formOffre.estDiffusee
-		and !(sessionController.pageAuthorized and sessionController.moderationActive)}">
-			<h:panelGrid columns="2">
-				<h:outputLabel for="diffusionOffre"
-					value="#{msgs['OFFRE.GESTION.DIFFUSION.QUESTION.FORM']}" />
-				<h:selectOneRadio value="#{offreController.diffusionDirecte}">
-					<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
-					<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
-					<a4j:ajax event="click" execute="@this" render="diffusionOffre" />
-				</h:selectOneRadio>
-			</h:panelGrid>
-			<h:panelGrid columns="2"
-				rendered="#{offreController.diffusionDirecte}">
-				<h:outputText
-					value="#{msgs['OFFRE.GESTION.DIFFUSION.QUESTION.DUREE']}"
-					escape="false" />
-				<h:panelGrid columns="2">
-					<h:selectOneMenu id="dureeDiffusion"
-						value="#{offreController.dureeDiffusion}">
-						<f:selectItems value="#{offreController.dureesDiffusion}" />
-					</h:selectOneMenu>
-					<rich:message for="dureeDiffusion">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
-				</h:panelGrid>
-			</h:panelGrid>
-		</h:panelGrid>
-		<t:htmlTag value="div" style="height: 20px;" />
-	</h:panelGrid>
+    <t:div styleClass="ml40">
+        <ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
+    </t:div>
+
+    <t:div rendered="#{offreController.formOffre.idOffre gt 0}"
+           styleClass="floatRight">
+        <h:outputLabel value="#{msgs['OFFRE']} " for="idOffre" styleClass="fontBold" />
+        <h:outputLabel value=" #{msgs['OFFRE.ID']}" for="idOffre" styleClass="fontBold" />
+        <h:outputText id="idOffre" value="#{offreController.formOffre.idOffre}" />
+    </t:div>
+
+
+    <t:htmlTag value="ul" styleClass="formUL columns-2 mt10">
+        <t:div styleClass="column">
+            <t:htmlTag value="li">
+                <h:outputLabel value="#{msgs['OFFRE.INTITULE']} *" for="intitule" styleClass="fontBold" />
+                <p:inputText id="intitule" style="text-transform:uppercase;"
+                             value="#{offreController.formOffre.intitule}"
+                             maxlength="200" required="true"
+                             converter="#{sansAccentEnMAJConverter}" />
+                <p:message for="intitule"/>
+
+                <t:div styleClass="mt10" rendered="#{!offreController.avecFichierOuLien}">
+                    <h:outputLabel value="#{msgs['OFFRE.REFOFFRE']}" for="refOffre" styleClass="fontBold" />
+                    <p:inputText id="refOffre"
+                                 value="#{offreController.formOffre.referenceOffreEtablissement}"
+                                 maxlength="100" />
+                    <p:message for="refOffre"/>
+                </t:div>
+            </t:htmlTag>
+        </t:div>
+
+        <t:div styleClass="column">
+            <t:htmlTag value="li">
+                <h:outputLabel value="#{msgs['OFFRE.TYPEOFFRE']} *" for="typeOffre" styleClass="fontBold mt10" />
+                <h:selectOneMenu id="typeOffre" styleClass="customPstage fix-selectOneMenu"
+                                 value="#{offreController.formOffre.typeOffre}"
+                                 converter="#{typeOffreConverter}" required="true"
+                                 disabled="true" style="opacity: 0.50;">
+                    <f:selectItems value="#{nomenclatureController.typesOffreEnServ}" />
+                </h:selectOneMenu>
+
+                <t:htmlTag value="div" style="height:10px;" />
+
+                <h:outputLabel value="#{msgs['OFFRE.CONTRATOFFRE']} *" for="contrat" styleClass="fontBold"
+                               rendered="#{not empty offreController.contratsListening}" />
+                <h:selectOneMenu id="contrat" styleClass="customPstage fix-selectOneMenu"
+                                 value="#{offreController.formOffre.contratOffre}"
+                                 converter="#{contratOffreConverter}" required="true"
+                                 rendered="#{not empty offreController.contratsListening}">
+                    <f:selectItem itemValue="" />
+                    <f:selectItems value="#{offreController.contratsListening}" />
+                    <p:ajax event="valueChange" update="opDuree, msgContrat"  />
+                </h:selectOneMenu>
+                <p:message id="msgContrat" for="contrat"/>
+            </t:htmlTag>
+        </t:div>
+    </t:htmlTag>
+
+    <t:htmlTag value="div" style="height:10px;" styleClass="clearFloat" />
+    <p:separator style="height:2px;" styleClass="mb20" />
+
+    <t:htmlTag value="ul" styleClass="formUL mt10">
+        <t:htmlTag value="li">
+            <h:outputLabel value="#{msgs['OFFRE.DOMAINE']} *" for="fapN3" styleClass="fontBold" />
+            <h:selectOneMenu id="fapN3" styleClass="customPstage fix-selectOneMenu"
+                             value="#{offreController.formOffre.fapN1}"
+                             converter="#{fapN1Converter}" required="true">
+                <f:selectItem itemValue="" />
+                <f:selectItems value="#{nomenclatureController.fapN1}" />
+            </h:selectOneMenu>
+            <p:message for="fapN3"/>
+
+            <t:div rendered="#{offreController.avecFichierOuLien}" styleClass="mt10">
+                <h:outputLabel value="#{msgs['OFFRE.NIVEAUFORMATION']} *"
+                               for="niveauFormationF" styleClass="fontBold" />
+                <h:selectOneMenu id="niveauFormationF"
+                                 value="#{offreController.formOffre.niveauFormation}"
+                                 converter="#{niveauFormationConverter}" required="true">
+                    <f:selectItem itemValue="" />
+                    <f:selectItems value="#{nomenclatureController.niveauxFormationEnServ}" />
+                </h:selectOneMenu>
+                <p:message for="niveauFormationF" />
+            </t:div>
+
+            <t:div style="height:10px;" />
+
+            <h:outputLabel value="#{msgs['OFFRE.DESCRIPTION']} *"
+                           for="description" styleClass="fontBold" />
+            <t:div>
+                <p:inputTextarea id="description" required="true"
+                                 value="#{offreController.formOffre.description}" />
+            </t:div>
+            <p:message for="description"/>
+        </t:htmlTag>
+    </t:htmlTag>
+
+    <t:htmlTag value="div" style="height:10px;" styleClass="clearFloat" />
+    <p:separator style="height:2px;" styleClass="mb20" />
+
+    <t:htmlTag value="ul" styleClass="formUL columns-2 mt10">
+        <t:div styleClass="column">
+            <t:htmlTag value="li">
+                <h:outputText value="#{msgs['OFFRE.LIEU']}" escape="false" styleClass="fz13 fontBold"/>
+                <t:div styleClass="mlf10">
+                    <p:outputPanel id="opCodePostal" styleClass="mt5">
+                        <t:div rendered="#{!sessionController.recupererCommunesDepuisApogee ||
+                                (sessionController.recupererCommunesDepuisApogee and !offreController.paysOffreFrance)}">
+                            <t:div>
+                                <h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']} " styleClass="fontBold"
+                                              for="codePostal" />
+                                <h:outputText value=" *" for="codePostal" styleClass="fontBold"
+                                              rendered="#{!sessionController.recupererCommunesDepuisApogee}" />
+                            </t:div>
+                            <p:inputText id="codePostal" styleClass="fontBold"
+                                         value="#{offreController.formOffre.lieuCodePostal}"
+                                         maxlength="10"
+                                         required="#{sessionController.recupererCommunesDepuisApogee}" />
+                            <p:message for="codePostal" />
+                        </t:div>
+                        <t:div rendered="#{sessionController.recupererCommunesDepuisApogee and offreController.paysOffreFrance}">
+                            <p:outputPanel id="dynaR">
+                                <t:div>
+                                    <h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
+                                                   for="dynaCodePostal" styleClass="fontBold" />
+                                    <p:inputText id="dynaCodePostal"
+                                                 value="#{offreController.formOffre.lieuCodePostal}"
+                                                 maxlength="5" required="true"
+                                                 validatorMessage="#{requiredMessageController.codePostalNonValide}"
+                                                 valueChangeListener="#{offreController.formOffreValueCodePostalChanged}">
+                                        <p:ajax event="blur" update="opDynaCommune, msgDynaCommune" />
+                                    </p:inputText>
+                                </t:div>
+                            </p:outputPanel>
+                            <p:message id="msgDynaCommune" for="dynaCodePostal" />
+                        </t:div>
+                    </p:outputPanel>
+
+                    <t:div style="height:10px;" />
+
+                    <h:outputLabel value="#{msgs['STRUCTURE.COMMUNE']} *" for="commune" styleClass="fontBold" />
+                    <p:outputPanel id="opCommune">
+                        <t:div rendered="#{!sessionController.recupererCommunesDepuisApogee ||
+                            (sessionController.recupererCommunesDepuisApogee and !offreController.paysOffreFrance)}">
+                            <p:inputText id="commune" style="text-transform:uppercase;"
+                                         value="#{offreController.formOffre.lieuCommune}"
+                                         maxlength="200" required="true"
+                                         converter="#{sansAccentEnMAJConverter}"/>
+                            <p:message for="commune" />
+                        </t:div>
+                        <t:div rendered="#{sessionController.recupererCommunesDepuisApogee and offreController.paysOffreFrance}">
+                            <p:outputPanel id="opDynaCommune">
+                                <h:selectOneMenu id="dynaCommune" styleClass="customPstage fix-selectOneMenu"
+                                                 value="#{offreController.formOffre.codeCommune}" required="true">
+                                    <f:selectItem itemValue="" />
+                                    <f:selectItems value="#{offreController.formOffreCommunesListening}" />
+                                </h:selectOneMenu>
+                                <p:message for="dynaCommune" />
+                            </p:outputPanel>
+                        </t:div>
+                    </p:outputPanel>
+
+                    <t:div style="height:10px;" />
+
+                    <h:outputLabel value="#{msgs['STRUCTURE.PAYS']} *" for="pays" styleClass="fontBold" />
+
+                    <p:outputPanel id="opFlag">
+                        <t:div styleClass="verticalAlignDiv">
+                            <h:graphicImage id="flag"
+                                            rendered="#{not empty offreController.formOffre.lieuPays}"
+                                            value="#{sessionController.mediaPath}/images/flags/#{offreController.formOffre.lieuPays.iso2}.png"
+                                            alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+                                            title="#{offreController.formOffre.lieuPays.libelle}" />
+                            <h:selectOneMenu id="pays" styleClass="customPstage fix-selectOneMenu mlf5"
+                                             value="#{offreController.formOffre.lieuPays}"
+                                             converter="#{paysConverter}" required="true">
+                                <f:selectItems value="#{nomenclatureController.pays}" />
+                                <p:ajax event="valueChange"
+                                        update="opFlag, opCommune, opCodePostal"  />
+                            </h:selectOneMenu>
+                        </t:div>
+                        <p:message for="pays" />
+                    </p:outputPanel>
+                </t:div>
+            </t:htmlTag>
+        </t:div>
+        <t:div styleClass="column" rendered="#{!offreController.avecFichierOuLien}">
+            <t:htmlTag value="li">
+                <h:outputText value="Periode" escape="false" styleClass="fz13 fontBold fontItalic"/>
+
+                <t:div styleClass="mlf10">
+                    <p:outputPanel id="opDuree" styleClass="mt5">
+                        <t:div rendered="#{offreController.affichageDureeOffre}">
+                            <h:outputLabel value="#{msgs['OFFRE.DUREE']} *" for="duree" styleClass="fontBold"/>
+                            <t:div styleClass="verticalAlignDiv" style="white-space:nowrap;">
+                                <p:inputText id="duree"
+                                             value="#{offreController.formOffre.duree}"
+                                             maxlength="6" required="true"
+                                             validatorMessage="#{requiredMessageController.superieurA0}">
+                                    <f:validator binding="#{entierValidator}" />
+                                    <p:ajax event="blur" update="msgDuree"/>
+                                    <f:validateLongRange minimum="1" />
+                                </p:inputText>
+                                <h:selectOneMenu id="uniteDuree" styleClass="customPstage fix-selectOneMenu mlf5"
+                                                 value="#{offreController.formOffre.uniteDuree}"
+                                                 required="true" converter="#{uniteDureeConverter}">
+                                    <f:selectItem itemValue="" />
+                                    <f:selectItems value="#{nomenclatureController.unitesDurees}" />
+                                    <p:ajax event="valueChange" update="msgUniteDuree" />
+                                </h:selectOneMenu>
+                            </t:div>
+                            <h:panelGrid columns="2">
+                                <p:message id="msgDuree" for="duree"/>
+                                <p:message id="msgUniteDuree" for="uniteDuree"/>
+                            </h:panelGrid>
+                        </t:div>
+                    </p:outputPanel>
+                    <p:outputPanel id="opDebutMission" styleClass="mt5">
+                        <h:outputText value="#{msgs['OFFRE.DEBUT']} : *" styleClass="fontBold" />
+
+                        <t:div styleClass="mlf10">
+                            <t:div styleClass="verticalAlignDiv mt5" style="white-space:nowrap;">
+                                <h:outputLabel value="#{msgs['OFFRE.DEBUT.MOIS']}" styleClass="fontBold"
+                                               for="moisMission" />
+                                <h:selectOneMenu id="moisMission" styleClass="customPstage fix-selectOneMenu ml5"
+                                                 value="#{offreController.formOffre.moisDebut}" style="width:auto;"
+                                                 required="#{empty offreController.formOffre.precisionDebut}">
+                                    <f:selectItem itemValue="" />
+                                    <f:selectItems value="#{nomenclatureController.mois}" />
+                                    <p:ajax event="valueChange" update="precisionDebutMission, msgMoisMission"/>
+                                </h:selectOneMenu>
+                            </t:div>
+                            <p:message id="msgMoisMission" for="moisMission"/>
+                            <t:div styleClass="verticalAlignDiv mt5" style="white-space:nowrap;">
+                                <h:outputLabel value="#{msgs['OFFRE.DEBUT.ANNEE']} " styleClass="fontBold"
+                                               for="anneeMission" />
+                                <h:selectOneMenu id="anneeMission" styleClass="customPstage fix-selectOneMenu ml5"
+                                                 value="#{offreController.formOffre.anneeDebut}" style="width:auto;"
+                                                 required="#{empty offreController.formOffre.precisionDebut}">
+                                    <f:selectItem itemValue="" />
+                                    <f:selectItems value="#{nomenclatureController.annees}" />
+                                    <p:ajax event="valueChange" update="precisionDebutMission, msgAnneesMission"/>
+                                </h:selectOneMenu>
+                            </t:div>
+                            <p:message id="msgAnneesMission" for="anneeMission"/>
+                        </t:div>
+
+                        <h:outputLabel value="#{msgs['OFFRE.DEBUT.PRECISION']} :" styleClass="fontBold mt10"
+                                       for="precisionDebutMission" />
+                        <p:inputText id="precisionDebutMission"
+                                     value="#{offreController.formOffre.precisionDebut}"
+                                     maxlength="200"
+                                     required="#{empty offreController.formOffre.moisDebut and empty offreController.formOffre.anneeDebut}" />
+                        <p:message for="precisionDebutMission" />
+                    </p:outputPanel>
+                </t:div>
+            </t:htmlTag>
+        </t:div>
+    </t:htmlTag>
+
+    <t:htmlTag value="div" style="height:10px;" styleClass="clearFloat"/>
+    <p:separator style="height:2px;" styleClass="mb20" />
+
+    <t:div rendered="#{!offreController.avecFichierOuLien}">
+        <t:htmlTag value="ul" styleClass="formUL columns-2 mt10">
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <h:outputLabel value="#{msgs['OFFRE.INDEMNITE']} : *" for="indemnite" styleClass="fontBold"/>
+                    <p:selectOneRadio id="indemnite" styleClass="customPstage fix-selectOneMenu"
+                                      value="#{offreController.formOffre.remuneration}" required="true">
+                        <f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+                        <f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+                        <p:ajax event="valueChange"
+                                update="opPrecisionsIndemnite" />
+                    </p:selectOneRadio>
+                    <p:message for="indemnite" />
+
+                    <p:outputPanel id="opPrecisionsIndemnite" styleClass="mt10">
+                        <t:div styleClass="verticalAlignDiv">
+                            <h:outputLabel value="#{msgs['OFFRE.INDEMNITE_PRECISIONS']}"
+                                           for="precisionsIndemnite" styleClass="fontBold"/>
+                            <h:outputLabel value=" *" for="precisionsIndemnite" styleClass="fontBold ml5"
+                                           rendered="#{offreController.formOffre.remuneration}" />
+                        </t:div>
+                        <p:inputText id="precisionsIndemnite"
+                                     value="#{offreController.formOffre.precisionRemuneration}"
+                                     maxlength="200"
+                                     required="#{offreController.formOffre.remuneration}">
+                            <p:ajax event="blur" />
+                        </p:inputText>
+                        <p:message for="precisionsIndemnite"/>
+                    </p:outputPanel>
+
+                    <t:div style="height:10px;" />
+
+                    <h:outputLabel value="#{msgs['OFFRE.AVANTAGES']}" for="avantages" styleClass="fontBold"/>
+                    <p:inputText id="avantages"
+                                 value="#{offreController.formOffre.avantages}"
+                                 maxlength="200" />
+                    <p:message for="avantages"/>
+                </t:htmlTag>
+            </t:div>
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <h:outputLabel value="#{msgs['OFFRE.TEMPSTRAVAIL']} *"
+                                   for="tempsTravail" styleClass="fontBold" />
+                    <h:selectOneMenu id="tempsTravail" styleClass="customPstage fix-selectOneMenu"
+                                     value="#{offreController.formOffre.tempsTravail}"
+                                     converter="#{tempsTravailConverter}" required="true">
+                        <f:selectItem itemValue="" />
+                        <f:selectItems value="#{nomenclatureController.tempsTravailEnServ}" />
+                        <p:ajax event="valueChange" update="opQuotiteTravail, msgTpsTravail"/>
+                    </h:selectOneMenu>
+                    <p:message id="msgTpsTravail" for="tempsTravail" />
+
+                    <p:outputPanel id="opQuotiteTravail" styleClass="mt10">
+                        <t:div rendered="#{offreController.formOffre.tempsTravail==beanUtils.tempsPartiel}">
+                            <h:outputLabel value="#{msgs['OFFRE.QUOTITETRAVAIL']} *"
+                                           for="quotiteTravail" styleClass="fontBold" />
+                            <t:div>
+                                <p:inputText id="quotiteTravail" style="width:auto;"
+                                             value="#{offreController.formOffre.quotiteTravail}"
+                                             maxlength="3"
+                                             required="#{offreController.formOffre.tempsTravail==beanUtils.tempsPartiel}"
+                                             validatorMessage="#{requiredMessageController.pourcentage}">
+                                    <f:validator binding="#{pourcentageValidator}" />
+                                    <p:ajax event="valueChange" update="opQuotiteTravail" />
+                                </p:inputText>
+                                <h:outputText value="%" />
+                            </t:div>
+                            <p:message for="quotiteTravail" />
+                        </t:div>
+                    </p:outputPanel>
+
+                    <t:htmlTag value="div" style="height: 10px;" />
+
+                    <h:outputLabel value="#{msgs['OFFRE.COMTPSTRAVAIL']}"
+                                   for="comTpsTravail" styleClass="fontBold" />
+                    <p:inputText id="comTpsTravail"
+                                 value="#{offreController.formOffre.commentaireTempsTravail}"
+                                 maxlength="200" />
+                    <p:message for="comTpsTravail" />
+                </t:htmlTag>
+            </t:div>
+        </t:htmlTag>
+
+        <t:htmlTag value="div" style="height:10px;" styleClass="clearFloat" />
+        <p:separator style="height:2px;" styleClass="mb20" />
+
+        <t:htmlTag value="ul" styleClass="formUL columns-2 mt10">
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <h:outputLabel value="#{msgs['OFFRE.NIVEAUFORMATION']} *"
+                                   for="niveauFormation" styleClass="fontBold"/>
+                    <h:selectOneMenu id="niveauFormation" styleClass="customPstage fix-selectOneMenu"
+                                     value="#{offreController.formOffre.niveauFormation}"
+                                     converter="#{niveauFormationConverter}" required="true">
+                        <f:selectItem itemValue="" />
+                        <f:selectItems value="#{nomenclatureController.niveauxFormationEnServ}" />
+                        <p:ajax event="valueChange" />
+                    </h:selectOneMenu>
+                    <p:message for="niveauFormation"/>
+
+                    <t:htmlTag value="div" style="height: 10px;" />
+
+                    <h:outputLabel value="#{msgs['OFFRE.COMPSOUHAITEES']}"
+                                   for="compSouhaitees" styleClass="fontBold" />
+                    <p:inputTextarea id="compSouhaitees"
+                                     value="#{offreController.formOffre.competences}" />
+                    <p:message for="compSouhaitees" />
+                </t:htmlTag>
+            </t:div>
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <h:outputLabel value="#{msgs['OFFRE.DEPLACEMENT']} *"
+                                   for="deplacement" styleClass="fontBold"/>
+                    <p:selectOneRadio id="deplacement"
+                                      value="#{offreController.formOffre.deplacement}" required="true"
+                                      requiredMessage="#{requiredMessageController.champObligatoire}">
+                        <f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+                        <f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+                        <p:ajax event="valueChange" />
+                    </p:selectOneRadio>
+                    <p:message for="deplacement" />
+
+                    <t:htmlTag value="div" style="height: 10px;" />
+
+                    <h:outputLabel value="#{msgs['OFFRE.PERMIS']} *" for="permis" styleClass="fontBold"/>
+                    <p:selectOneRadio id="permis"
+                                      value="#{offreController.formOffre.permis}" required="true">
+                        <f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+                        <f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+                    </p:selectOneRadio>
+                    <p:message for="permis"/>
+
+                </t:htmlTag>
+            </t:div>
+        </t:htmlTag>
+
+        <t:htmlTag value="div" style="height:10px;" styleClass="clearFloat" />
+        <p:separator style="height:2px;" styleClass="mb20" />
+
+
+        <t:htmlTag value="ul" styleClass="formUL columns-2">
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <h:outputLabel value="#{msgs['OFFRE.COMOBS']}" for="comobs" styleClass="fontBold"/>
+                    <p:inputTextarea id="comobs"
+                                     value="#{offreController.formOffre.observations}" />
+                    <p:message for="comobs" />
+                </t:htmlTag>
+            </t:div>
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <h:outputLabel value="#{msgs['OFFRE.MODECANDIDATURE']} *"
+                                   for="modeCand" styleClass="fontBold"/>
+                    <p:selectManyMenu id="modeCand"
+                                      value="#{offreController.formOffre.modesCandidature}"
+                                      converter="#{modeCandidatureConverter}"
+                                      required="true">
+                        <f:selectItems value="#{nomenclatureController.modesCandidature}" />
+                        <p:ajax event="blur" />
+                    </p:selectManyMenu>
+                    <p:message for="modeCand" />
+                </t:htmlTag>
+            </t:div>
+        </t:htmlTag>
+    </t:div>
+
+    <t:htmlTag value="div" styleClass="clearFloat" />
+
+    <t:htmlTag value="ul" styleClass="formUL mt20">
+        <t:htmlTag value="li">
+            <t:div styleClass="verticalAlignDiv" rendered="#{sessionController.moderationActive and sessionController.pageAuthorized and !offreController.formOffre.estDiffusee}">
+                <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2"/>
+                <h:outputLabel for="diffusionOffre" styleClass="mlf5"
+                               value="#{msgs['OFFRE.GESTION.DIFFUSION.MODERATION.MSG_NODIFF']}" />
+            </t:div>
+
+            <t:div rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.writer
+                    || sessionController.adminPageAuthorized || sessionController.pageAuthorized) and !offreController.formOffre.estDiffusee
+                    and !(sessionController.pageAuthorized and sessionController.moderationActive)}">
+                <h:outputLabel for="diffusionOffre" styleClass="fontBold"
+                               value="#{msgs['OFFRE.GESTION.DIFFUSION.QUESTION.FORM']}" />
+                <p:selectOneRadio value="#{offreController.diffusionDirecte}">
+                    <f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+                    <f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+                    <p:ajax event="valueChange" update="diffusionOffre" />
+                </p:selectOneRadio>
+
+                <t:htmlTag value="div" style="height: 10px;" />
+
+                <p:outputPanel id="diffusionOffre">
+                    <t:div rendered="#{offreController.diffusionDirecte}">
+                        <h:outputText value="#{msgs['OFFRE.GESTION.DIFFUSION.QUESTION.DUREE']}"
+                                      escape="false" styleClass="fontBold" />
+                        <h:selectOneMenu id="dureeDiffusion" styleClass="customPstage fix-selectOneMenu autoWidth"
+                                         value="#{offreController.dureeDiffusion}">
+                            <f:selectItems value="#{offreController.dureesDiffusion}" />
+                        </h:selectOneMenu>
+                        <p:message for="dureeDiffusion"/>
+                    </t:div>
+                </p:outputPanel>
+            </t:div>
+        </t:htmlTag>
+    </t:htmlTag>
+    <t:htmlTag value="div" style="height: 20px;" styleClass="clearFloat"/>
 </ui:composition>

@@ -1,0 +1,27 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET8']}" />
+            </f:facet>
+            <h:form id="formResultatsRechEtab">
+                <t:div rendered="#{empty rechercheController.listeResultatsRechercheStructure}">
+                    <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.AUCUNRESULTAT']}" />
+                </t:div>
+                <p:dataTable id="rechercheStructureDataTable"
+                             value="#{rechercheController.listeResultatsRechercheStructure}"
+                             var="varRechercheStructure" rows="20" rowHover="true" reflow="true"
+                             rowStyleClass="noPointer" paginator="true" tableStyle="table-layout: auto;"
+                             paginatorAlwaysVisible="false" rowsPerPageTemplate="5,10,15,20" paginatorPosition="bottom"
+                             rendered="#{not empty rechercheController.listeResultatsRechercheStructure}">
+                    <ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatsColumns.xhtml" />
+                </p:dataTable>
+            </h:form>
+        </p:panel>
+    </ui:define>
+</ui:composition>

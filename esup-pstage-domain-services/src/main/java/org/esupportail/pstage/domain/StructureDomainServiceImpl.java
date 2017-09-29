@@ -242,6 +242,13 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 	public boolean deleteContact(int idContact) throws DataDeleteException,WebServiceDataBaseException, ContactDeleteException{
 		return this.remoteServices.deleteContact(idContact);
 	}
+
+	/**
+	 * @see org.esupportail.pstage.domain.StructureDomainService#deleteComptesContactFromIdService(int)
+	 */
+	public boolean deleteComptesContactFromIdService(int idService) throws DataUpdateException, WebServiceDataBaseException{
+		return this.remoteServices.deleteComptesContactFromIdService(idService);
+	}
 	/* ****************************************************************************
 	 * SERVICE
 	 *****************************************************************************/
@@ -328,7 +335,7 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 
 	// Ajout moderation Entreprise
 	/**
-	 * @see org.esupportail.pstage.domain.StructureDomainService#getStructuresFromVerification(boolean)
+	 * @see org.esupportail.pstage.domain.StructureDomainService#getStructuresFromVerification(int)
 	 */
 	public List<StructureDTO> getStructuresFromVerification(int estValidee){
 		List<StructureDTO> ls = this.remoteServices.getStructuresFromVerification(estValidee);
@@ -627,7 +634,9 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 	 * @see org.esupportail.pstage.domain.StructureDomainService#getStructuresTemEnServFalse()
 	 */
 	public List<StructureDTO> getStructuresTemEnServFalse() {
-		return this.remoteServices.getStructuresTemEnServFalse();
+		List<StructureDTO> ls = this.remoteServices.getStructuresTemEnServFalse();
+		setObjects(ls);
+		return ls;
 	}
 
 }
