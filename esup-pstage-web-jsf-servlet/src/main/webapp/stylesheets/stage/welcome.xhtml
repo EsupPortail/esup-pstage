@@ -22,13 +22,13 @@
                 <t:div styleClass="mt5 ml30"
                        style="font-weight:bold; text-decoration:underline;">
                     <h:outputLink rendered="#{!welcomeController.etudiant || (welcomeController.etudiant and !sessionController.etudiantFC)}"
-                                  value="#{sessionController.mediaPath}/docs/Notice_Convention_Stage.pdf">
+                                  value="#{sessionController.baseUrl}#{sessionController.mediaPath}/docs/Notice_Convention_Stage.pdf">
                         <h:graphicImage alt="notice" value="../../media/images/docs.gif"/>
                         Notice Convention de stage
                     </h:outputLink>
                     <t:htmlTag value="div" style="height:5px;"/>
                     <h:outputLink rendered="#{!welcomeController.etudiant || (welcomeController.etudiant and sessionController.etudiantFC)}"
-                                  value="#{sessionController.mediaPath}/docs/Notice_Convention_Stage_FC.pdf">
+                                  value="#{sessionController.baseUrl}#{sessionController.mediaPath}/docs/Notice_Convention_Stage_FC.pdf">
                         <h:graphicImage alt="noticeFC" value="../../media/images/docs.gif"/>
                         Notice Convention de stage pour la Formation Continue
                     </h:outputLink>
@@ -40,13 +40,13 @@
                     <!--</h:outputLink>-->
                     <t:htmlTag value="div" style="height:10px;"/>
                     <h:outputLink
-                            value="#{sessionController.mediaPath}/docs/Note_information_stage_etranger.pdf">
+                            value="#{sessionController.baseUrl}#{sessionController.mediaPath}/docs/Note_information_stage_etranger.pdf">
                         <h:graphicImage alt="infoStageEtranger" value="../../media/images/docs.gif"/>
                         Information sur les stages a l'etranger
                     </h:outputLink>
                     <t:htmlTag value="div" style="height:5px;"/>
                     <h:outputLink rendered="#{!welcomeController.etudiant || (welcomeController.etudiant and !sessionController.etudiantFC)}"
-                            value="#{sessionController.mediaPath}/docs/Notices_bilingues.zip">
+                            value="#{sessionController.baseUrl}#{sessionController.mediaPath}/docs/Notices_bilingues.zip">
                         <h:graphicImage alt="noticesBilingues" value="../../media/images/docs.gif"/>
                         Notices bilingues Convention de stage (Anglais - Espagnol - Allemand - Italien)
                     </h:outputLink>

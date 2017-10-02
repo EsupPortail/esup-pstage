@@ -1064,21 +1064,21 @@ public class ConventionController extends AbstractContextAwareController {
 		// ctrl donnees stage
 		String nomForm = "formSelConvention";
 		// ctrl assurance maladie obligatoire
-		if (selAssurance == null) {
-			addErrorMessage(nomForm + ":affilss", "CONVENTION.CREERCONVENTION.AFFILSS.OBLIGATOIRE");
-			ctrlInfosOK = false;
-		}
-		// ctrl assurance maladie obligatoire
-		if (selCaisseRegime == null) {
-			if (selAssurance != null) {
-				if (!selAssurance.getCodeCtrl().equals(
-						DonneesStatic.ASS_CODE_CTRL_ETRANGER)) {
-					addErrorMessage(nomForm + ":caisses",
-							"CONVENTION.CREERCONVENTION.CAISSEREGIME.OBLIGATOIRE");
-					ctrlInfosOK = false;
-				}
-			}
-		}
+//		if (selAssurance == null) {
+//			addErrorMessage(nomForm + ":affilss", "CONVENTION.CREERCONVENTION.AFFILSS.OBLIGATOIRE");
+//			ctrlInfosOK = false;
+//		}
+//		// ctrl assurance maladie obligatoire
+//		if (selCaisseRegime == null) {
+//			if (selAssurance != null) {
+//				if (!selAssurance.getCodeCtrl().equals(
+//						DonneesStatic.ASS_CODE_CTRL_ETRANGER)) {
+//					addErrorMessage(nomForm + ":caisses",
+//							"CONVENTION.CREERCONVENTION.CAISSEREGIME.OBLIGATOIRE");
+//					ctrlInfosOK = false;
+//				}
+//			}
+//		}
 
 		if(!this.conventionFormationContinue
 				&&(!Utils.isNumber(this.convention.getVolumeHoraireFormation())
