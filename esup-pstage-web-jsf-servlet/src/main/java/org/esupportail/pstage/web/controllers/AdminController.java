@@ -216,7 +216,7 @@ public class AdminController extends AbstractContextAwareController {
 	 * @return a String
 	 */
 	public String beforeAjouterAdministrateur(){
-		this.keysAdminStructure = new HashSet<Integer>();
+		this.keysAdminStructure = new HashSet<>();
 		this.formAdminStructure=new AdminStructureDTO();
 		this.formAdminMdpConfirmation="";
 		getSessionController().setCreationAdminStructureCurrentPage("_ajoutAdministrateurEtape1");

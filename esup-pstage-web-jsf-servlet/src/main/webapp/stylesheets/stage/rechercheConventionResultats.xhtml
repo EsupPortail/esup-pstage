@@ -131,9 +131,9 @@
                                 <h:outputText value="#{msgs['RECHERCHECONVENTION.AVENANT']}" />
                             </f:facet>
                             <h:outputText value="#{msgs['FORM.NON']}"
-                                          rendered="#{convention.nbAvenant == 0}" />
+                                          rendered="#{convention.nbAvenant eq 0}" />
                             <h:outputText value="#{msgs['FORM.OUI']}"
-                                          rendered="#{convention.nbAvenant > 0}" />
+                                          rendered="#{convention.nbAvenant gt 0}" />
                         </p:column>
 
                         <p:column>

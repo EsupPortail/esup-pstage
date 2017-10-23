@@ -467,7 +467,8 @@ public class AvenantController extends AbstractContextAwareController {
 			// Ajout Avenant
 			int idAvenant = getAvenantDomainService().addAvenant(this.avenant);
 
-			// On l'ajoute à la liste des avenants de la convention
+			// On le complete puis l'ajoute à la liste des avenants de la convention
+			this.avenant.setIdAvenant(idAvenant);
 			this.conventionController.getListeAvenants().add(this.avenant);
 
 			// Si c'est un étudiant qui crée l'avenant et qu'on est configurés en alertes mail pour les tuteurs et gestionnaires
