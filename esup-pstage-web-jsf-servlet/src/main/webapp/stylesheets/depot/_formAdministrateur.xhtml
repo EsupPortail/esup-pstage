@@ -65,9 +65,7 @@
         <p:password id="mdpAdmin"
                     value="#{adminController.formAdminStructure.mdp}"
                     rendered="#{adminController.typeCompteAdminStructure==0}"
-                    maxlength="20" required="true">
-            <f:converter binding="#{passwordConverter}" />
-        </p:password>
+                    maxlength="20" required="true" converter="#{passwordConverter}"/>
         <p:message for="mdpAdmin"/>
 
         <h:outputText styleClass="fontBold" for="cmdpAdmin"
@@ -75,10 +73,8 @@
                       rendered="#{adminController.typeCompteAdminStructure==0}" />
         <p:password id="cmdpAdmin" required="true"
                     value="#{adminController.formAdminMdpConfirmation}"
-                    maxlength="20"
-                    rendered="#{adminController.typeCompteAdminStructure==0}">
-            <f:converter binding="#{passwordConverter}" />
-        </p:password>
+                    maxlength="20" converter="#{passwordConverter}"
+                    rendered="#{adminController.typeCompteAdminStructure==0}" />
         <p:message for="cmdpAdmin"/>
 
         <h:outputText styleClass="fontBold" for="eppnAdmin"

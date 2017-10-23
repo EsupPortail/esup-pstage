@@ -5245,8 +5245,7 @@ public class ConventionController extends AbstractContextAwareController {
 				}
 			}
 		} else {
-			this.resultatsRechercheConvention = getConventionDomainService()
-					.getConventionsFromCriteres(this.critereRechercheConvention);
+			this.resultatsRechercheConvention = getConventionDomainService().getConventionsFromCriteres(this.critereRechercheConvention);
 		}
 
 		if (!checkListeResultats()) {
