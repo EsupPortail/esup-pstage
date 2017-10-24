@@ -722,7 +722,6 @@ public class SessionController extends AbstractDomainAwareBean {
 			} else if(currentURI.toLowerCase().contains("welcome.xhtml")) {
 				setCurrentPage("Home");
 			}
-//			System.out.println(currentURI);
 //			NavigationHandler a = ctx.getApplication().getNavigationHandler();
 //			Map<String, Set<NavigationCase>> b = ((ConfigurableNavigationHandler)a).getNavigationCases();
 //			Iterator<Set<NavigationCase>> i = b.values().iterator();

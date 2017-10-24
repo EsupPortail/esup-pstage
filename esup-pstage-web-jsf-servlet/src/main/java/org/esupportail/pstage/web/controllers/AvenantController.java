@@ -205,6 +205,7 @@ public class AvenantController extends AbstractContextAwareController {
 					return null;
 				}
 			}
+
 			if(this.avenant.isModificationSalarie()){
 				if (etablissementController.getContactSel().getId() == conventionController.getConvention().getIdContact()){
 					// Si l'idContact n'a pas été changé, on envoie l'erreur correspondante
@@ -214,6 +215,7 @@ public class AvenantController extends AbstractContextAwareController {
 				this.avenant.setIdContact(etablissementController.getContactSel().getId());
 				this.avenant.setContact(etablissementController.getContactSel());
 			}
+
 			if(this.avenant.isModificationEnseignant()){
 				if (this.avenant.getEnseignant() == null){
 					// Si l'enseignant n'a pas été renseigné, on envoie l'erreur correspondante
@@ -221,6 +223,7 @@ public class AvenantController extends AbstractContextAwareController {
 					return null;
 				}
 			}
+
 			if(this.isModificationTexteLibre()){
 				if (this.avenant.getMotifAvenant() == null){
 					// Si l'enseignant n'a pas été renseigné, on envoie l'erreur correspondante
@@ -228,14 +231,19 @@ public class AvenantController extends AbstractContextAwareController {
 					return null;
 				}
 			}
+
 		} else {
+
 			// cas où il y a rupture, rentrer seulement la date de rupture
 			java.util.Date dateDebutStage = conventionController.getConvention().getDateDebutStage();
 			java.util.Date dateFinStage = conventionController.getConvention().getDateFinStage();
 			java.util.Date dateRupture = this.avenant.getDateRupture();
 
+
 			if (dateRupture != null){
+
 				if (dateRupture.before(dateDebutStage) || dateRupture.after(dateFinStage)){
+
 					// Si la date de debut d'interruption est inferieure a la date de debut du stage, ou superieure aux dates de fin d'interruption ou de stage
 					// ou si la date de fin d'interruption est superieure a la date de fin de stage, ou inferieure aux dates de debut d'interruption ou de stage
 					addErrorMessage("formCreaAvenant", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE");
@@ -469,6 +477,10 @@ public class AvenantController extends AbstractContextAwareController {
 
 			// On le complete puis l'ajoute à la liste des avenants de la convention
 			this.avenant.setIdAvenant(idAvenant);
+
+			if (this.conventionController.getListeAvenants() == null){
+				this.conventionController.setListeAvenants(new ArrayList<AvenantDTO>());
+			}
 			this.conventionController.getListeAvenants().add(this.avenant);
 
 			// Si c'est un étudiant qui crée l'avenant et qu'on est configurés en alertes mail pour les tuteurs et gestionnaires
