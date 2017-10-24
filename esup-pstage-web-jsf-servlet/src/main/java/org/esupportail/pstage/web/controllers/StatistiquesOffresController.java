@@ -330,7 +330,6 @@ public class StatistiquesOffresController extends AbstractContextAwareController
 			for (StatisticItemDTO unItem : statsItemList){
 				libelle = unItem.getLib();
 				total = total + unItem.getNumber();
-				//System.out.println("total="+total);
 			}
 			//connaitre le pourcentage de conventions ramenés
 			pourcentage=0;
@@ -342,7 +341,6 @@ public class StatistiquesOffresController extends AbstractContextAwareController
 				}
 				//pourcentage = arrondiNDecimales(pourcentage,2);
 				unItem.setPercentage(pourcentage);
-				//System.out.println("pourcentage="+pourcentage);
 			}
 			map.put(uneAnnee,statsItemList);
 		}

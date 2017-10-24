@@ -252,7 +252,6 @@ public final class PDFUtils {
 								new File(directory + fileNameXsl),
 								directory);
 
-						//System.out.println("File Added : " + fileNamePdf);
 						ZipEntry zipEntry = new ZipEntry(fileNamePdf);
 						zipStream.putNextEntry(zipEntry);
 

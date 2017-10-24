@@ -38,7 +38,8 @@
         <p:commandButton id="selectionEtab"
                          value="#{msgs['FORM.CONFIRMERCONTINUER']}"
                          action="#{conventionController.goToCreerConventionEtape3Service}"
-                         rendered="#{not empty rechercheController.resultatRechercheStructure}">
+                         rendered="#{not empty rechercheController.resultatRechercheStructure}"
+                         onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
             <f:setPropertyActionListener
                     value="#{rechercheController.resultatRechercheStructure}"
                     target="#{conventionController.convention.structure}" />
