@@ -2101,7 +2101,7 @@ public class ConventionController extends AbstractContextAwareController {
 					ctrlInfosStage = false;
 				}
 				if (this.selMonnaieGratification != null
-						&& this.selMonnaieGratification != "autre"){
+						&& !this.selMonnaieGratification.equalsIgnoreCase("autre")){
 					this.convention.setMonnaieGratification("euros");
 				}
 			} else {
@@ -2946,11 +2946,9 @@ public class ConventionController extends AbstractContextAwareController {
 			// conventionTmp.setAnnee(anneeUniversitaire);
 			// }
 			// }
-			conventionTmp.setLoginModif(getSessionController()
-					.getCurrentLogin());
+			conventionTmp.setLoginModif(getSessionController().getCurrentLogin());
 			try {
-				if (this.getConventionDomainService().updateConvention(
-						conventionTmp)) {
+				if (this.getConventionDomainService().updateConvention(conventionTmp)) {
 					this.alerteMailModifConvention(" le détail du stage ");
 					retour = SequenceEtapeEnumSel.ETAPE5.actionEtape();
 					addInfoMessage(null,
