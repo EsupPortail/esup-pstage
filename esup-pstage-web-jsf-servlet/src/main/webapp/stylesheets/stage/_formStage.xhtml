@@ -63,11 +63,11 @@
                 <t:htmlTag value="li">
                     <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.FONCTION']} #{msgs['CONVENTION.ETOILE']}" />
                     <h:outputText id="cptFonctionsEtTaches" styleClass="fontItalic"/>
-                    <p:inputTextarea id="fonctionsEtTaches" maxlength="140" lang="html"
+                    <p:inputTextarea id="fonctionsEtTaches" maxlength="280" lang="html"
                                      value="#{conventionController.convention.fonctionsEtTaches}"
                                      counter="cptFonctionsEtTaches" counterTemplate="({0} caractères restants.)"
                                      required="true">
-                        <f:validateLength maximum="140" />
+                        <f:validateLength maximum="280" />
                         <p:ajax event="blur" update="msgFonction" />
                     </p:inputTextarea>
                     <p:message id="msgFonction" for="fonctionsEtTaches"/>
@@ -78,11 +78,11 @@
                     </t:htmlTag>
                     <h:outputText styleClass="fontBold ml5" value="#{msgs['CONVENTION.COMPETENCES']} #{msgs['CONVENTION.ETOILE']}" />
                     <h:outputText id="cptCompetences" styleClass="fontItalic"/>
-                    <p:inputTextarea id="competences" maxlength="140" lang="html"
+                    <p:inputTextarea id="competences" maxlength="280" lang="html"
                                      value="#{conventionController.convention.competences}"
                                      counter="cptCompetences" counterTemplate="({0} caractères restants.)"
                                      required="true">
-                        <f:validateLength maximum="140" />
+                        <f:validateLength maximum="280" />
                         <p:ajax event="blur" update="msgCompetences"/>
                     </p:inputTextarea>
                     <p:message id="msgCompetences" for="competences"/>
@@ -113,7 +113,7 @@
                     <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.FINSTAGE']} #{msgs['CONVENTION.ETOILE']}" />
                     <p:calendar id="dateFinStage"
                                 value="#{conventionController.convention.dateFinStage}"
-                                locale="#{sessionController.locale}" datePattern="dd/MM/yyyy"
+                                datePattern="dd/MM/yyyy"
                                 showApplyButton="false" cellWidth="24px" cellHeight="22px"
                                 required="true" />
                     <p:message for="dateFinStage"/>
@@ -134,7 +134,7 @@
                             <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.INTERRUPDEBSTAGE']} #{msgs['CONVENTION.ETOILE']}" />
                             <p:calendar id="dateDebutInterruption"
                                         value="#{conventionController.convention.dateDebutInterruption}"
-                                        locale="#{sessionController.locale}" datePattern="dd/MM/yyyy"
+                                        datePattern="dd/MM/yyyy"
                                         showApplyButton="false" cellWidth="24px" cellHeight="22px"
                                         required="true" />
                             <p:message for="dateDebutInterruption"/>
@@ -143,7 +143,7 @@
                             <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.INTERRUPFINSTAGE']} #{msgs['CONVENTION.ETOILE']}" />
                             <p:calendar id="dateFinInterruption"
                                         value="#{conventionController.convention.dateFinInterruption}"
-                                        locale="#{sessionController.locale}" datePattern="dd/MM/yyyy"
+                                        datePattern="dd/MM/yyyy"
                                         showApplyButton="false" cellWidth="24px" cellHeight="22px"
                                         required="true" />
                             <p:message for="dateFinInterruption"/>
