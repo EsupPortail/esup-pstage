@@ -269,22 +269,39 @@
 
                 <t:div styleClass="mt5"
                        rendered="#{!conventionController.conventionFormationContinue}">
-                    <h:panelGrid columns="3">
-                        <t:htmlTag id="imgInfoVolume" value="i" styleClass="fa fa-info-circle fontBlue2 fz13">
-                            <p:tooltip for="imgInfoVolume" value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.INFO.VIDE']}"
-                                       rendered="#{empty conventionController.etudiantRef.volumeHoraireFormation || conventionController.etudiantRef.volumeHoraireFormation == '0'}"/>
-                            <p:tooltip for="imgInfoVolume" value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.INFO.REMPLI']} (#{conventionController.etudiantRef.volumeHoraireFormation})"
-                                       rendered="#{not empty conventionController.etudiantRef.volumeHoraireFormation and conventionController.etudiantRef.volumeHoraireFormation != '0'}"/>
-                        </t:htmlTag>
+                    <h:panelGrid columns="2">
                         <h:outputText styleClass="fontBold" escape="false"
                                       value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE']} * " />
                         <p:message for="volumeHoraireFormation"/>
                     </h:panelGrid>
-                    <p:inputText id="volumeHoraireFormation" styleClass="autoWidth ml20" required="true"
-                                 value="#{conventionController.convention.volumeHoraireFormation}"
-                                 validatorMessage="#{requiredMessageController.superieurA0}">
-                        <f:validator binding="#{entierValidator}" />
-                    </p:inputText>
+
+                    <t:div styleClass="verticalAlignDiv">
+                        <p:selectOneRadio id="typeNbHeuresFormation" value="#{conventionController.defaultVolumeHoraire}"
+                                          required="true">
+                            <f:selectItem itemLabel="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.VALEUR_DEFAULT']}" itemValue="true" />
+                            <f:selectItem itemLabel="#{(not empty conventionController.etudiantRef.volumeHoraireFormation
+                            and conventionController.etudiantRef.volumeHoraireFormation != '0') ?
+                            (conventionController.defaultVolumeHoraire ? msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.VALEUR_APOGEE'] : msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.VALEUR_APOGEE_:'])
+                            : (conventionController.defaultVolumeHoraire ? 'Saisie manuelle': 'Saisie manuelle : ')}"
+                                          itemValue="false" />
+                            <p:ajax event="click" update="inputVolumeHoraire, typeNbHeuresFormation"/>
+                        </p:selectOneRadio>
+
+                        <t:div id="inputVolumeHoraire">
+                            <t:htmlTag id="imgInfoVolume" value="i" styleClass="fa fa-info-circle fontBlue2 fz13"
+                                       rendered="#{!conventionController.defaultVolumeHoraire
+                                       and not empty conventionController.etudiantRef.volumeHoraireFormation and conventionController.etudiantRef.volumeHoraireFormation != '0'}">
+                                <p:tooltip for="imgInfoVolume"
+                                           value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.INFO.REMPLI']} (#{conventionController.etudiantRef.volumeHoraireFormation})" />
+                            </t:htmlTag>
+                            <p:inputText id="volumeHoraireFormation" styleClass="autoWidth ml5" required="true"
+                                         value="#{conventionController.convention.volumeHoraireFormation}"
+                                         validatorMessage="#{requiredMessageController.superieurA0}"
+                                         rendered="#{!conventionController.defaultVolumeHoraire}">
+                                <f:validator binding="#{entierValidator}" />
+                            </p:inputText>
+                        </t:div>
+                    </t:div>
                 </t:div>
             </t:div>
             <p:message for="etape" escape="false"/>

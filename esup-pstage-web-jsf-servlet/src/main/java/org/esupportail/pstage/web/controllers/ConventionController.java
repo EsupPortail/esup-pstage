@@ -478,6 +478,11 @@ public class ConventionController extends AbstractContextAwareController {
 	private boolean conventionFormationContinue;
 
 	/**
+	 * Bouton radio entre 'Plus de 200 heures' ou la saisie du volume horaire
+	 */
+	private boolean defaultVolumeHoraire;
+
+	/**
 	 * Bean constructor.
 	 */
 	public ConventionController() {
@@ -709,6 +714,7 @@ public class ConventionController extends AbstractContextAwareController {
 			this.choixEtape = false;
 			this.blocageCreationEtpOrpheline = false;
 			this.conventionFormationContinue = false;
+			this.defaultVolumeHoraire = true;
 
 			this.setEtudiantRef(this.resultatEtudiantRef);
 		} else {
@@ -860,8 +866,8 @@ public class ConventionController extends AbstractContextAwareController {
 			ctrlInfosOK = false;
 		}
 
-		if(!this.conventionFormationContinue
-				&&(!Utils.isNumber(this.convention.getVolumeHoraireFormation())
+		if(!this.conventionFormationContinue && !this.defaultVolumeHoraire
+				&& (!Utils.isNumber(this.convention.getVolumeHoraireFormation())
 				|| "0".equals(this.convention.getVolumeHoraireFormation()))){
 			ctrlInfosOK = false;
 			addErrorMessage("formConvention:volumeHoraireFormation", "CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.ZERO");
@@ -1029,6 +1035,12 @@ public class ConventionController extends AbstractContextAwareController {
 			if (selCaisseRegime != null) {
 				this.etudiantRef.setTheCaisseRegime(selCaisseRegime);
 			}
+
+			// Assignation du volume horaire par défaut si nécessaire
+			if (!this.conventionFormationContinue && this.defaultVolumeHoraire){
+				this.convention.setVolumeHoraireFormation("200+");
+			}
+
 			// Ajout de l'annee choisie et non plus deduite de la date de debut
 			// de stage
 			if (selectedAnneeUniv != null) {
@@ -1063,24 +1075,8 @@ public class ConventionController extends AbstractContextAwareController {
 		boolean ctrlInfosOK = true;
 		// ctrl donnees stage
 		String nomForm = "formSelConvention";
-		// ctrl assurance maladie obligatoire
-//		if (selAssurance == null) {
-//			addErrorMessage(nomForm + ":affilss", "CONVENTION.CREERCONVENTION.AFFILSS.OBLIGATOIRE");
-//			ctrlInfosOK = false;
-//		}
-//		// ctrl assurance maladie obligatoire
-//		if (selCaisseRegime == null) {
-//			if (selAssurance != null) {
-//				if (!selAssurance.getCodeCtrl().equals(
-//						DonneesStatic.ASS_CODE_CTRL_ETRANGER)) {
-//					addErrorMessage(nomForm + ":caisses",
-//							"CONVENTION.CREERCONVENTION.CAISSEREGIME.OBLIGATOIRE");
-//					ctrlInfosOK = false;
-//				}
-//			}
-//		}
 
-		if(!this.conventionFormationContinue
+		if(!this.conventionFormationContinue && !this.defaultVolumeHoraire
 				&&(!Utils.isNumber(this.convention.getVolumeHoraireFormation())
 				|| "0".equals(this.convention.getVolumeHoraireFormation()))){
 			ctrlInfosOK = false;
@@ -1123,16 +1119,6 @@ public class ConventionController extends AbstractContextAwareController {
 		if (ctrlInfosOK) {
 			// renseignements des zones de selection
 
-			// Retrait des infos caisse régime et assurance
-//			if (selAssurance != null) {
-//				this.convention.setAssurance(selAssurance);
-//				this.convention.setIdAssurance(selAssurance.getId());
-//
-//			}
-//			if (selCaisseRegime != null) {
-//				this.convention.setCaisseRegime(selCaisseRegime);
-//				this.convention.setCodeCaisse(selCaisseRegime.getCode());
-//			}
 			this.convention.setIdAssurance(0);
 			this.convention.setCodeCaisse("");
 
@@ -1161,15 +1147,12 @@ public class ConventionController extends AbstractContextAwareController {
 					&& this.etudiantRef.getTheCodeEtape() != "") {
 				EtapeDTO etapeTmp = new EtapeDTO();
 				etapeTmp.setCode(this.etudiantRef.getTheCodeEtape());
-				etapeTmp.setCodeVersionEtape(this.etudiantRef
-						.getTheCodeVersionEtape());
+				etapeTmp.setCodeVersionEtape(this.etudiantRef.getTheCodeVersionEtape());
 				etapeTmp.setLibelle(this.etudiantRef.getTheEtape());
 				this.convention.setEtape(etapeTmp);
 				this.convention.setCodeEtape(etapeTmp.getCode());
-				this.convention.setCodeVersionEtape(etapeTmp
-						.getCodeVersionEtape());
-				this.convention.setCodeUniversiteEtape(getSessionController()
-						.getCodeUniversite());
+				this.convention.setCodeVersionEtape(etapeTmp.getCodeVersionEtape());
+				this.convention.setCodeUniversiteEtape(getSessionController().getCodeUniversite());
 
 				// creation etape
 				try {
@@ -1245,8 +1228,7 @@ public class ConventionController extends AbstractContextAwareController {
 				this.convention.setLibelleELP(this.etudiantRef.getTheLibElp());
 			}
 			if (this.etudiantRef.getTheCreditECTS() != null) {
-				this.convention.setCreditECTS(this.etudiantRef
-						.getTheCreditECTS());
+				this.convention.setCreditECTS(this.etudiantRef.getTheCreditECTS());
 			}
 
 			// Ajout de l'annee choisie et non plus deduite de la date de debut
@@ -1256,6 +1238,11 @@ public class ConventionController extends AbstractContextAwareController {
 				this.convention.setAnnee(anneeInt + "/" + (anneeInt + 1));
 			}
 			// Fin Ajout modif etape
+
+			// Assignation du volume horaire par défaut si nécessaire
+			if (!this.conventionFormationContinue && this.defaultVolumeHoraire){
+				this.convention.setVolumeHoraireFormation("200+");
+			}
 
 			try {
 				if (this.getConventionDomainService().updateConvention(
@@ -2981,14 +2968,10 @@ public class ConventionController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * @return String
+	 ** Methodes de creation des documents PDF selon l'edition demandee
 	 */
 	public void editPdfConvention() {
 		try {
-
-			/**
-			 ** Methodes de creation des documents PDF selon l'edition demandee
-			 **/
 			// StringBuffer sbFilename = new StringBuffer();
 			String nomDocxsl;
 			String fileNameXml;
@@ -7187,5 +7170,13 @@ public class ConventionController extends AbstractContextAwareController {
 
 	public void setConventionFormationContinue(boolean conventionFormationContinue) {
 		this.conventionFormationContinue = conventionFormationContinue;
+	}
+
+	public boolean isDefaultVolumeHoraire() {
+		return defaultVolumeHoraire;
+	}
+
+	public void setDefaultVolumeHoraire(boolean defaultVolumeHoraire) {
+		this.defaultVolumeHoraire = defaultVolumeHoraire;
 	}
 }

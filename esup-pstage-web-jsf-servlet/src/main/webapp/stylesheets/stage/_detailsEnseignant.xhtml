@@ -54,8 +54,8 @@
                 <h:outputText value="#{conventionController.convention.enseignant.fax}" />
                 <t:htmlTag value="br" />
 
-                <h:outputText value="#{conventionController.convention.enseignant.mail}"/>
                 <t:htmlTag value="i" styleClass="fa fa-envelope fz13 mrf10"/>
+                <h:outputText value="#{conventionController.convention.enseignant.mail}"/>
             </p:column>
             <p:column rendered="#{not empty conventionController.convention.enseignant.campus}">
                 <f:facet name="header">
