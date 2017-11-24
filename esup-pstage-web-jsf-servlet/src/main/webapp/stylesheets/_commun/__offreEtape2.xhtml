@@ -96,8 +96,10 @@
             <h:outputLabel value="#{msgs['OFFRE.DESCRIPTION']} *"
                            for="description" styleClass="fontBold" />
             <t:div>
-                <p:inputTextarea id="description" required="true"
-                                 value="#{offreController.formOffre.description}" />
+                <p:inputTextarea id="description" required="true" maxlength="280"
+                                 value="#{offreController.formOffre.description}">
+                    <f:validateLength maximum="280" />
+                </p:inputTextarea>
             </t:div>
             <p:message for="description"/>
         </t:htmlTag>

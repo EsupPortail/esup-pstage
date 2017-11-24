@@ -79,8 +79,10 @@
                       value="#{conventionController.etudiantRef.thecodeUFR} - #{conventionController.etudiantRef.theUfr}" />
 
         <h:outputText styleClass="fontBold"
-                      value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE']}" />
-        <h:outputText value="#{conventionController.convention.volumeHoraireFormation}" />
+                      value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE']}"
+                      rendered="#{!conventionController.conventionFormationContinue}"/>
+        <h:outputText value="#{conventionController.convention.volumeHoraireFormation}"
+                      rendered="#{!conventionController.conventionFormationContinue}" />
     </h:panelGrid>
     <h:panelGrid columns="2" styleClass="blueHover mb20 ml40" cellspacing="5"
                  rendered="#{welcomeController.superAdmin || welcomeController.personnel}">
