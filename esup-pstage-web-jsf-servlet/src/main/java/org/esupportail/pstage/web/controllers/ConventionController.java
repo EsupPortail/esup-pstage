@@ -2455,38 +2455,27 @@ public class ConventionController extends AbstractContextAwareController {
 										.getUidEnseignant(),
 								getSessionController().getCodeUniversite());
 				if (enseignantExist == null) {
-					if (!StringUtils
-							.hasText(enseignantTmp.getCodeAffectation())) {
+					if (!StringUtils.hasText(enseignantTmp.getCodeAffectation())) {
 						enseignantTmp.setCodeAffectation("");
 					}
-					enseignantTmp
-							.setCodeUniversiteAffectation(getSessionController()
-									.getCodeUniversite());
-					enseignantTmp.setLoginCreation(getSessionController()
-							.getCurrentLogin());
-					int idEnseignant = this.getEnseignantDomainService()
-							.addEnseignant(enseignantTmp);
+					enseignantTmp.setCodeUniversiteAffectation(getSessionController().getCodeUniversite());
+					enseignantTmp.setLoginCreation(getSessionController().getCurrentLogin());
+					int idEnseignant = this.getEnseignantDomainService().addEnseignant(enseignantTmp);
 					if (logger.isInfoEnabled()) {
 						logger.info("Ajout enseignant : "
-								+ this.convention.getEnseignant()
-								.getUidEnseignant());
+								+ this.convention.getEnseignant().getUidEnseignant());
 					}
 					if (idEnseignant > 0) {
 						conventionTmp.setIdEnseignant(idEnseignant);
 					}
 				} else {
-					if (!StringUtils
-							.hasText(enseignantTmp.getCodeAffectation())) {
+					if (!StringUtils.hasText(enseignantTmp.getCodeAffectation())) {
 						enseignantTmp.setCodeAffectation("");
 					}
-					enseignantTmp
-							.setCodeUniversiteAffectation(getSessionController()
-									.getCodeUniversite());
+					enseignantTmp.setCodeUniversiteAffectation(getSessionController().getCodeUniversite());
 					enseignantTmp.setId(enseignantExist.getId());
-					enseignantTmp.setLoginModif(getSessionController()
-							.getCurrentLogin());
-					getEnseignantDomainService()
-							.updateEnseignant(enseignantTmp);
+					enseignantTmp.setLoginModif(getSessionController().getCurrentLogin());
+					getEnseignantDomainService().updateEnseignant(enseignantTmp);
 					conventionTmp.setIdEnseignant(enseignantExist.getId());
 				}
 			}
@@ -2535,8 +2524,7 @@ public class ConventionController extends AbstractContextAwareController {
 					conventionTmp.getDateFinStage(), null, null);
 		}
 		if (logger.isDebugEnabled()) {
-			logger.debug("ConventionController :: Utils.CalculDureeSemaine semCalStage= "
-					+ semCalStage);
+			logger.debug("ConventionController :: Utils.CalculDureeSemaine semCalStage= " + semCalStage);
 		}
 
 		convention.setDureeStage(semCalStage);
@@ -2544,17 +2532,6 @@ public class ConventionController extends AbstractContextAwareController {
 			logger.debug("conventionTmp " + conventionTmp.toString());
 
 		}
-		// Ancien fonctionnement de deduction de l'annee universitaire
-		// if (selAnneeUniversitaire != null) {
-		// String selAnneeUniv = selAnneeUniversitaire.toString();
-		// conventionTmp.setAnnee(selAnneeUniv);
-		// } else {
-		// String anneeUniversitaire =
-		// anneeUniv(conventionTmp.getDateDebutStage(),conventionTmp.getDateFinStage());
-		// if (anneeUniversitaire != null) {
-		// conventionTmp.setAnnee(anneeUniversitaire);
-		// }
-		// }
 
 		conventionTmp.setLoginCreation(getSessionController().getCurrentLogin());
 		EtabRef etabRef = getStudentComponentRepositoryDomain().getEtabRef(getSessionController().getCodeUniversite());
@@ -2575,7 +2552,6 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 		}
 		// recherche du signataire de la composante
-
 		if (conventionTmp.getUfr() != null) {
 			SignataireRef sigRef = getStudentComponentRepositoryDomain().getSigCompoRef(getSessionController().getCodeUniversite(),
 					conventionTmp.getUfr().getCode());
@@ -2598,8 +2574,7 @@ public class ConventionController extends AbstractContextAwareController {
 		conventionTmp.setCodeUniversiteEtape(getSessionController().getCodeUniversite());
 		conventionTmp.setCodeUniversiteUFR(getSessionController().getCodeUniversite());
 		try {
-			int idConvention = this.getConventionDomainService().addConvention(
-					conventionTmp);
+			int idConvention = this.getConventionDomainService().addConvention(conventionTmp);
 			if (logger.isInfoEnabled()) {
 				logger.info("Ajout Convention : "
 						+ this.convention.getEtudiant().getIdentEtudiant());
@@ -2633,11 +2608,9 @@ public class ConventionController extends AbstractContextAwareController {
 
 					// Convention
 					String codeEtape = this.convention.getEtape().getCode();
-					String libelleEtape = this.convention.getEtape()
-							.getLibelle();
+					String libelleEtape = this.convention.getEtape().getLibelle();
 					String missions = this.convention.getFonctionsEtTaches().replaceAll("[\\x00-\\x1F]", "");
-					String periodeStage = ("du "
-							+ new SimpleDateFormat("dd/MM/yyyy").format(this.convention.getDateDebutStage())
+					String periodeStage = ("du " + new SimpleDateFormat("dd/MM/yyyy").format(this.convention.getDateDebutStage())
 							+ " au " + new SimpleDateFormat("dd/MM/yyyy").format(this.convention.getDateFinStage()));
 					String tempsTravail = (this.convention.getTempsTravail().getLibelle()
 							+ "<br/><b>--- Commentaire temps de travail :</b> " + this.convention.getCommentaireDureeTravail());
@@ -2695,20 +2668,16 @@ public class ConventionController extends AbstractContextAwareController {
 					if (getSessionController().isAvertissementTuteurPedago()
 							&& this.convention.getEnseignant() != null
 							&& this.convention.getEnseignant().getMail() != null
-							&& !this.convention.getEnseignant().getMail()
-							.isEmpty()) {
+							&& !this.convention.getEnseignant().getMail().isEmpty()) {
 						InternetAddress tabMailEnseignant[] = new InternetAddress[1];
 						InternetAddress tabMailsGestionnaires[] = new InternetAddress[0];
 						if (!getSessionController().isInterceptAll()) {
-							tabMailEnseignant[0] = new InternetAddress(
-									this.convention.getEnseignant().getMail());
+							tabMailEnseignant[0] = new InternetAddress(this.convention.getEnseignant().getMail());
 
 							// Remplissage des CCs avec les personnels du centre
 							// gestion, configurés pour les recevoir
 							List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService()
-									.getPersonnelCentreGestionList(
-											this.convention
-													.getIdCentreGestion());
+									.getPersonnelCentreGestionList(this.convention.getIdCentreGestion());
 							if (listePersonnels != null) {
 								List<InternetAddress> listMailPers = new ArrayList<InternetAddress>();
 
@@ -2721,8 +2690,7 @@ public class ConventionController extends AbstractContextAwareController {
 									}
 								}
 
-								tabMailsGestionnaires = new InternetAddress[listMailPers
-										.size()];
+								tabMailsGestionnaires = new InternetAddress[listMailPers.size()];
 								for (int i = 0; i < listMailPers.size(); i++) {
 									tabMailsGestionnaires[i] = listMailPers
 											.get(i);
@@ -2833,14 +2801,24 @@ public class ConventionController extends AbstractContextAwareController {
 										&& personnel.getMail() != null
 										&& !personnel.getMail().isEmpty()) {
 									getSmtpService().send(
-											new InternetAddress(
-													personnel.getMail()),
-											sujet, text, text);
+											new InternetAddress(personnel.getMail()), sujet, text, text);
 								}
 							}
 						}
 					}
 				}
+
+//				 Ajout du controle si la personne a le droit d'imprimer la convention directement avant validation
+				if (!getSessionController().isSuperAdminPageAuthorized()) {
+					PersonnelCentreGestionDTO p = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionFromUidAndCentre(
+							getSessionController().getCurrentLogin(), this.convention.getCentreGestion().getIdCentreGestion());
+					if (p != null && p.getImpressionConvention()) {
+						this.autorisationImpressionPersonnel = true;
+					} else {
+						this.autorisationImpressionPersonnel = false;
+					}
+				}
+
 				sequenceEtapeEnum = SequenceEtapeEnum.ETAPE8;
 				// retour vers detail convention (validation, avenant ), idem
 				// recherche
