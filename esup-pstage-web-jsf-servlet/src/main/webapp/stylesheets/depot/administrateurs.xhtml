@@ -71,7 +71,7 @@
                                     <f:setPropertyActionListener value="#{admin}"
                                                                  target="#{adminController.formAdminStructure}" />
                                     <t:htmlTag value="i" styleClass="fa fa-edit fz13 mrf10"/>
-                                    <p:tooltip for="modif">
+                                    <p:tooltip trackMouse="true" for="modif">
                                         <h:outputText value="#{msgs['FORM.MODIFIER']}"
                                                       styleClass="fontBold"/>
                                         <t:htmlTag value="br" />
@@ -83,7 +83,7 @@
                                 <p:commandLink id="suppr" update="supprAdministrateur"
                                                oncomplete="PF('supprAdministrateur').show();">
                                     <t:htmlTag value="i" styleClass="fa fa-trash fz13" />
-                                    <p:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
+                                    <p:tooltip trackMouse="true" for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
                                     <f:setPropertyActionListener value="#{admin}"
                                                                  target="#{adminController.formAdminStructure}" />
                                     <f:setPropertyActionListener value="_supprAdministrateurEtape1"

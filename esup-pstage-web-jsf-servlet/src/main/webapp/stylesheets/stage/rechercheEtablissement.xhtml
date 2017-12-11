@@ -41,7 +41,7 @@
                                 <f:setPropertyActionListener value="#{varRechercheStructure}"
                                                              target="#{rechercheController.resultatRechercheStructure}" />
                                 <t:htmlTag value="i" styleClass="fa fa-search fz16 fontBlue2"/>
-                                <p:tooltip for="detailStructure" value="#{msgs['FORM.CONSULTER']}" />
+                                <p:tooltip trackMouse="true" for="detailStructure" value="#{msgs['FORM.CONSULTER']}" />
                             </p:commandLink>
                             <ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatsColumns.xhtml" />
 

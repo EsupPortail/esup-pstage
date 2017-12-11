@@ -176,7 +176,7 @@
                                                      target="#{etablissementController.afficherSelectionCentreContact}" />
                         <f:setPropertyActionListener value="_modifContactEtape0"
                                                      target="#{sessionController.modifContactCurrentPage}" />
-                        <p:tooltip for="modifC" value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}"
+                        <p:tooltip trackMouse="true" for="modifC" value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}"
                                    rendered="#{!(sessionController.adminPageAuthorized
 									or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
 									or (sessionController.pageAuthorized and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
@@ -314,7 +314,7 @@
                             <f:setPropertyActionListener value="_modifContactEtape0"
                                                          target="#{sessionController.modifContactCurrentPage}" />
 
-                            <p:tooltip for="modifC" value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}"
+                            <p:tooltip trackMouse="true" for="modifC" value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}"
                                        rendered="#{!(sessionController.adminPageAuthorized
 								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactInfo.login and empty offreController.formOffre.contactInfo.mdp)
 								or (sessionController.pageAuthorized and empty offreController.formOffre.contactInfo.login and empty offreController.formOffre.contactInfo.mdp)

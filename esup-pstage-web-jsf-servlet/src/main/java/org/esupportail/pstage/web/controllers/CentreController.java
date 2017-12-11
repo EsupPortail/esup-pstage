@@ -1691,11 +1691,12 @@ public class CentreController extends AbstractContextAwareController {
 		try {
 
 			// Suppression du personnel en base
-			getPersonnelCentreGestionDomainService().deletePersonnelCentreGestion(this.personnel.getIdCentreGestion(), this.personnel.getId());
+			boolean b = getPersonnelCentreGestionDomainService().deletePersonnelCentreGestion(this.personnel.getIdCentreGestion(), this.personnel.getId());
 
 			// Suppression du personnel dans la liste du controller
-			this.personnels.remove(this.personnel);
-
+			if (this.personnels != null && ! this.personnels.isEmpty()) {
+				this.personnels.remove(this.personnel);
+			}
 			//Maj liste des centres pour la personne connectée
 			if(this.personnel.getUidPersonnel().equals(getSessionController().getCurrentLogin())){
 

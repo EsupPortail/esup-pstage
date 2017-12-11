@@ -114,7 +114,7 @@
                                             <f:setPropertyActionListener value="#{avenant}"
                                                                          target="#{avenantController.avenant}" />
                                             <t:htmlTag value="i" styleClass="fa fa-search fz16" />
-                                            <p:tooltip for="see" value="#{msgs['FORM.CONSULTER']}" />
+                                            <p:tooltip trackMouse="true" for="see" value="#{msgs['FORM.CONSULTER']}" />
                                         </p:commandLink>
                                         <p:commandLink id="delete" oncomplete="PF('suppressionAvenant').show();"
                                                        styleClass="ml5"
@@ -123,7 +123,7 @@
                                             <f:setPropertyActionListener value="#{avenant}"
                                                                          target="#{avenantController.avenant}" />
                                             <t:htmlTag value="i" styleClass="fa fa-trash fz16" />
-                                            <p:tooltip for="delete" value="#{msgs['FORM.SUPPRIMER']}" />
+                                            <p:tooltip trackMouse="true" for="delete" value="#{msgs['FORM.SUPPRIMER']}" />
                                         </p:commandLink>
                                     </t:div>
                                 </p:column>

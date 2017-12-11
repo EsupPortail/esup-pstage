@@ -72,7 +72,7 @@
                                         <f:setPropertyActionListener value="_modifServiceEtape0"
                                                                      target="#{sessionController.modifServiceCurrentPage}" />
                                         <t:htmlTag value="i" styleClass="fa fa-edit fz16 mrf10"/>
-                                        <p:tooltip for="modif">
+                                        <p:tooltip trackMouse="true" for="modif">
                                             <t:htmlTag value="em">
                                                 <h:outputText value="#{msgs['FORM.MODIFIER']}" />
                                             </t:htmlTag>
@@ -95,7 +95,7 @@
                                         <f:setPropertyActionListener value="#{etablissementController.serviceSel}"
                                                                      target="#{etablissementController.formService}" />
                                         <t:htmlTag value="i" styleClass="fa fa-trash-o fz16"/>
-                                        <p:tooltip value="#{msgs['FORM.SUPPRIMER']}" for="suppr" />
+                                        <p:tooltip trackMouse="true" value="#{msgs['FORM.SUPPRIMER']}" for="suppr" />
                                     </p:commandLink>
                                 </p:column>
                             </p:dataTable>
@@ -132,7 +132,7 @@
                                     <h:outputText id="cgC" styleClass="fontBold fontBlue2"
                                                   value="#{contact.centreGestion.idCentreGestion}"
                                                   rendered="#{not empty contact.centreGestion}">
-                                        <p:tooltip for="cgC" value="#{contact.centreGestion.nomCentre}" />
+                                        <p:tooltip trackMouse="true" for="cgC" value="#{contact.centreGestion.nomCentre}" />
                                     </h:outputText>
                                 </p:column>
                                 <p:column>
@@ -199,7 +199,7 @@
                                                                      target="#{sessionController.modifContactCurrentPage}" />
                                         <t:htmlTag value="i" styleClass="fa fa-edit fz16 mrf10"/>
 
-                                        <p:tooltip for="modifC">
+                                        <p:tooltip trackMouse="true" for="modifC">
                                             <t:htmlTag value="em">
                                                 <h:outputText value="#{msgs['FORM.MODIFIER']}" />
                                             </t:htmlTag>
@@ -223,14 +223,14 @@
                                         <f:setPropertyActionListener value="_supprContactEtape1"
                                                                      target="#{sessionController.suppressionContactCurrentPage}" />
                                         <t:htmlTag value="i" styleClass="fa fa-trash-o fz16"/>
-                                        <p:tooltip value="#{msgs['FORM.SUPPRIMER']}" for="supprC" />
+                                        <p:tooltip trackMouse="true" value="#{msgs['FORM.SUPPRIMER']}" for="supprC" />
                                     </p:commandLink>
                                 </p:column>
                                 <p:column rendered="#{(not empty contact.login and not empty contact.mdp)
 										and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
                                     <p:commandLink  id="modifBlock" disabled="true">
                                         <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontBlue2" style="opacity:.50;"/>
-                                        <p:tooltip for="modifBlock" value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}" />
+                                        <p:tooltip trackMouse="true" for="modifBlock" value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}" />
                                     </p:commandLink>
                                 </p:column>
                             </p:dataTable>

@@ -10,7 +10,7 @@
     <t:div styleClass="mt10 ml20">
         <t:div>
             <t:htmlTag id="imgInfo" value="i" styleClass="fa fa-info-circle fz13 fontBlue2">
-                <p:tooltip for="imgInfo" value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"/>
+                <p:tooltip trackMouse="true" for="imgInfo" value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"/>
             </t:htmlTag>
             <h:outputText styleClass="fontBold mlf5"
                           value="#{msgs['STRUCTURE.RAISON_SOCIALE']} * "/>
@@ -26,7 +26,7 @@
         <t:htmlTag value="div" style="height:10px;" />
 
         <t:htmlTag id="infoNumsiret" value="i" styleClass="fa fa-info-circle fz13 fontBlue2">
-            <p:tooltip for="infoNumsiret" value="#{msgs['INFOSBULLES.NUMERO_SIRET']}"
+            <p:tooltip trackMouse="true" for="infoNumsiret" value="#{msgs['INFOSBULLES.NUMERO_SIRET']}"
                        escape="false"/>
         </t:htmlTag>
         <h:outputText styleClass="fontBold mlf5" value="#{msgs['STRUCTURE.NUM_SIRET']}" />

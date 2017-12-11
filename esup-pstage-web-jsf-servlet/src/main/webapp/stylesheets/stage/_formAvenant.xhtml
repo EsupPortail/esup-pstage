@@ -310,7 +310,7 @@
                                         <t:div styleClass="textCenter">
                                             <t:div rendered="#{service.idService == etablissementController.serviceSel.idService}">
                                                 <t:htmlTag id="lieuChoisi" value="i" styleClass="fa fa-check fz16 fontBlue2" />
-                                                <p:tooltip for="lieuChoisi" value="#{msgs['CONVENTION.ETAPE11.LIEU.SELECTIONNE']}" />
+                                                <p:tooltip trackMouse="true" for="lieuChoisi" value="#{msgs['CONVENTION.ETAPE11.LIEU.SELECTIONNE']}" />
                                             </t:div>
                                             <t:div rendered="#{service.idService != etablissementController.serviceSel.idService}">
                                                 <p:commandLink id="lieuDispo"
@@ -323,7 +323,7 @@
                                                     <f:setPropertyActionListener
                                                             value="#{conventionController.convention.contact}"
                                                             target="#{etablissementController.contactSel}" />
-                                                    <p:tooltip for="lieuDispo" value="#{msgs['CONVENTION.ETAPE11.LIEU.CHOIX']}" />
+                                                    <p:tooltip trackMouse="true" for="lieuDispo" value="#{msgs['CONVENTION.ETAPE11.LIEU.CHOIX']}" />
                                                 </p:commandLink>
                                             </t:div>
                                         </t:div>
@@ -434,7 +434,7 @@
                                             <t:htmlTag value="center">
                                                 <t:div rendered="#{salarie.id == etablissementController.contactSel.id}">
                                                     <t:htmlTag id="salarieChoisi" value="i" styleClass="fa fa-check fz16 fontBlue2">
-                                                        <p:tooltip for="salarieChoisi" value="#{msgs['CONVENTION.ETAPE11.SALARIE.SELECTIONNE']}" />
+                                                        <p:tooltip trackMouse="true" for="salarieChoisi" value="#{msgs['CONVENTION.ETAPE11.SALARIE.SELECTIONNE']}" />
                                                     </t:htmlTag>
                                                 </t:div>
                                                 <t:div rendered="#{salarie.id != etablissementController.contactSel.id}">
@@ -443,7 +443,7 @@
                                                         <t:htmlTag value="i" styleClass="fa fa-remove fz16 fontRed" />
                                                         <f:setPropertyActionListener value="#{salarie}"
                                                                                      target="#{etablissementController.contactSel}" />
-                                                        <p:tooltip for="salarieDispo" value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
+                                                        <p:tooltip trackMouse="true" for="salarieDispo" value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
                                                     </p:commandLink>
                                                 </t:div>
                                             </t:htmlTag>

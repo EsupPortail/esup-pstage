@@ -60,17 +60,17 @@
                             <h:outputText id="verification1" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI']}"
                                           rendered="#{conventionController.convention.structure.estValidee == 1}"
                                           styleClass="fontGreen" escape="false">
-                                <p:tooltip for="verification1" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI.TOOLTIP']}" />
+                                <p:tooltip trackMouse="true" for="verification1" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI.TOOLTIP']}" />
                             </h:outputText>
                             <h:outputText id="verification2" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON']}"
                                           rendered="#{conventionController.convention.structure.estValidee == 2}"
                                           styleClass="fontRed" escape="false">
-                                <p:tooltip for="verification2" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON.TOOLTIP']}" />
+                                <p:tooltip trackMouse="true" for="verification2" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON.TOOLTIP']}" />
                             </h:outputText>
                             <h:outputText id="verification3" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU']}"
                                           rendered="#{conventionController.convention.structure.estValidee == 0}"
                                           style="color:grey;" escape="false">
-                                <p:tooltip for="verification3" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU.TOOLTIP']}" />
+                                <p:tooltip trackMouse="true" for="verification3" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU.TOOLTIP']}" />
                             </h:outputText>
                             <p:commandButton id="validerStructure" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}"
                                              action="#{etablissementController.avantValidation}"
@@ -84,7 +84,7 @@
                                                              target="#{etablissementController.currentStruct}" />
                                 <f:setPropertyActionListener value="_validStructureEtape1"
                                                              target="#{sessionController.validationStructureCurrentPage}" />
-                                <p:tooltip value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}" />
+                                <p:tooltip trackMouse="true" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}" />
                             </p:commandButton>
                         </t:div>
 

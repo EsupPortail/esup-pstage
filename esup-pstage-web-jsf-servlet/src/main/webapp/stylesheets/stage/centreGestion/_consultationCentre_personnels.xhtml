@@ -109,7 +109,7 @@
                         <f:setPropertyActionListener value="#{personnel}"
                                                      target="#{centreController.personnel}" />
                         <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 fontBlue2"/>
-                        <p:tooltip for="delete" value="#{msgs['FORM.SUPPRIMER']}" />
+                        <p:tooltip trackMouse="true" for="delete" value="#{msgs['FORM.SUPPRIMER']}" />
                     </p:commandLink>
                 </p:column>
             </p:dataTable>

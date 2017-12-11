@@ -28,7 +28,7 @@
                                 <p:column style="width:20px;">
                                     <f:facet name="header">
                                         <t:htmlTag id="civiliteHeader" value="i" styleClass="fa fa-user fz13 fontBlue2 noPointer">
-                                            <p:tooltip for="civiliteHeader" value="#{msgs['CONTACT.CIVILITE']}"/>
+                                            <p:tooltip trackMouse="true" for="civiliteHeader" value="#{msgs['CONTACT.CIVILITE']}"/>
                                         </t:htmlTag>
                                     </f:facet>
                                     <h:outputText id="civC" value="#{contact.civilite.libelle}" />

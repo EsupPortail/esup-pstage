@@ -99,7 +99,7 @@
                                                              target="#{centreController.centre.nomViseur}" />
                                 <f:setPropertyActionListener value="#{personnel.prenom}"
                                                              target="#{centreController.centre.prenomViseur}" />
-                                <p:tooltip value="#{msgs['CENTRE.VISEUR.CHOIX']}" for="choisirViseur"/>
+                                <p:tooltip trackMouse="true" value="#{msgs['CENTRE.VISEUR.CHOIX']}" for="choisirViseur"/>
                             </p:commandLink>
 
                             <!-- Si on est dans un panel de recherche de personnel classique-->
@@ -110,7 +110,7 @@
                                 <f:setPropertyActionListener value="#{personnel}"
                                                              target="#{centreController.personnel}" />
                                 <t:htmlTag value="i" styleClass="fa fa-long-arrow-right fz13" />
-                                <p:tooltip value="#{msgs['CENTRE.VISEUR.CHOIX']}" for="choisirPersonnel"/>
+                                <p:tooltip trackMouse="true" value="#{msgs['CENTRE.VISEUR.CHOIX']}" for="choisirPersonnel"/>
                             </p:commandLink>
                         </t:htmlTag>
                     </p:column>

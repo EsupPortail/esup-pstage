@@ -51,7 +51,7 @@
                                             <f:setPropertyActionListener value="#{offre}"
                                                                          target="#{offreController.currentOffre}" />
                                             <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 fontDarkGray"/>
-                                            <p:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
+                                            <p:tooltip trackMouse="true" for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
                                         </p:commandLink>
                                     </p:column>
                                 </p:dataTable>
@@ -68,7 +68,7 @@
                                                              target="#{etablissementController.afficherSelectionCentreContact}" />
                                 <f:setPropertyActionListener value="_creationOffreEtape1"
                                                              target="#{sessionController.creationOffreCurrentPage}" />
-                                <p:tooltip for="ajoutO" value="#{msgs['FORM.CREER']}" />
+                                <p:tooltip trackMouse="true" for="ajoutO" value="#{msgs['FORM.CREER']}" />
                             </p:commandButton>
                         </t:div>
                     </h:form>

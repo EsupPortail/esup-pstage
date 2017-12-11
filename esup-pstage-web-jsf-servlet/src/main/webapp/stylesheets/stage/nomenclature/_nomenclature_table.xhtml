@@ -16,7 +16,7 @@
                       headerText="#{msgs['NOMENCLATURES.TABLE.HEADER']}">
                 <t:htmlTag value="i" id="deleted${idNomenclature}" style="padding-right: 5px"
                            styleClass="fa fa-exclamation-circle fontRed fz16" rendered="#{varDataTable.value.temEnServ == 'N'}">
-                    <p:tooltip value="#{msgs['FORM.SUPPRIMEE']}"
+                    <p:tooltip trackMouse="true" value="#{msgs['FORM.SUPPRIMEE']}"
                                for="deleted${idNomenclature}" />
                 </t:htmlTag>
                 <p:commandLink id="delete${idNomenclature}"
@@ -26,7 +26,7 @@
                     <f:setPropertyActionListener value="#{varDataTable.value}"
                                                  target="${controllerTarget}" />
                     <t:htmlTag value="i" styleClass="fa fa-trash-o fz16"/>
-                    <p:tooltip value="#{msgs['FORM.SUPPRIMER']}"
+                    <p:tooltip trackMouse="true" value="#{msgs['FORM.SUPPRIMER']}"
                                for="delete${idNomenclature}" />
                 </p:commandLink>
                 <p:commandLink id="update${idNomenclature}"
@@ -36,7 +36,7 @@
                     <f:setPropertyActionListener value="#{varDataTable.value}"
                                                  target="${controllerTarget}" />
                     <t:htmlTag value="i" styleClass="fa fa-pencil fz16"/>
-                    <p:tooltip value="#{msgs['FORM.MODIFIER']}"
+                    <p:tooltip trackMouse="true" value="#{msgs['FORM.MODIFIER']}"
                                for="update${idNomenclature}" />
                 </p:commandLink>
                 <!--<c:choose>-->
@@ -55,7 +55,7 @@
                                                  target="${controllerTarget}" />
                     <t:htmlTag value="i" rendered="#{varDataTable.value.temEnServ == 'N'}" styleClass="fa fa-refresh fz16 fontGreen"
                                style="float:right;"/>
-                    <p:tooltip value="#{msgs['FORM.REACTIVER']}"
+                    <p:tooltip trackMouse="true" value="#{msgs['FORM.REACTIVER']}"
                                for="reactivate${idNomenclature}" />
                 </p:commandLink>
             </p:column>

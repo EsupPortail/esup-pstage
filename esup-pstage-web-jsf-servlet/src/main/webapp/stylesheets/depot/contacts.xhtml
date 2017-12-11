@@ -76,7 +76,7 @@
                                         <f:setPropertyActionListener value="_modifServiceEtape0"
                                                                      target="#{sessionController.modifServiceCurrentPage}" />
                                         <t:htmlTag value="i" styleClass="fa fa-edit fz16 mrf10"/>
-                                        <p:tooltip for="modif">
+                                        <p:tooltip trackMouse="true" for="modif">
                                             <h:outputLabel for="modif" value="#{msgs['FORM.MODIFIER']}" />
                                             <t:div rendered="#{sessionController.adminPageAuthorized}">
                                                 <t:htmlTag value="br" />
@@ -96,7 +96,7 @@
                                         <f:setPropertyActionListener value="_supprServiceEtape1"
                                                                      target="#{sessionController.suppressionServiceCurrentPage}" />
                                         <t:htmlTag value="i" styleClass="fa fa-trash-o fz16"/>
-                                        <p:tooltip value="#{msgs['FORM.SUPPRIMER']}" for="suppr" />
+                                        <p:tooltip trackMouse="true" value="#{msgs['FORM.SUPPRIMER']}" for="suppr" />
                                     </p:commandLink>
                                 </p:column>
                             </p:dataTable>
@@ -243,7 +243,7 @@
                                         <f:setPropertyActionListener value="_modifContactEtape0"
                                                                      target="#{sessionController.modifContactCurrentPage}" />
                                         <t:htmlTag value="i" styleClass="fa fa-edit fz16 mrf10"/>
-                                        <p:tooltip for="modifC">
+                                        <p:tooltip trackMouse="true" for="modifC">
                                             <h:outputLabel for="modifC"
                                                            value="#{msgs['FORM.MODIFIER']}" />
                                             <t:div rendered="#{sessionController.adminPageAuthorized}">
@@ -263,7 +263,7 @@
                                         <f:setPropertyActionListener value="_supprContactEtape1"
                                                                      target="#{sessionController.suppressionContactCurrentPage}" />
                                         <t:htmlTag value="i" styleClass="fa fa-trash-o fz16"/>
-                                        <p:tooltip value="#{msgs['FORM.SUPPRIMER']}" for="supprC"  />
+                                        <p:tooltip trackMouse="true" value="#{msgs['FORM.SUPPRIMER']}" for="supprC"  />
                                     </p:commandLink>
                                 </p:column>
                                 <p:column styleClass="textCenter background-color-grey" rendered="#{sessionController.adminPageAuthorized
@@ -284,7 +284,7 @@
                                         <f:setPropertyActionListener value="_creationCompteContactEtape1"
                                                                      target="#{sessionController.creationCompteContactCurrentPage}" />
                                         <t:htmlTag value="i" styleClass="fa fa-user-plus fz16"/>
-                                        <p:tooltip for="creationCompte"
+                                        <p:tooltip trackMouse="true" for="creationCompte"
                                                    value="#{msgs['CONTACT.GESTION.COMPTE.CREATION']}" />
                                     </p:commandLink>
 
@@ -297,7 +297,7 @@
                                         <f:setPropertyActionListener value="#{contact}"
                                                                      target="#{etablissementController.formContact}" />
                                         <t:htmlTag value="i" styleClass="fa fa-user-times fz16"/>
-                                        <p:tooltip for="supprCompte" value="#{msgs['CONTACT.GESTION.COMPTE.SUPPRESSION']}" />
+                                        <p:tooltip trackMouse="true" for="supprCompte" value="#{msgs['CONTACT.GESTION.COMPTE.SUPPRESSION']}" />
                                     </p:commandLink>
 
                                     <p:commandLink  id="resetMdp" styleClass="mrf5"
@@ -311,7 +311,7 @@
                                         <f:setPropertyActionListener value="#{contact}"
                                                                      target="#{etablissementController.formContact}" />
                                         <t:htmlTag value="i" styleClass="fa fa-rotate-right fz16"/>
-                                        <p:tooltip for="resetMdp" value="#{msgs['CONTACT.GESTION.COMPTE.RESETMDP']}" />
+                                        <p:tooltip trackMouse="true" for="resetMdp" value="#{msgs['CONTACT.GESTION.COMPTE.RESETMDP']}" />
                                     </p:commandLink>
 
                                     <h:outputText

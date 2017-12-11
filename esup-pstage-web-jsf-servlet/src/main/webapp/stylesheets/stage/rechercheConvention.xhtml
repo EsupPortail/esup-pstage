@@ -276,7 +276,7 @@
                                     <t:htmlTag id="infoRs" value="i"
                                                styleClass="fa fa-info-circle fz16 fontBlue1"
                                                style="padding: 0 5px; cursor:help;">
-                                        <p:tooltip for="infoRs"
+                                        <p:tooltip trackMouse="true" for="infoRs"
                                                    value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
                                     </t:htmlTag>
                                 </p:outputLabel>
@@ -290,7 +290,7 @@
                                     <t:htmlTag id="infoNumsiret" value="i"
                                                styleClass="fa fa-info-circle fz16 fontBlue1"
                                                style="padding: 0 5px; cursor:help;">
-                                        <p:tooltip value="#{msgs['INFOSBULLES.NUMERO_SIRET']}"
+                                        <p:tooltip trackMouse="true" value="#{msgs['INFOSBULLES.NUMERO_SIRET']}"
                                                    for="infoNumsiret" escape="false" />
                                     </t:htmlTag>
                                 </p:outputLabel>
@@ -423,7 +423,7 @@
                                 target="#{exportController.estEtrangere}" />
                         <f:setPropertyActionListener value="rechercheConvention"
                                                      target="#{conventionController.retourAction}" />
-                        <p:tooltip id="tooltipExport"
+                        <p:tooltip trackMouse="true" id="tooltipExport"
                                    value="#{msgs['EXPORTCONVENTION.TOOLTIP']}" for="exportExcel" />
                     </p:commandButton>
                 </t:div>

@@ -113,12 +113,12 @@
                                     <f:facet name="header">
                                         <p:selectBooleanCheckbox id="checkAll"
                                                                  onchange="selectAll(this);">
-                                            <p:tooltip for="checkAll" value="#{msgs['FORM.SELECTIONNER_TOUT']}" />
+                                            <p:tooltip trackMouse="true" for="checkAll" value="#{msgs['FORM.SELECTIONNER_TOUT']}" />
                                         </p:selectBooleanCheckbox>
                                     </f:facet>
                                     <p:selectBooleanCheckbox id="checkEntry"
                                                              value="#{convention.selected}">
-                                        <p:tooltip value="#{msgs['FORM.SELECTIONNER']}"
+                                        <p:tooltip trackMouse="true" value="#{msgs['FORM.SELECTIONNER']}"
                                                    for="checkEntry" />
                                     </p:selectBooleanCheckbox>
                                 </p:column>

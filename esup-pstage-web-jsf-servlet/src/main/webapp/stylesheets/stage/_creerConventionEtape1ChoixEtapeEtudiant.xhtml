@@ -291,7 +291,7 @@
                             <t:htmlTag id="imgInfoVolume" value="i" styleClass="fa fa-info-circle fontBlue2 fz13"
                                        rendered="#{!conventionController.defaultVolumeHoraire
                                        and not empty conventionController.etudiantRef.volumeHoraireFormation and conventionController.etudiantRef.volumeHoraireFormation != '0'}">
-                                <p:tooltip for="imgInfoVolume"
+                                <p:tooltip trackMouse="true" for="imgInfoVolume"
                                            value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.INFO.REMPLI']} (#{conventionController.etudiantRef.volumeHoraireFormation})" />
                             </t:htmlTag>
                             <p:inputText id="volumeHoraireFormation" styleClass="autoWidth ml5" required="true"

@@ -53,9 +53,9 @@
                                                                  target="#{offreController.retour}" />
                                     <f:setPropertyActionListener value="_modificationOffreEtape01Centre"
                                                                  target="#{sessionController.modificationOffreCurrentPage}" />
-                                    <p:tooltip value="#{msgs['FORM.MODIFIER']}" for="modifCentre"
+                                    <p:tooltip trackMouse="true" value="#{msgs['FORM.MODIFIER']}" for="modifCentre"
                                                rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-                                    <p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}" for="modifCentre"
+                                    <p:tooltip trackMouse="true" value="#{msgs['OFFRE.ERREUR.NOMODIF']}" for="modifCentre"
                                                rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
                                 </h:commandLink>
                             </t:div>
@@ -86,11 +86,11 @@
                                     <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontDarkGray" style="opacity:.50;"
                                                rendered="#{offreController.currentRecapOffre == varRecapOffreEtabCentre
                                                    and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-                                    <p:tooltip value="#{msgs['FORM.MODIFIER']}" for="modifEtab"
+                                    <p:tooltip trackMouse="true" value="#{msgs['FORM.MODIFIER']}" for="modifEtab"
                                                rendered="#{offreController.currentRecapOffre == varRecapOffreEtab
                                                    || (offreController.currentRecapOffre == varRecapOffreEtabCentre
                                                    and offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre)}" />
-                                    <p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}" for="modifEtab"
+                                    <p:tooltip trackMouse="true" value="#{msgs['OFFRE.ERREUR.NOMODIF']}" for="modifEtab"
                                                rendered="#{offreController.currentRecapOffre == varRecapOffreEtabCentre
                                                    and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
                                     <f:setPropertyActionListener value="_modificationOffreEtape04DetailsEtab"
@@ -122,12 +122,12 @@
                                     <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontDarkGray" style="opacity:.50;"
                                                rendered="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
                                                    and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-                                    <p:tooltip value="#{msgs['FORM.MODIFIER']}" for="modif"
+                                    <p:tooltip trackMouse="true" value="#{msgs['FORM.MODIFIER']}" for="modif"
                                                rendered="#{offreController.currentRecapOffre == varRecapOffre
                                                    || offreController.currentRecapOffre == varRecapOffreEtab
                                                    || ((offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
                                                    and offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre)}" />
-                                    <p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}" for="modif"
+                                    <p:tooltip trackMouse="true" value="#{msgs['OFFRE.ERREUR.NOMODIF']}" for="modif"
                                                rendered="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
                                                    and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
                                     <f:setPropertyActionListener value="_modificationOffreEtape1"
@@ -175,12 +175,12 @@
                                     <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontDarkGray" style="opacity:.50;"
                                                rendered="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
                                                    and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-                                    <p:tooltip value="#{msgs['FORM.MODIFIER']}" for="modifC"
+                                    <p:tooltip trackMouse="true" value="#{msgs['FORM.MODIFIER']}" for="modifC"
                                                rendered="#{offreController.currentRecapOffre == varRecapOffre
                                                    || offreController.currentRecapOffre == varRecapOffreEtab
                                                    || ((offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
                                                    and offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre)}" />
-                                    <p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}" for="modifC"
+                                    <p:tooltip trackMouse="true" value="#{msgs['OFFRE.ERREUR.NOMODIF']}" for="modifC"
                                                rendered="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
                                                    and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}"  />
                                     <f:setPropertyActionListener value="_modificationOffreEtape3"
@@ -222,7 +222,7 @@
                             <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 fontBlue2" style="opacity:.50;"
                                        rendered="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
                                                    and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}"  />
-                            <p:tooltip for="suppr" value="#{msgs['OFFRE.ERREUR.NOSUPPR']}"
+                            <p:tooltip trackMouse="true" for="suppr" value="#{msgs['OFFRE.ERREUR.NOSUPPR']}"
                                        rendered="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
                                                    and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}"/>
                             <f:setPropertyActionListener value="_supprOffreEtape1"
@@ -248,7 +248,7 @@
                             <t:htmlTag value="i" styleClass="fa fa-external-link fz16 fontBlue2" style="opacity:.50;"
                                        rendered="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
                                                    and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-                            <p:tooltip for="transfert" value="#{msgs['OFFRE.ERREUR.NOTRANSFERT']}"
+                            <p:tooltip trackMouse="true" for="transfert" value="#{msgs['OFFRE.ERREUR.NOTRANSFERT']}"
                                        rendered="#{(offreController.currentRecapOffre == varRecapOffreCentre || offreController.currentRecapOffre == varRecapOffreEtabCentre)
                                                    and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
                             <h:outputText value=" #{msgs['OFFRE.TRANSFERT']}" />

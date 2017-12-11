@@ -248,7 +248,7 @@
         <t:div rendered="#{not empty rechercheController.ongletCourant and rechercheController.ongletCourant==6}">
             <t:div styleClass="mt5">
                 <t:htmlTag id="infoBulleRs" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
-                    <p:tooltip for="infoBulleRs" value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"/>
+                    <p:tooltip trackMouse="true" for="infoBulleRs" value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"/>
                 </t:htmlTag>
                 <h:outputText styleClass="fontBold ml5"
                               value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.RAISONSOCIALE']}" />

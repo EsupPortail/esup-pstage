@@ -256,7 +256,7 @@
                 <h:outputLabel id="labelTemRecupInsAnneeAnterieure" styleClass="fontBlue2"
                                value="#{msgs['CENTRE.VERIFICATION_INSCRIPTION_ANTERIEURE']} *"
                                for="temRecupInsAnneeAnterieure">
-                    <p:tooltip for="labelTemRecupInsAnneeAnterieure" escape="false"
+                    <p:tooltip trackMouse="true" for="labelTemRecupInsAnneeAnterieure" escape="false"
                                value="#{msgs['INFOSBULLES.TEMOIN_RECUP_ANNEE_ANT']}"/>
                 </h:outputLabel>
             </t:div>
@@ -322,7 +322,7 @@
                     <h:outputText escape="false"
                                   value="#{msgs['CENTRE.VISEUR.CHOISIR']}" />
                     <t:htmlTag id="imgInfoViseur" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
-                        <p:tooltip value="#{msgs['CENTRE.INFO_BULLES.VISEUR']}"
+                        <p:tooltip trackMouse="true" value="#{msgs['CENTRE.INFO_BULLES.VISEUR']}"
                                    for="imgInfoViseur" />
                     </t:htmlTag>
                 </h:panelGrid>

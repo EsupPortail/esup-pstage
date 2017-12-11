@@ -106,9 +106,9 @@
         <h:outputText value="#{msgs['FORM.OUI']} /"
                       rendered="#{offre.avecFichier || offre.avecLien}" />
         <t:htmlTag value="i" styleClass="fa fa-link fz13 mlf5" id="imageLien" rendered="#{offre.avecLien}"/>
-        <p:tooltip for="imageLien" value="#{msgs['OFFRE.LIEN']}" />
+        <p:tooltip trackMouse="true" for="imageLien" value="#{msgs['OFFRE.LIEN']}" />
         <t:htmlTag value="i" styleClass="fa fa-file-text-o fz13 mlf5" id="imageFichier" rendered="#{offre.avecFichier}"/>
-        <p:tooltip for="imageFichier" value="#{msgs['OFFRE.FICHIER']}" />
+        <p:tooltip trackMouse="true" for="imageFichier" value="#{msgs['OFFRE.FICHIER']}" />
         <h:outputText value="#{msgs['FORM.NON']}"
                       rendered="#{!(offre.avecFichier || offre.avecLien)}" />
     </p:column>

@@ -26,14 +26,14 @@
 					and !(sessionController.moderationActive and sessionController.pageAuthorized) ? 'fa fa-flag fontBlue2' : 'fa fa-flag fontDarkGray'}">
                 <f:setPropertyActionListener value="_diffusionOffreEtape1"
                                              target="#{sessionController.diffusionOffreCurrentPage}" />
-                <p:tooltip for="diffusion" value="#{msgs['FORM.DIFFUSER']}"
+                <p:tooltip trackMouse="true" for="diffusion" value="#{msgs['FORM.DIFFUSER']}"
                            rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
 						and !(sessionController.moderationActive and sessionController.pageAuthorized)}" />
-                <p:tooltip for="diffusion"
+                <p:tooltip trackMouse="true" for="diffusion"
                            value="#{msgs['OFFRE.ERREUR.NODIFF2']}"
                            rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
 						and sessionController.moderationActive and sessionController.pageAuthorized}" />
-                <p:tooltip for="diffusion" value="#{msgs['OFFRE.ERREUR.NODIFF']}"
+                <p:tooltip trackMouse="true" for="diffusion" value="#{msgs['OFFRE.ERREUR.NODIFF']}"
                            rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
             </p:commandButton>
         </t:div>
@@ -83,10 +83,10 @@
                              icon="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre ? 'fa fa-ban fz13' : 'fa fa-ban fz13 fontDarkGray'}">
                 <f:setPropertyActionListener value="_stopDiffusionOffreEtape1"
                                              target="#{sessionController.stopDiffusionOffreCurrentPage}" />
-                <p:tooltip for="stopDiffusion"
+                <p:tooltip trackMouse="true" for="stopDiffusion"
                            value="#{msgs['FORM.STOPDIFFUSER']}"
                            rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-                <p:tooltip for="stopDiffusion"
+                <p:tooltip trackMouse="true" for="stopDiffusion"
                            value="#{msgs['OFFRE.ERREUR.NODIFF']}"
                            rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
             </p:commandButton>
@@ -138,7 +138,7 @@
                              icon="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre ? 'fa fa-bullseye fz13 fontBlue2' : 'fa fa-bullseye fz13 fontDarkGray'}">
                 <f:setPropertyActionListener value="_diffusionCentreOffreEtape1"
                                              target="#{sessionController.diffusionCentreOffreCurrentPage}" />
-                <p:tooltip for="diffusionCentre"
+                <p:tooltip trackMouse="true" for="diffusionCentre"
                            value="#{msgs['OFFRE.ERREUR.NODIFF']}"
                            rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
             </p:commandButton>
