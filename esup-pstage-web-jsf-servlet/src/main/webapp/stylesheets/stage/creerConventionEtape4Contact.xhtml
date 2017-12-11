@@ -48,7 +48,7 @@
                                 <p:column style="width:20px;">
                                     <f:facet name="header">
                                         <t:htmlTag id="civiliteHeader" value="i" styleClass="fa fa-user fz13 fontBlue2 noPointer">
-                                            <p:tooltip for="civiliteHeader" value="#{msgs['CONTACT.CIVILITE']}"/>
+                                            <p:tooltip trackMouse="true" for="civiliteHeader" value="#{msgs['CONTACT.CIVILITE']}"/>
                                         </t:htmlTag>
                                     </f:facet>
                                     <h:outputText id="civC" value="#{contact.civilite.libelle}" />
@@ -114,7 +114,7 @@
                                         <f:setPropertyActionListener value="_modifContactEtape0"
                                                                      target="#{sessionController.modifContactCurrentPage}" />
                                         <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontBlue2"/>
-                                        <p:tooltip for="modifC" value="#{msgs['FORM.MODIFIER']}" />
+                                        <p:tooltip trackMouse="true" for="modifC" value="#{msgs['FORM.MODIFIER']}" />
                                     </p:commandLink>
                                     <p:commandLink  id="supprC"
                                                     rendered="#{not empty etablissementController.listeContacts}"
@@ -124,7 +124,7 @@
                                         <f:setPropertyActionListener value="_supprContactEtape1"
                                                                      target="#{sessionController.suppressionContactCurrentPage}" />
                                         <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 ml5 fontBlue2"/>
-                                        <p:tooltip for="supprC" value="#{msgs['FORM.SUPPRIMER']}" />
+                                        <p:tooltip trackMouse="true" for="supprC" value="#{msgs['FORM.SUPPRIMER']}" />
                                     </p:commandLink>
                                 </p:column>
                                 <p:column styleClass="background-color-grey textCenter" rendered="#{!(sessionController.adminPageAuthorized
@@ -144,7 +144,7 @@
                                     </f:facet>
                                     <p:commandLink id="modifBlock" disabled="true">
                                         <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontBlue2" style="opacity:.50;"/>
-                                        <p:tooltip for="modifBlock" value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}" />
+                                        <p:tooltip trackMouse="true" for="modifBlock" value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}" />
                                     </p:commandLink>
                                 </p:column>
                             </p:dataTable>
@@ -191,7 +191,7 @@
                                 <h:outputText
                                         value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SUIVANTE']}"
                                         escape="false" />
-                                <p:tooltip for="passeretape2" escape="false"
+                                <p:tooltip trackMouse="true" for="passeretape2" escape="false"
                                            value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SUIVANTE']}" />
                             </p:commandLink>
                         </t:div>

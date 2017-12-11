@@ -45,7 +45,7 @@
                                         <!--<t:htmlTag value="i" styleClass="fa fa-search fz16 fontBlue2"/>-->
                                         <!--<f:setPropertyActionListener value="#{offre}"-->
                                                                      <!--target="#{offreController.currentOffre}" />-->
-                                        <!--<p:tooltip for="recap" value="#{msgs['OFFRE.GESTION.DETAILS']}" />-->
+                                        <!--<p:tooltip trackMouse="true" for="recap" value="#{msgs['OFFRE.GESTION.DETAILS']}" />-->
                                     <!--</p:commandLink>-->
                                     <p:commandLink  id="suppr" update="supprOffre"
                                                     styleClass="mlf5"
@@ -57,7 +57,7 @@
                                                                      target="#{sessionController.suppressionOffreCurrentPage}" />
                                         <f:setPropertyActionListener value="#{offre}"
                                                                      target="#{offreController.currentOffre}" />
-                                        <p:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
+                                        <p:tooltip trackMouse="true" for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
                                     </p:commandLink>
                                 </p:column>
                             </p:dataTable>

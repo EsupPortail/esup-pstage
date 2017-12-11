@@ -45,7 +45,7 @@
         <t:div styleClass="ml20">
             <t:div rendered="#{conventionController.convention.codeLangueConvention == 'fr'}">
                 <t:htmlTag id="infoImpressionFR" value="i" styleClass="fz13 fa fa-info-circle fontBlue2 noPointer">
-                    <p:tooltip for="infoImpressionFR" value="#{msgs['INFOSBULLES.CONVENTION_TYPE']}" />
+                    <p:tooltip trackMouse="true" for="infoImpressionFR" value="#{msgs['INFOSBULLES.CONVENTION_TYPE']}" />
                 </t:htmlTag>
                 <h:outputText styleClass="fontBold ml5"
                               value="#{msgs['CONVENTION.IMPRESSION.CONVENTION.INFOS']}" />
@@ -57,7 +57,7 @@
 
             <t:div rendered="#{conventionController.convention.codeLangueConvention != 'fr'}">
                 <t:htmlTag id="infoImpressionType" value="i" styleClass="fz13 fa fa-info-circle fontBlue2 noPointer">
-                    <p:tooltip for="infoImpressionType" value="#{msgs['INFOSBULLES.CONVENTION_TYPE']}" />
+                    <p:tooltip trackMouse="true" for="infoImpressionType" value="#{msgs['INFOSBULLES.CONVENTION_TYPE']}" />
                 </t:htmlTag>
                 <h:outputText styleClass="ml5 fontBold"
                               value="#{msgs['CONVENTION.IMPRESSION.CONVENTION.INFOS']}" />
@@ -69,7 +69,7 @@
 
             <t:div styleClass="mt10">
                 <t:htmlTag id="infoImpressionAttestation" value="i" styleClass="fz13 fa fa-info-circle fontBlue2 noPointer">
-                    <p:tooltip for="infoImpressionAttestation" value="#{msgs['INFOSBULLES.ATTESTATION_CONVENTION']}" />
+                    <p:tooltip trackMouse="true" for="infoImpressionAttestation" value="#{msgs['INFOSBULLES.ATTESTATION_CONVENTION']}" />
                 </t:htmlTag>
                 <h:outputText styleClass="fontBold ml5"
                               value="#{msgs['CONVENTION.IMPRESSION_ATTESTATION.INFOS']}" />
@@ -84,7 +84,7 @@
 			     || conventionController.convention.service.pays.cog != 99100}">
 
                 <t:htmlTag id="infoImpressionAnnexeH" value="i" styleClass="fz13 fa fa-info-circle fontBlue2 noPointer">
-                    <p:tooltip for="infoImpressionAnnexeH" value="#{msgs['INFOSBULLES.ANNEXEH']}" />
+                    <p:tooltip trackMouse="true" for="infoImpressionAnnexeH" value="#{msgs['INFOSBULLES.ANNEXEH']}" />
                 </t:htmlTag>
                 <h:outputText styleClass="fontBold ml5"
                               value="#{msgs['CONVENTION.IMPRESSION_ANNEXEH.INFOS']}" />

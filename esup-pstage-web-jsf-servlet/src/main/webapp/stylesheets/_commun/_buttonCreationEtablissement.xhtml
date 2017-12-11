@@ -10,6 +10,6 @@
                      action="#{etablissementController.goToCreationEtablissement}">
         <f:setPropertyActionListener value="#{true}"
                                      target="#{etablissementController.memeAdresseStructure}" />
-        <p:tooltip for="ajoutEtab" value="#{msgs['FORM.CREER']}" />
+        <p:tooltip trackMouse="true" for="ajoutEtab" value="#{msgs['FORM.CREER']}" />
     </p:commandButton>
 </ui:composition>

@@ -119,7 +119,7 @@
                                                   rendered="#{!convention.validationConvention}" />
                                     <f:setPropertyActionListener value="#{convention}"
                                                                  target="#{conventionController.currentConvention}" />
-                                    <p:tooltip for="validConvention" value="#{msgs['RECHERCHECONVENTION.INFOS.TUTEUR.VALIDATION']}"
+                                    <p:tooltip trackMouse="true" for="validConvention" value="#{msgs['RECHERCHECONVENTION.INFOS.TUTEUR.VALIDATION']}"
                                                rendered="#{welcomeController.enseignantTuteur}"  />
                                 </p:commandLink>
                             </t:div>

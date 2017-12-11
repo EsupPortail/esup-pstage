@@ -15,7 +15,7 @@
 									 target="#{sessionController.editQuestionEvalCurrentPage}" />
 		<f:setPropertyActionListener value="#{questionSup}"
 									 target="#{centreController.questionSupplementaire}" />
-		<p:tooltip value="#{msgs['FORM.MODIFIER']}" />
+		<p:tooltip trackMouse="true" value="#{msgs['FORM.MODIFIER']}" />
 	</p:commandLink>
 	<p:commandLink
 			oncomplete="PF('deleteQuestionEvalPanel').show();"
@@ -25,11 +25,11 @@
 									 target="#{sessionController.suppressionQuestionEvalCurrentPage}" />
 		<f:setPropertyActionListener value="#{questionSup}"
 									 target="#{centreController.questionSupplementaire}" />
-		<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+		<p:tooltip trackMouse="true" value="#{msgs['FORM.SUPPRIMER']}" />
 	</p:commandLink>
 
 
-	<h:outputText style="font-weight:bold;"
+	<h:outputText styleClass="fontBold"
 				  value="#{questionSup.question}" />
 	</t:div>
 	<t:div styleClass="mlf40 mb15">

@@ -19,7 +19,7 @@
                 <f:setPropertyActionListener value="#{false}"
                                              target="#{etablissementController.modificationEtabBoutonAnnuler}" />
                 <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontBlue2"/>
-                <p:tooltip for="modifierStructure">
+                <p:tooltip trackMouse="true" for="modifierStructure">
                     <h:outputLabel for="tooltip" value="#{msgs['FORM.MODIFIER']}" />
                     <t:htmlTag value="br" />
                     <t:aliasBean id="tooltip" alias="#{objet}" value="#{varRechercheStructure}">
@@ -37,7 +37,7 @@
                                              target="#{etablissementController.currentStruct}" />
                 <f:setPropertyActionListener value="_validStructureEtape1"
                                              target="#{sessionController.validationStructureCurrentPage}" />
-                <p:tooltip for="validerStructure" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}" />
+                <p:tooltip trackMouse="true" for="validerStructure" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}" />
             </p:commandLink>
             <p:commandLink  id="supprimerStructure" styleClass="mr5 ml5"
                             oncomplete="PF('supprimerStructurePanel').show();"
@@ -47,7 +47,7 @@
                                              target="#{etablissementController.formStructure}" />
                 <f:setPropertyActionListener value="_supprStructureEtape1"
                                              target="#{sessionController.suppressionStructureCurrentPage}" />
-                <p:tooltip for="supprimerStructure" value="#{msgs['FORM.SUPPRIMER']}" />
+                <p:tooltip trackMouse="true" for="supprimerStructure" value="#{msgs['FORM.SUPPRIMER']}" />
             </p:commandLink>
         </t:htmlTag>
     </p:column>

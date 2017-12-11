@@ -618,6 +618,8 @@ public class ConventionController extends AbstractContextAwareController {
 			this.rechercheNumOffre(); // recuperation des infos de l'offre et transfert dans celles de la convention
 			return "formulaireCompletion";
 		}
+		this.defaultVolumeHoraire = true;
+
 		sequenceEtapeEnum = SequenceEtapeEnum.ETAPE1;
 
 		return "creerConventionEtape1Etudiant";

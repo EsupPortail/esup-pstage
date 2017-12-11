@@ -119,7 +119,7 @@
                                                                  target="#{etablissementController.afficherSelectionCentreContact}" />
                                     <f:setPropertyActionListener value="_modifContactEtape0"
                                                                  target="#{sessionController.modifContactCurrentPage}" />
-                                    <p:tooltip for="modifC" value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}"
+                                    <p:tooltip trackMouse="true" for="modifC" value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}"
                                                rendered="#{!(((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)
 		                        or (welcomeController.etudiant and (sessionController.autoriserEtudiantAModifierEntreprise ||
 								(!sessionController.autoriserEtudiantAModifierEntreprise and (

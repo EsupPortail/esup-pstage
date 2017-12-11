@@ -55,7 +55,7 @@
                                 <t:htmlTag value="i" styleClass="fa fa-trash fz13" />
                                 <h:outputText value="#{msgs['CONVENTION.SUPPRIMER']}"
                                               escape="false"/>
-                                <p:tooltip for="suppr"
+                                <p:tooltip trackMouse="true" for="suppr"
                                            value="#{msgs['CONVENTION.SUPPRESSION.IMPOSSIBLE']}"
                                            rendered="#{conventionController.conventionValide || conventionController.nbAvenant gt 0}" />
                             </p:commandLink>

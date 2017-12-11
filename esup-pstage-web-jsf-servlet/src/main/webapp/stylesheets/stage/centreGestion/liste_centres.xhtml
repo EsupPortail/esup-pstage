@@ -40,16 +40,16 @@
                         <p:column sortBy="#{sessionController.droitsAccesMap[centre.idCentreGestion]}" styleClass="textCenter">
                             <f:facet name="header">
                                 <t:htmlTag id="appartenanceHead" value="b" styleClass="fa fa-user fz16">
-                                    <p:tooltip for="appartenanceHead" value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE_TIP']}" />
+                                    <p:tooltip trackMouse="true" for="appartenanceHead" value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE_TIP']}" />
                                 </t:htmlTag>
                             </f:facet>
                             <t:htmlTag id="appartenance1" value="i" styleClass="fa fa-check fz16 fontBlue2"
                                        rendered="#{sessionController.droitsAccesMap[centre.idCentreGestion] != null}">
-                                <p:tooltip for="appartenance1" value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.OUI']}" />
+                                <p:tooltip trackMouse="true" for="appartenance1" value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.OUI']}" />
                             </t:htmlTag>
 
                             <t:htmlTag id="appartenance2" value="i" styleClass="fa fa-remove fz16 fontRed" rendered="#{sessionController.droitsAccesMap[centre.idCentreGestion] == null}">
-                                <p:tooltip for="appartenance2" value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.NON']}"/>
+                                <p:tooltip trackMouse="true" for="appartenance2" value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.NON']}"/>
                             </t:htmlTag>
                         </p:column>
 
@@ -150,7 +150,7 @@
                                     <f:setPropertyActionListener value="#{centre}"
                                                                  target="#{centreController.centre}" />
                                     <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 fontBlue2"/>
-                                    <p:tooltip value="#{msgs['FORM.SUPPRIMER']}" for="delete" />
+                                    <p:tooltip trackMouse="true" value="#{msgs['FORM.SUPPRIMER']}" for="delete" />
                                 </p:commandLink>
                             </t:div>
                         </p:column>

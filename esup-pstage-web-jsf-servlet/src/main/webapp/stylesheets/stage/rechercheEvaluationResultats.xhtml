@@ -201,7 +201,7 @@
                                         <t:htmlTag value="i" styleClass="fa fa-print fz13" />
                                         <f:setPropertyActionListener value="#{convention}"
                                                                      target="#{conventionController.convention}" />
-                                        <p:tooltip for="imprEvalEtu" value="#{msgs['FORM.IMPRIMER']}" />
+                                        <p:tooltip trackMouse="true" for="imprEvalEtu" value="#{msgs['FORM.IMPRIMER']}" />
                                     </p:commandLink>
                                 </t:htmlTag>
                             </t:div>
@@ -274,7 +274,7 @@
                                         <t:htmlTag value="i" styleClass="fa fa-print fz13" />
                                         <f:setPropertyActionListener value="#{convention}"
                                                                      target="#{conventionController.convention}" />
-                                        <p:tooltip for="imprEvalEns" value="#{msgs['FORM.IMPRIMER']}" />
+                                        <p:tooltip trackMouse="true" for="imprEvalEns" value="#{msgs['FORM.IMPRIMER']}" />
                                     </h:commandLink>
                                 </t:htmlTag>
                             </t:div>
@@ -347,7 +347,7 @@
                                                         value="/media/images/printer.png" />
                                         <f:setPropertyActionListener value="#{convention}"
                                                                      target="#{conventionController.convention}" />
-                                        <p:tooltip for="imprEvalEnt" value="#{msgs['FORM.IMPRIMER']}" />
+                                        <p:tooltip trackMouse="true" for="imprEvalEnt" value="#{msgs['FORM.IMPRIMER']}" />
                                     </h:commandLink>
                                 </t:htmlTag>
                             </t:div>
@@ -414,7 +414,7 @@
                                                      value="#{msgs['RECHERCHEEVALUATION.EXPORT_ETUDIANT']}"
                                                      action="#{evaluationController.exportFichesEtudiantColumn}"
                                                      ajax="false">
-                                        <p:tooltip for="extractionEtudiant" value="#{msgs['RECHERCHEEVALUATION.EXPORT_ETUDIANT.TOOLTIP']}" />
+                                        <p:tooltip trackMouse="true" for="extractionEtudiant" value="#{msgs['RECHERCHEEVALUATION.EXPORT_ETUDIANT.TOOLTIP']}" />
                                     </p:commandButton>
 
                                     <t:htmlTag value="div" style="height: 5px;" />
@@ -432,7 +432,7 @@
                                                      rendered="#{not empty conventionController.convention.ficheEvaluation and conventionController.convention.ficheEvaluation.validationEnseignant
 								            and (welcomeController.superAdmin || sessionController.droitsEvaluationEnseignantMap[evaluationController.rechEvalIdCentre])}"
                                                      action="#{evaluationController.exportFichesEnseignantColumn}" ajax="false">
-                                        <p:tooltip for="extractionEnseignant"
+                                        <p:tooltip trackMouse="true" for="extractionEnseignant"
                                                    value="#{msgs['RECHERCHEEVALUATION.EXPORT_ENSEIGNANT.TOOLTIP']}" />
                                     </p:commandButton>
                                     <t:htmlTag value="div" style="height: 5px;" />
@@ -450,7 +450,7 @@
 								            and (welcomeController.superAdmin || sessionController.droitsEvaluationEntrepriseMap[evaluationController.rechEvalIdCentre])}"
                                                      value="#{msgs['RECHERCHEEVALUATION.EXPORT_ENTREPRISE']}"
                                                      action="#{evaluationController.exportFichesEntrepriseColumn}" ajax="false">
-                                        <p:tooltip for="extractionEntreprise"
+                                        <p:tooltip trackMouse="true" for="extractionEntreprise"
                                                    value="#{msgs['RECHERCHEEVALUATION.EXPORT_ENTREPRISE.TOOLTIP']}" />
                                     </p:commandButton>
                                     <t:htmlTag value="div" style="height:5px;" />

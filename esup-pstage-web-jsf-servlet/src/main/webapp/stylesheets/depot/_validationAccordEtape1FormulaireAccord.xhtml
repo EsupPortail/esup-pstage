@@ -20,7 +20,7 @@
                     <t:htmlTag value="li">
                         <t:div>
                             <t:htmlTag id="infoBulleRs" value="i" styleClass="fa fa-info-circle fz13 fontBlue2">
-                                <p:tooltip for="infoBulleRs" value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
+                                <p:tooltip trackMouse="true" for="infoBulleRs" value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
                             </t:htmlTag>
                             <h:outputText value="#{msgs['STRUCTURE.RAISON_SOCIALE']} *"
                                           styleClass="mlf5 fontBold"/>
@@ -52,7 +52,7 @@
                                 <t:htmlTag id="infoSiret" value="i"
                                            styleClass="fa fa-info-circle fz13 fontBlue1"
                                            style="padding: 0 5px; cursor:help;">
-                                    <p:tooltip value="#{msgs['INFOSBULLES.NUMERO_SIRET']}" escape="false"
+                                    <p:tooltip trackMouse="true" value="#{msgs['INFOSBULLES.NUMERO_SIRET']}" escape="false"
                                                for="infoSiret" />
                                 </t:htmlTag>
                             </h:outputText>
@@ -125,7 +125,7 @@
                 <t:div styleClass="column">
                     <t:htmlTag value="li">
                         <t:htmlTag id="infoBulleApe" value="i" styleClass="fa fa-info-circle fz13 fontBlue2">
-                            <p:tooltip for="infoBulleApe" value="#{msgs['INFOSBULLES.CODE_APE']}" escape="false"/>
+                            <p:tooltip trackMouse="true" for="infoBulleApe" value="#{msgs['INFOSBULLES.CODE_APE']}" escape="false"/>
                         </t:htmlTag>
                         <h:outputText value="#{msgs['STRUCTURE.CODE_NAF']}"
                                       styleClass="fontBold mlf5" />

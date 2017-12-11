@@ -74,7 +74,7 @@
                 </t:htmlTag>
                 <t:htmlTag value="li">
                     <t:htmlTag id="imgInfoComp" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
-                        <p:tooltip for="imgInfoComp" value="#{msgs['INFOSBULLES.COMPETENCES']}" />
+                        <p:tooltip trackMouse="true" for="imgInfoComp" value="#{msgs['INFOSBULLES.COMPETENCES']}" />
                     </t:htmlTag>
                     <h:outputText styleClass="fontBold ml5" value="#{msgs['CONVENTION.COMPETENCES']} #{msgs['CONVENTION.ETOILE']}" />
                     <h:outputText id="cptCompetences" styleClass="fontItalic"/>
@@ -154,7 +154,8 @@
                     <t:div rendered="#{empty conventionController.convention.idUniteDureeExceptionnelle or conventionController.convention.idUniteDureeExceptionnelle == 0}">
                         <t:htmlTag value="li">
                             <t:htmlTag id="imgInfoDuree" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
-                                <p:tooltip for="imgInfoDuree" value="#{msgs['INFOSBULLES.DUREE_EXCEPT']}" />
+                                <p:tooltip for="imgInfoDuree" value="#{msgs['INFOSBULLES.DUREE_EXCEPT']}"
+                                           trackMouse="true"/>
                             </t:htmlTag>
                             <h:outputText value="#{msgs['CONVENTION.DUREEEXCEPT']} #{msgs['CONVENTION.ETOILE']}" escape="false"
                                           styleClass="ml5 fontBold" />
@@ -238,7 +239,8 @@
                 </t:htmlTag>
                 <t:htmlTag value="li">
                     <t:htmlTag id="imgInfoHrHebdo" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
-                        <p:tooltip for="imgInfoHrHebdo" value="#{msgs['CONVENTION.NBHEURESHEBDO.COMPLEMENT']}" />
+                        <p:tooltip trackMouse="true"
+                                   for="imgInfoHrHebdo" value="#{msgs['CONVENTION.NBHEURESHEBDO.COMPLEMENT']}" />
                     </t:htmlTag>
                     <h:outputText value="#{msgs['CONVENTION.NBHEURESHEBDO']} #{msgs['CONVENTION.ETOILE']}"
                                   styleClass="ml5 fontBold"/>
@@ -252,7 +254,8 @@
                 </t:htmlTag>
                 <t:htmlTag value="li">
                     <t:htmlTag id="imgInfoConges" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
-                        <p:tooltip for="imgInfoConges" value="#{msgs['INFOSBULLES.NBCONGES']}" />
+                        <p:tooltip trackMouse="true"
+                                   for="imgInfoConges" value="#{msgs['INFOSBULLES.NBCONGES']}" />
                     </t:htmlTag>
                     <h:outputText value="#{msgs['CONVENTION.NBCONGES']}" styleClass="ml5 fontBold" />
                     <p:inputText id="nbConges" styleClass="mt5"
@@ -261,7 +264,8 @@
                 </t:htmlTag>
                 <t:htmlTag value="li">
                     <t:htmlTag id="imgInfoComDuree" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
-                        <p:tooltip for="imgInfoComDuree" value="#{msgs['INFOSBULLES.COMMENTDUREETRAVAIL']}" />
+                        <p:tooltip trackMouse="true"
+                                   for="imgInfoComDuree" value="#{msgs['INFOSBULLES.COMMENTDUREETRAVAIL']}" />
                     </t:htmlTag>
                     <h:outputText value="#{msgs['CONVENTION.COMMENTDUREETRAVAIL']}" styleClass="ml5 fontBold" />
                     <p:inputTextarea id="commentaireDureeTravail"
@@ -276,7 +280,8 @@
         <t:div styleClass="ml40 verticalAlignDiv">
             <t:htmlTag id="infoGratification" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer"
                        rendered="#{!conventionController.conventionFormationContinue}">
-                <p:tooltip for="infoGratification" value="#{msgs['INFOSBULLES.GRATIFICATION']}" escape="false"/>
+                <p:tooltip trackMouse="true"
+                           for="infoGratification" value="#{msgs['INFOSBULLES.GRATIFICATION']}" escape="false"/>
             </t:htmlTag>
             <h:outputText styleClass="fontBold ml5"
                           value="#{conventionController.conventionFormationContinue ? msgs['CONVENTION.INDEMNISATION.FORMATION_CONTINUE'] : msgs['CONVENTION.INDEMNISATION']} #{msgs['CONVENTION.ETOILE']}" />
@@ -385,7 +390,8 @@
                     <t:htmlTag value="div" style="height:10px;" />
 
                     <t:htmlTag id="imgInfoConfidentialite" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
-                        <p:tooltip for="imgInfoConfidentialite" value="#{msgs['INFOSBULLES.CONFIDENTIEL']}" escape="false" />
+                        <p:tooltip trackMouse="true" for="imgInfoConfidentialite"
+                                   value="#{msgs['INFOSBULLES.CONFIDENTIEL']}" escape="false" />
                     </t:htmlTag>
                     <h:outputText styleClass="fontBold ml5" value="#{msgs['CONVENTION.TEMCONFSUJET']}" />
                     <p:selectOneRadio id="temConfSujetTeme"
@@ -423,7 +429,8 @@
             <t:div styleClass="column">
                 <t:htmlTag value="li">
                     <t:htmlTag id="imgInfoModeSuivi" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
-                        <p:tooltip for="imgInfoModeSuivi" value="#{msgs['CONVENTION.MODESUIVI.INFO']}" />
+                        <p:tooltip trackMouse="true"
+                                   for="imgInfoModeSuivi" value="#{msgs['CONVENTION.MODESUIVI.INFO']}" />
                     </t:htmlTag>
                     <h:outputText value="#{msgs['CONVENTION.MODESUIVI']}" styleClass="fontBold ml5" />
                     <t:div styleClass="mt5">
@@ -434,7 +441,8 @@
                     <t:htmlTag value="div" style="height:10px;" />
 
                     <t:htmlTag id="imgInfoAvantages" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
-                        <p:tooltip for="imgInfoAvantages" value="#{msgs['INFOSBULLES.AVANTAGES']}" />
+                        <p:tooltip trackMouse="true"
+                                   for="imgInfoAvantages" value="#{msgs['INFOSBULLES.AVANTAGES']}" />
                     </t:htmlTag>
                     <h:outputText styleClass="fontBold ml5" value="#{msgs['CONVENTION.AVANTAGESNATURE']}" />
                     <t:div styleClass="mt5">
