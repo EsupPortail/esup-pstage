@@ -11,14 +11,15 @@
                 <h:outputText value="#{msgs['CENTRE.LISTE_CENTRE.HEAD']}" />
             </f:facet>
             <t:div rendered="#{empty centreController.centresGestion}"
-                   style="margin:5px; text-align:center;">
+                   styleClass="ml40">
                 <h:outputText value="#{msgs['CENTRE.LISTE_CENTRE.ACCUEIL']}" />
                 <br/>
                 <h:outputText value="#{msgs['CENTRE.LISTE_CENTRE.VIDE']}" />
             </t:div>
             <h:form id="formListeCentre" style="font-size:0.8em;">
                 <t:div styleClass="block ml40">
-                    <t:div styleClass="textCenter">
+                    <t:div styleClass="textCenter"
+                           rendered="#{not empty centreController.centresGestion}">
                         <h:outputText styleClass="fontItalic fontGreen fontBold fz09"
                                       value="#{msgs['GENERAL.LIGNE.SELECTION']}" />
                     </t:div>

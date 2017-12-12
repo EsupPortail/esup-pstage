@@ -89,17 +89,6 @@
 		<param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
 		<param-value>true</param-value>
 	</context-param>
-	<!-- <context-param> -->
-	<!-- <param-name>org.apache.myfaces.ERROR_HANDLING</param-name> -->
-	<!-- <param-value>true</param-value> -->
-	<!-- </context-param> -->
-	<!-- <context-param> -->
-	<!-- <param-name>org.apache.myfaces.ERROR_HANDLER -->
-	<!-- </param-name> -->
-	<!-- <param-value> -->
-	<!-- org.esupportail.commons.services.exceptionHandling.ExceptionHandler -->
-	<!-- </param-value> -->
-	<!-- </context-param> -->
 
 	<listener>
 		<listener-class>
@@ -260,4 +249,8 @@
 	<welcome-file-list>
 		<welcome-file>welcome.xhtml</welcome-file>
 	</welcome-file-list>
+
+	<error-page>
+		<location>/stylesheets/_exception/exception.xhtml</location>
+	</error-page>
 </web-app>
