@@ -1,14 +1,23 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	
-	template="../_basicTemplate.xhtml">
-	<ui:define name="content">
-		<h:panelGrid>
-			<h:outputText value="#{msgs['EXCEPTION.TITLE']}" />
-			<p:messages />
-		</h:panelGrid>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="../_basicTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['EXCEPTION.TITLE']}" styleClass="fontRed" />
+            </f:facet>
+
+            <p:messages />
+
+            <p:fieldset legend="Message">
+                #{pfExceptionHandler.message}
+            </p:fieldset>
+            <p:fieldset legend="Trace" styleClass="mt20">
+                <h:outputText value="#{pfExceptionHandler.formattedStackTrace}" escape="false" />
+            </p:fieldset>
+        </p:panel>
+    </ui:define>
 </ui:composition>

@@ -11,6 +11,9 @@
 
 	<application>
 		<el-resolver>org.esupportail.commons.jsf.ResourceBundleFacesELResolver</el-resolver>
+		<el-resolver>
+			org.primefaces.application.exceptionhandler.PrimeExceptionHandlerELResolver
+		</el-resolver>
 		<locale-config>
 			<default-locale>fr</default-locale>
 			<supported-locale>fr</supported-locale>
@@ -19,6 +22,11 @@
 		<message-bundle>properties/i18n/bundles/Messages</message-bundle>
 
 	</application>
+	<factory>
+		<exception-handler-factory>
+			org.primefaces.application.exceptionhandler.PrimeExceptionHandlerFactory
+		</exception-handler-factory>
+	</factory>
 
 	<!-- ajout pour gerer les dates de fin de diffusion d'offre -->
 	<managed-bean>
