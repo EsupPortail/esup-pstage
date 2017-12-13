@@ -1581,6 +1581,8 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public String goToConventionModifEtabServiceContact() {
 
+		this.serviceSel = this.etablissementController.getServiceSel();
+
 		// On reinitialise les services/contacts selectionnes en vue de l'etape suivante
 		this.contactSel = null;
 
@@ -1639,7 +1641,13 @@ public class ConventionController extends AbstractContextAwareController {
 		try {
 			// Update en base
 			if (this.getConventionDomainService().updateConvention(conventionTmp)) {
-				retour = SequenceEtapeEnumSel.ETAPE2.actionEtape();
+
+				if (this.retourAction.equalsIgnoreCase("conventionEtape2RechEtab")){
+					retour = SequenceEtapeEnumSel.ETAPE2.actionEtape();
+				} else {
+					retour = SequenceEtapeEnumSel.ETAPE3.actionEtape();
+				}
+
 				this.alerteMailModifConvention(infoModif);
 				addInfoMessage(null, "CONVENTION.MODIF.CONFIRMATION");
 			}
