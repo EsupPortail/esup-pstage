@@ -124,11 +124,11 @@
                                                 <p:tooltip trackMouse="true" for="supprC" value="#{msgs['FORM.SUPPRIMER']}" />
                                             </p:commandLink>
                                         </t:div>
-                                        <p:commandButton  id="selC" styleClass="fontBlue2"
-                                                          value="#{msgs['FORM.SELECTIONNER']}"
-                                                          rendered="#{not empty etablissementController.listeContacts}"
-                                                          action="#{conventionController.goToConventionModifEtabServiceSignataire}"
-                                                          update="formSelConvention">
+                                        <p:commandButton styleClass="fontBlue2"
+                                                         value="#{msgs['FORM.SELECTIONNER']}"
+                                                         rendered="#{not empty etablissementController.listeContacts}"
+                                                         action="#{conventionController.goToConventionModifEtabServiceSignataire}"
+                                                         update="formSelConvention">
                                             <f:setPropertyActionListener value="#{contact}"
                                                                          target="#{conventionController.contactSel}" />
                                             <p:tooltip trackMouse="true" value="#{msgs['CONVENTION.SELECCONTACT']}" />
@@ -149,10 +149,21 @@
                                             <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2"/>
                                             <h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
                                         </f:facet>
-                                        <p:commandLink id="modifBlock" disabled="true">
-                                            <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontBlue2" style="opacity:.50;"/>
-                                            <p:tooltip trackMouse="true" for="modifBlock" value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}" />
-                                        </p:commandLink>
+                                        <t:div>
+                                            <p:commandLink id="modifBlock" disabled="true">
+                                                <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontBlue2" style="opacity:.50;"/>
+                                                <p:tooltip trackMouse="true" for="modifBlock" value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}" />
+                                            </p:commandLink>
+                                        </t:div>
+                                        <p:commandButton styleClass="fontBlue2"
+                                                         value="#{msgs['FORM.SELECTIONNER']}"
+                                                         rendered="#{not empty etablissementController.listeContacts}"
+                                                         action="#{conventionController.goToConventionModifEtabServiceSignataire}"
+                                                         update="formSelConvention">
+                                            <f:setPropertyActionListener value="#{contact}"
+                                                                         target="#{conventionController.contactSel}" />
+                                            <p:tooltip trackMouse="true" value="#{msgs['CONVENTION.SELECCONTACT']}" />
+                                        </p:commandButton>
                                     </p:column>
                                 </p:dataTable>
                                 <t:div styleClass="mt20 ml40"
