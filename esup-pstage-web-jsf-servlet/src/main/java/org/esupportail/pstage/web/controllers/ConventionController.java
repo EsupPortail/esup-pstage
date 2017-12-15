@@ -3869,6 +3869,12 @@ public class ConventionController extends AbstractContextAwareController {
 							+ (anneeInt + 1)));
 				}
 			}
+
+			if (this.convention.getVolumeHoraireFormation().equalsIgnoreCase("200+")){
+				this.defaultVolumeHoraire = true;
+			} else {
+				this.defaultVolumeHoraire = false;
+			}
 			ret = "conventionEtape1ModifEtudiant";
 		}
 
