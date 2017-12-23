@@ -1402,7 +1402,9 @@
 											LE MONTANT DE LA
 											GRATIFICATION
 										</fo:inline>
-										est fixé à : 0
+										est fixé à :
+										<xsl:if test='$indemnisation = 2'>0</xsl:if>
+										<xsl:if test='$indemnisation = 3'></xsl:if>
 									</fo:block>
 								</xsl:when>
 								<xsl:otherwise>
