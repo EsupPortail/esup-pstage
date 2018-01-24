@@ -548,6 +548,8 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 				s.setNafN5(this.nomenclatureDomainService.getNafN5FromCode(s.getCodeNAF_N5()));
 			if (s.getIdPays() > 0)
 				s.setPays(this.nomenclatureDomainService.getPaysFromId(s.getIdPays()));
+			if (s.getIdAccordPartenariat() > 0 && s.getAccordPartenariat() == null)
+				s.setAccordPartenariat(this.getAccordFromId(s.getIdAccordPartenariat()));
 		}
 	}
 

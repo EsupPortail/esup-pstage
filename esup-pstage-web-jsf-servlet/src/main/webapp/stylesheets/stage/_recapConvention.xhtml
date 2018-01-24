@@ -330,7 +330,7 @@
             </p:column>
             <p:column>
                 <h:outputText value="#{conventionController.convention.dateDebutStage}">
-                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
                 </h:outputText>
             </p:column>
         </p:row>
@@ -341,7 +341,7 @@
             </p:column>
             <p:column>
                 <h:outputText value="#{conventionController.convention.dateFinStage}">
-                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
                 </h:outputText>
             </p:column>
         </p:row>
@@ -369,7 +369,7 @@
             </p:column>
             <p:column>
                 <h:outputText value="#{conventionController.convention.dateDebutInterruption}">
-                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
                 </h:outputText>
             </p:column>
         </p:row>
@@ -379,7 +379,7 @@
             </p:column>
             <p:column>
                 <h:outputText value="#{conventionController.convention.dateFinInterruption}">
-                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
                 </h:outputText>
             </p:column>
         </p:row>
@@ -429,7 +429,7 @@
                 <h:outputText value="#{conventionController.convention.nbJoursHebdo}" />
             </p:column>
         </p:row>
-        <p:row>
+        <p:row rendered="#{not empty conventionController.convention.typePresence}">
             <p:column style="text-align:right;">
                 <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.TYPEPRESENCE']}" />

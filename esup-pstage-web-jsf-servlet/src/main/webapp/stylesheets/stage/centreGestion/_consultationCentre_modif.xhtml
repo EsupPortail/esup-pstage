@@ -10,15 +10,16 @@
         <t:htmlTag value="div" style="height:20px;" />
 
         <t:div styleClass="textCenter">
+
+            <p:commandButton action="#{centreController.modifierCentre}"
+                             styleClass="fz16 mr10"
+                             update="divConsultation" value="#{msgs['FORM.ENREGISTRER']}" />
+
             <p:commandButton immediate="true" style="font-size:14px;"
                              update="divConsultation" value="#{msgs['FORM.ANNULER']}">
                 <f:setPropertyActionListener value="_consultationCentre_detail"
                                              target="#{sessionController.consultationCentreCurrentPage}" />
             </p:commandButton>
-
-            <p:commandButton action="#{centreController.modifierCentre}"
-                             styleClass="fz16 ml10"
-                             update="divConsultation" value="#{msgs['FORM.ENREGISTRER']}" />
         </t:div>
 
         <p:message for="formCentre" />

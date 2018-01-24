@@ -2,7 +2,6 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
-
     <p:scrollPanel mode="native" styleClass="customPstage">
         <ui:repeat value="#{conventionController.sequencesSel}" var="sequence">
             <p:commandButton value="#{sequence.title}" immediate="true"
@@ -12,5 +11,4 @@
             </p:commandButton>
         </ui:repeat>
     </p:scrollPanel>
-
 </ui:composition>

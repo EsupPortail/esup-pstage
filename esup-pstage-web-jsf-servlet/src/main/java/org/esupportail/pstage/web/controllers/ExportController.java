@@ -267,34 +267,29 @@ public class ExportController extends AbstractContextAwareController {
 								this.critereRechercheConvention);
 				if (resultatsRechercheConventionCG != null
 						&& !resultatsRechercheConventionCG.isEmpty()) {
-					for (Iterator<ConventionDTO> itercg = resultatsRechercheConventionCG
-							.iterator(); itercg.hasNext();) {
+					for (Iterator<ConventionDTO> itercg = resultatsRechercheConventionCG.iterator(); itercg.hasNext();) {
 						ConventionDTO conventionDTO = itercg.next();
-						if (!this.resultatsRechercheConvention
-								.contains(conventionDTO)) {
-							this.resultatsRechercheConvention
-									.add(conventionDTO);
+						if (!this.resultatsRechercheConvention.contains(conventionDTO)) {
+							this.resultatsRechercheConvention.add(conventionDTO);
 						}
 					}
-					Collections.sort(this.resultatsRechercheConvention,
-							new Comparator<ConventionDTO>() {
-								/**
-								 * @see java.util.Comparator#compare(java.lang.Object,
-								 *      java.lang.Object)
-								 */
-								@Override
-								public int compare(ConventionDTO l1,
-												   ConventionDTO l2) {
-									return l1.getIdConvention().compareTo(
-											l2.getIdConvention());
-								}
-							});
+//					Collections.sort(this.resultatsRechercheConvention,
+//							new Comparator<ConventionDTO>() {
+//								/**
+//								 * @see java.util.Comparator#compare(java.lang.Object,
+//								 *      java.lang.Object)
+//								 */
+//								@Override
+//								public int compare(ConventionDTO l1,
+//												   ConventionDTO l2) {
+//									return l1.getIdConvention().compareTo(
+//											l2.getIdConvention());
+//								}
+//							});
 				}
 			}
 		} else {
-			this.resultatsRechercheConvention = getConventionDomainService()
-					.getConventionsFromCriteresExport(
-							this.critereRechercheConvention);
+			this.resultatsRechercheConvention = getConventionDomainService().getConventionsFromCriteresExport(this.critereRechercheConvention);
 		}
 
 		if (logger.isInfoEnabled()) {
@@ -335,27 +330,27 @@ public class ExportController extends AbstractContextAwareController {
 		for(ConventionColonneEnum cce : ConventionColonneEnum.values()) {
 			sourceCCC.add(cce.getKeyLabel());
 		}
-		Collections.sort(sourceCCC, new Comparator<String>() {
-			@Override
-			public int compare(String s1, String s2) {
-				return getString(s1).compareToIgnoreCase(getString(s2));
-			}
-		});
+//		Collections.sort(sourceCCC, new Comparator<String>() {
+//			@Override
+//			public int compare(String s1, String s2) {
+//				return getString(s1).compareToIgnoreCase(getString(s2));
+//			}
+//		});
 		List<String> targetCCC = new ArrayList<String>();
-		this.conventionColonnesChoisies = new DualListModel<String>(sourceCCC, targetCCC);
+		this.conventionColonnesChoisies = new DualListModel<>(sourceCCC, targetCCC);
 
 		List<String> sourceCECC = new ArrayList<String>();
 		for(ConventionEntrepriseColonneEnum cecc : ConventionEntrepriseColonneEnum.values()) {
 			sourceCECC.add(cecc.getKeyLabel());
 		}
-		Collections.sort(sourceCECC, new Comparator<String>() {
-			@Override
-			public int compare(String s1, String s2) {
-				return getString(s1).compareTo(getString(s2));
-			}
-		});
-		List<String> targetCECC = new ArrayList<String>();
-		this.conventionEntrepriseColonnesChoisies = new DualListModel<String>(sourceCECC, targetCECC);
+//		Collections.sort(sourceCECC, new Comparator<String>() {
+//			@Override
+//			public int compare(String s1, String s2) {
+//				return getString(s1).compareTo(getString(s2));
+//			}
+//		});
+		List<String> targetCECC = new ArrayList<>();
+		this.conventionEntrepriseColonnesChoisies = new DualListModel<>(sourceCECC, targetCECC);
 		return ret;
 	}
 
@@ -383,12 +378,12 @@ public class ExportController extends AbstractContextAwareController {
 		for(ConventionColonneEnum cce : ConventionColonneEnum.values()) {
 			sourceCCC.add(cce.getKeyLabel());
 		}
-		Collections.sort(sourceCCC, new Comparator<String>() {
-			@Override
-			public int compare(String s1, String s2) {
-				return getString(s1).compareToIgnoreCase(getString(s2));
-			}
-		});
+//		Collections.sort(sourceCCC, new Comparator<String>() {
+//			@Override
+//			public int compare(String s1, String s2) {
+//				return getString(s1).compareToIgnoreCase(getString(s2));
+//			}
+//		});
 		List<String> targetCCC = new ArrayList<String>();
 		this.conventionColonnesChoisies = new DualListModel<String>(sourceCCC, targetCCC);
 
@@ -396,12 +391,12 @@ public class ExportController extends AbstractContextAwareController {
 		for(ConventionEntrepriseColonneEnum cecc : ConventionEntrepriseColonneEnum.values()) {
 			sourceCECC.add(cecc.getKeyLabel());
 		}
-		Collections.sort(sourceCECC, new Comparator<String>() {
-			@Override
-			public int compare(String s1, String s2) {
-				return getString(s1).compareTo(getString(s2));
-			}
-		});
+//		Collections.sort(sourceCECC, new Comparator<String>() {
+//			@Override
+//			public int compare(String s1, String s2) {
+//				return getString(s1).compareTo(getString(s2));
+//			}
+//		});
 		List<String> targetCECC = new ArrayList<String>();
 		this.conventionEntrepriseColonnesChoisies = new DualListModel<String>(sourceCECC, targetCECC);
 		return ret;
@@ -761,14 +756,16 @@ public class ExportController extends AbstractContextAwareController {
 					duree = convention.getDureeStage().toString() + " semaines";
 				}
 				return duree;
-			} else if ("EXPORTCONVENTION.UNITEDUREEGRATIF".equalsIgnoreCase(nameProperty)) {
-				return convention.getUniteDureeGratification().getLibelle();
+			} else if ("EXPORTCONVENTION.NBHEURESHEBDO".equalsIgnoreCase(nameProperty)) {
+				return convention.getNbHeuresHebdo();
 			} else if ("EXPORTCONVENTION.NBJOURS".equalsIgnoreCase(nameProperty)) {
 				return convention.getNbJoursHebdo();
 			} else if ("EXPORTCONVENTION.GRATIFICATION".equalsIgnoreCase(nameProperty)) {
 				return convention.getMontantGratification();
 			} else if ("EXPORTCONVENTION.UNITEGRATIFICATION".equalsIgnoreCase(nameProperty)) {
 				return convention.getUniteGratification().getLibelle();
+			} else if ("EXPORTCONVENTION.UNITEDUREEGRATIF".equalsIgnoreCase(nameProperty)) {
+				return convention.getUniteDureeGratification().getLibelle();
 			} else if ("EXPORTCONVENTION.VALIDEE".equalsIgnoreCase(nameProperty)) {
 				if (convention.getValidationConventionExport()) {
 					return "Oui";
@@ -821,7 +818,12 @@ public class ExportController extends AbstractContextAwareController {
 				} else {
 					return "";
 				}
-			} else {
+			} else if ("EXPORTCONVENTION.CODEELP".equalsIgnoreCase(nameProperty)) {
+				return convention.getCodeElp();
+			} else if ("EXPORTCONVENTION.LIBELLEELP".equalsIgnoreCase(nameProperty)) {
+				return convention.getLibelleELP();
+			}
+			else {
 				if (logger.isDebugEnabled())
 					logger.debug("methode recupValueStage(...) : NameProperty "
 							+ nameProperty + " inconnue.");

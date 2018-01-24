@@ -396,13 +396,10 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	private boolean etudiantFC;
 
-	public boolean isEtudiantFC() {
-		return etudiantFC;
-	}
-
-	public void setEtudiantFC(boolean etudiantFC) {
-		this.etudiantFC = etudiantFC;
-	}
+	/**
+	 * Volum horaire par défaut à l'étape 1 de création de convention
+	 */
+	private String volumeHoraireFormationParDefaut;
 
 	/* ***************************************************************
 	 * Variables de navigation
@@ -2585,4 +2582,19 @@ public class SessionController extends AbstractDomainAwareBean {
 		this.currentPage = currentPage;
 	}
 
+	public boolean isEtudiantFC() {
+		return etudiantFC;
+	}
+
+	public void setEtudiantFC(boolean etudiantFC) {
+		this.etudiantFC = etudiantFC;
+	}
+
+	public String getVolumeHoraireFormationParDefaut() {
+		return volumeHoraireFormationParDefaut;
+	}
+
+	public void setVolumeHoraireFormationParDefaut(String volumeHoraireFormationParDefaut) {
+		this.volumeHoraireFormationParDefaut = volumeHoraireFormationParDefaut;
+	}
 }

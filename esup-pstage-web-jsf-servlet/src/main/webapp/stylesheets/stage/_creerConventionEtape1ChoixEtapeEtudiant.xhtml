@@ -275,10 +275,12 @@
                         <p:message for="volumeHoraireFormation"/>
                     </h:panelGrid>
 
-                    <t:div styleClass="verticalAlignDiv">
+                    <t:div styleClass="verticalAlignDiv"
+                           rendered="#{empty conventionController.etudiantRef.volumeHoraireFormation
+                            or conventionController.etudiantRef.volumeHoraireFormation == '0'}">
                         <p:selectOneRadio id="typeNbHeuresFormation" value="#{conventionController.defaultVolumeHoraire}"
                                           required="true">
-                            <f:selectItem itemLabel="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.VALEUR_DEFAULT']}" itemValue="true" />
+                            <f:selectItem itemLabel="Plus de #{sessionController.volumeHoraireFormationParDefaut} heures" itemValue="true"/>
                             <f:selectItem itemLabel="#{(not empty conventionController.etudiantRef.volumeHoraireFormation
                             and conventionController.etudiantRef.volumeHoraireFormation != '0') ?
                             (conventionController.defaultVolumeHoraire ? msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.VALEUR_APOGEE'] : msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.VALEUR_APOGEE_:'])
@@ -288,19 +290,26 @@
                         </p:selectOneRadio>
 
                         <t:div id="inputVolumeHoraire">
-                            <t:htmlTag id="imgInfoVolume" value="i" styleClass="fa fa-info-circle fontBlue2 fz13"
-                                       rendered="#{!conventionController.defaultVolumeHoraire
-                                       and not empty conventionController.etudiantRef.volumeHoraireFormation and conventionController.etudiantRef.volumeHoraireFormation != '0'}">
-                                <p:tooltip trackMouse="true" for="imgInfoVolume"
-                                           value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.INFO.REMPLI']} (#{conventionController.etudiantRef.volumeHoraireFormation})" />
-                            </t:htmlTag>
                             <p:inputText id="volumeHoraireFormation" styleClass="autoWidth ml5" required="true"
                                          value="#{conventionController.convention.volumeHoraireFormation}"
                                          validatorMessage="#{requiredMessageController.superieurA0}"
                                          rendered="#{!conventionController.defaultVolumeHoraire}">
                                 <f:validator binding="#{entierValidator}" />
                             </p:inputText>
+                            <t:htmlTag id="imgInfoVolume" value="i" styleClass="fa fa-info-circle fontBlue2 fz13"
+                                       rendered="#{!conventionController.defaultVolumeHoraire
+                                       and not empty conventionController.etudiantRef.volumeHoraireFormation and conventionController.etudiantRef.volumeHoraireFormation != '0'}">
+                                <p:tooltip trackMouse="true" for="imgInfoVolume"
+                                           value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.INFO.REMPLI']} (#{conventionController.etudiantRef.volumeHoraireFormation})" />
+                            </t:htmlTag>
                         </t:div>
+                    </t:div>
+                    <t:div styleClass="verticalAlignDiv"
+                           rendered="#{not empty conventionController.etudiantRef.volumeHoraireFormation
+                            and conventionController.etudiantRef.volumeHoraireFormation != '0'}">
+                        <h:outputText value="Valeur récupérée via les données de l'établissement (Apogee) : " />
+                        <h:outputText id="volumeHoraireFormationApogee" styleClass="fontBold ml5"
+                                     value="#{conventionController.convention.volumeHoraireFormation} heures" />
                     </t:div>
                 </t:div>
             </t:div>

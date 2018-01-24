@@ -282,7 +282,6 @@
                                              maxlength="200" required="true"
                                              disabled="#{accordController.structureDejaExistante}">
                                     <f:converter binding="#{sansAccentEnMAJConverter}" />
-                                    <p:ajax event="blur" />
                                 </p:inputText>
                                 <p:message for="commune" />
                             </t:div>
@@ -295,7 +294,6 @@
                                                      style="opacity: #{accordController.structureDejaExistante ? 0.50 : 1};">
                                         <f:selectItem itemValue="" />
                                         <f:selectItems value="#{accordController.communesListening}" />
-                                        <p:ajax event="valueChange" update="@form"/>
                                     </h:selectOneMenu>
                                     <p:message for="dynaCommune"/>
                                 </p:outputPanel>

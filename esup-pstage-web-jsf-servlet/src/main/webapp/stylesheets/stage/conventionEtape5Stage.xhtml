@@ -26,9 +26,10 @@
                             <p:commandButton id="modifStage" value="#{msgs['FORM.MODIFIER']}"
                                              action="conventionEtape5ModifStage" update="@form"
                                              rendered="#{(not empty conventionController.convention and !conventionController.conventionValide) and (welcomeController.superAdmin
-									|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
-									|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
-									|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP
+									|| (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] and
+                                    (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP))
 									|| welcomeController.etudiant)}" />
                         </t:div>
                     </t:div>

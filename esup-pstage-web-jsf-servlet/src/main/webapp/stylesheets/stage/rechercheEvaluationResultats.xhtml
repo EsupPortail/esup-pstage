@@ -91,12 +91,12 @@
                             <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']} " />
                             <h:outputText value="#{convention.dateDebutStage}"
                                           rendered="#{not empty convention.dateDebutStage}">
-                                <f:convertDateTime pattern="dd MMMM yyyy" timeZone="ECT" />
+                                <f:convertDateTime pattern="dd MMMM yyyy" timeZone="CET" />
                             </h:outputText>
                             <h:outputText value=" #{msgs['RECHERCHECONVENTION.PERIODE.AU']} " />
                             <h:outputText value="#{convention.dateFinStage}"
                                           rendered="#{not empty convention.dateFinStage}">
-                                <f:convertDateTime pattern="dd MMMM yyyy" timeZone="ECT" />
+                                <f:convertDateTime pattern="dd MMMM yyyy" timeZone="CET" />
                             </h:outputText>
                         </p:column>
                         <p:column title="#{convention.ufr.libelle}">

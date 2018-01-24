@@ -30,7 +30,7 @@ import org.esupportail.pstagedata.remote.RemoteServices;
 public class ConventionDomainServiceImpl implements Serializable, ConventionDomainService {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -115,7 +115,7 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#addConvention(org.esupportail.pstagedata.domain.dto.ConventionDTO)
 	 */
 	public int addConvention(ConventionDTO convention) throws DataAddException,
-	WebServiceDataBaseException {
+			WebServiceDataBaseException {
 
 		return this.remoteServices.addConvention(convention);
 	}
@@ -188,8 +188,8 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	/**
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#getConventionsFromCriteresByEnseignantTuteur(int, org.esupportail.pstagedata.domain.dto.CritereRechercheConventionDTO)
 	 */
-	public List<ConventionDTO> getConventionsFromCriteresByEnseignantTuteur(int idEnseignant, 
-			CritereRechercheConventionDTO critereRechercheConvention) {
+	public List<ConventionDTO> getConventionsFromCriteresByEnseignantTuteur(int idEnseignant,
+																			CritereRechercheConventionDTO critereRechercheConvention) {
 		return this.remoteServices.getConventionsFromCriteresByEnseignantTuteur(idEnseignant, critereRechercheConvention);
 	}
 
@@ -208,7 +208,7 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 
 
 	/**
-	 * @see org.esupportail.pstage.domain.ConventionDomainService#getConventionFromExport(java.util.List)
+	 * @see org.esupportail.pstage.domain.ConventionDomainService#getConventionsFromExport(java.util.List)
 	 */
 	//	public ConventionDTO getConventionFromExport(int id) {
 	//		ConventionDTO c = this.remoteServices.getConventionFromExport(id);
@@ -217,6 +217,11 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	//	}
 	public List<ConventionDTO> getConventionsFromExport(List<Integer> idsConventionsExport) {
 		List<ConventionDTO> lc = this.remoteServices.getConventionsFromExport(idsConventionsExport);
+		if(lc!=null){
+			for(ConventionDTO c : lc){
+				setObjectsExport(c);
+			}
+		}
 		return lc;
 	}
 
@@ -274,7 +279,7 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 			throws DataUpdateException, WebServiceDataBaseException {
 		return this.remoteServices.updateConventionValidation(convention);
 	}
-	
+
 	/**
 	 * Rempli les divers objets (TypeConvention, ...) depuis les listes en caches
 	 * @param lc
@@ -366,37 +371,35 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	 */
 	public void setObjectsExport(final ConventionDTO c) {
 		if (c != null) {
-			if (c.getIdTheme() != null) {
-				c.setTheme(this.nomenclatureDomainService.getThemeDTOFromId(c.getIdTheme()));
-			}
 			if (c.getIdUniteGratification() != null) {
 				c.setUniteGratification(this.nomenclatureDomainService.getUniteGratificationDTOFromId(c.getIdUniteGratification()));
 			}
 			if (c.getIdUniteDureeGratification() != null && c.getIdUniteDureeGratification() > 0){
 				c.setUniteDureeGratification(this.nomenclatureDomainService.getUniteDureeFromId(c.getIdUniteDureeGratification()));
 			}
-			if (c.getStructure() != null) {
-				if (c.getStructure().getIdTypeStructure() > 0 ) {
-					c.getStructure().setTypeStructure(this.nomenclatureDomainService.getTypeStructureFromId(c.getStructure().getIdTypeStructure()));
-				}
-				if (c.getStructure().getIdStatutJuridique() > 0 ) {
-					c.getStructure().setStatutJuridique(this.nomenclatureDomainService.getStatutJuridiqueFromId(c.getStructure().getIdStatutJuridique()));
-				}
-				if (c.getStructure().getIdEffectif() > 0 ) {
-					c.getStructure().setEffectif(this.nomenclatureDomainService.getEffectifFromId(c.getStructure().getIdEffectif()));
-				}
-				if (c.getStructure().getIdPays() > 0 ) {
+			if (c.getStructure()!= null){
+				if (c.getStructure().getIdPays() > 0) {
 					c.getStructure().setPays(this.nomenclatureDomainService.getPaysFromId(c.getStructure().getIdPays()));
 				}
+				if (c.getStructure().getIdStatutJuridique() > 0) {
+					c.getStructure().setStatutJuridique(this.nomenclatureDomainService.getStatutJuridiqueFromId(c.getStructure().getIdStatutJuridique()));
+				}
+				if (c.getStructure().getIdTypeStructure() > 0) {
+					c.getStructure().setTypeStructure(this.nomenclatureDomainService.getTypeStructureFromId(c.getStructure().getIdTypeStructure()));
+				}
+				if (c.getStructure().getIdEffectif() > 0) {
+					c.getStructure().setEffectif(this.nomenclatureDomainService.getEffectifFromId(c.getStructure().getIdEffectif()));
+				}
 			}
-			if (c.getService() != null && c.getService().getIdPays() > 0) {
+
+			if (c.getService() != null && c.getService().getIdPays() > 0){
 				c.getService().setPays(this.nomenclatureDomainService.getPaysFromId(c.getService().getIdPays()));
 			}
-			if (c.getIdUniteDureeExceptionnelle() != null && c.getIdUniteDureeExceptionnelle() > 0) {
-				c.setUniteDuree(this.nomenclatureDomainService.getUniteDureeFromId(c.getIdUniteDureeExceptionnelle()));
-			}
-			if (c.getIdTypeConvention() != null) {
+			if (c.getIdTypeConvention() > 0){
 				c.setTypeConvention(this.nomenclatureDomainService.getTypeConventionDTOFromId(c.getIdTypeConvention()));
+			}
+			if (c.getIdTheme() > 0){
+				c.setTheme(this.nomenclatureDomainService.getThemeDTOFromId(c.getIdTheme()));
 			}
 		}
 	}
@@ -413,7 +416,7 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#addUfr(org.esupportail.pstagedata.domain.dto.UfrDTO)
 	 */
 	public int addUfr(UfrDTO ufr) throws DataAddException,
-	WebServiceDataBaseException, UfrAlreadyExistingForCodeException {
+			WebServiceDataBaseException, UfrAlreadyExistingForCodeException {
 		return this.remoteServices.addUfr(ufr);
 	}
 
@@ -455,7 +458,7 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	}
 
 	/**
-	 * @see org.esupportail.pstagedata.domain.ConventionDomainService#getCodesEtapesConventionsFromCodeUfrAndIdCentre(java.lang.String, int, java.lang.String)
+	 * @see org.esupportail.pstage.domain.ConventionDomainService#getCodesEtapesConventionsFromCodeUfrAndIdCentre(java.lang.String, int, java.lang.String)
 	 */
 	public List<String> getCodesEtapesConventionsFromCodeUfrAndIdCentre(String codeUfr, int idCentreGestion, String codeUniversite) {
 		return this.remoteServices.getCodesEtapesConventionsFromCodeUfrAndIdCentre(codeUfr, idCentreGestion, codeUniversite);

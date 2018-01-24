@@ -53,7 +53,7 @@
                                         <t:div rendered="#{avenant.rupture}">
                                             <h:outputText value="#{msgs['CONVENTION.ETAPE11.RUPTURE']} :" />
                                             <h:outputText value="#{avenant.dateRupture}" styleClass="ml5">
-                                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
                                             </h:outputText>
                                         </t:div>
                                         <t:div rendered="#{!avenant.rupture}">

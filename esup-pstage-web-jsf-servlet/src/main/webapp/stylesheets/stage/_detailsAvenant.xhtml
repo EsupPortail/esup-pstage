@@ -32,7 +32,7 @@
                           value="#{msgs['CONVENTION.ETAPE11.RUPTURE.DATE']}" />
             <h:outputText styleClass="fontGreen"
                           value="#{avenantController.avenant.dateRupture}">
-                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
             </h:outputText>
         </t:div>
 
@@ -76,12 +76,12 @@
                     <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
                     <h:outputText styleClass="ml5 mr5"
                                   value="#{conventionController.convention.dateDebutStage}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
                     </h:outputText>
                     <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}" />
                     <h:outputText value="#{conventionController.convention.dateFinStage}"
                                   styleClass="ml5">
-                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
                     </h:outputText>
                 </t:div>
                 <h:outputText styleClass="fontGreen"
@@ -90,12 +90,12 @@
                     <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
                     <h:outputText styleClass="ml5 mr5"
                                   value="#{avenantController.avenant.dateDebutStage}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
                     </h:outputText>
                     <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}" />
                     <h:outputText value="#{avenantController.avenant.dateFinStage}"
                                   styleClass="ml5">
-                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
                     </h:outputText>
                 </t:div>
             </h:panelGrid>
@@ -113,12 +113,12 @@
                     <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
                     <h:outputText styleClass="ml5 mr5"
                                   value="#{conventionController.convention.dateDebutInterruption}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
                     </h:outputText>
                     <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}" />
                     <h:outputText styleClass="ml5"
                                   value="#{conventionController.convention.dateFinInterruption}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
                     </h:outputText>
                 </t:div>
                 <h:outputText styleClass="fontRed"
@@ -132,12 +132,12 @@
                     <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
                     <h:outputText styleClass="ml5 mr5"
                                   value="#{avenantController.avenant.dateDebutInterruption}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
                     </h:outputText>
                     <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}" />
                     <h:outputText styleClass="ml5"
                                   value="#{avenantController.avenant.dateFinInterruption}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
                     </h:outputText>
                 </t:div>
             </h:panelGrid>

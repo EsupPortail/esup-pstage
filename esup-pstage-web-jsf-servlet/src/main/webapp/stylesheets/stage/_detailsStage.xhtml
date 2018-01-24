@@ -50,14 +50,14 @@
                       value="#{msgs['CONVENTION.DEBUTSTAGE']}" />
         <h:outputText id="dateDebutStage1"
                       value="#{conventionController.convention.dateDebutStage}">
-            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
         </h:outputText>
 
         <h:outputText styleClass="fontBold"
                       value="#{msgs['CONVENTION.FINSTAGE']}" />
         <h:outputText id="dateFinStage1"
                       value="#{conventionController.convention.dateFinStage}">
-            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
         </h:outputText>
 
         <h:outputText styleClass="fontBold"
@@ -78,7 +78,7 @@
         <h:outputText id="dateDebutInterruption1"
                       value="#{conventionController.convention.dateDebutInterruption}"
                       rendered="#{conventionController.convention.interruptionStage}">
-            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
         </h:outputText>
         <h:outputText styleClass="fontBold"
                       value="#{msgs['CONVENTION.INTERRUPFINSTAGE']}"
@@ -86,7 +86,7 @@
         <h:outputText id="dateFinInterruption1"
                       value="#{conventionController.convention.dateFinInterruption}"
                       rendered="#{conventionController.convention.interruptionStage}">
-            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
         </h:outputText>
 
         <h:outputText styleClass="fontBold"

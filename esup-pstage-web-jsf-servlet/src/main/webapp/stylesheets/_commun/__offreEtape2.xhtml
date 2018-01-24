@@ -96,9 +96,11 @@
             <h:outputLabel value="#{msgs['OFFRE.DESCRIPTION']} *"
                            for="description" styleClass="fontBold" />
             <t:div>
-                <p:inputTextarea id="description" required="true" maxlength="280"
-                                 value="#{offreController.formOffre.description}">
-                    <f:validateLength maximum="280" />
+                <h:outputText id="cptDescription" styleClass="fontItalic"/>
+                <p:inputTextarea id="description" required="true" maxlength="1000"
+                                 value="#{offreController.formOffre.description}"
+                                 counter="cptDescription" counterTemplate="({0} caractères restants.)">
+                    <f:validateLength maximum="1000" />
                 </p:inputTextarea>
             </t:div>
             <p:message for="description"/>

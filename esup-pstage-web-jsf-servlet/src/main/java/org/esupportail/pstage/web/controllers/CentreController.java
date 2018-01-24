@@ -1425,6 +1425,12 @@ public class CentreController extends AbstractContextAwareController {
 
 		// On défini l'idDroitAdministration à partir de l'objet DroitAdministration attaché au personnel
 		this.personnel.setIdDroitAdmin(this.personnel.getDroitAdmin().getId());
+
+		// On rattache la civilité
+		if (this.personnel.getIdCivilite() != 0) {
+			this.personnel.setCivilite(getNomenclatureDomainService().getCiviliteFromId(this.personnel.getIdCivilite()));
+		}
+
 		try{
 
 			if((this.personnel.getAffectation().getCode() == "" || this.personnel.getAffectation().getCode() == null)

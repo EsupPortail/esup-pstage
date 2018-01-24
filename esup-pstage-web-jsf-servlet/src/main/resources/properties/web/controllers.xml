@@ -177,6 +177,8 @@
 		<property name="courrierRemerciement" value="${courrierRemerciement}" />
 		<property name="isEnt" value="${isEnt}" />
 
+		<property name="volumeHoraireFormationParDefaut" value="${volumeHoraireFormationParDefaut}" />
+
 		<!-- props pour l'envoi de mail sans esupcommons -->
 		<property name="fromEmail" value="${smtp.fromEmail}" />
 		<property name="fromName" value="${smtp.fromName}" />
