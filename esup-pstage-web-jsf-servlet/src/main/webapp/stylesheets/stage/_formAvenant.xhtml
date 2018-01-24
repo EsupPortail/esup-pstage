@@ -109,7 +109,7 @@
 
                             <h:outputText value="#{conventionController.convention.dateDebutStage}"
                                           styleClass="ml5">
-                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
                             </h:outputText>
 
                             <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}"
@@ -117,7 +117,7 @@
 
                             <h:outputText value="#{conventionController.convention.dateFinStage}"
                                           styleClass="ml5">
-                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
                             </h:outputText>
                         </t:div>
 
@@ -147,13 +147,13 @@
                             <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
 
                             <h:outputText value="#{conventionController.convention.dateDebutInterruption}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
                             </h:outputText>
 
                             <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}" />
 
                             <h:outputText value="#{conventionController.convention.dateFinInterruption}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
                             </h:outputText>
                         </t:div>
                         <t:div styleClass="mt5" rendered="#{!conventionController.convention.interruptionStage}">
@@ -625,14 +625,14 @@
 
                             <h:outputText value="#{conventionController.convention.dateDebutStage}"
                                           styleClass="ml5 mr5">
-                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
                             </h:outputText>
 
                             <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}" />
 
                             <h:outputText value="#{conventionController.convention.dateFinStage}"
                                           styleClass="ml5">
-                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
                             </h:outputText>
                         </t:div>
                         <t:div styleClass="mt10">

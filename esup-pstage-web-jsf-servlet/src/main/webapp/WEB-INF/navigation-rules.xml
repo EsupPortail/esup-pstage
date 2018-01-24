@@ -749,17 +749,6 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
-	
-	<!-- creation convention consignesEtudiant -->
-	<navigation-rule>
-		<display-name>creerConventionEtu</display-name>
-		<from-view-id>*</from-view-id>
-		<navigation-case>
-			<from-outcome>creerConventionEtu</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtu.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
 
 	<!-- creation convention -->
 	<navigation-rule>

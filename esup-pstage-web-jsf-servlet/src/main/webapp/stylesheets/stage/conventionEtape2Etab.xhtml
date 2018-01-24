@@ -21,15 +21,16 @@
                             <h:outputText value="#{msgs['STRUCTURE.INFOS']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
                             <ui:include src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
                         </t:aliasBean>
-
                         <t:div styleClass="ml20">
+
                             <p:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']} ces informations"
                                              action="#{conventionController.goToConventionModifEtab}"
                                              rendered="#{not empty conventionController.convention.structure and !conventionController.conventionValide
-                                and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
-                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
-                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)
+                                and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+                                    (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] and
+                                    (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)))
                                 || (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
                                 (!sessionController.autoriserEtudiantAModifierEntreprise
                                 and ((empty conventionController.convention.structure.loginModif and
@@ -45,9 +46,10 @@
                                              styleClass="ml20"
                                              rendered="#{not empty conventionController.convention.structure and !conventionController.conventionValide
                                         and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
-                                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                        || (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] and
+                                        (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
                                         || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
-                                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)}" />
+                                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)))}" />
                         </t:div>
 
                         <t:htmlTag value="div" style="height:15px;" />

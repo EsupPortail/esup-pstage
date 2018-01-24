@@ -658,12 +658,13 @@
 							<fo:inline font-weight="bold">
 								Nombre d'heures de formation :
 							</fo:inline>
+
 							<xsl:choose>
 								<xsl:when test="volume-horaire-formation and volume-horaire-formation != '0'">
 									<xsl:choose>
-										<xsl:when test="volume-horaire-formation = '200+'">
+										<xsl:when test="contains(volume-horaire-formation, '+')">
 											<fo:inline>
-												Plus de 200 heures.
+												Plus de <xsl:value-of select="substring-before(volume-horaire-formation,'+')"/> heures.
 											</fo:inline>
 										</xsl:when>
 										<xsl:otherwise>
@@ -918,15 +919,22 @@
 								</xsl:call-template>
 							</fo:inline>
 						</fo:block>
-						<!-- <fo:block line-height="130%" hyphenate="false" language="fr" -->
-						<!-- country="FR" font-size="9pt" font-family="Times New Roman,serif" -->
-						<!-- padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm" -->
-						<!-- padding-bottom="0.035cm"> -->
-						<!-- <fo:inline font-weight="bold"> -->
-						<!-- Fonction (ou discipline) : -->
-						<!-- </fo:inline> -->
-						<!-- <xsl:value-of select="enseignant/type-personne" /> -->
-						<!-- </fo:block> -->
+						<!--<fo:block line-height="130%" hyphenate="false" language="fr"-->
+								  <!--country="FR" font-size="9pt" font-family="Times New Roman,serif"-->
+								  <!--padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"-->
+								  <!--padding-bottom="0.035cm">-->
+							<!--<fo:inline font-weight="bold">-->
+								<!--Fonction (ou discipline) :-->
+							<!--</fo:inline>-->
+							<!--<xsl:choose>-->
+								<!--<xsl:when test="enseignant/type-personne and (enseignant/type-personne = 'faculty' or enseignant/type-personne = 'FACULTY')">-->
+									<!--Enseignant-->
+								<!--</xsl:when>-->
+								<!--<xsl:otherwise>-->
+									<!--<xsl:value-of select="enseignant/type-personne" />-->
+								<!--</xsl:otherwise>-->
+							<!--</xsl:choose>-->
+						<!--</fo:block>-->
 						<fo:block line-height="130%" hyphenate="false" language="fr"
 								  country="FR" font-size="9pt" font-family="Times New Roman,serif"
 								  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"

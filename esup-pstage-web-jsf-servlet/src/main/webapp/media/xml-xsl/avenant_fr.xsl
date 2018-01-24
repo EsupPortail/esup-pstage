@@ -753,7 +753,7 @@
 									<xsl:if test="convention/@interruption-stage = 'true'">
 										au lieu de :
 										<fo:inline font-weight="bold">
-											interruption prévu du
+											interruption prévue du
 											<xsl:value-of
 													select="concat(substring(./convention/date-debut-interruption,9,2),'/',substring(./convention/date-debut-interruption,6,2), '/',substring(./convention/date-debut-interruption,1,4))" />
 											au
@@ -768,7 +768,7 @@
 										<fo:inline font-weight="bold">Non</fo:inline>
 										au lieu de :
 										<fo:inline font-weight="bold">
-											Interruption prévu du
+											Interruption prévue du
 											<xsl:value-of
 													select="concat(substring(./convention/date-debut-interruption,9,2),'/',substring(./convention/date-debut-interruption,6,2), '/',substring(./convention/date-debut-interruption,1,4))" />
 											au

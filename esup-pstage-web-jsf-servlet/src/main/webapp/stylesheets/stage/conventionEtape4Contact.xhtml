@@ -79,9 +79,10 @@
                                                  update="modifContact" value="#{msgs['FORM.MODIFIER']} les informations de ce contact"
                                                  rendered="#{not empty conventionController.convention.contact and !conventionController.conventionValide
 								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
-								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
-								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)
+								|| (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] and
+                                (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)))
 								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
 								(!sessionController.autoriserEtudiantAModifierEntreprise
 								and ((empty conventionController.convention.contact.loginModif and
@@ -101,9 +102,10 @@
                                                  styleClass="ml20"
                                                  rendered="#{!conventionController.conventionValide
 		                        and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
-		                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-		                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
-								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)}"
+		                        || (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] and
+                                (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)))}"
                                                  value="#{msgs['CONVENTION.ETAPE4.MODIF.CONTACT']}">
                                     <f:setPropertyActionListener value="#{0}"
                                                                  target="#{etablissementController.idContactSel}" />

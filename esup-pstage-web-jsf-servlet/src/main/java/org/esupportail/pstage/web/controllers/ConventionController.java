@@ -597,9 +597,9 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 		}
 
-		if (this.getSessionController().getCurrentAuthEtudiant() != null) {
-			retour = "creerConventionEtu";
-		}
+//		if (this.getSessionController().getCurrentAuthEtudiant() != null) {
+//			retour = "creerConventionEtu";
+//		}
 
 		return retour;
 	}
@@ -1040,7 +1040,7 @@ public class ConventionController extends AbstractContextAwareController {
 
 			// Assignation du volume horaire par défaut si nécessaire
 			if (!this.conventionFormationContinue && this.defaultVolumeHoraire){
-				this.convention.setVolumeHoraireFormation("200+");
+				this.convention.setVolumeHoraireFormation(getSessionController().getVolumeHoraireFormationParDefaut()+"+");
 			}
 
 			// Ajout de l'annee choisie et non plus deduite de la date de debut
@@ -1243,7 +1243,7 @@ public class ConventionController extends AbstractContextAwareController {
 
 			// Assignation du volume horaire par défaut si nécessaire
 			if (!this.conventionFormationContinue && this.defaultVolumeHoraire){
-				this.convention.setVolumeHoraireFormation("200+");
+				this.convention.setVolumeHoraireFormation(getSessionController().getVolumeHoraireFormationParDefaut()+"+");
 			}
 
 			try {
@@ -2013,6 +2013,13 @@ public class ConventionController extends AbstractContextAwareController {
 		// la date de fin de stage doit etre <= date de debut
 		if (this.convention.getDateDebutStage() != null
 				&& this.convention.getDateFinStage() != null) {
+			// Controle du nb d'heures hebdo
+			if (Double.valueOf(this.convention.getNbHeuresHebdo()) > 84){
+				addErrorMessage(nomForm + ":nbHeuresHebdo",
+						"CONVENTION.CREERCONVENTION.NBHEURESHEBDO.LIMITE");
+				ctrlInfosStage = false;
+			}
+
 			if (this.convention.getDateFinStage().before(
 					this.convention.getDateDebutStage())) {
 				addErrorMessage(nomForm + ":dateFinStage",
@@ -3563,8 +3570,7 @@ public class ConventionController extends AbstractContextAwareController {
 					}
 				}
 				if (conventionTmp.getIdStructure() > 0) {
-					StructureDTO structureTmp = this
-							.getStructureDomainService().getStructureFromId(
+					StructureDTO structureTmp = this.getStructureDomainService().getStructureFromId(
 									conventionTmp.getIdStructure());
 					if (structureTmp != null) {
 						this.convention.setStructure(structureTmp);
@@ -3870,7 +3876,7 @@ public class ConventionController extends AbstractContextAwareController {
 				}
 			}
 
-			if (this.convention.getVolumeHoraireFormation().equalsIgnoreCase("200+")){
+			if (this.convention.getVolumeHoraireFormation().contains("+")){
 				this.defaultVolumeHoraire = true;
 			} else {
 				this.defaultVolumeHoraire = false;

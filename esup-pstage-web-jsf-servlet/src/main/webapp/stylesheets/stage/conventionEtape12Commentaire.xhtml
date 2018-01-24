@@ -30,9 +30,10 @@
 
                         <t:div id="divCommentaire" styleClass="mt5 ml20"
                                rendered="#{welcomeController.superAdmin
-                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                || (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] and
+                                (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
                                 || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
-                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP}">
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP))}">
                             <t:div rendered="#{conventionController.conventionValide}">
                                 <p:fieldset>
                                     <h:outputText escape="false"

@@ -46,9 +46,10 @@
                                                      oncomplete="PF('demandeConfirmModifService').show();"
                                                      rendered="#{!conventionController.conventionValide
                                             and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
-                                            || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                            || (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] and
+                                            (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
                                             || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
-                                            || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)}"/>
+                                            || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)))}"/>
                                 </t:div>
 
                                 <p:dialog id="demandeConfirmModifService"

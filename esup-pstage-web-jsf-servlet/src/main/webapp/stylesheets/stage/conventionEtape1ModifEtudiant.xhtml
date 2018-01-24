@@ -294,7 +294,7 @@
                                     <t:div styleClass="verticalAlignDiv">
                                         <p:selectOneRadio id="typeNbHeuresFormation" value="#{conventionController.defaultVolumeHoraire}"
                                                           required="true">
-                                            <f:selectItem itemLabel="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.VALEUR_DEFAULT']}" itemValue="true" />
+                                            <f:selectItem itemLabel="Plus de #{sessionController.volumeHoraireFormationParDefaut} heures" itemValue="true"/>
                                             <f:selectItem itemLabel="#{(not empty conventionController.etudiantRef.volumeHoraireFormation
                             and conventionController.etudiantRef.volumeHoraireFormation != '0') ?
                             (conventionController.defaultVolumeHoraire ? msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.VALEUR_APOGEE'] : msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.VALEUR_APOGEE_:'])

@@ -462,6 +462,9 @@ public class AccordController extends AbstractContextAwareController {
 				if(logger.isInfoEnabled()){
 					logger.info("Creation nouvel accord");
 				}
+				// On considère la structure comme valide puisqu'avec Accord
+				structureTmp.setEstValidee(1);
+
 				//Ajout Structure
 				if(!this.structureDejaExistante) {
 					structureTmp.setIdStructure(this.getStructureDomainService().addStructure(structureTmp));

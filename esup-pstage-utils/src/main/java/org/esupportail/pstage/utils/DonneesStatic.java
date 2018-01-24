@@ -57,7 +57,7 @@ public class DonneesStatic {
 	/**
 	 * valeur pour les droits en écriture avant validation pédagogique
 	 */
-	public static final String LIBELLE_DROIT_ECRITURE_AVANT_VALP = "ECRITURE_AVANT_VALP";
+	public static final String LIBELLE_DROIT_ECRITURE_AVANT_VALP = "ECRITURE SANS VALIDATION";
 	
 	/**
 	 * valeur de la civilite Monsieur dans le ldap
