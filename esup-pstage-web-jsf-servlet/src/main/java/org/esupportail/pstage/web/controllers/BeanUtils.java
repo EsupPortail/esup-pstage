@@ -666,10 +666,45 @@ public class BeanUtils extends AbstractDomainAwareBean {
 		return droitLecture;
 	}
 
+
 	/**
 	 * String
 	 */
-	private String libelleDroitEcritureAvantValP = "ECRITURE_AVANT_VALP";
+	private String libelleDroitEcritureSansValidation = "ECRITURE SANS VALIDATION";
+
+	/**
+	 * @return the libelleDroitAdmin
+	 */
+	public String getLibelleDroitEcritureSansValidation() {
+		return libelleDroitEcritureSansValidation;
+	}
+
+	/**
+	 * Objet DroitEcriture
+	 */
+	private DroitAdministrationDTO droitEcritureSansValidation;
+	/**
+	 * @return DroitAdministrationDTO
+	 */
+	public DroitAdministrationDTO getDroitEcritureSansValidation() {
+		droitEcritureSansValidation = null;
+
+		List<DroitAdministrationDTO> l = getNomenclatureDomainService().getDroitsAdmin();
+
+		for (DroitAdministrationDTO c : l) {
+			if (c.getLibelle().equalsIgnoreCase(DonneesStatic.LIBELLE_DROIT_ECRITURE_SANS_VALIDATION)) {
+				droitEcritureSansValidation = c;
+			}
+		}
+
+		return droitEcritureSansValidation;
+	}
+
+
+	/**
+	 * String
+	 */
+	private String libelleDroitEcritureAvantValP = "ECRITURE AVANT VALP";
 
 	/**
 	 * @return the libelleDroitAdmin

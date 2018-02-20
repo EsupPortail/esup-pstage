@@ -76,18 +76,20 @@
                             <t:div styleClass="textCenter mt15">
                                 <p:commandButton value="#{msgs['FORM.MODIFIER']} les informations de ce contact"
                                                  oncomplete="PF('modifContact').show();" update="modifContact"
-                                                 rendered="#{not empty conventionController.convention.signataire and !conventionController.conventionValide
-                                    and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
-                                    || (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] and
-                                    (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
-                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)))
-                                    || (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
-                                    (!sessionController.autoriserEtudiantAModifierEntreprise
-                                    and ((empty conventionController.convention.contact.loginModif and
-                                    conventionController.convention.contact.loginCreation==sessionController.currentLogin)
-                                    || (conventionController.convention.contact.loginModif==sessionController.currentLogin)))))))}">
-                                    <f:setPropertyActionListener
+                                		rendered="#{not empty conventionController.convention.signataire and !conventionController.conventionValide
+			                                    and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
+			                                    || (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] and
+			                                    (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+			                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+			                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureSansValidation
+												|| (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP
+													and !conventionController.convention.validationPedagogique))))
+			                                    || (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
+			                                    (!sessionController.autoriserEtudiantAModifierEntreprise
+			                                    and ((empty conventionController.convention.contact.loginModif and
+			                                    conventionController.convention.contact.loginCreation==sessionController.currentLogin)
+			                                    || (conventionController.convention.contact.loginModif==sessionController.currentLogin)))))))}">
+		                    <f:setPropertyActionListener
                                             value="#{conventionController.convention.signataire}"
                                             target="#{etablissementController.formContact}" />
                                     <f:setPropertyActionListener value="#{false}"
@@ -99,12 +101,14 @@
                                         value="#{msgs['CONVENTION.ETAPE7.MODIF.SIGNATAIRE']}"
                                         oncomplete="PF('selectServiceSignataire').show();"
                                         styleClass="ml20"
-                                        rendered="#{!conventionController.conventionValide
-                                    and (welcomeController.superAdmin || welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
-                                    || (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] and
-                                (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
-                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)))}">
+                                        rendered="#{not empty conventionController.convention.etudiant and !conventionController.conventionValide
+						and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
+						|| (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion]
+						and ( sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureSansValidation
+							|| (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP
+								and !conventionController.convention.validationPedagogique))))}">
                                     <f:setPropertyActionListener value="#{0}"
                                                                  target="#{etablissementController.idContactSel}" />
                                     <f:setPropertyActionListener value="#{null}"
