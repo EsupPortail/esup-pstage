@@ -89,7 +89,7 @@ public class ImageUploadBean{
 			ByteArrayInputStream is = null;
 			FileOutputStream fos = null;
 			try {
-				is = (ByteArrayInputStream) scaleImage(new BufferedInputStream((FileInputStream)uploadItem.getInputstream()), 300, 300,this.extension);
+				is = (ByteArrayInputStream) scaleImage(uploadItem.getInputstream(), 300, 300,this.extension);
 				fos = new FileOutputStream(fileToWrite);
 				int data;
 				while((data=is.read())!=-1){

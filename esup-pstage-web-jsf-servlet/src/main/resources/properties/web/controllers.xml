@@ -179,6 +179,8 @@
 
 		<property name="volumeHoraireFormationParDefaut" value="${volumeHoraireFormationParDefaut}" />
 
+		<property name="codesRegimeInscriptionFC" value="${codesRegimeInscriptionFC}" />
+
 		<!-- props pour l'envoi de mail sans esupcommons -->
 		<property name="fromEmail" value="${smtp.fromEmail}" />
 		<property name="fromName" value="${smtp.fromName}" />

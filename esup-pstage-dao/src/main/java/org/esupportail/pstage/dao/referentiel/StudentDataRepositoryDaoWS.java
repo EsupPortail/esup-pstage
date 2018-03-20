@@ -1,11 +1,25 @@
 package org.esupportail.pstage.dao.referentiel;
 
+import java.rmi.RemoteException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import gouv.education.apogee.commun.client.utils.WSUtils;
+import gouv.education.apogee.commun.client.ws.administratifmetier.AdministratifMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.administratifmetier.AdministratifMetierSoapBindingStub;
+import gouv.education.apogee.commun.client.ws.etudiantmetier.EtudiantMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.etudiantmetier.EtudiantMetierSoapBindingStub;
+import gouv.education.apogee.commun.client.ws.offreformationmetier.OffreFormationMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.offreformationmetier.OffreFormationMetierSoapBindingStub;
+import gouv.education.apogee.commun.client.ws.pedagogiquemetier.PedagogiqueMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.pedagogiquemetier.PedagogiqueMetierSoapBindingStub;
+import gouv.education.apogee.commun.client.ws.referentielmetier.ReferentielMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.referentielmetier.ReferentielMetierSoapBindingStub;
 import gouv.education.apogee.commun.transverse.dto.administratif.CursusExterneDTO;
 import gouv.education.apogee.commun.transverse.dto.administratif.CursusExternesEtTransfertsDTO;
+import gouv.education.apogee.commun.transverse.dto.etudiant.IdentifiantsEtudiantDTO2;
+import gouv.education.apogee.commun.transverse.dto.etudiant.InfoAdmEtuDTO2;
 import org.apache.log4j.Logger;
 import org.esupportail.commons.services.ldap.LdapUser;
 import org.esupportail.commons.services.ldap.LdapUserService;
@@ -30,7 +44,6 @@ import gouv.education.apogee.commun.transverse.dto.administratif.InsAdmAnuDTO2;
 import gouv.education.apogee.commun.transverse.dto.administratif.InsAdmEtpDTO2;
 import gouv.education.apogee.commun.transverse.dto.etudiant.CoordonneesDTO2;
 import gouv.education.apogee.commun.transverse.dto.etudiant.IdentifiantsEtudiantDTO;
-import gouv.education.apogee.commun.transverse.dto.etudiant.InfoAdmEtuDTO;
 import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.DiplomeDTO3;
 import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.ElementPedagogiDTO2;
 import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.ListeElementPedagogiDTO2;
@@ -47,7 +60,7 @@ import gouv.education.apogee.commun.transverse.exception.WebBaseException;
  */
 
 @SuppressWarnings("serial")
-public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
+public class StudentDataRepositoryDaoWS extends AbstractAuthCredentials implements StudentDataRepositoryDao {
 
 	/**
 	 *
@@ -437,16 +450,18 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 		adminApogee.setRaison("");
 		try {
 			// appel au WS AMUE
-			EtudiantMetierServiceInterfaceProxy etudiantMetierService = new EtudiantMetierServiceInterfaceProxy();
+//			EtudiantMetierServiceInterfaceProxy etudiantMetierService = new EtudiantMetierServiceInterfaceProxy();
+			EtudiantMetierServiceInterface etudiantMetierService = (EtudiantMetierSoapBindingStub) WSUtils.getService(WSUtils.ETUDIANT_SERVICE_NAME);
 
-			AdministratifMetierServiceInterfaceProxy serviceAdministratif = new AdministratifMetierServiceInterfaceProxy();
+//			AdministratifMetierServiceInterfaceProxy serviceAdministratif = new AdministratifMetierServiceInterfaceProxy();
+			AdministratifMetierServiceInterface serviceAdministratif = (AdministratifMetierSoapBindingStub) WSUtils.getService(WSUtils.ADMINISTRATIF_SERVICE_NAME);
 
 			// Recherche l'etudiant dans Apogee
-			IdentifiantsEtudiantDTO etudiant = etudiantMetierService.recupererIdentifiantsEtudiant(
-					id, null, null, null, null, null, null, null, null, this.temoinRecupAnnu);
+			IdentifiantsEtudiantDTO2 etudiant = etudiantMetierService.recupererIdentifiantsEtudiant_v2(
+					id, null, null, null, null, null, null, null, this.temoinRecupAnnu);
 
 			// Recuperation des infos de l'etudiant dans Apogee
-			InfoAdmEtuDTO infosAdmEtu = etudiantMetierService.recupererInfosAdmEtu(etudiant.getCodEtu().toString());
+			InfoAdmEtuDTO2 infosAdmEtu = etudiantMetierService.recupererInfosAdmEtu_v2(etudiant.getCodEtu().toString());
 
 			// Recuperation des coordonnees de l'etudiant
 			CoordonneesDTO2 coordonnees = new CoordonneesDTO2();
@@ -475,7 +490,7 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 				codeSexe = infosAdmEtu.getSexe();
 			}
 			if (infosAdmEtu.getDateNaissance() != null) {
-				dateNais = infosAdmEtu.getDateNaissance();
+				dateNais = infosAdmEtu.getDateNaissance().getTime();
 			}
 
 			// recherche des informations etudiant dans APOGEE
@@ -836,10 +851,16 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 		ApogeeMap apogeeMap = new ApogeeMap();
 
 		AdministratifMetierServiceInterfaceProxy serviceAdministratif = new AdministratifMetierServiceInterfaceProxy();
+//		AdministratifMetierServiceInterface serviceAdministratif =
+//				(AdministratifMetierSoapBindingStub) WSUtils.getService(WSUtils.ADMINISTRATIF_SERVICE_NAME, getUser(), getPassword());
 
 		PedagogiqueMetierServiceInterfaceProxy servicePedagogique =  new PedagogiqueMetierServiceInterfaceProxy();
+//		PedagogiqueMetierServiceInterface servicePedagogique =
+//				(PedagogiqueMetierSoapBindingStub) WSUtils.getService(WSUtils.PEDAGOGIQUE_SERVICE_NAME, getUser(), getPassword());
 
 		ReferentielMetierServiceInterfaceProxy referentielMetierService = new ReferentielMetierServiceInterfaceProxy();
+//		ReferentielMetierServiceInterface referentielMetierService =
+//				(ReferentielMetierSoapBindingStub) WSUtils.getService(WSUtils.REFERENTIEL_SERVICE_NAME, getUser(), getPassword());
 
 		// Recuperation des etapes auxquelles l'etudiant est inscrit administrativement
 		// (inscription admin etape en cours (E)) en fonction de l'annee en param
@@ -905,6 +926,9 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 						logger.warn("WebBaseException recupererComposante_v2 : " + e );
 						continue;
 					}
+//					catch (RemoteException re){
+//						logger.error(re);
+//					}
 				}
 				lComposante.put(idlComp + "" , libComp);
 
@@ -939,6 +963,9 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 					etpins.setVersionDiplome(versDiplome);
 					try {
 						OffreFormationMetierServiceInterfaceProxy offreFormationMetierService = new OffreFormationMetierServiceInterfaceProxy();
+//						OffreFormationMetierServiceInterface offreFormationMetierService =
+//								(OffreFormationMetierSoapBindingStub) WSUtils.getService(WSUtils.OFFREFORMATION_SERVICE_NAME, getUser(), getPassword());
+
 
 						// recherche du cursus LMD, codFinalite
 						SECritereDTO2 seCritereDTO = new SECritereDTO2();
@@ -1022,6 +1049,9 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 						}
 						continue;
 					}
+//					catch (RemoteException re){
+//						logger.error(re);
+//					}
 
 				}
 				listeEtapeInscriptions.add(etpins);
@@ -1059,11 +1089,12 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 		}
 		String codEtu = codInd;
 		try {
-			EtudiantMetierServiceInterfaceProxy etudiantMetierService = new EtudiantMetierServiceInterfaceProxy();
+//			EtudiantMetierServiceInterfaceProxy etudiantMetierService = new EtudiantMetierServiceInterfaceProxy();
+			EtudiantMetierServiceInterface etudiantMetierService = (EtudiantMetierSoapBindingStub) WSUtils.getService(WSUtils.ETUDIANT_SERVICE_NAME);
 
 			// Recherche l'etudiant par le codind dans Apogee
-			IdentifiantsEtudiantDTO etudiant = etudiantMetierService.recupererIdentifiantsEtudiant(
-					null, codInd, null, null, null, null, null, null, null, this.temoinRecupAnnu);
+			IdentifiantsEtudiantDTO2 etudiant = etudiantMetierService.recupererIdentifiantsEtudiant_v2(
+					null, codInd, null,  null, null, null, null, null, this.temoinRecupAnnu);
 			codEtu = etudiant.getCodEtu().toString();
 		} catch (WebBaseException e) {
 			logger.warn("WebBaseException in getStudentByNum = " + e );
@@ -1074,6 +1105,8 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 				logger.warn("Pas d'inscription pedagogique pour l'etudiant "+ codInd);
 
 			}
+		} catch (RemoteException re){
+			logger.error(re);
 		}
 		return codEtu;
 	}
@@ -1088,11 +1121,12 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 		}
 		String codInd = codEtu;
 		try {
-			EtudiantMetierServiceInterfaceProxy etudiantMetierService = new EtudiantMetierServiceInterfaceProxy();
+//			EtudiantMetierServiceInterfaceProxy etudiantMetierService = new EtudiantMetierServiceInterfaceProxy();
+			EtudiantMetierServiceInterface etudiantMetierService = (EtudiantMetierSoapBindingStub) WSUtils.getService(WSUtils.ETUDIANT_SERVICE_NAME);
 
 			// Recherche du codInd de l'etudiant dans Apogee
-			IdentifiantsEtudiantDTO etudiant = etudiantMetierService.recupererIdentifiantsEtudiant(
-					codEtu, null, null, null, null, null, null, null, null, this.temoinRecupAnnu);
+			IdentifiantsEtudiantDTO2 etudiant = etudiantMetierService.recupererIdentifiantsEtudiant_v2(
+					codEtu, null,  null, null, null, null, null, null, this.temoinRecupAnnu);
 			codInd = etudiant.getCodInd().toString();
 		} catch (WebBaseException e) {
 			logger.warn("WebBaseException in getStudentByNum = " + e );
@@ -1102,6 +1136,8 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			if (e.toString().equals("technical.data.nullretrieve.findIAA")) {
 				logger.warn("Pas d'inscription pedagogique pour l'etudiant "+ codEtu);
 			}
+		} catch (RemoteException re){
+			logger.error(re);
 		}
 		return codInd;
 	}

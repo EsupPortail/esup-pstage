@@ -34,27 +34,13 @@ public class FicheEvaluationDomainServiceImpl implements FicheEvaluationDomainSe
 	/**
 	 * RemoteServices
 	 */
-	public RemoteServices remoteServices;
-
-	/**
-	 * @return the RemoteServices
-	 */
-	public RemoteServices getRemoteServices() {
-		return remoteServices;
-	}
-
-	/**
-	 * @param RemoteServices the RemoteServices to set
-	 */
-	public void setRemoteServices(RemoteServices remoteServices) {
-		this.remoteServices = remoteServices;
-	}
+	private RemoteServices remoteServices;
 
 	/* ***************************************************************
 	 * FICHE EVALUATION
 	 ****************************************************************/
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#getFicheEvaluationFromIdCentre()
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#getFicheEvaluationFromIdCentre(int)
 	 */
 	public FicheEvaluationDTO getFicheEvaluationFromIdCentre(int idCentreGestion) {
 		FicheEvaluationDTO fiche = this.remoteServices.getFicheEvaluationFromIdCentre(idCentreGestion);
@@ -62,32 +48,32 @@ public class FicheEvaluationDomainServiceImpl implements FicheEvaluationDomainSe
 	}
 
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#addFicheEvaluation(org.esupportail.pstagedata.domain.dto.FicheEvaluationDTO)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#addFicheEvaluation(org.esupportail.pstagedata.domain.dto.FicheEvaluationDTO)
 	 */
 	public int addFicheEvaluation(FicheEvaluationDTO f) throws DataAddException,WebServiceDataBaseException {
 		return this.remoteServices.addFicheEvaluation(f);
 	}
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#updateFicheEvaluationEtudiant(org.esupportail.pstagedata.domain.dto.FicheEvaluationDTO)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#updateFicheEvaluationEtudiant(org.esupportail.pstagedata.domain.dto.FicheEvaluationDTO)
 	 */
 	public boolean updateFicheEvaluationEtudiant(FicheEvaluationDTO f) throws DataUpdateException,WebServiceDataBaseException{
 		return this.remoteServices.updateFicheEvaluationEtudiant(f);
 	}
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#updateFicheEvaluationEntreprise(org.esupportail.pstagedata.domain.dto.FicheEvaluationDTO)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#updateFicheEvaluationEntreprise(org.esupportail.pstagedata.domain.dto.FicheEvaluationDTO)
 	 */
 	public boolean updateFicheEvaluationEntreprise(FicheEvaluationDTO f) throws DataUpdateException,WebServiceDataBaseException{
 		return this.remoteServices.updateFicheEvaluationEntreprise(f);
 	}
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#updateFicheEvaluationEnseignant(org.esupportail.pstagedata.domain.dto.FicheEvaluationDTO)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#updateFicheEvaluationEnseignant(org.esupportail.pstagedata.domain.dto.FicheEvaluationDTO)
 	 */
 	public boolean updateFicheEvaluationEnseignant(FicheEvaluationDTO f) throws DataUpdateException,WebServiceDataBaseException{
 		return this.remoteServices.updateFicheEvaluationEnseignant(f);
 	}
 
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#deleteFicheEvaluation(int)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#deleteFicheEvaluation(int)
 	 */
 	public boolean deleteFicheEvaluation(int idFicheEvaluation) throws DataDeleteException,WebServiceDataBaseException{
 		return this.remoteServices.deleteFicheEvaluation(idFicheEvaluation);
@@ -97,7 +83,7 @@ public class FicheEvaluationDomainServiceImpl implements FicheEvaluationDomainSe
 	 * REPONSE EVALUATION
 	 ****************************************************************/
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#getReponseEvaluationFromIdCentre()
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#getReponseEvaluation(int, int)
 	 */
 	public ReponseEvaluationDTO getReponseEvaluation(int idFicheEvaluation, int idConvention) {
 		return this.remoteServices.getReponseEvaluation(idFicheEvaluation, idConvention);
@@ -109,32 +95,32 @@ public class FicheEvaluationDomainServiceImpl implements FicheEvaluationDomainSe
 		return this.remoteServices.getReponsesEvaluation(idFicheEvaluation);
 	}
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#addReponseEvaluation(org.esupportail.pstagedata.domain.dto.ReponseEvaluationDTO)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#addReponseEvaluation(org.esupportail.pstagedata.domain.dto.ReponseEvaluationDTO)
 	 */
 	public int addReponseEvaluation(ReponseEvaluationDTO f) throws DataAddException,WebServiceDataBaseException {
 		return this.remoteServices.addReponseEvaluation(f);
 	}
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#updateReponseEvaluationEtudiant(org.esupportail.pstagedata.domain.dto.ReponseEvaluationDTO)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#updateReponseEvaluationEtudiant(org.esupportail.pstagedata.domain.dto.ReponseEvaluationDTO)
 	 */
 	public boolean updateReponseEvaluationEtudiant(ReponseEvaluationDTO f) throws DataUpdateException,WebServiceDataBaseException{
 		return this.remoteServices.updateReponseEvaluationEtudiant(f);
 	}
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#updateReponseEvaluationEntreprise(org.esupportail.pstagedata.domain.dto.ReponseEvaluationDTO)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#updateReponseEvaluationEntreprise(org.esupportail.pstagedata.domain.dto.ReponseEvaluationDTO)
 	 */
 	public boolean updateReponseEvaluationEntreprise(ReponseEvaluationDTO f) throws DataUpdateException,WebServiceDataBaseException{
 		return this.remoteServices.updateReponseEvaluationEntreprise(f);
 	}
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#updateReponseEvaluationEnseignant(org.esupportail.pstagedata.domain.dto.ReponseEvaluationDTO)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#updateReponseEvaluationEnseignant(org.esupportail.pstagedata.domain.dto.ReponseEvaluationDTO)
 	 */
 	public boolean updateReponseEvaluationEnseignant(ReponseEvaluationDTO f) throws DataUpdateException,WebServiceDataBaseException{
 		return this.remoteServices.updateReponseEvaluationEnseignant(f);
 	}
 
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#deleteReponseEvaluation(int)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#deleteReponseEvaluation(int)
 	 */
 	public boolean deleteReponseEvaluation(int idFicheEvaluation, int idConvention) throws DataDeleteException,WebServiceDataBaseException{
 		return this.remoteServices.deleteReponseEvaluation(idFicheEvaluation, idConvention);
@@ -171,7 +157,7 @@ public class FicheEvaluationDomainServiceImpl implements FicheEvaluationDomainSe
 	 * Question Supplementaire
 	 ****************************************************************/
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#getQuestionsSupplementaires(int)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#getQuestionsSupplementaires(int)
 	 */
 	public List<QuestionSupplementaireDTO> getQuestionsSupplementaires(int idFicheEvaluation) {
 		return this.remoteServices.getQuestionsSupplementaires(idFicheEvaluation);
@@ -183,19 +169,19 @@ public class FicheEvaluationDomainServiceImpl implements FicheEvaluationDomainSe
 		return this.remoteServices.getQuestionsSupplementairesFromIdPlacement(idFicheEvaluation, idPlacement);
 	}
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#addQuestionSupplementaire(org.esupportail.pstagedata.domain.dto.QuestionSupplementaireDTO)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#addQuestionSupplementaire(org.esupportail.pstagedata.domain.dto.QuestionSupplementaireDTO)
 	 */
 	public int addQuestionSupplementaire(QuestionSupplementaireDTO qs) throws DataAddException,WebServiceDataBaseException {
 		return this.remoteServices.addQuestionSupplementaire(qs);
 	}
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#updateQuestionSupplementaire(org.esupportail.pstagedata.domain.dto.QuestionSupplementaireDTO)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#updateQuestionSupplementaire(org.esupportail.pstagedata.domain.dto.QuestionSupplementaireDTO)
 	 */
 	public boolean updateQuestionSupplementaire(QuestionSupplementaireDTO qs) throws DataUpdateException,WebServiceDataBaseException{
 		return this.remoteServices.updateQuestionSupplementaire(qs);
 	}
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#deleteQuestionSupplementaire(int)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#deleteQuestionSupplementaire(int)
 	 */
 	public boolean deleteQuestionSupplementaire(int idQuestionSupplementaire) throws DataDeleteException,WebServiceDataBaseException {
 		return this.remoteServices.deleteQuestionSupplementaire(idQuestionSupplementaire);
@@ -205,39 +191,53 @@ public class FicheEvaluationDomainServiceImpl implements FicheEvaluationDomainSe
 	 * Reponse Supplementaire
 	 ****************************************************************/
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#getReponseSupplementaire(int)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#getReponseSupplementaire(int)
 	 */
 	public ReponseSupplementaireDTO getReponseSupplementaire(int idQuestionSupplementaire, int idConvention) {
 		return this.remoteServices.getReponseSupplementaire(idQuestionSupplementaire,idConvention);
 	}
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#addReponseSupplementaire(org.esupportail.pstagedata.domain.dto.ReponseSupplementaireDTO)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#addReponseSupplementaire(org.esupportail.pstagedata.domain.dto.ReponseSupplementaireDTO)
 	 */
 	public int addReponseSupplementaire(ReponseSupplementaireDTO rs) throws DataAddException,WebServiceDataBaseException {
 		return this.remoteServices.addReponseSupplementaire(rs);
 	}
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#addReponseSupplementaire(java.util.List)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#addReponseSupplementaire(java.util.List)
 	 */
 	public int addReponsesSupplementaires(List<ReponseSupplementaireDTO> lr) throws DataAddException,WebServiceDataBaseException {
 		return this.remoteServices.addReponsesSupplementaires(lr);
 	}
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#updateReponseSupplementaire(org.esupportail.pstagedata.domain.dto.ReponseSupplementaireDTO)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#updateReponseSupplementaire(org.esupportail.pstagedata.domain.dto.ReponseSupplementaireDTO)
 	 */
 	public boolean updateReponseSupplementaire(ReponseSupplementaireDTO rs) throws DataUpdateException,WebServiceDataBaseException{
 		return this.remoteServices.updateReponseSupplementaire(rs);
 	}
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#updateReponsesSupplementaires(org.esupportail.pstagedata.domain.dto.ReponseSupplementaireDTO)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#updateReponsesSupplementaires(java.util.List)
 	 */
 	public boolean updateReponsesSupplementaires(List<ReponseSupplementaireDTO> lr) throws DataUpdateException,WebServiceDataBaseException{
 		return this.remoteServices.updateReponsesSupplementaires(lr);
 	}
 	/**
-	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#deleteReponseSupplementaire(int)
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#deleteReponseSupplementaire(int, int)
 	 */
 	public boolean deleteReponseSupplementaire(int idQuestionSupplementaire, int idConvention) throws DataDeleteException,WebServiceDataBaseException {
 		return this.remoteServices.deleteReponseSupplementaire(idQuestionSupplementaire,idConvention);
+	}
+
+	/**
+	 * @return the RemoteServices
+	 */
+	public RemoteServices getRemoteServices() {
+		return remoteServices;
+	}
+
+	/**
+	 * @param remoteServices
+	 */
+	public void setRemoteServices(RemoteServices remoteServices) {
+		this.remoteServices = remoteServices;
 	}
 }

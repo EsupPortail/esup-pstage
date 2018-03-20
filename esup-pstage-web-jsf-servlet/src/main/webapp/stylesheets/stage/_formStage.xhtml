@@ -4,6 +4,9 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
+
+    <t:saveState value="#{conventionController.convention}" />
+
     <p:fieldset legend="#{msgs['CONVENTION.LANGUECONVENTION']}"
                 rendered="#{!conventionController.conventionFormationContinue}">
         <t:div styleClass="mt10 mb10">

@@ -8,6 +8,7 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import org.apache.log4j.Logger;
 import org.springframework.util.StringUtils;
 
 /**
@@ -18,6 +19,11 @@ public class Utils {
 	/* ***************************************************************
 	 * REGEX
 	 ****************************************************************/
+
+	/**
+	 * Logger
+	 */
+	private static Logger logger = Logger.getLogger(Utils.class);
 
 	/**
 	 * Regex du code naf
@@ -135,7 +141,7 @@ public class Utils {
 			date = formatter.parse(strDate, pos);
 		}
 		catch (RuntimeException e) {
-			e.printStackTrace();
+			logger.error(e);
 			throw e;
 		}
 

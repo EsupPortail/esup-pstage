@@ -2070,6 +2070,24 @@ public class EtablissementController extends AbstractContextAwareController {
 		getSessionController().setValidationStructureCurrentPage("_validStructureEtape1");
 	}
 
+	/**
+	 * Verification du numero siret dès sa saisie
+	 */
+	public void checkSiretExistant() {
+		String siretSaisi = this.formStructure.getNumeroSiret();
+
+		if(StringUtils.hasText(siretSaisi)){
+			StructureDTO result = getStructureDomainService().getStructureFromNumSiret(siretSaisi);
+			if (result != null) {
+				addErrorMessage("formAjoutEtab:siret","STRUCTURE.NUM_SIRET.NOT_OK");
+			} else {
+				addInfoMessage("formAjoutEtab:siret","STRUCTURE.NUM_SIRET.OK");
+			}
+		} else {
+			addErrorMessage("formAjoutEtab:siret","FORM.CHAMP_OBLIGATOIRE");
+		}
+	}
+
 	/* ***************************************************************
 	 * Getters / Setters
 	 * **************************************************************

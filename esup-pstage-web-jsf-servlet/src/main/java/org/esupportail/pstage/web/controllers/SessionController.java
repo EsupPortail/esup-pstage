@@ -59,7 +59,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	/**
 	 * The exception controller (called when logging in/out).
 	 */
-	private ExceptionController exceptionController;	
+	private ExceptionController exceptionController;
 	/**
 	 * The authenticator.
 	 */
@@ -85,7 +85,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	private String entrepriseUrl;
 	/**
-	 * 
+	 *
 	 */
 	private String baseUrl;
 	/**
@@ -181,7 +181,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * vrai si la personne actuellement connectée par CAS ou Shibb n'est pas autorisée
 	 * à administrer l'espace Entreprise
 	 */
-	private boolean notAdminEntrepriseViaCasShibb=false;	
+	private boolean notAdminEntrepriseViaCasShibb=false;
 	/**
 	 * Nom donnée à l'application PStage
 	 */
@@ -248,7 +248,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	private boolean autoriserEntrepriseAReserverOffre=false;
 	/**
 	 * Autoriser ou non les étudiants à modifier les données entreprise (fiche signalétique, services, contacts) 
-	 * lorsqu'il créent une convention 
+	 * lorsqu'il créent une convention
 	 */
 	private boolean autoriserEtudiantAModifierEntreprise=true;
 	/**
@@ -379,7 +379,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	private Map<Integer, Boolean> droitsEvaluationEnseignantMap = new HashMap<Integer,Boolean>();
 	private Map<Integer, Boolean> droitsEvaluationEntrepriseMap = new HashMap<Integer,Boolean>();
 
-	/** 
+	/**
 	 * props pour l'envoi de mail sans esupcommons 
 	 */
 	private String fromEmail;
@@ -395,6 +395,11 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * Detection d'un etudiant FC connecté pour changer son affichage
 	 */
 	private boolean etudiantFC;
+
+	/**
+	 * Codes correspondants aux regimes d'inscription de la Formation Continue
+	 */
+	private String codesRegimeInscriptionFC;
 
 	/**
 	 * Volum horaire par défaut à l'étape 1 de création de convention
@@ -564,7 +569,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * CONFIGURATION DES TABLES DE NOMENCLATURE
 	 */
 	private String nomenclatureCurrentPage = "_include_modeValidationStage";
-	
+
 	/**
 	 * Constructor.
 	 */
@@ -589,15 +594,15 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	@Override
 	public void afterPropertiesSetInternal() {
-		Assert.notNull(this.exceptionController, "property exceptionController of class " 
+		Assert.notNull(this.exceptionController, "property exceptionController of class "
 				+ this.getClass().getName() + " can not be null");
-		Assert.notNull(this.authenticator, "property authenticator of class " 
+		Assert.notNull(this.authenticator, "property authenticator of class "
 				+ this.getClass().getName() + " can not be null");
-		Assert.notNull(this.mailingListPStage, "property mailingListPStage of class " 
+		Assert.notNull(this.mailingListPStage, "property mailingListPStage of class "
 				+ this.getClass().getName() + " can not be null");
-		Assert.notNull(this.codeUniversite, "property universityCode of class " 
+		Assert.notNull(this.codeUniversite, "property universityCode of class "
 				+ this.getClass().getName() + " can not be null");
-		Assert.notNull(this.baseUrl, "property baseUrl of class " 
+		Assert.notNull(this.baseUrl, "property baseUrl of class "
 				+ this.getClass().getName() + " can not be null");
 		if(org.springframework.util.StringUtils.hasText(mailingListEntr)){
 			try {
@@ -626,7 +631,7 @@ public class SessionController extends AbstractDomainAwareBean {
 		if(org.springframework.util.StringUtils.hasText(superAdmin)){
 			this.superAdminTab = this.superAdmin.split(";");
 		}else{
-			logger.warn("Property superAdmin (-> init.superAdmin) of class " 
+			logger.warn("Property superAdmin (-> init.superAdmin) of class "
 					+ this.getClass().getName() + " can not be null : "+superAdmin);
 		}
 		if(org.springframework.util.StringUtils.hasText(adminAuthentication)){
@@ -634,10 +639,10 @@ public class SessionController extends AbstractDomainAwareBean {
 				Assert.isTrue(false, "property adminAuthentication must be 'cas' or 'shibb'");
 			}
 		}
-		Assert.isTrue(this.uploadFilesOffresPath!= null && !this.uploadFilesOffresPath.isEmpty(), "property uploadFilesOffresPath of class " 
-				+ this.getClass().getName() + " can not be null");	
+		Assert.isTrue(this.uploadFilesOffresPath!= null && !this.uploadFilesOffresPath.isEmpty(), "property uploadFilesOffresPath of class "
+				+ this.getClass().getName() + " can not be null");
 		this.offreFileUploadBean=new FileUploadBean(this.uploadFilesOffresPath);
-		Assert.notNull(this.uploadFilesFileSizeLimit, "property uploadFilesFileSizeLimit of class " 
+		Assert.notNull(this.uploadFilesFileSizeLimit, "property uploadFilesFileSizeLimit of class "
 				+ this.getClass().getName() + " can not be null");
 		if(Utils.isNumber(uploadFilesFileSizeLimit)){
 			int i = Utils.convertStringToInt(this.uploadFilesFileSizeLimit);
@@ -654,10 +659,10 @@ public class SessionController extends AbstractDomainAwareBean {
 			}
 		}
 
-		Assert.isTrue(this.uploadFilesLogosCentrePath!= null && !this.uploadFilesLogosCentrePath.isEmpty(), "property uploadFilesLogosCentrePath of class " 
-				+ this.getClass().getName() + " can not be null");	
+		Assert.isTrue(this.uploadFilesLogosCentrePath!= null && !this.uploadFilesLogosCentrePath.isEmpty(), "property uploadFilesLogosCentrePath of class "
+				+ this.getClass().getName() + " can not be null");
 		this.imageUploadBean=new ImageUploadBean(this.uploadFilesLogosCentrePath);
-		Assert.notNull(this.uploadImagesFileSizeLimit, "property uploadImagesFileSizeLimit of class " 
+		Assert.notNull(this.uploadImagesFileSizeLimit, "property uploadImagesFileSizeLimit of class "
 				+ this.getClass().getName() + " can not be null");
 //		if(Utils.isNumber(uploadImagesFileSizeLimit)){
 //			int i = Utils.convertStringToInt(this.uploadImagesFileSizeLimit);
@@ -674,9 +679,9 @@ public class SessionController extends AbstractDomainAwareBean {
 //			}
 //		}
 
-		Assert.notNull(this.uploadFilesOffresFileExtensions, "property uploadFilesOffresFileExtensions of class " 
+		Assert.notNull(this.uploadFilesOffresFileExtensions, "property uploadFilesOffresFileExtensions of class "
 				+ this.getClass().getName() + " can not be null");
-		Assert.notNull(this.uploadImagesFileExtensions, "property uploadImagesFileExtensions of class " 
+		Assert.notNull(this.uploadImagesFileExtensions, "property uploadImagesFileExtensions of class "
 				+ this.getClass().getName() + " can not be null");
 
 	}
@@ -707,7 +712,7 @@ public class SessionController extends AbstractDomainAwareBean {
 			return false;
 		}
 
-		return getIsServlet()&& getCurrentUser() != null; 
+		return getIsServlet()&& getCurrentUser() != null;
 	}
 
 	public void resetCurrentPage() {
@@ -763,12 +768,12 @@ public class SessionController extends AbstractDomainAwareBean {
 	@Override
 	public String toString() {
 		return getClass().getName() + "#" + hashCode();
-	}	
+	}
 
 	/**
 	 * JSF callback.
 	 * @return a String.
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public String logout() throws IOException {
 		if (ContextUtils.isPortlet()) {
@@ -859,11 +864,17 @@ public class SessionController extends AbstractDomainAwareBean {
 		return isAuthorized;
 	}
 
+	public void goToUrlAssistance(){
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect(this.urlAssistance);
+		} catch (IOException ioe ){
+			logger.error(ioe);
+		}
+	}
 
 	/* ***************************************************************
 	 * Getters / Setters
 	 ****************************************************************/
-
 	/**
 	 * @param authenticator the authenticator to set
 	 */
@@ -2596,5 +2607,13 @@ public class SessionController extends AbstractDomainAwareBean {
 
 	public void setVolumeHoraireFormationParDefaut(String volumeHoraireFormationParDefaut) {
 		this.volumeHoraireFormationParDefaut = volumeHoraireFormationParDefaut;
+	}
+
+	public String getCodesRegimeInscriptionFC() {
+		return codesRegimeInscriptionFC;
+	}
+
+	public void setCodesRegimeInscriptionFC(String codesRegimeInscriptionFC) {
+		this.codesRegimeInscriptionFC = codesRegimeInscriptionFC;
 	}
 }

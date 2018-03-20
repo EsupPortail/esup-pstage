@@ -80,14 +80,14 @@ public enum JoursHebdo {
 	 * @param libelle
 	 * @param valeur
 	 */
-	private JoursHebdo(String libelle, String valeur) {
+	JoursHebdo(String libelle, String valeur) {
 		this.libelle = libelle;
 		this.valeur = valeur;
 	}
 
 	/*
 	 *************************** ACCESSORS ********************************* */
-	
+
 	/**
 	 * @return the valeur
 	 */
@@ -115,7 +115,7 @@ public enum JoursHebdo {
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
-	
+
 
 	
 	

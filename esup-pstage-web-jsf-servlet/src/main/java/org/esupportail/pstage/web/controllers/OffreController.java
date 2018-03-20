@@ -2018,7 +2018,7 @@ public class OffreController extends AbstractContextAwareController {
 				boolean b = fichier.renameTo(new File(directory+ idFichier +"_"+f.getNomFichier()));
 
 				if (b == false){
-					addErrorMessage("panelUpload","Erreur lors de la tentative de renommage du fichier.");
+					addErrorMessage("panelUpload","GENERAL.ERREUR_RENAME_FILE");
 				}
 			} catch (DataAddException e) {
 				logger.error(e);

@@ -7,6 +7,8 @@
 
     <ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
 
+    <t:saveState value="#{etablissementController.formStructure}" />
+
     <p:fieldset legend="#{msgs['GENERAL']}" styleClass="mt10">
         <t:htmlTag value="ul" styleClass="formUL columns-2">
             <t:div styleClass="column">
@@ -63,13 +65,14 @@
                         <p:inputText id="siret"
                                      value="#{etablissementController.formStructure.numeroSiret}"
                                      maxlength="14"
-                                     required="#{(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
-						and etablissementController.formStructureTmpTypeStructure.siretObligatoire}"
+                                     required="#{(etablissementController.formStructureTmpPays==beanUtils.france
+                                        || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
+						                and etablissementController.formStructureTmpTypeStructure.siretObligatoire}"
                                      requiredMessage="#{requiredMessageController.champObligatoire}"
                                      validatorMessage="#{requiredMessageController.numeroSiretNonValide}"
                                      readonly="#{sessionController.pageAuthorized and not sessionController.adminPageAuthorized}">
                             <f:validator binding="#{numSiretValidator}" />
-                            <p:ajax event="blur" update="msgSiret"/>
+                            <p:ajax event="blur" update="msgSiret" listener="#{etablissementController.checkSiretExistant}"/>
                         </p:inputText>
                         <p:message id="msgSiret" for="siret"/>
                         <p:commandButton

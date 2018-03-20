@@ -33,7 +33,7 @@
                         <t:div rendered="#{not empty etablissementController.listeServices}" styleClass="ml40">
                             <h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
                                           escape="false" />
-                            <h:selectOneMenu id="sOMService" styleClass="customPstage mt5 autoWidth" style="min-width:300px;"
+                            <h:selectOneMenu id="sOMService" styleClass="customPstage mt5 autoWidth" style="min-width:280px;"
                                              value="#{etablissementController.idServiceSel}"
                                              converter="#{intConverter}"
                                              valueChangeListener="#{etablissementController.valueIdServiceChanged}">

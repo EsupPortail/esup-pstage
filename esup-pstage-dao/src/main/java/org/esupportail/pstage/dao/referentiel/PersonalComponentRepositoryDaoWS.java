@@ -39,8 +39,7 @@ public class PersonalComponentRepositoryDaoWS implements
 		mapComp = new LinkedHashMap<String,String>();
 
 		try {
-			ReferentielMetierServiceInterface referentielMetierService = 
-				(ReferentielMetierSoapBindingStub) WSUtils.getService(WSUtils.REFERENTIEL_SERVICE_NAME);
+			ReferentielMetierServiceInterface referentielMetierService = (ReferentielMetierSoapBindingStub) WSUtils.getService(WSUtils.REFERENTIEL_SERVICE_NAME);
 			
 			// recuperer la liste des composantes
 			ComposanteDTO3[] composante = referentielMetierService.recupererComposante_v2(null, null);

@@ -1,7 +1,8 @@
 package org.esupportail.pstage.dao.referentiel;
 
 import gouv.education.apogee.commun.client.utils.WSUtils;
-import gouv.education.apogee.commun.client.ws.offreformationmetier.OffreFormationMetierServiceInterfaceProxy;
+import gouv.education.apogee.commun.client.ws.offreformationmetier.OffreFormationMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.offreformationmetier.OffreFormationMetierSoapBindingStub;
 import gouv.education.apogee.commun.client.ws.referentielmetier.ReferentielMetierServiceInterface;
 import gouv.education.apogee.commun.client.ws.referentielmetier.ReferentielMetierSoapBindingStub;
 import gouv.education.apogee.commun.transverse.dto.WSReferentiel.recupererInformationEtabRef.VariableAppliWSEtabRefDTO;
@@ -76,8 +77,7 @@ StudentComponentRepositoryDao {
 		String  com = "";
 		EtabRef etabRef = new EtabRef();
 		try {
-			ReferentielMetierServiceInterface referentielMetierService = (ReferentielMetierSoapBindingStub) WSUtils.getService(
-					WSUtils.REFERENTIEL_SERVICE_NAME);
+			ReferentielMetierServiceInterface referentielMetierService = (ReferentielMetierSoapBindingStub) WSUtils.getService(WSUtils.REFERENTIEL_SERVICE_NAME);
 			// recuperer le nom de l'etablissement
 			VariableAppliWSEtabRefDTO[] variableAppli = referentielMetierService.recupererInformationEtabRef(DonneesStatic.COD_VAP_ETB_LIB);
 			if (variableAppli != null) {
@@ -146,8 +146,10 @@ StudentComponentRepositoryDao {
 		}
 		LinkedHashMap<String,String> lSI = new LinkedHashMap<String, String>();
 
-		OffreFormationMetierServiceInterfaceProxy offreFormationMetierService = new OffreFormationMetierServiceInterfaceProxy();
-		
+//		OffreFormationMetierServiceInterfaceProxy offreFormationMetierService = new OffreFormationMetierServiceInterfaceProxy();
+		OffreFormationMetierServiceInterface offreFormationMetierService = (OffreFormationMetierSoapBindingStub) WSUtils.getService(WSUtils.OFFREFORMATION_SERVICE_NAME);
+
+
 		Object idl = new Object();
 		String lib = "";
 		try {
@@ -193,9 +195,7 @@ StudentComponentRepositoryDao {
 		SignataireRef sigRef = new SignataireRef();
 
 		try {
-			ReferentielMetierServiceInterface referentielMetierService = 
-					(ReferentielMetierSoapBindingStub) WSUtils.getService(
-							WSUtils.REFERENTIEL_SERVICE_NAME);
+			ReferentielMetierServiceInterface referentielMetierService = (ReferentielMetierSoapBindingStub) WSUtils.getService(WSUtils.REFERENTIEL_SERVICE_NAME);
 			// recuperer le code signataire de la composante
 			ComposanteDTO3[] lcomposante = referentielMetierService.recupererComposante_v2(composante, null);
 			if (lcomposante != null) {
@@ -239,8 +239,7 @@ StudentComponentRepositoryDao {
 		mapComp = new LinkedHashMap<String,String>();
 
 		try {
-			ReferentielMetierServiceInterface referentielMetierService = 
-					(ReferentielMetierSoapBindingStub) WSUtils.getService(WSUtils.REFERENTIEL_SERVICE_NAME);
+			ReferentielMetierServiceInterface referentielMetierService = (ReferentielMetierSoapBindingStub) WSUtils.getService(WSUtils.REFERENTIEL_SERVICE_NAME);
 
 			// recuperer la liste des composantes
 			ComposanteDTO3[] composante = referentielMetierService.recupererComposante_v2(null, null);

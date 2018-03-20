@@ -43,13 +43,13 @@ public class ApogeeMap {
 	/**
 	 * liste des elements pedagogiques.
 	 */
-	public List<ElementPedagogique> listeELPs;
+	private List<ElementPedagogique> listeELPs;
 	
 	
 	/**
 	 * liste des Etapes inscriptions 
 	 */
-	public List<EtapeInscription> listeEtapeInscriptions;
+	private List<EtapeInscription> listeEtapeInscriptions;
 	
 	
 	/**

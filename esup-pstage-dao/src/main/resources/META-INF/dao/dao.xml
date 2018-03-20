@@ -74,5 +74,6 @@
 		<property name="ldapUserService" ref="ldapUserService"/>
 		<property name="ldapAttributes" ref="ldapAttributes"/>
 		<property name="ldapGroupServiceSpecial" ref="ldapGroupServiceEtudiants"/>
+		<property name="codesRegimeInscriptionFC" value="${codesRegimeInscriptionFC}" />
 	</bean>
 </beans>

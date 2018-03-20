@@ -90,7 +90,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 
 	/**
 	 * Met en forme l'etudiant avec les parametres qui vont bien 
-	 * @param etudiantRef
+	 * @param enseignant
 	 * @param ldapUser
 	 */
 	private EnseignantDTO enseignantFormate(EnseignantDTO enseignant, LdapUser ldapUser) {
@@ -158,7 +158,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 
 		if(logger.isDebugEnabled()){
 			logger.debug(builder.toString(), ldae);
-		};
+		}
 	}
 
 	@Override
@@ -213,6 +213,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 		}
 		catch (LdapException ldae) {
 			errorldap(ldae,"getLdapUsersFromFilter");
+			return null;
 		}
 
 		return ldapUsersToTeachers(universityCode, enseignantsDansLdap);
@@ -270,6 +271,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 		}
 		catch (LdapException ldae) {
 			errorldap(ldae,"getLdapUsersFromFilter");
+			return null;
 		}
 
 
@@ -469,6 +471,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 		}
 		catch (LdapException ldae) {
 			errorldap(ldae,"getLdapUsersFromFilter");
+			return null;
 		}
 
 		return ldapUsersToPersonnelCDG(universityCode, enseignantsDansLdap);
