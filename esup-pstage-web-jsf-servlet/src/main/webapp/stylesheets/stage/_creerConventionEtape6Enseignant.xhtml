@@ -12,8 +12,10 @@
 
     <t:div styleClass="mt5 textCenter" rendered="#{conventionController.surchargeTuteur}">
         <t:htmlTag value="i" styleClass="fa fa-warning fontYellow fz13"/>
-        <h:outputText value="#{msgs['CONVENTION.ETAPE6.AVERTISSEMENT.SURCHARGE_TUTEUR']}"
-                      styleClass="ml5"/>
+        <h:outputFormat value="#{msgs['CONVENTION.ETAPE6.AVERTISSEMENT.SURCHARGE_TUTEUR']}"
+                      styleClass="ml5">
+            <f:param value="#{sessionController.surchargeTuteur}" />
+        </h:outputFormat>
     </t:div>
 
     <t:div styleClass="mt20 mb30 textCenter">

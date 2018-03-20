@@ -38,7 +38,7 @@
                                                          target="#{statistiquesOffresController.anneesOffres}" />
                         </p:ajax>
 
-                        <p:column sortBy="#{sessionController.droitsAccesMap[centre.idCentreGestion]}" styleClass="textCenter">
+                        <p:column sortBy="#{sessionController.droitsAccesMap[centre.idCentreGestion].libelle}" styleClass="textCenter">
                             <f:facet name="header">
                                 <t:htmlTag id="appartenanceHead" value="b" styleClass="fa fa-user fz16">
                                     <p:tooltip trackMouse="true" for="appartenanceHead" value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE_TIP']}" />

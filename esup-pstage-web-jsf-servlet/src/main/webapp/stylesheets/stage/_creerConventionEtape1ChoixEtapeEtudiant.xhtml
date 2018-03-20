@@ -181,7 +181,7 @@
             <t:div id="divInscription"
                    rendered="#{not empty conventionController.selectedAnneeUniv and !conventionController.blocageCreationEtpOrpheline
 			            and !conventionController.blocageAucuneInscription}">
-                <t:div styleClass="mt10 mb5">
+                <t:div styleClass="mt10 mb5" rendered="#{not empty sessionController.codesRegimeInscriptionFC}">
                     <h:outputText value="Regime d'inscription : " styleClass="fontBold" />
                     <t:div styleClass="mt5 ml20">
                         <h:outputText value="Formation Continue" rendered="#{conventionController.conventionFormationContinue}" />

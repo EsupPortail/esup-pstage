@@ -30,22 +30,7 @@ public class EtudiantDomainServiceImpl implements EtudiantDomainService {
 	/**
 	 * RemoteServices
 	 */
-	public RemoteServices remoteServices;
-
-	/**
-	 * @return the RemoteServices
-	 */
-	public RemoteServices getRemoteServices() {
-		return remoteServices;
-	}
-
-	/**
-	 * @param RemoteServices the RemoteServices to set
-	 */
-	public void setRemoteServices(RemoteServices remoteServices) {
-		this.remoteServices = remoteServices;
-	}
-
+	private RemoteServices remoteServices;
 
 	/**
 	 * @see org.esupportail.pstagedata.domain.EtudiantDomainService#addEtudiant(org.esupportail.pstagedata.domain.dto.EtudiantDTO)
@@ -89,5 +74,19 @@ public class EtudiantDomainServiceImpl implements EtudiantDomainService {
 	 */
 	public EtudiantDTO getEtudiantFromUid(String uidEtudiant, String codeUniversite){
 		return this.remoteServices.getEtudiantFromUid(uidEtudiant, codeUniversite);
+	}
+
+	/**
+	 * @return the RemoteServices
+	 */
+	private RemoteServices getRemoteServices() {
+		return remoteServices;
+	}
+
+	/**
+	 * @param remoteServices
+	 */
+	public void setRemoteServices(RemoteServices remoteServices) {
+		this.remoteServices = remoteServices;
 	}
 }

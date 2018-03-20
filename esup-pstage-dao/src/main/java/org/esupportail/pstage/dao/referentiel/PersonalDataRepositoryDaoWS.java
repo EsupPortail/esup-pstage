@@ -317,10 +317,16 @@ PersonalDataRepositoryDao {
 				}
 				if (ldapuser.getAttribute(ldapAttributes.getLdapMemberAffectation())!=null){
 					if(!sameCodeComposanteLdapApogee){
-						enseignantUser.setCodeAffectation(getCodeApogeeComposante(ldapuser.getAttribute(ldapAttributes.getLdapMemberAffectation())));
+						if (getCodeApogeeComposante(ldapuser.getAttribute(ldapAttributes.getLdapMemberAffectation())) == null){
+							enseignantUser.setCodeAffectation("");
+						} else {
+							enseignantUser.setCodeAffectation(getCodeApogeeComposante(ldapuser.getAttribute(ldapAttributes.getLdapMemberAffectation())));
+						}
 					}else{
 						enseignantUser.setCodeAffectation(ldapuser.getAttribute(ldapAttributes.getLdapMemberAffectation()));
 					}
+				} else {
+					enseignantUser.setCodeAffectation("");
 				}
 				if (ldapuser.getAttribute(ldapAttributes.getLdapMemberCampus())!=null){
 					enseignantUser.setCampus(ldapuser.getAttribute(ldapAttributes.getLdapMemberCampus()));
@@ -385,11 +391,17 @@ PersonalDataRepositoryDao {
 		if (ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()) != null
 				&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()).isEmpty())){
 			if(!sameCodeComposanteLdapApogee){
-				enseignant.setCodeAffectation(getCodeApogeeComposante(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation())));
+				if (getCodeApogeeComposante(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation())) == null){
+					enseignant.setCodeAffectation("");
+				} else {
+					enseignant.setCodeAffectation(getCodeApogeeComposante(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation())));
+				}
 			}else{
 				enseignant.setCodeAffectation(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()));
 			}
 			a.setCode(enseignant.getCodeAffectation());
+		} else {
+			enseignant.setCodeAffectation("");
 		}
 		enseignant.setAffectation(a);
 
@@ -494,11 +506,17 @@ PersonalDataRepositoryDao {
 		if (ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()) != null
 				&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()).isEmpty())){
 			if(!sameCodeComposanteLdapApogee){
-				personnelCentreGestion.setCodeAffectation(getCodeApogeeComposante(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation())));
+				if (getCodeApogeeComposante(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation())) == null){
+					personnelCentreGestion.setCodeAffectation("");
+				} else {
+					personnelCentreGestion.setCodeAffectation(getCodeApogeeComposante(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation())));
+				}
 			}else{
 				personnelCentreGestion.setCodeAffectation(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()));
 			}
 			a.setCode(personnelCentreGestion.getCodeAffectation());
+		} else {
+			personnelCentreGestion.setCodeAffectation("");
 		}
 		personnelCentreGestion.setAffectation(a);
 
@@ -596,6 +614,7 @@ PersonalDataRepositoryDao {
 		}
 		catch (LdapException ldae) {
 			errorldap(ldae,"getLdapUsersFromFilter");
+			return null;
 		}
 
 		return ldapUsersToPersonnelCDG(universityCode, enseignantsDansLdap);

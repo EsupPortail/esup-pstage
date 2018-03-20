@@ -34,41 +34,12 @@ public class EnseignantDomainServiceImpl implements EnseignantDomainService {
 	/**
 	 * RemoteServices
 	 */
-	public RemoteServices remoteServices;
-
-	/**
-	 * @return the RemoteServices
-	 */
-	public RemoteServices getRemoteServices() {
-		return remoteServices;
-	}
-
-	/**
-	 * @param RemoteServices the RemoteServices to set
-	 */
-	public void setRemoteServices(RemoteServices remoteServices) {
-		this.remoteServices = remoteServices;
-	}
+	private RemoteServices remoteServices;
 
 	/**
 	 * ListeDomainService
 	 */
 	private NomenclatureDomainService nomenclatureDomainService;
-	
-	/**
-	 * @return the nomenclatureDomainService
-	 */
-	public NomenclatureDomainService getNomenclatureDomainService() {
-		return nomenclatureDomainService;
-	}
-	
-	/**
-	 * @param nomenclatureDomainService the nomenclatureDomainService to set
-	 */
-	public void setNomenclatureDomainService(
-			NomenclatureDomainService nomenclatureDomainService) {
-		this.nomenclatureDomainService = nomenclatureDomainService;
-	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.EnseignantDomainService#getEnseignants(java.lang.String)
@@ -87,8 +58,7 @@ public class EnseignantDomainServiceImpl implements EnseignantDomainService {
 	public int getNombreConventionByEnseignantByAnnee(String uidEnseignant, String codeUniversite, String annee){
 		return this.remoteServices.getNombreConventionByEnseignantByAnneeFromCodUniv(uidEnseignant, codeUniversite, annee);
 	}	
-	
-	
+
 	/**
 	 * @see org.esupportail.pstage.domain.EnseignantDomainService#addEnseignant(org.esupportail.pstagedata.domain.dto.EnseignantDTO)
 	 */
@@ -96,7 +66,6 @@ public class EnseignantDomainServiceImpl implements EnseignantDomainService {
 			WebServiceDataBaseException {
 		return this.remoteServices.addEnseignant(enseignant);
 	}
-
 
 	/**
 	 * @see org.esupportail.pstage.domain.EnseignantDomainService#deleteEnseignant(int)
@@ -107,7 +76,6 @@ public class EnseignantDomainServiceImpl implements EnseignantDomainService {
 		return this.remoteServices.deleteEnseignant(idEnseignant);
 	}
 
-
 	/**
 	 * @see org.esupportail.pstage.domain.EnseignantDomainService#getEnseignantFromId(int)
 	 */
@@ -116,7 +84,6 @@ public class EnseignantDomainServiceImpl implements EnseignantDomainService {
 		setObjectsForEnseignant(e);
 		return e;
 	}
-
 
 	/**
 	 * @see org.esupportail.pstage.domain.EnseignantDomainService#getEnseignantFromUid(java.lang.String, java.lang.String)
@@ -136,7 +103,7 @@ public class EnseignantDomainServiceImpl implements EnseignantDomainService {
 	}
 
 	/**
-	 * @param lc
+	 * @param le
 	 */
 	public void setObjectsForEnseignant(List<EnseignantDTO> le){
 		if(le!=null){
@@ -147,7 +114,7 @@ public class EnseignantDomainServiceImpl implements EnseignantDomainService {
 	}
 	
 	/**
-	 * @param c
+	 * @param e
 	 */
 	public void setObjectsForEnseignant(EnseignantDTO e){
 		if(e!=null){
@@ -169,7 +136,36 @@ public class EnseignantDomainServiceImpl implements EnseignantDomainService {
 	public void setCodeUniversite(String codeUniversite) {
 		this.codeUniversite = codeUniversite;
 	}
-	
-	
+
+
+	/**
+	 * @return the RemoteServices
+	 */
+	public RemoteServices getRemoteServices() {
+		return remoteServices;
+	}
+
+	/**
+	 * @param remoteServices
+	 */
+	public void setRemoteServices(RemoteServices remoteServices) {
+		this.remoteServices = remoteServices;
+	}
+
+
+	/**
+	 * @return the nomenclatureDomainService
+	 */
+	public NomenclatureDomainService getNomenclatureDomainService() {
+		return nomenclatureDomainService;
+	}
+
+	/**
+	 * @param nomenclatureDomainService the nomenclatureDomainService to set
+	 */
+	public void setNomenclatureDomainService(
+			NomenclatureDomainService nomenclatureDomainService) {
+		this.nomenclatureDomainService = nomenclatureDomainService;
+	}
 
 }

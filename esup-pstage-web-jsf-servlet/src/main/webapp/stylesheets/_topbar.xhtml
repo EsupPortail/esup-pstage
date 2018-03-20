@@ -20,16 +20,23 @@
                 </t:htmlTag>
                 <t:htmlTag value="span" styleClass="versionNumber">
                     <h:outputText value="#{msgs['GENERAL.INFORMATION.VERSION']} #{applicationService.version}"/>
-                        <h:outputText value=" - #{msgs['MENU.FORMATION_INITIALE']}" styleClass="fontItalic"
-                                      rendered="#{welcomeController.etudiant and !sessionController.etudiantFC}" />
-                        <h:outputText value=" - #{msgs['MENU.FORMATION_CONTINUE']}" styleClass="fontItalic"
-                                      rendered="#{welcomeController.etudiant and sessionController.etudiantFC}" />
+                    <h:outputText value=" - #{msgs['MENU.FORMATION_INITIALE']}" styleClass="fontItalic"
+                                  rendered="#{welcomeController.etudiant and !sessionController.etudiantFC}" />
+                    <h:outputText value=" - #{msgs['MENU.FORMATION_CONTINUE']}" styleClass="fontItalic"
+                                  rendered="#{welcomeController.etudiant and sessionController.etudiantFC}" />
                 </t:htmlTag>
             </t:div>
             <t:div styleClass="buttons">
-                <p:commandButton id="buttonLogout" action="#{sessionController.logout}"
-                                 rendered="#{sessionController.printLogout}" icon="fa fa-power-off"/>
-                <p:tooltip for="buttonLogout" value="Déconnexion"/>
+                <h:form target="_blank">
+                    <p:commandButton id="buttonAssist" action="#{sessionController.goToUrlAssistance}"
+                                     rendered="#{sessionController.assistance}" icon="fa fa-wrench"
+                                     ajax="false"/>
+                    <p:tooltip for="buttonAssist" value="Assistance"/>
+
+                    <p:commandButton id="buttonLogout" action="#{sessionController.logout}"
+                                     rendered="#{sessionController.printLogout}" icon="fa fa-power-off"/>
+                    <p:tooltip for="buttonLogout" value="Déconnexion"/>
+                </h:form>
             </t:div>
         </t:div>
     </t:div>

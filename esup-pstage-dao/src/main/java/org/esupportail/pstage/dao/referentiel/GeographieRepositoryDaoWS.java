@@ -1,9 +1,13 @@
 package org.esupportail.pstage.dao.referentiel;
 
+import gouv.education.apogee.commun.client.utils.WSUtils;
+import gouv.education.apogee.commun.client.ws.geographiemetier.GeographieMetierServiceInterface;
 import gouv.education.apogee.commun.client.ws.geographiemetier.GeographieMetierServiceInterfaceProxy;
+import gouv.education.apogee.commun.client.ws.geographiemetier.GeographieMetierSoapBindingStub;
 import gouv.education.apogee.commun.transverse.dto.geographie.CommuneDTO;
 import gouv.education.apogee.commun.transverse.exception.WebBaseException;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -32,10 +36,12 @@ public class GeographieRepositoryDaoWS implements GeographieRepositoryDao {
 	public List<CommuneDTO> getCommuneFromDepartement(String departement){
 		List<CommuneDTO> l = null;
 		try{
-			GeographieMetierServiceInterfaceProxy geographieMetierServiceInterface = new GeographieMetierServiceInterfaceProxy();
+//			GeographieMetierServiceInterfaceProxy geographieMetierServiceInterface = new GeographieMetierServiceInterfaceProxy();
+			GeographieMetierServiceInterface geographieMetierServiceInterface = (GeographieMetierSoapBindingStub) WSUtils.getService(WSUtils.GEOGRAPHIE_SERVICE_NAME,null,null);
+
 			CommuneDTO[] cTab = geographieMetierServiceInterface.recupererCommune(departement, "O", "T");
 			if(cTab!=null && cTab.length>0){
-				l = new ArrayList<CommuneDTO>();
+				l = new ArrayList<>();
 				for(CommuneDTO c : cTab){
 					l.add(c);
 				}
@@ -50,12 +56,9 @@ public class GeographieRepositoryDaoWS implements GeographieRepositoryDao {
 				});
 			}
 		}catch (WebBaseException e) {
-			if(!e.equals("technical.parameter.noncoherentinput.codePostal") &&
-					!e.equals("technical.data.nullretrieve.commune") &&
-					!e.equals("technical.parameter.noncoherentinput.temoinenservicecommune ") &&
-					!e.equals("technical.parameter.noncoherentinput.temoinenservicebd")){
-				logger.error(e.getMessage(), e);
-			}
+			logger.error(e);
+		} catch (RemoteException re){
+			logger.error(re);
 		}
 		return l;
 	}

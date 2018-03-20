@@ -18,6 +18,7 @@
 		<property name="ldapMail" value="${ldap.mail}" />
 		<property name="ldapStudentId" value="${ldap.student.id}" />
 		<property name="ldapStudentAffectation" value="${ldap.student.affectation}" />
+		<property name="ldapStudentRegime" value="${ldap.student.regime}" />
 		<property name="ldapMemberAffectation" value="${ldap.member.affectation}" />
 		<property name="ldapMemberLibelleAffectation" value="${ldap.member.libelle.affectation}" />
 		<property name="ldapMemberType" value="${ldap.member.type}" />

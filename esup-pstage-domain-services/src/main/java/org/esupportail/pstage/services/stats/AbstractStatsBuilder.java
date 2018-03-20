@@ -75,16 +75,15 @@ public abstract class AbstractStatsBuilder {
 
 		List<StatisticItemDTO> sItemDTOs =null;
 		try {
-			Method laMethode = trouverLaMethode(clazz,nommeth, new Class[]{Integer.class, String.class, String.class});
-
+			Method laMethode = trouverLaMethode(clazz, nommeth, new Class[]{Integer.class, String.class, String.class});
 
 			Object objets = laMethode.invoke(proxy, new Object[]{idCentre,annee,etat});
 
 			sItemDTOs = (List<StatisticItemDTO>)objets;
 		}
 		catch (NoSuchMethodException ex) {
-			StringBuilder builder = new StringBuilder(clazz.getName());
-			builder.append(" ne dispose pas de la methode ");
+			StringBuilder builder = new StringBuilder();
+			builder.append("Pas de methode ");
 			builder.append(nommeth);
 			logger.error(builder.toString(), ex);
 			throw new IllegalArgumentException(builder.toString(),ex);
@@ -124,7 +123,11 @@ public abstract class AbstractStatsBuilder {
 					}
 					for (StatisticItemDTO unItem : statsItemsDtos){
 
-						unItem.setPercentage((unItem.getNumber()*CENT)/total);
+						if (total != 0) {
+							unItem.setPercentage((unItem.getNumber() * CENT) / total);
+						} else {
+							unItem.setPercentage(0);
+						}
 
 					}
 				}

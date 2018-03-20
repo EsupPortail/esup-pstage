@@ -74,17 +74,15 @@ public class CastorService implements Serializable {
 			final String fileName ){
 		
 		Writer writer = new StringWriter();
-		OutputStreamWriter out = null;
+
 		
-		try {
-			out = new OutputStreamWriter(new FileOutputStream(xslXmlPath + fileName), "UTF-8");
-			
+		try (OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(xslXmlPath + fileName), "UTF-8")) {
+
 			castorMarshaller.setWriter(writer);		
 			castorMarshaller.marshal(object);
 			String xmlContent = writer.toString();
 			
 			out.write(xmlContent);
-			out.close();
 			writer.close();
 			
 		} catch (MarshalException e) {

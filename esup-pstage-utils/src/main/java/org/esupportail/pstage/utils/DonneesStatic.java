@@ -293,12 +293,12 @@ public class DonneesStatic {
 	/**
 	 * nombre de reponse maxi pour export
 	 */
-	public static int nb_response_export_maxi;
+	private static int nb_response_export_maxi;
 	
 	/**
 	 * nbRechercheMaxi
 	 */
-	public static int nb_recherche_maxi;
+	private static int nb_recherche_maxi;
 	
 	/**
 	 * constructeur de donnees statiques.
@@ -308,7 +308,7 @@ public class DonneesStatic {
 		
 	}
 
-	public int getNb_response_export_maxi() {
+	public static int getNb_response_export_maxi() {
 		return nb_response_export_maxi;
 	}
 
@@ -316,7 +316,7 @@ public class DonneesStatic {
 		DonneesStatic.nb_response_export_maxi = nb_response_export_maxi;
 	}
 
-	public int getNb_recherche_maxi() {
+	public static int getNb_recherche_maxi() {
 		return nb_recherche_maxi;
 	}
 

@@ -42,11 +42,10 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 	private LdapGroupeAttributs ldapGroupeAttributs;
 	private LdapGroupService ldapGroupServiceSpecial;
 
-
-	//	@Override
-	//	public void afterPropertiesSet() throws Exception {
-	//		Assert.notNull(this.ldapUserService, "La propriété ldapUserService de la classe " +this.getClass().getSimpleName()+ " ne doit pas être null.");
-	//	}
+	/**
+	 * Ajout pour la prise en compte des codes FC en config FULL LDAP par Brice Quillerié de l'université de Nîmes
+	 */
+	private String codesRegimeInscriptionFC;
 
 	/**
 	 * Etudiant par son identifiant ldap
@@ -68,12 +67,12 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 	private EtudiantRef retrieveStudent(String id, Filter filtre ) {
 		AndFilter filter = new AndFilter();
 		filter.and(filtre);
-		String encode = filter.encode();   
+		String encode = filter.encode();
 		encode=encode.substring(1, encode.length()-1);
-		List<LdapUser> ldapUsersFromFilter=null;
-		if(logger.isInfoEnabled()){
-			logger.info("Filtre ldap " + encode);
-		}
+		List<LdapUser> ldapUsersFromFilter = null;
+
+		logger.info("Filtre ldap retrieveStudent " + encode);
+
 		try {
 			ldapUsersFromFilter = ldapUserService.getLdapUsersFromFilter(encode);
 		}
@@ -83,13 +82,11 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 		EtudiantRef etudiantRef = new EtudiantRef();
 		if(ldapUsersFromFilter != null && !ldapUsersFromFilter.isEmpty()){
 			LdapUser ldapUser = ldapUsersFromFilter.get(0);
-			if(logger.isInfoEnabled()){
-				logger.info("attributsNames= " +ldapUser.getAttributeNames());
-				logger.info("attributs = " + ldapUser.getAttributes());
-			}
+
+			logger.info("attributsNames = " +ldapUser.getAttributeNames());
+			logger.info("attributs = " + ldapUser.getAttributes());
 
 			etudiantFormate(etudiantRef, ldapUser);
-
 		}
 
 		return etudiantRef;
@@ -132,21 +129,28 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 		Map<String, String> etapesRef = getEtapesRef(null);
 		String studentStep =ldapAttributes.getLdapStudentStep();
 		List<EtapeInscription> listEtapes = new ArrayList<EtapeInscription>();
+		String libelleEtape = "";
 		if(StringUtils.hasText(ldapUser.getAttribute(studentStep))){
 			mapSteps = new LinkedHashMap<String, String>();
 			for(String uneEtape : ldapUser.getAttributes().get(studentStep) ){
-				mapSteps.put(uneEtape, etapesRef.get(uneEtape));
+
+				libelleEtape = etapesRef.get(uneEtape);
+				if (libelleEtape == null){
+					libelleEtape = uneEtape;
+				}
+
+				mapSteps.put(uneEtape, libelleEtape);
 				etudiantRef.setTheCodeEtape(uneEtape);
-				etudiantRef.setTheEtape(etapesRef.get(uneEtape));
+				etudiantRef.setTheEtape(libelleEtape);
 
 				EtapeInscription etpins = new EtapeInscription();
 				etpins.setCodeEtp(uneEtape);
-				etpins.setLibWebVet(etapesRef.get(uneEtape));
+				etpins.setLibWebVet(libelleEtape);
 				etpins.setTypeIns(DonneesStatic.TYPE_INS_ADMIN);
 				listEtapes.add(etpins);
 				if (logger.isDebugEnabled()){
 					logger.debug("Code Etape etudiant = " + uneEtape);
-					logger.debug("Libelle Etape etudiant = " + etapesRef.get(uneEtape));
+					logger.debug("Libelle Etape etudiant = " + libelleEtape);
 				}
 			}
 			etudiantRef.setSteps(mapSteps);
@@ -182,6 +186,21 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 		listeAnneesUniv.add(Utils.getCurrentYear(false));
 		etudiantRef.setListeAnneesUniv(listeAnneesUniv);
 
+		// Ajout de Brice Quillerié pour la prise en compte de la formation continue en FULL LDAP
+		if (this.codesRegimeInscriptionFC != null && !this.codesRegimeInscriptionFC.isEmpty()) {
+			List<String> anneesInscriptionFC = new ArrayList<>();
+			String[] codesFC = this.codesRegimeInscriptionFC.split(";");
+
+			if (java.util.Arrays.asList(codesFC).contains(ldapUser.getAttribute(ldapAttributes.getLdapStudentRegime()))) {
+				anneesInscriptionFC.add(Utils.getCurrentYear(false));
+			}
+			if (anneesInscriptionFC != null && !anneesInscriptionFC.isEmpty()) {
+				etudiantRef.setAnneesInscriptionFC(anneesInscriptionFC);
+			} else {
+				etudiantRef.setAnneesInscriptionFC(null);
+			}
+		}
+
 		AdministrationApogee adminApogee = new AdministrationApogee();
 		adminApogee.setStatusApogee(false);
 		adminApogee.setRaison("");
@@ -202,14 +221,14 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 
 	@Override
 	public List<EtudiantRef> getEtudiantsRefByName(String universityCode,
-			String name, String firstName) {
+												   String name, String firstName) {
 		AndFilter filter = new AndFilter();
 		filter.and(new WhitespaceWildcardsFilter(ldapAttributes.getLdapName(), name));
 		filter.and(new WhitespaceWildcardsFilter(ldapAttributes.getLdapFirstName(), firstName));
 		filter.and(new EqualsFilter(ldapAttributes.getLdapAffiliation(), ldapAttributes.getLdapStudentAffiliation()));
-		String encode = filter.encode();   
+		String encode = filter.encode();
 		if(logger.isInfoEnabled()){
-			logger.info("Filtre ldap : " + encode);
+			logger.info("Filtre ldap getEtudiantsRefByName : " + encode);
 		}
 
 		encode=encode.substring(1, encode.length()-1);
@@ -269,7 +288,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 	public Map<String, String> getComposantesPrincipalesRef(String universityCode) {
 		Map<String, String> composantes=null;
 		List<LdapGroup> ldapGroups =null;
-		AndFilter filter = new AndFilter();       
+		AndFilter filter = new AndFilter();
 		String valFormationsPrincipales= ldapGroupeAttributs.getLdapValCodeFormationsPrincipales();
 		String  codeFormationsPrincipales = ldapGroupeAttributs.getLdapCodePrincipalesFormations();
 		if(valFormationsPrincipales.contains(LdapGroupeAttributs.sperateurValeurLdap)){
@@ -283,7 +302,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 			//un seul attribut
 			filter.and(new EqualsFilter(codeFormationsPrincipales, valFormationsPrincipales));
 		}
-		String encode = filter.encode();   
+		String encode = filter.encode();
 		encode=encode.substring(1, encode.length()-1);
 		if(logger.isInfoEnabled())
 			logger.info(" le filtre ldap " + encode);
@@ -300,7 +319,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 					compCode = group.getAttribute(ldapGroupeAttributs.getLdapComposanteCode());
 					compLibelle = group.getAttribute(ldapGroupeAttributs.getLdapComposanteLibelle());
 					composantes.put(compCode, compLibelle);
-				}	
+				}
 			}
 		} catch (LdapException ldae) {
 			logger.error("Probleme pendant l'appel de getLdapsGroupsFromFilter dans "+this.getClass().getSimpleName()+" : ",ldae.getCause());
@@ -352,5 +371,13 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 	 */
 	public void setLdapAttributes(LdapAttributes ldapAttributes) {
 		this.ldapAttributes = ldapAttributes;
+	}
+
+	public String getCodesRegimeInscriptionFC() {
+		return codesRegimeInscriptionFC;
+	}
+
+	public void setCodesRegimeInscriptionFC(String codesRegimeInscriptionFC) {
+		this.codesRegimeInscriptionFC = codesRegimeInscriptionFC;
 	}
 }

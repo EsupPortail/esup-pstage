@@ -45,6 +45,10 @@ public class LdapAttributes implements InitializingBean {
 	 */
 	private String ldapStudentAffectation;
 	/**
+	 * ldapStudentAffectation
+	 */
+	private String ldapStudentRegime;
+	/**
 	 * ldapMemberAffectation
 	 */
 	private String ldapMemberAffectation;
@@ -346,6 +350,14 @@ public class LdapAttributes implements InitializingBean {
 	 */
 	public void setLdapStudentAffectation(String ldapStudentAffectation) {
 		this.ldapStudentAffectation = ldapStudentAffectation;
+	}
+
+	public String getLdapStudentRegime() {
+		return ldapStudentRegime;
+	}
+
+	public void setLdapStudentRegime(String ldapStudentRegime) {
+		this.ldapStudentRegime = ldapStudentRegime;
 	}
 
 	/**

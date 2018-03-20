@@ -94,7 +94,7 @@ public class BatchBlowfish {
 	public static void main(final String[] args) {
 		try {
 			dispatch(args);
-		} catch (Throwable t) {
+		} catch (Exception t) {
 			ExceptionUtils.catchException(t);
 		}
 	}

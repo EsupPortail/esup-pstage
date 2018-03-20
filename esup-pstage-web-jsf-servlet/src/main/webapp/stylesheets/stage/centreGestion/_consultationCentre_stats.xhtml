@@ -37,10 +37,18 @@
                                                  id="idListeStatsCvtCriteres2">
                                     <f:selectItems
                                             value="#{statistiquesConventionController.secondLevelStatCriteriaForConvention}" />
+                                    <p:ajax event="valueChange" update="warnDepFrance" />
                                 </h:selectOneMenu>
                             </t:htmlTag>
                         </t:div>
                     </t:htmlTag>
+                    <t:div id="warnDepFrance">
+                        <t:div styleClass="textCenter"
+                               rendered="#{statistiquesConventionController.critereDeuxLib == 'Département du lieu de stage'}">
+                            <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fz13 fontYellow mr5" />
+                            <h:outputText value="Le critère 'département du lieu de stage' ne comptera que les stages Français" />
+                        </t:div>
+                    </t:div>
 
                     <h:panelGrid align="center" style="padding:5px;">
                         <h:outputText value="#{msgs['CONVENTION.ANNEE']} : " />
