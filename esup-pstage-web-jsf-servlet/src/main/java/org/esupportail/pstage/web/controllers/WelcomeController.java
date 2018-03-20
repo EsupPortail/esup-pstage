@@ -963,8 +963,9 @@ public class WelcomeController extends AbstractContextAwareController {
 		connectStage();
 		Map<Integer,DroitAdministrationDTO> map = getSessionController().getDroitsAccesMap();
 		if (map != null && !(map.isEmpty())){
-			if(map.containsValue(getBeanUtils().getDroitEcriture()) ||
-					map.containsValue(getBeanUtils().getDroitEcritureAvantValP())) {
+			if(map.containsValue(getBeanUtils().getDroitEcriture())
+					|| map.containsValue(getBeanUtils().getDroitEcritureAvantValP())
+					|| map.containsValue(getBeanUtils().getDroitEcritureSansValidation())) {
 				isWriter = true;
 			}
 		}

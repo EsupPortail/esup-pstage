@@ -25,12 +25,14 @@
                         <t:div styleClass="mt10 ml40">
                             <p:commandButton id="modifStage" value="#{msgs['FORM.MODIFIER']}"
                                              action="conventionEtape5ModifStage" update="@form"
-                                             rendered="#{(not empty conventionController.convention and !conventionController.conventionValide) and (welcomeController.superAdmin
-									|| (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] and
-                                    (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
-                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP))
-									|| welcomeController.etudiant)}" />
+                                             rendered="#{not empty conventionController.convention.etudiant and !conventionController.conventionValide
+						and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
+						|| (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion]
+						and ( sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureSansValidation
+							|| (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP
+								and !conventionController.convention.validationPedagogique))))}" />
                         </t:div>
                     </t:div>
                 </t:fieldset>
