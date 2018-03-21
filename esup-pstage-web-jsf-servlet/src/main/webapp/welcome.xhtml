@@ -1,0 +1,19 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_basicTemplate.xhtml">
+    <ui:define name="content">
+        <h:form>
+            <p:commandButton ajax="false"
+                             value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.GESTION']}"
+                             action="#{welcomeController.goToAccueilEntr}" />
+
+            <p:commandButton ajax="false"
+                             value="#{msgs['GENERAL.ACCUEIL.STAGE.GESTION']}"
+                             action="#{welcomeController.goToAccueilStage}" />
+
+        </h:form>
+    </ui:define>
+</ui:composition>
