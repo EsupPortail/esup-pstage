@@ -25,17 +25,19 @@
 
                             <p:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']} ces informations"
                                              action="#{conventionController.goToConventionModifEtab}"
-                                             rendered="#{not empty conventionController.convention.structure and !conventionController.conventionValide
-                                and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
-                                    (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] and
-                                    (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
-                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)))
-                                || (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
-                                (!sessionController.autoriserEtudiantAModifierEntreprise
-                                and ((empty conventionController.convention.structure.loginModif and
-                                conventionController.convention.structure.loginCreation==sessionController.currentLogin)
-                                || (conventionController.convention.structure.loginModif==sessionController.currentLogin)))))))}">
+						rendered="#{not empty conventionController.convention.structure and !conventionController.conventionValide
+							and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
+							|| (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion]
+								and sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureSansValidation
+								|| (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP
+									and !conventionController.convention.validationPedagogique)))
+								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
+								(!sessionController.autoriserEtudiantAModifierEntreprise
+								and ((empty conventionController.convention.structure.loginModif and
+								conventionController.convention.structure.loginCreation==sessionController.currentLogin)
+								|| (conventionController.convention.structure.loginModif==sessionController.currentLogin)))))))}">
                                 <f:setPropertyActionListener
                                         value="#{conventionController.convention.structure}"
                                         target="#{etablissementController.formStructure}" />
@@ -44,12 +46,14 @@
                             <p:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER.AUTRE']}"
                                              oncomplete="PF('demandeConfirmModifEtab').show();"
                                              styleClass="ml20"
-                                             rendered="#{not empty conventionController.convention.structure and !conventionController.conventionValide
-                                        and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
-                                        || (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] and
-                                        (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-                                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
-                                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP)))}" />
+					rendered="#{not empty conventionController.convention.etudiant and !conventionController.conventionValide
+						and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
+						|| (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion]
+						and ( sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureSansValidation
+							|| (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP
+								and !conventionController.convention.validationPedagogique))))}" />
                         </t:div>
 
                         <t:htmlTag value="div" style="height:15px;" />
