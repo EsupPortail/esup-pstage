@@ -558,13 +558,13 @@ public class CentreController extends AbstractContextAwareController {
 			centre.setQualiteViseur(null);
 		}
 
-		try {
-			// On recupére l'id du centre superviseur ajouté (temporaire)
-			centre.setIdCentreGestionSuperViseur(((getCentreGestionDomainService().getCentreGestionSuperviseur()).get(0)).getIdCentreGestionSuperviseur());
-		} catch (NullPointerException e ){
-			logger.error(e);
-			addErrorMessage("formCentre","CENTRE.AJOUT_CENTRE.ERREUR_SUPERVISEUR");
-		}
+//		try {
+//			// On recupére l'id du centre superviseur ajouté (temporaire)
+//			centre.setIdCentreGestionSuperViseur(((getCentreGestionDomainService().getCentreGestionSuperviseur()).get(0)).getIdCentreGestionSuperviseur());
+//		} catch (NullPointerException e ){
+//			logger.error(e);
+//			addErrorMessage("formCentre","CENTRE.AJOUT_CENTRE.ERREUR_SUPERVISEUR");
+//		}
 
 
 		if(logger.isDebugEnabled()){
