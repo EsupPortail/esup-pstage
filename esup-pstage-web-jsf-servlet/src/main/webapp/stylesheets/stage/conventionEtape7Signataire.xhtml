@@ -18,12 +18,12 @@
                                       styleClass="fontBold fontBlue2 fz16 ml5"
                                       escape="false"/>
 
-                        <t:div rendered="#{empty conventionController.convention.signataire || conventionController.convention.signataire.id == 0}">
+                        <t:div styleClass="mt10 ml20" rendered="#{empty conventionController.convention.signataire || conventionController.convention.signataire.id == 0}">
                             <h:outputText value="#{msgs['CONTACT.AUCUNSIGNATAIRE']}"
                                           escape="false" />
                         </t:div>
 
-                        <t:div styleClass="mt5 ml20"
+                        <t:div styleClass="mt10 ml20"
                                rendered="#{not empty conventionController.convention.signataire and conventionController.convention.signataire.id gt 0}">
                             <p:dataTable value="#{conventionController.convention.signataire}" var="signataire"
                                          rowStyleClass="noPointer" styleClass="mt10"
@@ -72,11 +72,13 @@
                                     </t:div>
                                 </p:column>
                             </p:dataTable>
+                        </t:div>
 
-                            <t:div styleClass="textCenter mt15">
-                                <p:commandButton value="#{msgs['FORM.MODIFIER']} les informations de ce contact"
-                                                 oncomplete="PF('modifContact').show();" update="modifContact"
-                                		rendered="#{not empty conventionController.convention.signataire and !conventionController.conventionValide
+                        <t:div styleClass="textCenter mt15">
+                            <p:commandButton value="#{msgs['FORM.MODIFIER']} les informations de ce contact"
+                                             oncomplete="PF('modifContact').show();" update="modifContact" styleClass="mr20"
+                                             rendered="#{(not empty conventionController.convention.signataire and conventionController.convention.signataire.id gt 0)
+                                                and not empty conventionController.convention.signataire and !conventionController.conventionValide
 			                                    and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
 			                                    || (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] and
 			                                    (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
@@ -89,67 +91,65 @@
 			                                    and ((empty conventionController.convention.contact.loginModif and
 			                                    conventionController.convention.contact.loginCreation==sessionController.currentLogin)
 			                                    || (conventionController.convention.contact.loginModif==sessionController.currentLogin)))))))}">
-		                    <f:setPropertyActionListener
-                                            value="#{conventionController.convention.signataire}"
-                                            target="#{etablissementController.formContact}" />
-                                    <f:setPropertyActionListener value="#{false}"
-                                                                 target="#{etablissementController.afficherSelectionCentreContact}" />
-                                    <f:setPropertyActionListener value="_modifContactEtape0"
-                                                                 target="#{sessionController.modifContactCurrentPage}" />
-                                </p:commandButton>
-                                <p:commandButton
-                                        value="#{msgs['CONVENTION.ETAPE7.MODIF.SIGNATAIRE']}"
-                                        oncomplete="PF('selectServiceSignataire').show();"
-                                        styleClass="ml20"
-                                        rendered="#{not empty conventionController.convention.etudiant and !conventionController.conventionValide
-						and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
-						|| (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion]
-						and ( sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
-							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureSansValidation
-							|| (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP
+                                <f:setPropertyActionListener
+                                        value="#{conventionController.convention.signataire}"
+                                        target="#{etablissementController.formContact}" />
+                                <f:setPropertyActionListener value="#{false}"
+                                                             target="#{etablissementController.afficherSelectionCentreContact}" />
+                                <f:setPropertyActionListener value="_modifContactEtape0"
+                                                             target="#{sessionController.modifContactCurrentPage}" />
+                            </p:commandButton>
+                            <p:commandButton
+                                    value="#{msgs['CONVENTION.ETAPE7.MODIF.SIGNATAIRE']}"
+                                    oncomplete="PF('selectServiceSignataire').show();"
+                                    rendered="#{not empty conventionController.convention.etudiant and !conventionController.conventionValide
+                                and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
+                                || (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion]
+                                and ( sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureSansValidation
+                                    || (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP
 								and !conventionController.convention.validationPedagogique))))}">
-                                    <f:setPropertyActionListener value="#{0}"
-                                                                 target="#{etablissementController.idContactSel}" />
-                                    <f:setPropertyActionListener value="#{null}"
-                                                                 target="#{etablissementController.contactSel}" />
-                                    <f:setPropertyActionListener
-                                            value="#{conventionController.convention.service.idService}"
-                                            target="#{etablissementController.idServiceSel}" />
-                                    <f:setPropertyActionListener
-                                            value="#{conventionController.convention.service}"
-                                            target="#{etablissementController.serviceSel}" />
-                                    <f:setPropertyActionListener value="#{false}"
-                                                                 target="#{etablissementController.afficherSelectionCentreContact}" />
-                                </p:commandButton>
-                                <p:dialog id="selectServiceSignataire"
-                                          widgetVar="selectServiceSignataire"
-                                          resizable="false">
+                                <f:setPropertyActionListener value="#{0}"
+                                                             target="#{etablissementController.idContactSel}" />
+                                <f:setPropertyActionListener value="#{null}"
+                                                             target="#{etablissementController.contactSel}" />
+                                <f:setPropertyActionListener
+                                        value="#{conventionController.convention.service.idService}"
+                                        target="#{etablissementController.idServiceSel}" />
+                                <f:setPropertyActionListener
+                                        value="#{conventionController.convention.service}"
+                                        target="#{etablissementController.serviceSel}" />
+                                <f:setPropertyActionListener value="#{false}"
+                                                             target="#{etablissementController.afficherSelectionCentreContact}" />
+                            </p:commandButton>
+                            <p:dialog id="selectServiceSignataire"
+                                      widgetVar="selectServiceSignataire"
+                                      resizable="false">
 
-                                    <ui:include src="/stylesheets/_commun/_subPanelSelectContact.xhtml">
-                                        <ui:param name="idOpService" value="opService" />
-                                        <ui:param name="idSOMService" value="sOMService" />
-                                        <ui:param name="idOpActionsService" value="opActionsService" />
-                                        <ui:param name="idOpContactsDataTable" value="opContactsDataTable" />
-                                        <ui:param name="idSOMContact" value="sOMContact" />
-                                        <ui:param name="idDivButtons" value="divButtons" />
-                                    </ui:include>
+                                <ui:include src="/stylesheets/_commun/_subPanelSelectContact.xhtml">
+                                    <ui:param name="idOpService" value="opService" />
+                                    <ui:param name="idSOMService" value="sOMService" />
+                                    <ui:param name="idOpActionsService" value="opActionsService" />
+                                    <ui:param name="idOpContactsDataTable" value="opContactsDataTable" />
+                                    <ui:param name="idSOMContact" value="sOMContact" />
+                                    <ui:param name="idDivButtons" value="divButtons" />
+                                </ui:include>
 
-                                    <t:div id="divButtons" styleClass="textCenter mt20 mb20">
-                                        <p:commandButton value="#{msgs['FORM.SELECTIONNER']}"
-                                                         action="#{conventionController.goToConventionModifSignataire}"
-                                                         oncomplete="PF('selectServiceSignataire').hide();"
-                                                         update="@form"
-                                                         rendered="#{not empty etablissementController.serviceSel
+                                <t:div id="divButtons" styleClass="textCenter mt20 mb20">
+                                    <p:commandButton value="#{msgs['FORM.SELECTIONNER']}"
+                                                     action="#{conventionController.goToConventionModifSignataire}"
+                                                     oncomplete="PF('selectServiceSignataire').hide();"
+                                                     update="@form"
+                                                     rendered="#{not empty etablissementController.serviceSel
                                             and not empty etablissementController.contactSel}">
-                                            <f:setPropertyActionListener value="#{etablissementController.contactSel}"
-                                                                         target="#{conventionController.convention.signataire}" />
-                                        </p:commandButton>
-                                        <p:commandButton value="#{msgs['FORM.CANCEL']}"
-                                                         onclick="PF('selectServiceSignataire').hide();" />
-                                    </t:div>
-                                </p:dialog>
-                            </t:div>
+                                        <f:setPropertyActionListener value="#{etablissementController.contactSel}"
+                                                                     target="#{conventionController.convention.signataire}" />
+                                    </p:commandButton>
+                                    <p:commandButton value="#{msgs['FORM.CANCEL']}"
+                                                     onclick="PF('selectServiceSignataire').hide();" />
+                                </t:div>
+                            </p:dialog>
                         </t:div>
                     </t:div>
                 </t:fieldset>
