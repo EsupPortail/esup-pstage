@@ -5478,7 +5478,8 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 			// Premiere recherche pour les centres avec Validation pedago, et
 			// donc avec le critere de recherche Correspondant
-			this.critereRechercheConvention.setEstVerifiee(false);
+			this.critereRechercheConvention.setEstVerifiee(true);
+			this.critereRechercheConvention.setEstValidee(false);
 			this.critereRechercheConvention.setIdsCentreGestion(idsCentresAvecVP);
 
 			this.resultatsRechercheConvention = getConventionDomainService().getConventionsFromCriteres(this.critereRechercheConvention);
