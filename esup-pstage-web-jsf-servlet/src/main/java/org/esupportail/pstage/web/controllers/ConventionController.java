@@ -7,6 +7,7 @@ package org.esupportail.pstage.web.controllers;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1215,12 +1216,10 @@ public class ConventionController extends AbstractContextAwareController {
 							+ this.convention.getUfr(), ue);
 				}
 			}
-			if (this.etudiantRef.getTheCodeElp() != null
-					&& this.etudiantRef.getTheCodeElp() != "") {
+			if (this.etudiantRef.getTheCodeElp() != null) {
 				this.convention.setCodeElp(this.etudiantRef.getTheCodeElp());
 			}
-			if (this.etudiantRef.getTheLibElp() != null
-					&& this.etudiantRef.getTheLibElp() != "") {
+			if (this.etudiantRef.getTheLibElp() != null) {
 				this.convention.setLibelleELP(this.etudiantRef.getTheLibElp());
 			}
 			if (this.etudiantRef.getTheCreditECTS() != null) {
@@ -4568,7 +4567,12 @@ public class ConventionController extends AbstractContextAwareController {
 					this.etudiantRef.setTheLibElp(this.listeELPEtapes.get(0).getLibElp());
 					this.etudiantRef.setTheCreditECTS(this.listeELPEtapes.get(0).getNbrCrdElp());
 					this.selectedCodeElp = this.listeELPEtapes.get(0).getCodElp();
-				}
+				}				
+			} else {
+				this.etudiantRef.setTheCodeElp("");
+				this.etudiantRef.setTheLibElp("");
+				this.etudiantRef.setTheCreditECTS(new BigDecimal(0));
+				this.selectedCodeElp = "";
 			}
 		} else {
 			this.choixEtape = false;
