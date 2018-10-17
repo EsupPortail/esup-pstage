@@ -28,11 +28,11 @@
 						rendered="#{not empty conventionController.convention.structure and !conventionController.conventionValide
 							and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
 							|| (not empty sessionController.droitsAccesMap[conventionController.convention.idCentreGestion]
-								and sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
-								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureSansValidation
-								|| (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP
-									and !conventionController.convention.validationPedagogique)))
+								and (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin and (!sessionController.autoriserCreationModificationEntrepriseOnlyForSuperAdmin || welcomeController.superAdmin))
+								|| (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture and (!sessionController.autoriserCreationModificationEntrepriseOnlyForSuperAdmin || welcomeController.superAdmin))
+								|| (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureSansValidation and (!sessionController.autoriserCreationModificationEntrepriseOnlyForSuperAdmin || welcomeController.superAdmin))
+								|| ((sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcritureAvantValP
+									and !conventionController.convention.validationPedagogique) and (!sessionController.autoriserCreationModificationEntrepriseOnlyForSuperAdmin || welcomeController.superAdmin))))
 								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
 								(!sessionController.autoriserEtudiantAModifierEntreprise
 								and ((empty conventionController.convention.structure.loginModif and

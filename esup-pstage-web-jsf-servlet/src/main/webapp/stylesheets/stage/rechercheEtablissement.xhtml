@@ -58,7 +58,7 @@
                     </t:div>
 
                     <t:div styleClass="mt10 mb20 fontItalic"
-                           rendered="#{rechercheController.afficherBoutonAjoutEtab and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
+                           rendered="#{rechercheController.afficherBoutonAjoutEtab and (welcomeController.superAdmin || (welcomeController.admin and !sessionController.autoriserCreationModificationEntrepriseOnlyForSuperAdmin) || (welcomeController.writer and !sessionController.autoriserCreationModificationEntrepriseOnlyForSuperAdmin))}">
                         <ui:include src="/stylesheets/_commun/_buttonCreationEtablissement.xhtml" />
                     </t:div>
                 </p:outputPanel>

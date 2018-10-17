@@ -252,6 +252,10 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	private boolean autoriserEtudiantAModifierEntreprise=true;
 	/**
+	 * Autoriser ou non les creations ou modifications d'entreprises uniquement aux superAdmins
+	 */
+	private boolean autoriserCreationModificationEntrepriseOnlyForSuperAdmin=false;
+	/**
 	 * Code de l'université récupéré depuis le fichier config.properties grace à la propriété du bean CentreController
 	 */
 	private String codeUniversite;
@@ -1513,6 +1517,21 @@ public class SessionController extends AbstractDomainAwareBean {
 	public void setAutoriserEtudiantAModifierEntreprise(
 			boolean autoriserEtudiantAModifierEntreprise) {
 		this.autoriserEtudiantAModifierEntreprise = autoriserEtudiantAModifierEntreprise;
+	}
+	
+	/**
+	 * @return the autoriserCreationModificationEntrepriseOnlyForSuperAdmin
+	 */
+	public boolean isAutoriserCreationModificationEntrepriseOnlyForSuperAdmin() {
+		return autoriserCreationModificationEntrepriseOnlyForSuperAdmin;
+	}
+
+	/**
+	 * @param autoriserCreationModificationEntrepriseOnlyForSuperAdmin the autoriserCreationModificationEntrepriseOnlyForSuperAdmin to set
+	 */
+	public void setAutoriserCreationModificationEntrepriseOnlyForSuperAdmin(
+			boolean autoriserCreationModificationEntrepriseOnlyForSuperAdmin) {
+		this.autoriserCreationModificationEntrepriseOnlyForSuperAdmin = autoriserCreationModificationEntrepriseOnlyForSuperAdmin;
 	}
 
 	/**

@@ -29,7 +29,9 @@
 
                             <t:div styleClass="mt10" rendered="#{not empty rechercheController.ongletCourant
                                 and rechercheController.ongletCourant!=6
-                                and rechercheController.afficherBoutonAjoutEtab}">
+                                and rechercheController.afficherBoutonAjoutEtab
+                                and (!sessionController.autoriserCreationModificationEntrepriseOnlyForSuperAdmin || 
+                                welcomeController.superAdmin)}">
                                 <h:outputText value="#{msgs['STRUCTURE.AJOUT.CREER']}"
                                               escape="false"/>
                                 <p:commandButton id="ajoutEtab"

@@ -6,7 +6,9 @@
                 xmlns:t="http://myfaces.apache.org/tomahawk">
 
     <p:column rendered="#{(not empty rechercheController.ongletCourant and rechercheController.ongletCourant !=6) and
-        (sessionController.adminPageAuthorized || welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}"
+        (sessionController.adminPageAuthorized || welcomeController.superAdmin || 
+        (welcomeController.admin and !sessionController.autoriserCreationModificationEntrepriseOnlyForSuperAdmin) || 
+        (welcomeController.writer and !sessionController.autoriserCreationModificationEntrepriseOnlyForSuperAdmin))}"
               style="min-width:110px;" styleClass="textCenter background-color-grey">
         <f:facet name="header">
             <h:outputText value="#{msgs['GENERAL.ACTIONS']}" />

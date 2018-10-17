@@ -18,7 +18,9 @@
                          action="#{conventionController.goToCreerConventionModifEtab}"
                          update="@form"
                          rendered="#{not empty rechercheController.resultatRechercheStructure and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
-                             || welcomeController.admin || welcomeController.personnel || welcomeController.writer)
+                             || (welcomeController.admin and !sessionController.autoriserCreationModificationEntrepriseOnlyForSuperAdmin) 
+                             || (welcomeController.personnel and (!sessionController.autoriserCreationModificationEntrepriseOnlyForSuperAdmin || welcomeController.superAdmin)) 
+                             || (welcomeController.writer and !sessionController.autoriserCreationModificationEntrepriseOnlyForSuperAdmin))
 			                 || (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise
 			                 || (!sessionController.autoriserEtudiantAModifierEntreprise
 			                    and ((empty rechercheController.resultatRechercheStructure.loginModif and

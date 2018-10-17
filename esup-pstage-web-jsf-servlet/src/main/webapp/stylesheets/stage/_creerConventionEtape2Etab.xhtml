@@ -41,7 +41,7 @@
                 </p:dataTable>
             </t:div>
             <t:div styleClass="mt15 ml40 fontItalic"
-                   rendered="#{rechercheController.afficherBoutonAjoutEtab}">
+                   rendered="#{(rechercheController.afficherBoutonAjoutEtab and (!sessionController.autoriserCreationModificationEntrepriseOnlyForSuperAdmin || welcomeController.superAdmin))}">
                 <h:outputText value="#{msgs['STRUCTURE.AJOUT.CREER']}" escape="false" />
                 <p:commandButton styleClass="ml5" icon="fa fa-plus fz13" style="font-size :11px;"
                                  value="#{msgs['STRUCTURE.AJOUT.CREER_2']}"
