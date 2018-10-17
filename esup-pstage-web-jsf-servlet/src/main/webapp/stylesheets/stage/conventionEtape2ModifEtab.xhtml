@@ -32,7 +32,8 @@
                         <t:div styleClass="textCenter mt10">
                             <p:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
                                              action="#{conventionController.modifierEtablissementDetail}"
-                                             rendered="#{not empty etablissementController.formStructure}">
+                                             rendered="#{not empty etablissementController.formStructure}"
+                                             update="@form">
                                 <f:setPropertyActionListener value="#{etablissementController.formStructure}"
                                                              target="#{conventionController.convention.structure}" />
                             </p:commandButton>
