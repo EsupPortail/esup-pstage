@@ -451,7 +451,7 @@ public class CentreController extends AbstractContextAwareController {
 		}
 
 		// On met le viseur a null s'il est vide
-		if (centre.getNomViseur() == "" && centre.getPrenomViseur() == ""){
+		if ("".equals(centre.getNomViseur()) && "".equals(centre.getPrenomViseur())){
 			centre.setNomViseur(null);
 			centre.setPrenomViseur(null);
 		}
@@ -550,9 +550,9 @@ public class CentreController extends AbstractContextAwareController {
 
 		// On défini le modeValidationStage à partir de l'objet modeValidationStage attaché au centre
 		//		centre.setIdModeValidationStage(centre.getModeValidationStage().getId());
-
+ 
 		// On met le viseur a null s'il est vide
-		if (centre.getNomViseur() == "" && centre.getPrenomViseur() == ""){
+		if ("".equals(centre.getNomViseur()) && "".equals(centre.getPrenomViseur())){
 			centre.setNomViseur(null);
 			centre.setPrenomViseur(null);
 			centre.setQualiteViseur(null);
