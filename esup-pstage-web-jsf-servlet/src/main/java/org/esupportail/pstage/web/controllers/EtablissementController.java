@@ -2080,11 +2080,20 @@ public class EtablissementController extends AbstractContextAwareController {
 			StructureDTO result = getStructureDomainService().getStructureFromNumSiret(siretSaisi);
 			if (result != null) {
 				addErrorMessage("formAjoutEtab:siret","STRUCTURE.NUM_SIRET.NOT_OK");
+				addErrorMessage("formModifEtab:siret","STRUCTURE.NUM_SIRET.NOT_OK");
+				addErrorMessage("formConvention:siret","STRUCTURE.NUM_SIRET.NOT_OK");
+				addErrorMessage("formSelConvention:siret","STRUCTURE.NUM_SIRET.NOT_OK");
 			} else {
 				addInfoMessage("formAjoutEtab:siret","STRUCTURE.NUM_SIRET.OK");
+				addInfoMessage("formModifEtab:siret","STRUCTURE.NUM_SIRET.OK");
+				addInfoMessage("formConvention:siret","STRUCTURE.NUM_SIRET.OK");
+				addInfoMessage("formSelConvention:siret","STRUCTURE.NUM_SIRET.OK");
 			}
 		} else {
 			addErrorMessage("formAjoutEtab:siret","FORM.CHAMP_OBLIGATOIRE");
+			addErrorMessage("formModifEtab:siret","FORM.CHAMP_OBLIGATOIRE");
+			addErrorMessage("formConvention:siret","FORM.CHAMP_OBLIGATOIRE");
+			addErrorMessage("formSelConvention:siret","FORM.CHAMP_OBLIGATOIRE");
 		}
 	}
 
