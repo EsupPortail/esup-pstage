@@ -1384,8 +1384,8 @@ public class CentreController extends AbstractContextAwareController {
 
 				if (tmp.getAffectation().getLibelle() == null){
 					// Si seul le libelle est vide on utilise le code pour le retrouver
-					if (map != null && map.get(codeAffectation) != null) {
-						libelleAffectation = map.get(codeAffectation);
+					if (map != null && map.get(tmp.getAffectation().getCode()) != null) {
+						libelleAffectation = map.get(tmp.getAffectation().getCode());
 					}
 					a.setCode(tmp.getAffectation().getCode());
 					a.setLibelle(libelleAffectation==null?" ":libelleAffectation);
