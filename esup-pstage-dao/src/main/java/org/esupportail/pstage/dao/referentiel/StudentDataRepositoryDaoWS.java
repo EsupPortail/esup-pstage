@@ -699,7 +699,17 @@ public class StudentDataRepositoryDaoWS extends AbstractAuthCredentials implemen
 			return studentApogee;
 		} catch (Exception e) {
 			logger.error("Exception globale : " + e);
-			throw new CommunicationApogeeException(e);
+			if (e.toString().equals("technical.data.nullretrieve.etudiant")) {
+				logger.error("Etudiant non trouvé : " + id);
+				return null;
+			} else {
+				if (e.toString().equals("technical.parameter.noncoherentinput.codEtu")) {
+					logger.error("Numéro étudiant non valide : " + id);
+					return null;
+				} else {
+					throw new CommunicationApogeeException(e);
+				}	
+			}	
 		}
 
 	}
