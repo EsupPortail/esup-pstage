@@ -409,6 +409,11 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * Volum horaire par défaut à l'étape 1 de création de convention
 	 */
 	private String volumeHoraireFormationParDefaut;
+	
+	/**
+	 * Nombre de caracteres max pour le numero etudiant
+	 */
+	private int numetuMaxLength;
 
 	/* ***************************************************************
 	 * Variables de navigation
@@ -2628,6 +2633,14 @@ public class SessionController extends AbstractDomainAwareBean {
 		this.volumeHoraireFormationParDefaut = volumeHoraireFormationParDefaut;
 	}
 
+	public int getNumetuMaxLength() {
+		return numetuMaxLength;
+	}
+
+	public void setNumetuMaxLength(int numetuMaxLength) {
+		this.numetuMaxLength = numetuMaxLength;
+	}
+	
 	public String getCodesRegimeInscriptionFC() {
 		return codesRegimeInscriptionFC;
 	}

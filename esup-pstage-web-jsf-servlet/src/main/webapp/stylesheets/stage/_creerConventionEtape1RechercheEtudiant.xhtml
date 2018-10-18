@@ -15,7 +15,7 @@
             <t:htmlTag value="li">
                 <p:outputLabel value="#{msgs['CONVENTION.NUMETUDIANT']}"
                                for="identEtudiant" />
-                <p:inputText id="identEtudiant" size="50" maxlength="30"
+                <p:inputText id="identEtudiant" size="50" maxlength="#{sessionController.numetuMaxLength}"
                              value="#{conventionController.rechIdentEtudiant}" />
                 <p:message for="identEtudiant"/>
             </t:htmlTag>

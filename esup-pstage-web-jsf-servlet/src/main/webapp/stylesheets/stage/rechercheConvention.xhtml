@@ -54,7 +54,7 @@
                                         for="numEtudiant" />
                                 <p:inputText id="numEtudiant"
                                              value="#{conventionController.critereRechercheConvention.numeroEtudiant}"
-                                             size="10" maxlength="16" />
+                                             size="10" maxlength="#{sessionController.numetuMaxLength}" />
                             </t:htmlTag>
                         </t:div>
                         <t:div styleClass="column">

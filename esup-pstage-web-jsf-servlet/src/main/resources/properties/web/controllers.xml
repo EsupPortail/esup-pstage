@@ -179,7 +179,7 @@
 		<property name="isEnt" value="${isEnt}" />
 
 		<property name="volumeHoraireFormationParDefaut" value="${volumeHoraireFormationParDefaut}" />
-
+        <property name="numetuMaxLength" value="${numetu.maxlength}" />
 		<property name="codesRegimeInscriptionFC" value="${codesRegimeInscriptionFC}" />
 
 		<!-- props pour l'envoi de mail sans esupcommons -->
