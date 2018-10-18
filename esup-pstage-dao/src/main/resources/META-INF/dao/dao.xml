@@ -26,7 +26,11 @@
 		<property name="ldapUserService" ref="ldapUserService" />
 		<property name="ldapTemplate" ref="ldapTemplate" />
 		<property name="ldapAttributes" ref="ldapAttributes" />
+		<property name="ldapGroupService" ref="composanteLdapGroupServicePersonnel"/>
+		<property name="ldapGroupeAttributs" ref="ldapGroupeAttributs"/>
 		<property name="sameCodeComposanteLdapApogee" value="${ldap.composante.memeCodeApogeeLdap}" />
+		<property name="sameLibelleAffectationComposante" value="${ldap.member.libelle.affectation.isComposanteLibelle}" />
+		<property name="codeComposanteApogeePrefixOrSuffix" value="${ldap.composante.codeApogee.prefixOrSuffix}" />
 	</bean>
 
 	<bean id="studentComponentRepositoryDaoWS"
@@ -65,6 +69,9 @@
 		class="org.esupportail.pstage.dao.referentiel.ldap.PersonalDataRepositoryDaoLdap">
 		<property name="ldapAttributes" ref="ldapAttributes" />
 		<property name="ldapUserService" ref="ldapUserService"/>
+		<property name="ldapGroupService" ref="composanteLdapGroupServicePersonnel"/>
+		<property name="ldapGroupeAttributs" ref="ldapGroupeAttributs"/>
+		<property name="sameLibelleAffectationComposante" value="${ldap.member.libelle.affectation.isComposanteLibelle}" />
 	</bean>
 
 	<bean id="studentDataRepositoryDaoLdap"

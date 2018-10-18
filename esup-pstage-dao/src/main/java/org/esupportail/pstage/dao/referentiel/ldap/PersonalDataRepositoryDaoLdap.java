@@ -7,10 +7,13 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.esupportail.commons.services.ldap.LdapException;
+import org.esupportail.commons.services.ldap.LdapGroup;
+import org.esupportail.commons.services.ldap.LdapGroupService;
 import org.esupportail.commons.services.ldap.LdapUser;
 import org.esupportail.commons.services.ldap.LdapUserService;
 import org.esupportail.pstage.dao.referentiel.PersonalDataRepositoryDao;
 import org.esupportail.pstage.domain.beans.LdapAttributes;
+import org.esupportail.pstage.domain.beans.LdapGroupeAttributs;
 import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstagedata.domain.dto.AffectationDTO;
@@ -28,11 +31,20 @@ import org.springframework.util.StringUtils;
 @SuppressWarnings("serial")
 public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao{
 	private static Logger logger = Logger.getLogger(PersonalDataRepositoryDaoLdap.class);
+	
+	private LdapGroupService ldapGroupService;
+	
+	private LdapGroupeAttributs ldapGroupeAttributs;
 
 	private LdapUserService ldapUserService;
 
 	private  LdapAttributes ldapAttributes;
 	private static String separateur = ",";
+
+	/**
+	 * sameLibelleAffectationComposante
+	 */
+	protected boolean sameLibelleAffectationComposante;
 
 	/**
 	 * @param ldapAttributes the ldapAttributes to set
@@ -110,6 +122,11 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 		if (ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()) != null 
 				&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()).isEmpty())){
 			a.setLibelle(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()));
+		} 
+		else {
+			if (isSameLibelleAffectationComposante()) {
+				a.setLibelle(getLibelleAffectationComposante(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation())));
+			}	
 		}
 		if (ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()) != null
 				&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()).isEmpty())){
@@ -375,6 +392,11 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 				&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()).isEmpty())){
 			a.setLibelle(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()));
 		}
+		else {
+			if (isSameLibelleAffectationComposante()) {
+				a.setLibelle(getLibelleAffectationComposante(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation())));
+			}	
+		}
 		if (ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()) != null
 				&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()).isEmpty())){
 			a.setCode(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()));
@@ -495,7 +517,34 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 		return personnelsCDG;
 	}
 
-
+    
+	private String getLibelleAffectationComposante(String codeAffectation) {
+		//Map<String, String> composantes=null ;
+		List<LdapGroup> ldapGroups  = null;
+        String libelleAffectation=null; 
+		//ldapComposanteCode
+		AndFilter filter = new AndFilter();
+		filter.and (new EqualsFilter (ldapGroupeAttributs.getLdapComposanteCode(), codeAffectation));
+		//filter.and(espaceFiltre);
+		String encode = filter.encode();   
+		encode=encode.substring(1, encode.length()-1);
+		if(logger.isInfoEnabled()){
+			logger.info(" getLibelleAffectationComposante : le filtre ldap " + encode);
+		}
+		try {
+			ldapGroups = ldapGroupService.getLdapGroupsFromFilter(encode);
+			if(!ldapGroups.isEmpty()){
+				//composantes = new LinkedHashMap<String, String>(ldapGroups.size());
+				//on formate pour le map
+				for(LdapGroup group : ldapGroups){
+					libelleAffectation = group.getAttribute(ldapGroupeAttributs.getLdapComposanteLibelle());					
+				}
+			}
+		} catch (LdapException ldae) {
+			errorldap(ldae,"getLdapGroupsFromFilter");
+		}
+		return libelleAffectation;
+	}
 
 	public void initPersonalDataRepositoryLdap(){
 		Assert.notNull(ldapUserService, Utils.verifierPropriete(ldapUserService, this.getClass().getName()));
@@ -503,4 +552,34 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 
 
 	}
+	
+	/**
+	 * @param ldapGroupService the ldapGroupService to set
+	 */
+	public void setLdapGroupService(LdapGroupService ldapGroupService) {
+		this.ldapGroupService = ldapGroupService;
+	}
+
+	/**
+	 * @param ldapGroupeAttributs the ldapGroupeAttributs to set
+	 */
+	public void setLdapGroupeAttributs(LdapGroupeAttributs ldapGroupeAttributs) {
+		this.ldapGroupeAttributs = ldapGroupeAttributs;
+	}
+	
+	/**
+	 * @return the sameLibelleAffectationComposante
+	 */
+	public boolean isSameLibelleAffectationComposante() {
+		return sameLibelleAffectationComposante;
+	}
+
+
+	/**
+	 * @param sameLibelleAffectationComposante the sameLibelleAffectationComposante to set
+	 */
+	public void setSameLibelleAffectationComposante(boolean sameLibelleAffectationComposante) {
+		this.sameLibelleAffectationComposante = sameLibelleAffectationComposante;
+	}
+
 }

@@ -7,14 +7,18 @@ import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
 
 import org.apache.log4j.Logger;
 import org.esupportail.commons.services.ldap.LdapException;
+import org.esupportail.commons.services.ldap.LdapGroup;
+import org.esupportail.commons.services.ldap.LdapGroupService;
 import org.esupportail.commons.services.ldap.LdapUser;
 import org.esupportail.commons.services.ldap.LdapUserService;
 import org.esupportail.pstage.domain.beans.LdapAttributes;
+import org.esupportail.pstage.domain.beans.LdapGroupeAttributs;
 import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstagedata.domain.dto.AffectationDTO;
 import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
@@ -58,14 +62,29 @@ PersonalDataRepositoryDao {
 	 * This class contains all LDAP attributes used to OPI. 
 	 */
 	private LdapAttributes ldapAttributes;
+	
+    private LdapGroupService ldapGroupService;
+	
+	private LdapGroupeAttributs ldapGroupeAttributs;
+
 
 	private static String separateur = ",";
+	
+	/**
+	 * sameLibelleAffectationComposante
+	 */
+	protected boolean sameLibelleAffectationComposante;
 
 	/**
 	 * sameCodeComposanteLdapApogee
 	 */
 	protected boolean sameCodeComposanteLdapApogee;
 
+	/**
+	 * codeComposanteApogeePrefixOrSuffix
+	 */
+	protected String codeComposanteApogeePrefixOrSuffix;
+	
 	/**
 	 * @param codeLdapComposante
 	 * @return le code composante Apogee en fonction du code Ldap en parametre
@@ -92,7 +111,7 @@ PersonalDataRepositoryDao {
 	@SuppressWarnings("unchecked")
 	public String getCodeLdapComposante(String codeApogeeComposante) {
 
-		List<String[]> listeComposantes = ldapTemplate.list(this.ldapAttributes.getLdapComposante());
+		List<String[]> listeComposantes = ldapTemplate.search(this.ldapAttributes.getLdapComposante(),this.ldapAttributes.getLdapComposanteFilter(),new CompDescriptionAttributesMapper());
 
 		String codeLdap=codeApogeeComposante;
 		
@@ -116,6 +135,18 @@ PersonalDataRepositoryDao {
 			compo[0]=(attributs.get(getLdapAttributes().getLdapComposanteCode())).get().toString();
 			compo[1]=(attributs.get(getLdapAttributes().getLdapComposanteLibelle())).get().toString();
 			compo[2]=((attributs.get(getLdapAttributes().getLdapCodeComposanteApogee())) != null ? (attributs.get(getLdapAttributes().getLdapCodeComposanteApogee())).get().toString() : null);
+			String codeCmpApogeePrefixOrSuffix = getCodeComposanteApogeePrefixOrSuffix();
+			if (!("".equals(codeCmpApogeePrefixOrSuffix))) {
+			 if (attributs.get(getLdapAttributes().getLdapCodeComposanteApogee())!=null) {
+                NamingEnumeration<?> listeCodeApoLdap=attributs.get(getLdapAttributes().getLdapCodeComposanteApogee()).getAll();
+                while(listeCodeApoLdap.hasMoreElements()) {
+                        String codeApogeeLdap = listeCodeApoLdap.nextElement().toString();
+                        if (codeApogeeLdap.contains(codeCmpApogeePrefixOrSuffix)) {
+                            compo[2]=codeApogeeLdap.replace(codeCmpApogeePrefixOrSuffix, "");
+                        }
+                }
+             }
+			}
 			return compo;
 		}
 	}
@@ -503,6 +534,11 @@ PersonalDataRepositoryDao {
 				&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()).isEmpty())){
 			a.setLibelle(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()));
 		}
+		else {
+			if (isSameLibelleAffectationComposante()) {
+				a.setLibelle(getLibelleAffectationComposante(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation())));
+			}	
+		}
 		if (ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()) != null
 				&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()).isEmpty())){
 			if(!sameCodeComposanteLdapApogee){
@@ -654,6 +690,34 @@ PersonalDataRepositoryDao {
 		};
 	}
 
+	
+	private String getLibelleAffectationComposante(String codeAffectation) {
+		//Map<String, String> composantes=null ;
+		List<LdapGroup> ldapGroups  = null;
+        String libelleAffectation=null; 
+		//ldapComposanteCode
+		AndFilter filter = new AndFilter();
+		filter.and (new EqualsFilter (ldapGroupeAttributs.getLdapComposanteCode(), codeAffectation));
+		//filter.and(espaceFiltre);
+		String encode = filter.encode();   
+		encode=encode.substring(1, encode.length()-1);
+		if(logger.isInfoEnabled()){
+			logger.info(" getLibelleAffectationComposante : le filtre ldap " + encode);
+		}
+		try {
+			ldapGroups = ldapGroupService.getLdapGroupsFromFilter(encode);
+			if(!ldapGroups.isEmpty()){
+				//composantes = new LinkedHashMap<String, String>(ldapGroups.size());
+				//on formate pour le map
+				for(LdapGroup group : ldapGroups){
+					libelleAffectation = group.getAttribute(ldapGroupeAttributs.getLdapComposanteLibelle());					
+				}
+			}
+		} catch (LdapException ldae) {
+			errorldap(ldae,"getLdapGroupsFromFilter");
+		}
+		return libelleAffectation;
+	}
 
 	/**
 	 * @return the ldapUserService
@@ -700,6 +764,19 @@ PersonalDataRepositoryDao {
 		this.ldapAttributes = ldapAttributes;
 	}
 
+	/**
+	 * @param ldapGroupService the ldapGroupService to set
+	 */
+	public void setLdapGroupService(LdapGroupService ldapGroupService) {
+		this.ldapGroupService = ldapGroupService;
+	}
+
+	/**
+	 * @param ldapGroupeAttributs the ldapGroupeAttributs to set
+	 */
+	public void setLdapGroupeAttributs(LdapGroupeAttributs ldapGroupeAttributs) {
+		this.ldapGroupeAttributs = ldapGroupeAttributs;
+	}
 
 	/**
 	 * @return the sameCodeComposanteLdapApogee
@@ -716,5 +793,35 @@ PersonalDataRepositoryDao {
 		this.sameCodeComposanteLdapApogee = sameCodeComposanteLdapApogee;
 	}
 
+	/**
+	 * @return the sameLibelleAffectationComposante
+	 */
+	public boolean isSameLibelleAffectationComposante() {
+		return sameLibelleAffectationComposante;
+	}
+
+
+	/**
+	 * @param sameLibelleAffectationComposante the sameLibelleAffectationComposante to set
+	 */
+	public void setSameLibelleAffectationComposante(boolean sameLibelleAffectationComposante) {
+		this.sameLibelleAffectationComposante = sameLibelleAffectationComposante;
+	}
+	
+	/**
+	 * 
+	 * @return the codeComposanteApogeePrefixOrSuffix
+	 */
+	public String getCodeComposanteApogeePrefixOrSuffix() {
+		return codeComposanteApogeePrefixOrSuffix;
+	}
+
+	/**
+	 * 
+	 * @param codeComposanteApogeePrefixOrSuffix the codeComposanteApogeePrefixOrSuffix to set
+	 */
+	public void setCodeComposanteApogeePrefixOrSuffix(String codeComposanteApogeePrefixOrSuffix) {
+		this.codeComposanteApogeePrefixOrSuffix = codeComposanteApogeePrefixOrSuffix;
+	}
 
 }
