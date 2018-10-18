@@ -13,7 +13,7 @@
                                  icon="fa fa-home" styleClass="#{sessionController.currentPageHome ? 'customPstage selected' : 'customPstage'}"/>
                 <p:commandButton value="#{msgs['MENUSTAGE.GESTIONCENTRE']}" action="#{centreController.goToListeCentre}"
                                  rendered="#{sessionController.utilisationStage and (welcomeController.personnel || welcomeController.superAdmin)}"
-                                 icon="fa fa-gear" styleClass="#{false ? 'customPstage selected' : 'customPstage'}"/>
+                                 icon="fa fa-gear" styleClass="#{sessionController.currentPageCentre ? 'customPstage selected' : 'customPstage'}"/>
                 <!-- pc only -->
                 <p:panelMenu styleClass="customPstage PCOnly">
                     <p:submenu label="#{msgs['MENUSTAGE.GESTIONCONVENTION']}"
@@ -49,7 +49,7 @@
                     <p:submenu label="#{msgs['MENUSTAGE.GESTIONETAB']}">
                         <p:menuitem value="#{msgs['MENUSTAGE.RECHETAB']}"
                                     action="#{rechercheController.goToRechercheEtablissementStage}" icon="fa fa-search"
-                                    styleClass="#{false ? 'selected' : ''}">
+                                    styleClass="#{sessionController.currentPageEtablissement ? 'selected' : ''}">
                             <f:setPropertyActionListener value="#{2}" target="#{rechercheController.ongletCourant}"/>
                             <f:setPropertyActionListener value="#{null}"
                                                          target="#{sessionController.currentManageStructure}"/>
@@ -59,7 +59,7 @@
                         <p:menuitem value="#{msgs['MENUSTAGE.RECHETAB.AVERIFIER']}"
                                     action="#{rechercheController.goToEtablissementsAVerifier}"
                                     rendered="#{sessionController.moderationStructures and (welcomeController.superAdmin || welcomeController.writer || welcomeController.admin)}"
-                                    icon="fa fa-check" styleClass="#{false ? 'selected' : ''}"
+                                    icon="fa fa-check" styleClass="#{sessionController.currentPageEtablissement ? 'selected' : ''}"
                                     onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
                             <f:setPropertyActionListener value="#{2}" target="#{rechercheController.ongletCourant}"/>
                             <f:setPropertyActionListener value="#{null}" target="#{sessionController.currentManageStructure}"/>
@@ -69,7 +69,8 @@
                         <p:menuitem value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET8']}"
                                     action="#{rechercheController.rechercheTemoinFalse}"
                                     rendered="#{welcomeController.superAdmin}"
-                                    icon="fa fa-times" onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
+                                    icon="fa fa-times" styleClass="#{sessionController.currentPageEtablissement ? 'selected' : ''}"
+                                    onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
                             <f:setPropertyActionListener value="#{null}" target="#{sessionController.currentManageStructure}"/>
                             <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
                             <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
@@ -118,17 +119,17 @@
 					|| not empty sessionController.droitsEvaluationEtudiantMap
 					|| not empty sessionController.droitsEvaluationEnseignantMap
                     || not empty sessionController.droitsEvaluationEntrepriseMap}" icon="fa fa-search"
-                                    styleClass="#{false ? 'selected' : ''}"/>
+                                    styleClass="#{sessionController.currentPageEvaluation ? 'selected' : ''}"/>
                         <p:menuitem value="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}"
                                     action="#{evaluationController.goToRechercheEvalEns}"
                                     onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
                                     rendered="#{welcomeController.enseignantTuteur}" icon="fa fa-list"
-                                    styleClass="#{false ? 'selected' : ''}"/>
+                                    styleClass="#{sessionController.currentPageEvaluation ? 'selected' : ''}"/>
                         <p:menuitem value="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}"
                                     action="#{evaluationController.goToRechercheEvalEtu}"
                                     onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
                                     rendered="#{welcomeController.etudiant}" icon="fa fa-list"
-                                    styleClass="#{false ? 'selected' : ''}"/>
+                                    styleClass="#{sessionController.currentPageEvaluation ? 'selected' : ''}"/>
                     </p:submenu>
                 </p:panelMenu>
                 <!-- / pc only -->
@@ -286,7 +287,7 @@
                                  rendered="#{sessionController.utilisationStage and (welcomeController.personnel || welcomeController.superAdmin || welcomeController.enseignant || welcomeController.etudiant)}"
                                  icon="fa fa-file-text" styleClass="#{sessionController.currentPageConvention ? 'customPstage selected tabletOnly' : 'customPstage tabletOnly'}"/>
                 <p:commandButton value="#{msgs['MENUSTAGE.GESTIONETAB']}" action="#{welcomeController.goToMenuEtablissementsAccueilTablette}"
-                                 icon="fa fa-building" styleClass="#{false ? 'customPstage selected tabletOnly' : 'customPstage tabletOnly'}"/>
+                                 icon="fa fa-building" styleClass="#{sessionController.currentPageEtablissement ? 'customPstage selected tabletOnly' : 'customPstage tabletOnly'}"/>
                 <p:commandButton value="#{msgs['MENUSTAGE.GESTIONOFFRE']}" action="#{welcomeController.goToMenuOffresTablette}"
                                  rendered="#{sessionController.utilisationEntreprise}"
                                  icon="fa fa-suitcase" styleClass="#{false ? 'customPstage selected tabletOnly' : 'customPstage tabletOnly'}"/>
@@ -298,12 +299,12 @@
                                                 || not empty sessionController.droitsEvaluationEntrepriseMap
                                                 || welcomeController.enseignantTuteur
                                                 || welcomeController.etudiant)}"
-                                 icon="fa fa-bar-chart" styleClass="#{false ? 'customPstage selected tabletOnly' : 'customPstage tabletOnly'}"/>
+                                 icon="fa fa-bar-chart" styleClass="#{sessionController.currentPageEvaluation ? 'customPstage selected tabletOnly' : 'customPstage tabletOnly'}"/>
                 <!-- / tablet only -->
                 <p:commandButton value="#{msgs['MENU.GESTIONNOMENCLATURES']}"
                                  action="#{nomenclatureController.goToGestionNomenclatures}"
                                  rendered="#{welcomeController.superAdmin}" icon="fa fa-table"
-                                 styleClass="#{false ? 'customPstage selected' : 'customPstage'}"/>
+                                 styleClass="#{sessionController.currentPageNomenclature ? 'customPstage selected' : 'customPstage'}"/>
                 <p:commandButton value="Déconnexion" styleClass="customPstage phoneOnly" action="#{sessionController.logout}"
                                  rendered="#{sessionController.printLogout}" icon="fa fa-power-off"/>
             </h:form>

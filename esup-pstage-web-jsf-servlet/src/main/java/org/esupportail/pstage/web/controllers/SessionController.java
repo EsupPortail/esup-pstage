@@ -732,6 +732,14 @@ public class SessionController extends AbstractDomainAwareBean {
 				setCurrentPage("Convention");
 			} else if(currentURI.toLowerCase().contains("welcome.xhtml")) {
 				setCurrentPage("Home");
+			} else if (currentURI.toLowerCase().contains("etablissement")) {
+			    setCurrentPage("Etablissement");
+			} else if (currentURI.toLowerCase().contains("evaluation")) {
+			    setCurrentPage("Evaluation");
+			} else if (currentURI.toLowerCase().contains("nomenclature")) {
+			    setCurrentPage("Nomenclature");
+			} else if (currentURI.toLowerCase().contains("centre")) {
+			    setCurrentPage("Centre");
 			}
 //			NavigationHandler a = ctx.getApplication().getNavigationHandler();
 //			Map<String, Set<NavigationCase>> b = ((ConfigurableNavigationHandler)a).getNavigationCases();
@@ -752,6 +760,24 @@ public class SessionController extends AbstractDomainAwareBean {
 	public boolean isCurrentPageConvention() {
 		return "Convention".equals(getCurrentPage());
 	}
+	
+	public boolean isCurrentPageEtablissement() {
+		return "Etablissement".equals(getCurrentPage());
+	}
+	
+	public boolean isCurrentPageEvaluation() {
+	    return "Evaluation".equals(getCurrentPage());
+	}
+	
+	public boolean isCurrentPageNomenclature() {
+	    return "Nomenclature".equals(getCurrentPage());
+	}
+	
+	public boolean isCurrentPageCentre() {
+	    return "Centre".equals(getCurrentPage());
+	}
+
+	
 
 	/**
 	 * @return true if this application is mode servlet. 
