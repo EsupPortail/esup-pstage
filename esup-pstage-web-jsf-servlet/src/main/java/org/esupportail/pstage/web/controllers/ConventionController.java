@@ -772,7 +772,7 @@ public class ConventionController extends AbstractContextAwareController {
 			this.etudiantRef.setListeEtapeInscriptions(apogeeMap.getListeEtapeInscriptions());
 
 			// recuperation du volume horaire
-			if (apogeeMap.getListeEtapeInscriptions() != null) {
+			if (apogeeMap.getListeEtapeInscriptions() != null && !apogeeMap.getListeEtapeInscriptions().isEmpty()) {
 				this.etudiantRef.setVolumeHoraireFormation(apogeeMap.getListeEtapeInscriptions().get(0).getVolumeHoraire());
 			} else {
 				this.etudiantRef.setVolumeHoraireFormation(getSessionController().getVolumeHoraireFormationParDefaut());
