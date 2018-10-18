@@ -4065,8 +4065,11 @@ public class ConventionController extends AbstractContextAwareController {
 											.getAdministrationApogee()
 											.getRaison());
 								}
-								addErrorMessage("formConvention:nom",
-										"RECHERCHEETU.PAS.IA");
+								if (etudiantRefTmp.getAdministrationApogee().getRaison().startsWith("La liste est trop importante")) {
+									addErrorMessage("formConvention:nom", "RECHERCHEETU.TROP.DE.RESULTATS");
+								} else {
+									addErrorMessage("formConvention:nom", "RECHERCHEETU.PAS.IA");
+								}	
 								resultatEtudiantRef = null;
 								listeResultatsRechercheEtudiant = null;
 							}
