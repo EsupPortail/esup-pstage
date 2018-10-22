@@ -630,7 +630,7 @@ public class StudentDataRepositoryDaoWS extends AbstractAuthCredentials implemen
 				// Recuperation du regime d'inscription pour l'etudiant a partir de l'annee
 				for (InsAdmAnuDTO2 insAdmAnu : serviceAdministratif.recupererIAAnnuelles_v2(etudiant.getCodEtu().toString(), anneeSuivante, "E")) {
 					// Libelle CPAM
-					if (libelleCPAM == "" && insAdmAnu.getCpam() != null && insAdmAnu.getCpam().getLibCpam() != null) {
+					if ("".equals(libelleCPAM) && insAdmAnu.getCpam() != null && insAdmAnu.getCpam().getLibCpam() != null) {
 						logger.debug("Libelle CPAM : " + insAdmAnu.getCpam().getLibCpam());
 						libelleCPAM = insAdmAnu.getCpam().getLibCpam();
 					}

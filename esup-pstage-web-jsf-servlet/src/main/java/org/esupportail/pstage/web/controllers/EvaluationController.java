@@ -2026,7 +2026,7 @@ public class EvaluationController extends AbstractContextAwareController {
 									break;
 							}
 						}
-						if (reponse == "") {
+						if ("".equals(reponse)) {
 							reponse = "NÉANT";
 						}
 						cell.setCellValue(reponse);

@@ -5110,9 +5110,9 @@ public class ConventionController extends AbstractContextAwareController {
 		String ret = "resultatsRechercheConvention";
 		this.conventionCree = false;
 
-		if (this.critereRechercheConvention.getNomEnseignant() == "" )
+		if ("".equals(this.critereRechercheConvention.getNomEnseignant()))
 			this.critereRechercheConvention.setNomEnseignant(null);
-		if (this.critereRechercheConvention.getPrenomEnseignant() == "")
+		if ("".equals(this.critereRechercheConvention.getPrenomEnseignant()))
 			this.critereRechercheConvention.setPrenomEnseignant(null);
 
 		this.critereRechercheConvention.setIdsCentreGestion(getSessionController().getCurrentIdsCentresGestion());

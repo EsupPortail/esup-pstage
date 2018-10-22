@@ -144,9 +144,9 @@ public class ExportController extends AbstractContextAwareController {
 	public String rechercherConvention() {
 		String ret = null;
 
-		if (this.critereRechercheConvention.getNomEnseignant() == "")
+		if ("".equals(this.critereRechercheConvention.getNomEnseignant()))
 			this.critereRechercheConvention.setNomEnseignant(null);
-		if (this.critereRechercheConvention.getPrenomEnseignant() == "")
+		if ("".equals(this.critereRechercheConvention.getPrenomEnseignant()))
 			this.critereRechercheConvention.setPrenomEnseignant(null);
 
 		this.critereRechercheConvention
