@@ -434,7 +434,7 @@
 							<fo:inline font-weight="bold">
 								Nom du tuteur professionnel :
 							</fo:inline>
-							<xsl:if test="@modification-salarie = 'true'">
+							<!-- <xsl:if test="@modification-salarie = 'true'">
 								<xsl:value-of select="contact/civilite/libelle" />
 								<xsl:text> </xsl:text>
 								<xsl:value-of
@@ -446,7 +446,7 @@
 									</xsl:with-param>
 								</xsl:call-template>
 							</xsl:if>
-							<xsl:if test="@modification-salarie = 'false'">
+							<xsl:if test="@modification-salarie = 'false'">-->
 								<xsl:value-of select="convention/contact/civilite/libelle" />
 								<xsl:text> </xsl:text>
 								<xsl:value-of
@@ -457,7 +457,7 @@
 										<xsl:value-of select="convention/contact/prenom" />
 									</xsl:with-param>
 								</xsl:call-template>
-							</xsl:if>
+							<!--</xsl:if>-->
 						</fo:block>
 						<fo:block line-height="110%" hyphenate="false" language="fr"
 							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
@@ -466,24 +466,24 @@
 							<fo:inline font-weight="bold">
 								Tél :
 							</fo:inline>
-							<xsl:if test="@modification-salarie = 'true'">
+							<!--<xsl:if test="@modification-salarie = 'true'">
 								<xsl:value-of select="contact/tel" />
 							</xsl:if>
-							<xsl:if test="@modification-salarie = 'false'">
+							<xsl:if test="@modification-salarie = 'false'">-->
 								<xsl:value-of select="convention/contact/tel" />
-							</xsl:if>
+							<!--</xsl:if>-->
 							<xsl:text> </xsl:text>
 							<xsl:text> </xsl:text>
 							<xsl:text> </xsl:text>
 							<fo:inline font-weight="bold">
 								Mail :
 							</fo:inline>
-							<xsl:if test="@modification-salarie = 'true'">
+							<!--<xsl:if test="@modification-salarie = 'true'">
 								<xsl:value-of select="contact/mail" />
 							</xsl:if>
-							<xsl:if test="@modification-salarie = 'false'">
+							<xsl:if test="@modification-salarie = 'false'">-->
 								<xsl:value-of select="convention/contact/mail" />
-							</xsl:if>
+							<!--</xsl:if>-->
 						</fo:block>
 					</fo:table-cell>
 				</fo:table-row>
@@ -824,6 +824,17 @@
 										</xsl:with-param>
 									</xsl:call-template>
 								</fo:inline>
+							</fo:block>
+							<fo:block line-height="110%" padding-top="2pt"
+									  padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+									  font-size="10pt" font-family="Times New Roman,serif">
+								<fo:inline font-weight="bold">Tél :</fo:inline>
+							    <xsl:value-of select="contact/tel" />
+							    <xsl:text> </xsl:text>
+								<xsl:text> </xsl:text>
+								<xsl:text> </xsl:text>
+							    <fo:inline font-weight="bold">Mail :</fo:inline>
+							    <xsl:value-of select="contact/mail" />
 							</fo:block>
 						</xsl:if>
 
