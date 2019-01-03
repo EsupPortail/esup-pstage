@@ -47,7 +47,7 @@
         <f:facet name="header">
             <h:outputText value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
         </f:facet>
-        <t:div styleClass="verticalAlignDiv">
+        <h:panelGroup styleClass="verticalAlignDiv" style="display:block">
             <t:htmlTag id="avecAc" value="i" styleClass="mr5 fa fa-star #{varRechercheStructure.accordPartenariat.estValide ? 'fontGreen' : 'fontYellow'}"
                        rendered="#{not empty varRechercheStructure.accordPartenariat and !welcomeController.etudiant}">
                 <p:tooltip trackMouse="true" for="avecAc" value="#{msgs['STRUCTURE.AVECACCORD.VALIDE']}"
@@ -58,7 +58,7 @@
             <h:outputText value="#{varRechercheStructure.raisonSociale}">
                 <f:converter binding="#{limitCharactersShownUpTo30Converter}" />
             </h:outputText>
-        </t:div>
+        </h:panelGroup>
     </p:column>
     <p:column filterBy="#{varRechercheStructure.numeroSiret}" filterMatchMode="contains">
         <f:facet name="header">
