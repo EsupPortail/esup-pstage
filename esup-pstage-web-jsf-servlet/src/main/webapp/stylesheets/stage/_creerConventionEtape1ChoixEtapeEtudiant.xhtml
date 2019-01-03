@@ -231,7 +231,7 @@
                         <f:selectItems value="#{conventionController.listeEtapesEtudiant}" />
                         <p:ajax event="valueChange"
                                 listener="#{conventionController.rechargeUfr}"
-                                update="msgEtapes,ufrs,panelElp" />
+                                update="msgEtapes,ufrs,panelElp,inputVolumeHoraire,typeNbHeuresFormation" />
                     </h:selectOneMenu>
                     <p:outputPanel id="ufrs" styleClass="mt5">
                         <t:div rendered="#{conventionController.choixEtape}">
@@ -275,12 +275,10 @@
                         <p:message for="volumeHoraireFormation"/>
                     </h:panelGrid>
 
-                    <t:div styleClass="verticalAlignDiv"
-                           rendered="#{empty conventionController.etudiantRef.volumeHoraireFormation
-                            or conventionController.etudiantRef.volumeHoraireFormation == '0'}">
-                        <p:selectOneRadio id="typeNbHeuresFormation" value="#{conventionController.defaultVolumeHoraire}"
-                                          required="true">
-                            <f:selectItem itemLabel="Plus de #{sessionController.volumeHoraireFormationParDefaut} heures" itemValue="true"/>
+                    <t:div styleClass="verticalAlignDiv">                            
+                        <p:selectOneRadio id="typeNbHeuresFormation" value="#{conventionController.defaultVolumeHoraire}" required="true">                                          
+                            <f:selectItem itemLabel="Plus de #{sessionController.volumeHoraireFormationParDefaut} heures" itemValue="true" 
+                            				itemDisabled="#{not empty conventionController.etudiantRef.volumeHoraireFormation and conventionController.etudiantRef.volumeHoraireFormation != '0'}"/>
                             <f:selectItem itemLabel="#{(not empty conventionController.etudiantRef.volumeHoraireFormation
                             and conventionController.etudiantRef.volumeHoraireFormation != '0') ?
                             (conventionController.defaultVolumeHoraire ? msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.VALEUR_APOGEE'] : msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.VALEUR_APOGEE_:'])
@@ -292,25 +290,17 @@
                         <t:div id="inputVolumeHoraire">
                             <p:inputText id="volumeHoraireFormation" styleClass="autoWidth ml5" required="true"
                                          value="#{conventionController.convention.volumeHoraireFormation}"
-                                         validatorMessage="#{requiredMessageController.superieurA0}"
-                                         rendered="#{!conventionController.defaultVolumeHoraire}">
+                                         validatorMessage="#{requiredMessageController.superieurA0}" 
+                                         rendered="#{!conventionController.defaultVolumeHoraire}"> 
                                 <f:validator binding="#{entierValidator}" />
                             </p:inputText>
                             <t:htmlTag id="imgInfoVolume" value="i" styleClass="fa fa-info-circle fontBlue2 fz13"
-                                       rendered="#{!conventionController.defaultVolumeHoraire
-                                       and not empty conventionController.etudiantRef.volumeHoraireFormation and conventionController.etudiantRef.volumeHoraireFormation != '0'}">
+                            			rendered="#{!conventionController.defaultVolumeHoraire and not empty conventionController.etudiantRef.volumeHoraireFormation and conventionController.etudiantRef.volumeHoraireFormation != '0'}">                                      
                                 <p:tooltip trackMouse="true" for="imgInfoVolume"
                                            value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.VOLUME_HORAIRE.INFO.REMPLI']} (#{conventionController.etudiantRef.volumeHoraireFormation})" />
                             </t:htmlTag>
                         </t:div>
-                    </t:div>
-                    <t:div styleClass="verticalAlignDiv"
-                           rendered="#{not empty conventionController.etudiantRef.volumeHoraireFormation
-                            and conventionController.etudiantRef.volumeHoraireFormation != '0'}">
-                        <h:outputText value="Valeur récupérée via les données de l'établissement (Apogee) : " />
-                        <h:outputText id="volumeHoraireFormationApogee" styleClass="fontBold ml5"
-                                     value="#{conventionController.convention.volumeHoraireFormation} heures" />
-                    </t:div>
+                    </t:div>                    
                 </t:div>
             </t:div>
             <p:message for="etape" escape="false"/>

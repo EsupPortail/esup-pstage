@@ -597,7 +597,10 @@ public class ConventionController extends AbstractContextAwareController {
 						+ getSessionController().getCurrentStageCasUser().getId());
 			}
 		}
-
+		if (this.etudiantRef != null && this.etudiantRef.getTheCodeEtape()!=null && !"".equals(this.etudiantRef.getTheCodeEtape())) {
+			this.convention.setVolumeHoraireFormation(this.etudiantRef.getVolumeHoraireFormation());
+		}	
+		
 //		if (this.getSessionController().getCurrentAuthEtudiant() != null) {
 //			retour = "creerConventionEtu";
 //		}
@@ -620,7 +623,10 @@ public class ConventionController extends AbstractContextAwareController {
 			return "formulaireCompletion";
 		}
 		this.defaultVolumeHoraire = true;
-
+		if (!"".equals(this.etudiantRef.getVolumeHoraireFormation()) && !"0".equals(this.etudiantRef.getVolumeHoraireFormation())) {
+			this.defaultVolumeHoraire = false;
+		}
+		
 		sequenceEtapeEnum = SequenceEtapeEnum.ETAPE1;
 
 		return "creerConventionEtape1Etudiant";
@@ -774,6 +780,9 @@ public class ConventionController extends AbstractContextAwareController {
 			// recuperation du volume horaire
 			if (apogeeMap.getListeEtapeInscriptions() != null && !apogeeMap.getListeEtapeInscriptions().isEmpty()) {
 				this.etudiantRef.setVolumeHoraireFormation(apogeeMap.getListeEtapeInscriptions().get(0).getVolumeHoraire());
+			    if (!"".equals(this.etudiantRef.getVolumeHoraireFormation()) && !"0".equals(this.etudiantRef.getVolumeHoraireFormation())) {
+			    	this.defaultVolumeHoraire=false;
+			    }
 			} else {
 				this.etudiantRef.setVolumeHoraireFormation(getSessionController().getVolumeHoraireFormationParDefaut());
 			}
@@ -4561,6 +4570,10 @@ public class ConventionController extends AbstractContextAwareController {
 				} else {
 					this.convention.setVolumeHoraireFormation(ufrEtape.getVolumeHoraire()); // input
 				}
+				this.defaultVolumeHoraire=true;
+				if (!"".equals(this.etudiantRef.getVolumeHoraireFormation()) && !"0".equals(this.etudiantRef.getVolumeHoraireFormation())) {
+			    	this.defaultVolumeHoraire=false;			    	
+			    }
 			}
 			this.choixEtape = true;
 			this.listeELPEtapes = rechElpEtape(tabCodes[0]);
