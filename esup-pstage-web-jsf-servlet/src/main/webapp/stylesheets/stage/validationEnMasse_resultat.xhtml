@@ -110,6 +110,13 @@
                                     </h:outputText>
                                 </p:column>
                                 <p:column>
+                            		<f:facet name="header">
+                                		<h:outputText value="#{msgs['RECHERCHECONVENTION.ANNEEUNIV']}" />
+                            		</f:facet>
+                            		<h:outputText value="#{convention.annee}" title="#{convention.annee}"
+                                          rendered="#{not empty convention.annee}" />
+                        		</p:column>
+                                <p:column>
                                     <f:facet name="header">
                                         <p:selectBooleanCheckbox id="checkAll"
                                                                  onchange="selectAll(this);">
