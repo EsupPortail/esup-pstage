@@ -531,6 +531,7 @@ public class ConventionController extends AbstractContextAwareController {
 		signataireSel = null;
 		this.conventionCree = false;
 		selAnneeUniversitaire = null;
+		selMonnaieGratification = "euros";
 
 //		enter();
 	}
@@ -3505,6 +3506,11 @@ public class ConventionController extends AbstractContextAwareController {
 					setSelUniteDureeGratification(new UniteDureeDTO());
 				}
 
+				if ("euros".equals(conventionTmp.getMonnaieGratification())) {
+					setSelMonnaieGratification("euros");
+				} else {
+					setSelMonnaieGratification("autre");
+				}
 				setSelNatureTravail(conventionTmp.getNatureTravail());
 				setSelModeValidationStage(conventionTmp.getModeValidationStage());
 				setSelLangueConvention(conventionTmp.getLangueConvention());
@@ -4680,6 +4686,16 @@ public class ConventionController extends AbstractContextAwareController {
 		return lELPEtapes;
 	}
 
+	/**
+	 * 
+	 */
+	public void initAutreDevise() {
+		if ("autre".equalsIgnoreCase(this.selMonnaieGratification) && 
+				"euros".equalsIgnoreCase(this.convention.getMonnaieGratification())) {
+			this.convention.setMonnaieGratification("");
+		}		
+	}
+	
 	/**
 	 *
 	 * @return List <SequenceEtapeEnum>

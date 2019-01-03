@@ -343,15 +343,16 @@
                                                  styleClass="ml5 customPstage autoWidth">
                                     <f:selectItem itemValue="euros" itemLabel="euros" />
                                     <f:selectItem itemValue="autre" itemLabel="autre"/>
-                                    <p:ajax event="valueChange" update="opMonnaieGratification" />
+                                    <p:ajax event="valueChange" update="opMonnaieGratification" listener="#{conventionController.initAutreDevise}"/>
                                 </h:selectOneMenu>
                                 <p:outputPanel id="opMonnaieGratification" styleClass="ml5">
                                     <t:div rendered="#{conventionController.selMonnaieGratification == 'autre'}">
-                                        <h:outputText styleClass="fontBold" value="Devise : " />
-                                        <p:inputText id="autreMonnaie" size="10" styleClass="autoWidth"
-                                                     value="#{conventionController.convention.monnaieGratification}" />
-                                    </t:div>
+                                        <h:outputText styleClass="fontBold" value="Devise : " />                                        
+                                        <p:inputText id="autreMonnaie" size="10" styleClass="autoWidth" required="true"
+                                                     value="#{conventionController.convention.monnaieGratification}" />                                                                                                         
+                                    </t:div>                                    
                                 </p:outputPanel>
+                                <p:message for="autreMonnaie"/>                               
                             </t:div>
                         </t:htmlTag>
                     </t:div>
