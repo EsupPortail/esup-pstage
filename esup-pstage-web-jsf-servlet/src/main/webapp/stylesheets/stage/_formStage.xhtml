@@ -310,11 +310,12 @@
                             <h:outputText value="#{conventionController.conventionFormationContinue ? msgs['CONVENTION.SIMTGRATIFICATION.FORMATION_CONTINUE'] : msgs['CONVENTION.SIMTGRATIFICATION']}"
                                           styleClass="fontBold" style="white-space: nowrap;"/>
                             <t:div styleClass="mt5 verticalAlignDiv">
-                                <p:inputText id="montantGratification" size="4" styleClass="autoWidth"
+                                <p:inputText id="montantGratification" size="10" styleClass="autoWidth"
                                              required="true"
                                              value="#{conventionController.convention.montantGratification}"
                                              validatorMessage="#{requiredMessageController.mtGratificationNonValide}">
                                     <f:validator binding="#{mtGratificationValidator}" />
+                                    <f:validateLength maximum="15" />
                                     <p:ajax event="blur" update="msgGratification"/>
                                 </p:inputText>
                                 <h:selectOneMenu id="uniteGratification" effect="none" styleClass="ml5 customPstage fix-selectOneMenu autoWidth"

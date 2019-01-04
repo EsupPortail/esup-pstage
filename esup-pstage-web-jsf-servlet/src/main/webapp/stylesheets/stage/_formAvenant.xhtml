@@ -224,11 +224,12 @@
                                       value="#{msgs['CONVENTION.ETAPE11.NEW_GRATIFICATION']}" />
 
                         <t:div styleClass="mt5 verticalAlignDiv">
-                            <p:inputText id="montantGratif" size="4" style="width:auto;" styleClass="ml5"
+                            <p:inputText id="montantGratif" size="10" style="width:auto;" styleClass="ml5"
                                          required="true"
                                          value="#{avenantController.avenant.montantGratification}"
                                          validatorMessage="#{requiredMessageController.mtGratificationNonValide}">
                                 <f:validator binding="#{mtGratificationValidator}" />
+                                <f:validateLength maximum="15" />
                                 <p:ajax event="blur" update="msgGratification"/>
                             </p:inputText>
                             <h:selectOneMenu id="uniteGratification" effect="none" style="width: auto;" styleClass="ml5 customPstage"
