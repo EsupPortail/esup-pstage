@@ -979,7 +979,7 @@ public class CentreController extends AbstractContextAwareController {
 
 			liste.add(tmp);
 
-			if (tmp.getCodeVersionEtape() != ""){
+			if (!"".equals(tmp.getCodeVersionEtape())){
 				CritereGestionDTO critereSansVet = getCritereGestionDomainService().getCritereGestionSansVetFromCodeEtape(tmp.getCode());
 				if (critereSansVet != null){
 					// Il existe un critere avec le codeEtape et sans codeVersion d'etape
@@ -1434,7 +1434,7 @@ public class CentreController extends AbstractContextAwareController {
 		try{
 
 			if(("".equals(this.personnel.getAffectation().getCode()) || this.personnel.getAffectation().getCode() == null)
-					&& (this.personnel.getAffectation().getLibelle() != "" || this.personnel.getAffectation().getLibelle() != null)){
+					&& (!"".equals(this.personnel.getAffectation().getLibelle()) || this.personnel.getAffectation().getLibelle() != null)){
 				// Si l'affectation dispose d'un libelle mais pas d'un code, on n'ajoute rien
 				// Ainsi, on ajoute que lorsqu'il ya le code ou le code ET le libelle, ou bien aucun des deux.
 			} else {

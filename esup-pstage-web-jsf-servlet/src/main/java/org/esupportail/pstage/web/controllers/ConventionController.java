@@ -1156,7 +1156,7 @@ public class ConventionController extends AbstractContextAwareController {
 
 			// Ajout possibilite de modif etape
 			if (this.etudiantRef.getTheCodeEtape() != null
-					&& this.etudiantRef.getTheCodeEtape() != "") {
+					&& !"".equals(this.etudiantRef.getTheCodeEtape())) {
 				EtapeDTO etapeTmp = new EtapeDTO();
 				etapeTmp.setCode(this.etudiantRef.getTheCodeEtape());
 				etapeTmp.setCodeVersionEtape(this.etudiantRef.getTheCodeVersionEtape());
@@ -1191,7 +1191,7 @@ public class ConventionController extends AbstractContextAwareController {
 					logger.debug("Etape deja existante code " + this.convention.getEtape(), ee);
 				}
 			}
-			if (this.etudiantRef.getThecodeUFR() != null && this.etudiantRef.getThecodeUFR() != "") {
+			if (this.etudiantRef.getThecodeUFR() != null && !"".equals(this.etudiantRef.getThecodeUFR())) {
 				UfrDTO ufrTmp = new UfrDTO();
 				ufrTmp.setCode(this.etudiantRef.getThecodeUFR());
 				ufrTmp.setLibelle(this.etudiantRef.getTheUfr());

@@ -561,7 +561,7 @@ public class Utils {
 		login=sansCaractSpe(login);
 		login=login.toLowerCase();
 		login=login.toLowerCase();
-		if(num != null && num != "" && isNumber(num)){
+		if(num != null && !"".equals(num) && isNumber(num)){
 			String n="000"+num;
 			login = login + ((n.length()>4) ? n.substring(n.length()-4, n.length()): n); 
 		}
