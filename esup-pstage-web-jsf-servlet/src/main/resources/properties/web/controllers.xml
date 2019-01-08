@@ -148,6 +148,7 @@
 		<property name="autoriserEntrepriseAReserverOffre" value="${autoriserEntrepriseAReserverOffre}" />
 		<property name="autoriserEtudiantAModifierEntreprise" value="${autoriserEtudiantAModifierEntreprise}" />
 		<property name="autoriserCreationModificationEntrepriseOnlyForSuperAdmin" value="${autoriserCreationModificationEntrepriseOnlyForSuperAdmin}" />
+		<property name="autoriserElementPedagogiqueFacultatif" value="${autoriserElementPedagogiqueFacultatif}" />
 		<property name="critereGestion" value="${criterium.university.center}" />
 		<property name="cvtheque" value="${cvtheque}" />
 		<property name="cvthequeUrl" value="${cvtheque.url}" />

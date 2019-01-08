@@ -202,11 +202,12 @@
                     </h:panelGrid>
 
                     <t:div styleClass="mt5" rendered="#{conventionController.etudiantUnElp || conventionController.etudiantSupUnElp}">
-                        <h:outputText styleClass="fontBold" for="elp1" value="#{msgs['CONVENTION.ELP']} * " />
+                        <h:outputText styleClass="fontBold" for="elp1" value="#{msgs['CONVENTION.ELP']}" />
+                        <h:outputText styleClass="fontBold" value=" * " rendered="#{!sessionController.autoriserElementPedagogiqueFacultatif}"/>
                         <br/>
                         <t:div styleClass="ml20">
                             <h:selectOneMenu id="choixElp1" effect="none" styleClass="customPstage fix-selectOneMenu autoWidth"
-                                             value="#{conventionController.selectedCodeElp}" required="true">
+                                             value="#{conventionController.selectedCodeElp}" required="#{!sessionController.autoriserElementPedagogiqueFacultatif}">
                                 <f:selectItem itemValue="" />
                                 <f:selectItems value="#{conventionController.listeELPEtapesSelectItems}" />
                                 <p:ajax event="valueChange"
@@ -242,28 +243,22 @@
                         </t:div>
                     </p:outputPanel>
 
-                    <p:outputPanel id="panelElp">
-                        <t:div rendered="#{conventionController.etudiantUnElp}" styleClass="mt5">
-                            <h:outputText styleClass="fontBold" for="panelElp"
-                                          value="#{msgs['CONVENTION.ELP']} : " />
-                            <t:div styleClass="mt5 ml20">
-                                <h:outputText
-                                        value="#{conventionController.etudiantRef.theCodeElp} - #{conventionController.etudiantRef.theLibElp} - #{conventionController.etudiantRef.theCreditECTS} crédit(s)" />
-                            </t:div>
-                        </t:div>
-                        <t:div rendered="#{conventionController.etudiantSupUnElp}" styleClass="mt5">
+                    <p:outputPanel id="panelElp">                        
+                        <t:div rendered="#{conventionController.etudiantUnElp || conventionController.etudiantSupUnElp}" styleClass="mt5">
                             <h:panelGrid columns="2">
                                 <h:outputText styleClass="fontBold" for="choixElp2" value="#{msgs['CONVENTION.ELP']} : " />
+                                <h:outputText styleClass="fontBold" value=" * " rendered="#{!sessionController.autoriserElementPedagogiqueFacultatif}"/>
                                 <p:message for="choixElp2"/>
                             </h:panelGrid>
-                            <h:selectOneMenu id="choixElp2" effect="none" styleClass="customPstage fix-selectOneMenu"
-                                             value="#{conventionController.selectedCodeElp}" required="true">
+                            <h:selectOneMenu id="choixElp2" effect="none" styleClass="customPstage fix-selectOneMenu autoWidth"
+                                             value="#{conventionController.selectedCodeElp}" required="#{!sessionController.autoriserElementPedagogiqueFacultatif}">
                                 <f:selectItem itemValue="" />
                                 <f:selectItems value="#{conventionController.listeELPEtapesSelectItems}" />
                                 <p:ajax event="valueChange"
-                                        listener="#{conventionController.rechargeElp}" />
+                                        listener="#{conventionController.rechargeElp}" update="panelElp"/>
                             </h:selectOneMenu>
-                        </t:div>
+                            <h:outputText value="#{conventionController.etudiantRef.theCodeElp} - #{conventionController.etudiantRef.theLibElp} - #{conventionController.etudiantRef.theCreditECTS} crédit(s)" />
+                        </t:div>                        
                     </p:outputPanel>
                 </t:div>
 

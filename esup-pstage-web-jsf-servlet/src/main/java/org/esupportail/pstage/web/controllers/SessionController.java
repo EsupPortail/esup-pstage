@@ -256,6 +256,10 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	private boolean autoriserCreationModificationEntrepriseOnlyForSuperAdmin=false;
 	/**
+	 * Autoriser ou non à ce que le choix de l'élément pédagogique soit facultatif
+	 */
+	private boolean autoriserElementPedagogiqueFacultatif=false;
+	/**
 	 * Code de l'université récupéré depuis le fichier config.properties grace à la propriété du bean CentreController
 	 */
 	private String codeUniversite;
@@ -2673,5 +2677,13 @@ public class SessionController extends AbstractDomainAwareBean {
 
 	public void setCodesRegimeInscriptionFC(String codesRegimeInscriptionFC) {
 		this.codesRegimeInscriptionFC = codesRegimeInscriptionFC;
+	}
+
+	public boolean isAutoriserElementPedagogiqueFacultatif() {
+		return autoriserElementPedagogiqueFacultatif;
+	}
+
+	public void setAutoriserElementPedagogiqueFacultatif(boolean autoriserElementPedagogiqueFacultatif) {
+		this.autoriserElementPedagogiqueFacultatif = autoriserElementPedagogiqueFacultatif;
 	}
 }

@@ -597,11 +597,19 @@ public class ConventionController extends AbstractContextAwareController {
 				logger.info("goToCreerConvention : user connecte : "
 						+ getSessionController().getCurrentStageCasUser().getId());
 			}
-		}
-		if (this.etudiantRef != null && this.etudiantRef.getTheCodeEtape()!=null && !"".equals(this.etudiantRef.getTheCodeEtape())) {
+		} 
+		
+		if (this.etudiantRef != null && this.etudiantRef.getTheCodeEtape()!=null && !"".equals(this.etudiantRef.getTheCodeEtape())
+				&& !"0".equals(this.etudiantRef.getVolumeHoraireFormation())) {
 			this.convention.setVolumeHoraireFormation(this.etudiantRef.getVolumeHoraireFormation());
 		}	
-		
+		if (this.listeELPEtapes != null && this.listeELPEtapes.size() >= 1) {
+			this.etudiantRef.setTheCodeElp(this.listeELPEtapes.get(0).getCodElp());
+			this.etudiantRef.setTheLibElp(this.listeELPEtapes.get(0).getLibElp());
+			this.etudiantRef.setTheCreditECTS(this.listeELPEtapes.get(0).getNbrCrdElp());
+			this.selectedCodeElp = this.listeELPEtapes.get(0).getCodElp();
+		}
+				
 //		if (this.getSessionController().getCurrentAuthEtudiant() != null) {
 //			retour = "creerConventionEtu";
 //		}
@@ -729,7 +737,7 @@ public class ConventionController extends AbstractContextAwareController {
 			this.setEtudiantRef(this.resultatEtudiantRef);
 		} else {
 			// Si c'est un etudiant, on reset quand meme la liste des elps pour eviter qu'elle ne reapparraisse
-			this.listeELPEtapes = new ArrayList<>();
+			//this.listeELPEtapes = new ArrayList<>();
 			this.choixEtape = false;
 		}
 
@@ -894,7 +902,7 @@ public class ConventionController extends AbstractContextAwareController {
 				ctrlInfosOK = false;
 			}
 
-			if (isEtudiantSupUnElp()) {
+			if (isEtudiantSupUnElp() && !getSessionController().isAutoriserElementPedagogiqueFacultatif()) {
 				if (selectedCodeElp == null || this.selectedCodeElp.isEmpty()) {
 					addErrorMessage("formConvention:choixElp2",
 							"CONVENTION.CREERCONVENTION.ELP.OBLIGATOIRE");
@@ -902,7 +910,7 @@ public class ConventionController extends AbstractContextAwareController {
 				}
 			}
 		} else {
-			if (isEtudiantSupUnElp()) {
+			if (isEtudiantSupUnElp() && !getSessionController().isAutoriserElementPedagogiqueFacultatif()) {
 				if (selectedCodeElp == null || this.selectedCodeElp.isEmpty()) {
 					addErrorMessage("formConvention:choixElp1",
 							"CONVENTION.CREERCONVENTION.ELP.OBLIGATOIRE");
@@ -1105,7 +1113,7 @@ public class ConventionController extends AbstractContextAwareController {
 				ctrlInfosOK = false;
 			}
 
-			if (isEtudiantSupUnElp()) {
+			if (isEtudiantSupUnElp() && !getSessionController().isAutoriserElementPedagogiqueFacultatif()) {
 				if (selectedCodeElp == null || this.selectedCodeElp.isEmpty()) {
 					addErrorMessage(nomForm + ":choixElp2",
 							"CONVENTION.CREERCONVENTION.ELP.OBLIGATOIRE");
@@ -1113,7 +1121,7 @@ public class ConventionController extends AbstractContextAwareController {
 				}
 			}
 		} else {
-			if (isEtudiantSupUnElp()) {
+			if (isEtudiantSupUnElp() && !getSessionController().isAutoriserElementPedagogiqueFacultatif()) {
 				if (selectedCodeElp == null || this.selectedCodeElp.isEmpty()) {
 					addErrorMessage(nomForm + ":choixElp1",
 							"CONVENTION.CREERCONVENTION.ELP.OBLIGATOIRE");
@@ -3848,10 +3856,12 @@ public class ConventionController extends AbstractContextAwareController {
 			this.etudiantRef.setTheCodeEtape(this.convention.getEtape().getCode());
 			this.etudiantRef.setTheCodeVersionEtape(this.convention.getEtape().getCodeVersionEtape());
 			this.etudiantRef.setTheEtape(this.convention.getEtape().getLibelle());
-
+			this.choixEtape=true;
+			
 			this.etudiantRef.setTheCodeElp(this.convention.getCodeElp());
 			this.etudiantRef.setTheLibElp(this.convention.getLibelleELP());
 			this.etudiantRef.setTheCreditECTS(this.convention.getCreditECTS());
+			this.listeELPEtapes = rechElpEtape(this.etudiantRef.getTheCodeEtape());
 
 			this.selectedUfr = this.convention.getUfr().getCode();
 			this.selectedCodeElp = this.convention.getCodeElp();
@@ -4608,23 +4618,28 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public void rechargeElp() {
 		if (this.selectedCodeElp != null) {
-			if (this.etudiantRef.getListeELPs() != null
+			if (!this.selectedCodeElp.equals("")) {
+				if (this.etudiantRef.getListeELPs() != null
 					&& !this.etudiantRef.getListeELPs().isEmpty()) {
 
-				List<ElementPedagogique> listeELPs = this.etudiantRef
+					List<ElementPedagogique> listeELPs = this.etudiantRef
 						.getListeELPs();
 
-				for (Iterator<ElementPedagogique> itelp = listeELPs.iterator(); itelp
+					for (Iterator<ElementPedagogique> itelp = listeELPs.iterator(); itelp
 						.hasNext();) {
-					ElementPedagogique elpedago = itelp.next();
-					if (elpedago.getCodElp().equals(selectedCodeElp)) {
-						this.etudiantRef.setTheCodeElp(elpedago.getCodElp());
-						this.etudiantRef.setTheLibElp(elpedago.getLibElp());
-						this.etudiantRef.setTheCreditECTS(elpedago
+						ElementPedagogique elpedago = itelp.next();
+						if (elpedago.getCodElp().equals(selectedCodeElp)) {
+							this.etudiantRef.setTheCodeElp(elpedago.getCodElp());
+							this.etudiantRef.setTheLibElp(elpedago.getLibElp());
+							this.etudiantRef.setTheCreditECTS(elpedago
 								.getNbrCrdElp());
+						}
 					}
 				}
-
+			} else {
+				this.etudiantRef.setTheCodeElp("");
+				this.etudiantRef.setTheLibElp("");
+				this.etudiantRef.setTheCreditECTS(new BigDecimal(0));
 			}
 		}
 	}
