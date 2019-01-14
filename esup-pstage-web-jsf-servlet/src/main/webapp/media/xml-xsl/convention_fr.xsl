@@ -204,6 +204,11 @@
 								entre
 							</fo:inline>
 						</fo:block>
+						<fo:block line-height="110%" hyphenate="false" language="fr"
+                                  country="FR" font-size="7.5pt" font-family="Times New Roman,serif"
+                                  padding-top="0.035cm" text-align="center" padding-bottom="0.3cm" font-style="italic">
+                             En référence à l'arrêté du 29 décembre 2014 relatif aux conventions de stage
+                        </fo:block>
 						<fo:block line-height="200%" hyphenate="false" language="fr"
 								  country="FR" font-size="8pt" font-family="Times New Roman,serif">
 							<fo:leader />
@@ -1552,7 +1557,8 @@
 								public entre son domicile et
 								son lieu de stage sont pris en
 								charge dans les
-								conditions fixées par le décret
+								conditions fixées par le décret n°2015-1228 du 2 octobre 2015 modifiant 
+								le décret
 								n°2010-676 du 21
 								juin 2010
 								instituant une prise en charge
@@ -1646,7 +1652,7 @@
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  text-align="justify">
 								La gratification n'est pas soumise à cotisation
-								sociale.
+								sociale conformément aux termes de l'article R412-4 du code de la Sécurité sociale.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -1699,7 +1705,7 @@
 									  text-align="justify">
 								L'étudiant bénéficie de la couverture légale en
 								application des
-								dispositions des articles L.411-1 et suivants du
+								dispositions des articles L.411-1 et suivants et de l'article R412-4 du
 								code de la
 								Sécurité sociale.
 							</fo:block>
