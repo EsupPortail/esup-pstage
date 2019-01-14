@@ -771,6 +771,7 @@ public class StudentDataRepositoryDaoWS extends AbstractAuthCredentials implemen
 				logger.debug("studentApogee.getMail() = "+studentApogee.getMail());
 			}
 			s.setNom(studentApogee.getNom());
+			s.setNomMarital(studentApogee.getNomMarital());
 			s.setPrenom(studentApogee.getPrenom());
 			// recuperation du mail dans l'annuaire
 			if (StringUtils.hasText(studentApogee.getMail())) {

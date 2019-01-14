@@ -199,6 +199,8 @@
 									</fo:inline>
 									<fo:inline>
 										<xsl:value-of select="translate(etudiant/nom,$lowers,$uppers)" />
+										<xsl:text> </xsl:text>
+										<xsl:value-of select="translate(etudiant/nom-marital,$lowers,$uppers)" />
 									</fo:inline>
 									<xsl:text>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</xsl:text>
 									<fo:inline font-weight="bold">

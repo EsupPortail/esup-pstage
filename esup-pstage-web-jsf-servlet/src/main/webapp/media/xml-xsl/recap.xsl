@@ -167,6 +167,8 @@
 								<xsl:text> </xsl:text>
 								<xsl:value-of select="etudiant/nom" />
 								<xsl:text> </xsl:text>
+								<xsl:value-of select="etudiant/nom-marital" />
+								<xsl:text> </xsl:text>
 								(N° Etudiant :
 								<xsl:value-of select="etudiant/num-etudiant" />
 								)

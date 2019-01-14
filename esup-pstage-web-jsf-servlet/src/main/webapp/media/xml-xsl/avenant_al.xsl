@@ -582,6 +582,9 @@
 							<xsl:value-of
 									select="translate(convention/etudiant/nom,$lowers,$uppers)" />
 							<xsl:text> </xsl:text>
+							<xsl:value-of 
+									select="translate(convention/etudiant/nom-marital,$lowers,$uppers)" />		
+							<xsl:text> </xsl:text>
 							<xsl:call-template name="start_upper">
 								<xsl:with-param name="prenom">
 									<xsl:value-of select="convention/etudiant/prenom" />
@@ -1060,7 +1063,10 @@
 									</xsl:call-template>
 									<xsl:text> </xsl:text>
 									<xsl:value-of
-											select="translate(convention/etudiant/nom,$lowers,$uppers)" />
+										select="translate(convention/etudiant/nom,$lowers,$uppers)" />
+									<xsl:text> </xsl:text>
+									<xsl:value-of 
+										select="translate(convention/etudiant/nom-marital,$lowers,$uppers)" />		
 								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"

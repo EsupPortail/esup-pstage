@@ -628,6 +628,8 @@
 								Nom :
 							</fo:inline>
 							<xsl:value-of select="translate(etudiant/nom,$lowers,$uppers)" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="translate(etudiant/nom-marital,$lowers,$uppers)" />
 							&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
 							<fo:inline font-weight="bold">
 								Prénom :
@@ -2116,6 +2118,8 @@
 										</xsl:call-template>
 										<xsl:text> </xsl:text>
 										<xsl:value-of select="translate(etudiant/nom,$lowers,$uppers)" />
+										<xsl:text> </xsl:text>
+										<xsl:value-of select="translate(etudiant/nom-marital,$lowers,$uppers)" />
 									</fo:block>
 									<fo:block line-height="110%" hyphenate="false"
 											  language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
