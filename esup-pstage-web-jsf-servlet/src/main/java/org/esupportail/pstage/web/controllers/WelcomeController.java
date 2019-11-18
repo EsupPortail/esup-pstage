@@ -731,6 +731,9 @@ public class WelcomeController extends AbstractContextAwareController {
 							// Recuperation et assignation au conventionController de l'annee universitaire en cours
 							String[] anneeUniv = getBeanUtils().getAnneeUniversitaireCourante(new Date()).split("/");
 							this.conventionController.setSelectedAnneeUniv(anneeUniv[0]);
+							if (!e.getListeAnneesUniv().contains(anneeUniv[0])) { // l'etudiant n'a pas d'inscription sur l'annee courante (il en a une sur l'annee suivante)
+								this.conventionController.setSelectedAnneeUniv(e.getListeAnneesUniv().get(0));
+							}
 							// puis on recupere toutes les infos d'inscription ufr/etape/elp de l'etudiant pour l'annee prealablement recuperee
 							this.conventionController.setEtudiantRef(e);
 							this.conventionController.loadInfosEtu();
