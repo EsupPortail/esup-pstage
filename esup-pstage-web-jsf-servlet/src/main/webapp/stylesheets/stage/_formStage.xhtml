@@ -81,11 +81,11 @@
                     </t:htmlTag>
                     <h:outputText styleClass="fontBold ml5" value="#{msgs['CONVENTION.COMPETENCES']} #{msgs['CONVENTION.ETOILE']}" />
                     <h:outputText id="cptCompetences" styleClass="fontItalic"/>
-                    <p:inputTextarea id="competences" maxlength="500" lang="html"
+                    <p:inputTextarea id="competences" maxlength="1000" lang="html"
                                      value="#{conventionController.convention.competences}"
                                      counter="cptCompetences" counterTemplate="({0} caractères restants.)"
                                      required="true">
-                        <f:validateLength maximum="500" />
+                        <f:validateLength maximum="1000" />
                         <p:ajax event="blur" update="msgCompetences"/>
                     </p:inputTextarea>
                     <p:message id="msgCompetences" for="competences"/>
