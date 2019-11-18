@@ -833,9 +833,10 @@ public class ConventionController extends AbstractContextAwareController {
 							this.etudiantRef.setTheEtape(etp.getLibWebVet());
 							this.etudiantRef.setVolumeHoraireFormation(etp.getVolumeHoraire());
 							if (this.convention != null) {
-								if ("0".equals(etp.getVolumeHoraire())) {
+								if ("0".equals(etp.getVolumeHoraire()) || "".equals(etp.getVolumeHoraire())) {
 									this.convention.setVolumeHoraireFormation(null);
 								} else {
+									this.defaultVolumeHoraire=false;
 									this.convention.setVolumeHoraireFormation(etp.getVolumeHoraire()); // input
 								}
 							}
