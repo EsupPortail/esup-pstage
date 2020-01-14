@@ -67,7 +67,7 @@
                                rendered="#{welcomeController.superAdmin
                             || (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
                             || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
-                            || (welcomeController.etudiant and avenantController.avenant.validationAvenant))}">
+                            || (welcomeController.etudiant and conventionController.convention.centreGestion.autoriserImpressionConvention))}">
                             <p:commandButton id="print"
                                              value="#{msgs['CONVENTION.ETAPE11.IMPRIMER']}"
                                              action="#{avenantController.editPdfAvenant}"
