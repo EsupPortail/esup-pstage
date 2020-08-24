@@ -1412,8 +1412,10 @@ public class EtablissementController extends AbstractContextAwareController {
 	 * @param event
 	 */
 	public void valueIdContactChanged(ValueChangeEvent event) {
-		this.idContactSel = (Integer) event.getNewValue();
-		this.contactSel = getStructureDomainService().getContactFromId(idContactSel);
+		if (event!=null && event.getNewValue()!=null) {
+			this.idContactSel = (Integer) event.getNewValue();
+			this.contactSel = getStructureDomainService().getContactFromId(idContactSel);
+		}		
 	}
 
 	/**

@@ -983,7 +983,21 @@ public class ConventionController extends AbstractContextAwareController {
 				getSessionController().setCentreGestionRattachement(centreGestionRattachement);
 				this.convention.setIdCentreGestion(centreGestionRattachement.getIdCentreGestion());
 				this.convention.setCentreGestion(centreGestionRattachement);
-
+                
+				// ajout du rattachement du centre de gestion le cas échéant
+				// (pour éviter le bug sur le choix du signataire dans le cadre d'une création de convention)
+				if (getSessionController().getCurrentCentresGestion()!=null && 
+							!getSessionController().getCurrentCentresGestion().contains(centreGestionRattachement)){
+					getSessionController().getCurrentCentresGestion().add(centreGestionRattachement);
+				}
+				if (getSessionController().isSuperAdminPageAuthorized() && 
+						getSessionController().getCurrentCentresGestion()==null) { // cas du super-admin sur aucun centre de gestion
+					List<CentreGestionDTO> listCentreGestionRattachement = new ArrayList<CentreGestionDTO>();
+					listCentreGestionRattachement.add(centreGestionRattachement);
+					getSessionController().setCurrentCentresGestion(listCentreGestionRattachement);
+				}
+                // fin ajout
+								
 				if (!getSessionController().isSuperAdminPageAuthorized()) {
 					if (this.getSessionController().getCurrentAuthEtudiant() != null) {
 						// Si la personne connectée est un étudiant, on vérifie
@@ -3562,6 +3576,22 @@ public class ConventionController extends AbstractContextAwareController {
 						} else {
 							this.autorisationImpressionPersonnel = false;
 						}
+						// ajout du rattachement du centre de gestion à l'étudiant le cas échéant
+						// (pour éviter le bug sur le choix du signataire dans le cadre d'une modif de la convention)
+						if (getSessionController().getCurrentAuthEtudiant()!=null && getSessionController().getCurrentCentresGestion()!=null) {
+							if (!getSessionController().getCurrentCentresGestion().contains(centreGestionTmp)){
+								getSessionController().getCurrentCentresGestion().add(centreGestionTmp);
+							}
+						}
+						if (getSessionController().isSuperAdminPageAuthorized() && 
+								getSessionController().getCurrentCentresGestion()==null) { 
+							// cas du super-admin sur aucun centre de gestion 
+							// (ne devrait jamais arriver ici car le super-admin ne verra pas la convention)
+							List<CentreGestionDTO> listCentreGestionRattachement = new ArrayList<CentreGestionDTO>();
+							listCentreGestionRattachement.add(centreGestionTmp);
+							getSessionController().setCurrentCentresGestion(listCentreGestionRattachement);
+						}
+						// fin ajout
 					}
 				}
 				if (conventionTmp.getIdEnseignant() > 0) {
