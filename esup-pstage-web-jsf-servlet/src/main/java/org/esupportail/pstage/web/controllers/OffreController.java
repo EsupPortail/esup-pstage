@@ -4,7 +4,7 @@
  */
 package org.esupportail.pstage.web.controllers;
 
-import gouv.education.apogee.commun.transverse.dto.geographie.CommuneDTO;
+import fr.wsclient.apogee.GeographieMetier.CommuneDTO;
 
 import java.io.File;
 import java.io.IOException;

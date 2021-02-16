@@ -1,12 +1,13 @@
 package org.esupportail.pstage.dao.referentiel;
 
-import gouv.education.apogee.commun.client.utils.WSUtils;
-import gouv.education.apogee.commun.client.ws.referentielmetier.ReferentielMetierServiceInterface;
-import gouv.education.apogee.commun.client.ws.referentielmetier.ReferentielMetierSoapBindingStub;
-import gouv.education.apogee.commun.transverse.dto.pedagogique.ComposanteDTO3;
-import gouv.education.apogee.commun.transverse.exception.WebBaseException;
+import fr.wsclient.apogee.ReferentielMetier.ReferentielMetierServiceInterface;
+import fr.wsclient.apogee.ReferentielMetier.ComposanteDTO3;
+import fr.wsclient.apogee.ReferentielMetier.WebBaseException_Exception;
+
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.esupportail.pstage.exceptions.CommunicationApogeeException;
 
@@ -39,10 +40,10 @@ public class PersonalComponentRepositoryDaoWS implements
 		mapComp = new LinkedHashMap<String,String>();
 
 		try {
-			ReferentielMetierServiceInterface referentielMetierService = (ReferentielMetierSoapBindingStub) WSUtils.getService(WSUtils.REFERENTIEL_SERVICE_NAME);
-			
+						
+			ReferentielMetierServiceInterface referentielMetierServiceInterface = WsUtils.initReferentielMetierService();
 			// recuperer la liste des composantes
-			ComposanteDTO3[] composante = referentielMetierService.recupererComposante_v2(null, null);
+			List <ComposanteDTO3> composante = referentielMetierServiceInterface.recupererComposanteV2(null, null);
 			
 			if (composante != null) {
 
@@ -56,7 +57,7 @@ public class PersonalComponentRepositoryDaoWS implements
 			
 			return mapComp;
 			
-		} catch (WebBaseException e) {
+		} catch (WebBaseException_Exception e) {
 			logger.error("WebBaseException getComposantesRef = " + e );
 			throw new CommunicationApogeeException(e);
 		
@@ -65,17 +66,17 @@ public class PersonalComponentRepositoryDaoWS implements
 		}
 	}
 
-	public void recupComposantes(ComposanteDTO3[] composante){
-		for (int i = 0; i < composante.length; i++) {
-			Object idl = composante[i].getCodCmp();
-			String lib = composante[i].getLibCmp();
-			if (composante[i].getTemEnSveCmp().equals("O")) {
+	public void recupComposantes(List <ComposanteDTO3> composante){
+		for (int i = 0; i < composante.size(); i++) {
+			Object idl = composante.get(i).getCodCmp();
+			String lib = composante.get(i).getLibCmp();
+			if (composante.get(i).getTemEnSveCmp().equals("O")) {
 				mapComp.put(idl + "", lib);
 			}
 			// Si la composante en cours de recuperation contient une liste de composantes filles
 			// On la parcours egalement
-			if (composante[i].getListeComposanteFils() != null && composante[i].getListeComposanteFils().length > 0){
-				recupComposantes(composante[i].getListeComposanteFils());
+			if (composante.get(i).getListeComposanteFils() != null && composante.get(i).getListeComposanteFils().getComposante().size() > 0){
+				recupComposantes(composante.get(i).getListeComposanteFils().getComposante());
 			}
 		}
 	}

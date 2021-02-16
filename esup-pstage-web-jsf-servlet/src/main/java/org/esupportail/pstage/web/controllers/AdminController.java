@@ -4,10 +4,9 @@
  */
 package org.esupportail.pstage.web.controllers;
 
-import gouv.education.apogee.commun.transverse.dto.geographie.CommuneDTO;
+import fr.wsclient.apogee.GeographieMetier.CommuneDTO;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;

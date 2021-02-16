@@ -1,24 +1,18 @@
 package org.esupportail.pstage.dao.referentiel;
 
-import gouv.education.apogee.commun.client.utils.WSUtils;
-import gouv.education.apogee.commun.client.ws.offreformationmetier.OffreFormationMetierServiceInterface;
-import gouv.education.apogee.commun.client.ws.offreformationmetier.OffreFormationMetierSoapBindingStub;
-import gouv.education.apogee.commun.client.ws.referentielmetier.ReferentielMetierServiceInterface;
-import gouv.education.apogee.commun.client.ws.referentielmetier.ReferentielMetierSoapBindingStub;
-import gouv.education.apogee.commun.transverse.dto.WSReferentiel.recupererInformationEtabRef.VariableAppliWSEtabRefDTO;
-import gouv.education.apogee.commun.transverse.dto.WSReferentiel.recupererSignataire.SignataireWSSignataireDTO;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.DiplomeDTO3;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.EtapeDTO3;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.SECritereDTO2;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.VersionDiplomeDTO3;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.VersionEtapeDTO3;
-import gouv.education.apogee.commun.transverse.dto.pedagogique.ComposanteDTO3;
-import gouv.education.apogee.commun.transverse.exception.WebBaseException;
+import fr.wsclient.apogee.OffreFormationMetier.OffreFormationMetierServiceInterface;
+import fr.wsclient.apogee.ReferentielMetier.ReferentielMetierServiceInterface;
+import fr.wsclient.apogee.ReferentielMetier.VariableAppliWSEtabRefDTO;
+import fr.wsclient.apogee.ReferentielMetier.SignataireWSSignataireDTO;
+import fr.wsclient.apogee.OffreFormationMetier.DiplomeDTO3;
+import fr.wsclient.apogee.OffreFormationMetier.EtapeDTO3;
+import fr.wsclient.apogee.OffreFormationMetier.SECritereDTO2;
+import fr.wsclient.apogee.OffreFormationMetier.VersionDiplomeDTO3;
+import fr.wsclient.apogee.OffreFormationMetier.VersionEtapeDTO32;
+import fr.wsclient.apogee.ReferentielMetier.ComposanteDTO3;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -26,7 +20,6 @@ import org.esupportail.pstage.domain.beans.EtabRef;
 import org.esupportail.pstage.domain.beans.SignataireRef;
 import org.esupportail.pstage.exceptions.CommunicationApogeeException;
 import org.esupportail.pstage.utils.DonneesStatic;
-//import org.esupportail.apogee.services.remote.ReadEnseignement;
 
 
 
@@ -76,50 +69,50 @@ StudentComponentRepositoryDao {
 		String  cpo = "";
 		String  com = "";
 		EtabRef etabRef = new EtabRef();
-		try {
-			ReferentielMetierServiceInterface referentielMetierService = (ReferentielMetierSoapBindingStub) WSUtils.getService(WSUtils.REFERENTIEL_SERVICE_NAME);
+		try {			
+			ReferentielMetierServiceInterface referentielMetierService = WsUtils.initReferentielMetierService();
 			// recuperer le nom de l'etablissement
-			VariableAppliWSEtabRefDTO[] variableAppli = referentielMetierService.recupererInformationEtabRef(DonneesStatic.COD_VAP_ETB_LIB);
+			List<VariableAppliWSEtabRefDTO> variableAppli = referentielMetierService.recupererInformationEtabRef(DonneesStatic.COD_VAP_ETB_LIB);
 			if (variableAppli != null) {
-				for (int i = 0; i < variableAppli.length; i++) {
-					if (variableAppli[i].getParVap() != null) {
-						nomEtabRef = variableAppli[i].getParVap();
+				for (int i = 0; i < variableAppli.size(); i++) {
+					if (variableAppli.get(i).getParVap() != null) {
+						nomEtabRef = variableAppli.get(i).getParVap();
 					}
 				}
 			}
 			// recuperer adresse 2
-			VariableAppliWSEtabRefDTO[] variableAppliAd2 = referentielMetierService.recupererInformationEtabRef(DonneesStatic.COD_VAP_ETB_AD2);
+			List<VariableAppliWSEtabRefDTO> variableAppliAd2 = referentielMetierService.recupererInformationEtabRef(DonneesStatic.COD_VAP_ETB_AD2);
 			if (variableAppliAd2 != null) {
-				for (int i = 0; i < variableAppliAd2.length; i++) {
-					if (variableAppliAd2[i].getParVap() != null) {
-						ad2 = variableAppliAd2[i].getParVap();
+				for (int i = 0; i < variableAppliAd2.size(); i++) {
+					if (variableAppliAd2.get(i).getParVap() != null) {
+						ad2 = variableAppliAd2.get(i).getParVap();
 					}
 				}
 			}
 			// recuperer adresse 3
-			VariableAppliWSEtabRefDTO[] variableAppliAd3 = referentielMetierService.recupererInformationEtabRef(DonneesStatic.COD_VAP_ETB_AD3);
+			List<VariableAppliWSEtabRefDTO> variableAppliAd3 = referentielMetierService.recupererInformationEtabRef(DonneesStatic.COD_VAP_ETB_AD3);
 			if (variableAppliAd3 != null) {
-				for (int i = 0; i < variableAppliAd3.length; i++) {
-					if (variableAppliAd3[i].getParVap() != null) {
-						ad3 = variableAppliAd3[i].getParVap();
+				for (int i = 0; i < variableAppliAd3.size(); i++) {
+					if (variableAppliAd3.get(i).getParVap() != null) {
+						ad3 = variableAppliAd3.get(i).getParVap();
 					}
 				}
 			}
 			// recuperer code postal
-			VariableAppliWSEtabRefDTO[] variableAppliCpo = referentielMetierService.recupererInformationEtabRef(DonneesStatic.COD_VAP_ETB_CPO);
+			List<VariableAppliWSEtabRefDTO> variableAppliCpo = referentielMetierService.recupererInformationEtabRef(DonneesStatic.COD_VAP_ETB_CPO);
 			if (variableAppliCpo != null) {
-				for (int i = 0; i < variableAppliCpo.length; i++) {
-					if (variableAppliCpo[i].getParVap() != null) {
-						cpo = variableAppliCpo[i].getParVap();
+				for (int i = 0; i < variableAppliCpo.size(); i++) {
+					if (variableAppliCpo.get(i).getParVap() != null) {
+						cpo = variableAppliCpo.get(i).getParVap();
 					}
 				}
 			}
 			// recuperer commune
-			VariableAppliWSEtabRefDTO[] variableAppliCom = referentielMetierService.recupererInformationEtabRef(DonneesStatic.COD_VAP_ETB_COM);
+			List<VariableAppliWSEtabRefDTO> variableAppliCom = referentielMetierService.recupererInformationEtabRef(DonneesStatic.COD_VAP_ETB_COM);
 			if (variableAppliCom != null) {
-				for (int i = 0; i < variableAppliCom.length; i++) {
-					if (variableAppliCom[i].getParVap() != null) {
-						com = variableAppliCom[i].getParVap();
+				for (int i = 0; i < variableAppliCom.size(); i++) {
+					if (variableAppliCom.get(i).getParVap() != null) {
+						com = variableAppliCom.get(i).getParVap();
 					}
 				}
 			}
@@ -127,7 +120,7 @@ StudentComponentRepositoryDao {
 			etabRef.setNomEtabRef(nomEtabRef);
 			etabRef.setAdresseEtabRef(adresseEtabRef);
 			return etabRef;
-		} catch (WebBaseException e) {
+		} catch (fr.wsclient.apogee.ReferentielMetier.WebBaseException_Exception e) {
 			logger.error("WebBaseException getEtabRef = " + e );
 			throw new CommunicationApogeeException(e);
 
@@ -146,9 +139,7 @@ StudentComponentRepositoryDao {
 		}
 		LinkedHashMap<String,String> lSI = new LinkedHashMap<String, String>();
 
-//		OffreFormationMetierServiceInterfaceProxy offreFormationMetierService = new OffreFormationMetierServiceInterfaceProxy();
-		OffreFormationMetierServiceInterface offreFormationMetierService = (OffreFormationMetierSoapBindingStub) WSUtils.getService(WSUtils.OFFREFORMATION_SERVICE_NAME);
-
+		OffreFormationMetierServiceInterface offreFormationMetierService = WsUtils.initOffreFormationMetierService(); 
 
 		Object idl = new Object();
 		String lib = "";
@@ -162,15 +153,15 @@ StudentComponentRepositoryDao {
 			param.setCodDip("aucun");
 			param.setCodVrsVdi("aucun");
 			param.setCodElp("aucun");
-			DiplomeDTO3[] diplomeDTO3 = offreFormationMetierService.recupererSE_v3(param);
+			List<DiplomeDTO3> diplomeDTO3 = offreFormationMetierService.recupererSEV3(param);
 			
 			for(DiplomeDTO3 ld : diplomeDTO3){
-				VersionDiplomeDTO3[] versionDiplomeDTO3 =ld.getListVersionDiplome();
+				List<VersionDiplomeDTO3> versionDiplomeDTO3 =ld.getListVersionDiplome().getItem();
 				for(VersionDiplomeDTO3 lvd : versionDiplomeDTO3){
-					EtapeDTO3[] etapeDTO3 = lvd.getOffreFormation().getListEtape();
+					List<EtapeDTO3> etapeDTO3 = lvd.getOffreFormation().getListEtape().getItem();
 					for(EtapeDTO3 le : etapeDTO3){
-						VersionEtapeDTO3[] versionEtapeDTO3=le.getListVersionEtape();
-						for(VersionEtapeDTO3 ve : versionEtapeDTO3){
+						List<VersionEtapeDTO32> versionEtapeDTO3=le.getListVersionEtape().getItem();
+						for(VersionEtapeDTO32 ve : versionEtapeDTO3){
 							idl = le.getCodEtp();
 							lib = ve.getLibWebVet();
 							lSI.put(idl+";"+ve.getCodVrsVet(), lib);
@@ -194,21 +185,21 @@ StudentComponentRepositoryDao {
 	public SignataireRef getSigCompoRef(String universityCode, String composante) {
 		SignataireRef sigRef = new SignataireRef();
 
-		try {
-			ReferentielMetierServiceInterface referentielMetierService = (ReferentielMetierSoapBindingStub) WSUtils.getService(WSUtils.REFERENTIEL_SERVICE_NAME);
+		try {			
+			ReferentielMetierServiceInterface referentielMetierService = WsUtils.initReferentielMetierService();
 			// recuperer le code signataire de la composante
-			ComposanteDTO3[] lcomposante = referentielMetierService.recupererComposante_v2(composante, null);
+			List<ComposanteDTO3> lcomposante = referentielMetierService.recupererComposanteV2(composante, null);
 			if (lcomposante != null) {
-				for (int i = 0; i < lcomposante.length; i++) {
-					if (lcomposante[i].getCodCmp().equals(composante)) {
+				for (int i = 0; i < lcomposante.size(); i++) {
+					if (lcomposante.get(i).getCodCmp().equals(composante)) {
 						// recherche du signataire de la composante
-						if (lcomposante[i].getCodSig() != null) {
-							SignataireWSSignataireDTO[] signataire = 
-									referentielMetierService.recupererSignataire(lcomposante[i].getCodSig(), DonneesStatic.TEM_EN_SVE_O);
+						if (lcomposante.get(i).getCodSig() != null) {
+							List<SignataireWSSignataireDTO> signataire = 
+									referentielMetierService.recupererSignataire(lcomposante.get(i).getCodSig(), DonneesStatic.TEM_EN_SVE_O);
 							if (signataire != null) {
-								for (int j = 0; j < signataire.length; j++) {
-									sigRef.setNomSignataireComposante(signataire[j].getNomSig());
-									sigRef.setQualiteSignataire(signataire[j].getQuaSig());
+								for (int j = 0; j < signataire.size(); j++) {
+									sigRef.setNomSignataireComposante(signataire.get(j).getNomSig());
+									sigRef.setQualiteSignataire(signataire.get(j).getQuaSig());
 								}
 							}
 						}
@@ -216,7 +207,7 @@ StudentComponentRepositoryDao {
 				}
 			}
 			return sigRef;
-		} catch (WebBaseException e) {
+		} catch (fr.wsclient.apogee.ReferentielMetier.WebBaseException_Exception e) {
 			logger.error("WebBaseException getSigCompoRef = " + e );
 			throw new CommunicationApogeeException(e);
 
@@ -239,15 +230,15 @@ StudentComponentRepositoryDao {
 		mapComp = new LinkedHashMap<String,String>();
 
 		try {
-			ReferentielMetierServiceInterface referentielMetierService = (ReferentielMetierSoapBindingStub) WSUtils.getService(WSUtils.REFERENTIEL_SERVICE_NAME);
-
+			ReferentielMetierServiceInterface referentielMetierService = WsUtils.initReferentielMetierService();
+			
 			// recuperer la liste des composantes
-			ComposanteDTO3[] composante = referentielMetierService.recupererComposante_v2(null, null);
+			List<ComposanteDTO3> composante = referentielMetierService.recupererComposanteV2(null, null);
 
 			if (composante != null) {
 
 				if (logger.isDebugEnabled()) {
-					logger.debug("StudentComponentRepositoryDaoWS:: getComposantesPrincipalesRef. composante  = " + composante.length);
+					logger.debug("StudentComponentRepositoryDaoWS:: getComposantesPrincipalesRef. composante  = " + composante.size());
 				}
 
 				recupComposantes(composante);
@@ -256,7 +247,7 @@ StudentComponentRepositoryDao {
 
 			return mapComp;
 
-		} catch (WebBaseException e) {
+		} catch (fr.wsclient.apogee.ReferentielMetier.WebBaseException_Exception e) {
 			logger.error("WebBaseException getComposantesRef = " + e );
 			throw new CommunicationApogeeException(e);
 
@@ -266,17 +257,17 @@ StudentComponentRepositoryDao {
 
 	}
 
-	public void recupComposantes(ComposanteDTO3[] composante){
-		for (int i = 0; i < composante.length; i++) {
-			Object idl = composante[i].getCodCmp();
-			String lib = composante[i].getLibCmp();
-			if (composante[i].getTemEnSveCmp().equals("O")) {
+	public void recupComposantes(List<ComposanteDTO3> composante){
+		for (int i = 0; i < composante.size(); i++) {
+			Object idl = composante.get(i).getCodCmp();
+			String lib = composante.get(i).getLibCmp();
+			if (composante.get(i).getTemEnSveCmp().equals("O")) {
 				mapComp.put(idl + "", lib);
 			}
 			// Si la composante en cours de recuperation contient une liste de composantes filles
 			// On la parcours egalement
-			if (composante[i].getListeComposanteFils() != null && composante[i].getListeComposanteFils().length > 0){
-				recupComposantes(composante[i].getListeComposanteFils());
+			if (composante.get(i).getListeComposanteFils() != null && composante.get(i).getListeComposanteFils().getComposante().size() > 0){
+				recupComposantes(composante.get(i).getListeComposanteFils().getComposante());
 			}
 		}
 	}
