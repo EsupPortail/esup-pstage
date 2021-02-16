@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<modelVersion>4.0.0</modelVersion>
+<groupId>client</groupId>
+<artifactId>wsapogee</artifactId>
+<version>6.10.00</version>  <!-- Version de WS Apogee (à mettre à jour le cas échéant) -->
+<packaging>jar</packaging>
+<description>ws apogee client</description>
+<properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<maven.compiler.source>1.8</maven.compiler.source>  
+    <maven.compiler.target>1.8</maven.compiler.target>
+	<ws.url.base>https://xxx.univ-xxx/xxx</ws.url.base> <!-- URL (de base) pour les WS Apogee (à renseigner) -->
+</properties>
+<dependencies>
+	<dependency>
+		<groupId>javax.xml.bind</groupId>
+		<artifactId>jaxb-api</artifactId>
+		<version>2.3.1</version>
+	</dependency>
+	<dependency>
+		<groupId>com.sun.xml.ws</groupId>
+		<artifactId>jaxws-ri</artifactId>
+		<version>2.3.3</version>
+		<type>pom</type>
+	</dependency>	
+</dependencies>
+<build>
+<plugins>
+<plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>jaxws-maven-plugin</artifactId>
+	<version>2.6</version>    
+    <executions>
+       <execution>
+            <id>apogee-wsdl-geographie-metier</id>
+            <goals>
+                <goal>wsimport</goal>
+            </goals>
+            <configuration>
+			    <args>
+                  <arg>-B-XautoNameResolution</arg>				  
+				</args> 
+				<wsdlUrls>
+					<wsdlUrl>${ws.url.base}/services/GeographieMetier?wsdl</wsdlUrl>
+				</wsdlUrls>
+	        <packageName>fr.wsclient.apogee.GeographieMetier</packageName>	        
+            </configuration>
+        </execution>		
+		<execution>
+            <id>apogee-wsdl-offre-formation-metier</id>
+            <goals>
+                <goal>wsimport</goal>
+            </goals>
+            <configuration>
+			    <args>
+                  <arg>-B-XautoNameResolution</arg>
+				</args> 
+				<wsdlUrls>
+					<wsdlUrl>${ws.url.base}/services/OffreFormationMetier?wsdl</wsdlUrl>
+				</wsdlUrls>
+				<packageName>fr.wsclient.apogee.OffreFormationMetier</packageName>				
+            </configuration>
+        </execution>
+		<execution>
+            <id>apogee-wsdl-etudiant-metier</id>
+            <goals>
+                <goal>wsimport</goal>
+            </goals>
+            <configuration>
+			    <args>
+                  <arg>-B-XautoNameResolution</arg>
+				</args>
+				<wsdlUrls>
+					<wsdlUrl>${ws.url.base}/services/EtudiantMetier?wsdl</wsdlUrl>
+				</wsdlUrls>
+				<packageName>fr.wsclient.apogee.EtudiantMetier</packageName>				
+            </configuration>
+        </execution>
+		<execution>
+            <id>apogee-wsdl-pedagogique-metier</id>
+            <goals>
+                <goal>wsimport</goal>
+            </goals>
+            <configuration>
+			    <args>
+                  <arg>-B-XautoNameResolution</arg>
+				</args>
+				<wsdlUrls>
+					<wsdlUrl>${ws.url.base}/services/PedagogiqueMetier?wsdl</wsdlUrl>
+				</wsdlUrls>
+				<packageName>fr.wsclient.apogee.PedagogiqueMetier</packageName>				
+            </configuration>
+        </execution>
+		<execution>
+            <id>apogee-wsdl-referentiel-metier</id>
+            <goals>
+                <goal>wsimport</goal>
+            </goals>
+            <configuration>
+			    <args>
+                  <arg>-B-XautoNameResolution</arg>
+				</args>
+				<wsdlUrls>
+					<wsdlUrl>${ws.url.base}/services/ReferentielMetier?wsdl</wsdlUrl>
+				</wsdlUrls>
+				<packageName>fr.wsclient.apogee.ReferentielMetier</packageName>				
+            </configuration>
+        </execution>
+		<execution>
+            <id>apogee-wsdl-administratif-metier</id>
+            <goals>
+                <goal>wsimport</goal>
+            </goals>
+            <configuration>
+			    <args>
+                  <arg>-B-XautoNameResolution</arg>
+				</args>
+				<wsdlUrls>
+					<wsdlUrl>${ws.url.base}/services/AdministratifMetier?wsdl</wsdlUrl>
+				</wsdlUrls>
+				<packageName>fr.wsclient.apogee.AdministratifMetier</packageName>				
+            </configuration>
+        </execution>		
+    </executions>   
+</plugin>
+</plugins>
+ </build>
+</project>
