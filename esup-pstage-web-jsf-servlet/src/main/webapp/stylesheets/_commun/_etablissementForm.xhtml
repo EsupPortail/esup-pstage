@@ -57,16 +57,18 @@
                                            for="infoSiret" />
                             </t:htmlTag>
                         </h:outputText>
-                        <h:outputText value=" *" rendered="#{(etablissementController.formStructureTmpPays==beanUtils.france
-                                        || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
+                        <h:outputText value=" *" rendered="#{((etablissementController.formStructureTmpPays==beanUtils.france
+                                        || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)  
+                                        and etablissementController.formStructureTmpPays.siretObligatoire)
 						                and etablissementController.formStructureTmpTypeStructure.siretObligatoire}" />
                     </t:div>
                     <t:div>
                         <p:inputText id="siret"
                                      value="#{etablissementController.formStructure.numeroSiret}"
                                      maxlength="14"
-                                     required="#{(etablissementController.formStructureTmpPays==beanUtils.france
+                                     required="#{((etablissementController.formStructureTmpPays==beanUtils.france
                                         || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
+                                        and etablissementController.formStructureTmpPays.siretObligatoire)
 						                and etablissementController.formStructureTmpTypeStructure.siretObligatoire}"
                                      requiredMessage="#{requiredMessageController.champObligatoire}"
                                      validatorMessage="#{requiredMessageController.numeroSiretNonValide}"
@@ -82,7 +84,8 @@
                                 value="#{msgs['STRUCTURE.DEMANDE_MODIFSIRET']}"
                                 oncomplete="PF('nousContacter').show();" update="nousContacter" />
                         <p:outputPanel id="opSiretOblig">
-                            <t:div rendered="#{(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
+                            <t:div rendered="#{((etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
+                                            and etablissementController.formStructureTmpPays.siretObligatoire)
 						                    and etablissementController.formStructureTmpTypeStructure.siretObligatoire}">
                                 <h:graphicImage id="arrow" alt="#{msgs['STRUCTURE.NUM_SIRET.OBLIGATOIRE']}"
                                                 value="/media/images/arrow_turn_up.png" />
