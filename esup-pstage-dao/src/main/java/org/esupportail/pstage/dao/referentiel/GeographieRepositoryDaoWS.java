@@ -1,9 +1,9 @@
 package org.esupportail.pstage.dao.referentiel;
 
-import fr.wsclient.apogee.GeographieMetier.GeographieMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.GeographieMetier.GeographieMetierServiceInterface;
 
-import fr.wsclient.apogee.GeographieMetier.CommuneDTO;
-import fr.wsclient.apogee.GeographieMetier.WebBaseException_Exception;
+import gouv.education.apogee.commun.client.ws.GeographieMetier.CommuneDTO;
+import gouv.education.apogee.commun.client.ws.GeographieMetier.WebBaseException_Exception;
 
 import java.util.ArrayList;
 import java.util.Collections;

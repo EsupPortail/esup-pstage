@@ -1,6 +1,6 @@
 package org.esupportail.pstage.domain.referentiel;
 
-import fr.wsclient.apogee.GeographieMetier.CommuneDTO;
+import gouv.education.apogee.commun.client.ws.GeographieMetier.CommuneDTO;
 
 import java.util.List;
 

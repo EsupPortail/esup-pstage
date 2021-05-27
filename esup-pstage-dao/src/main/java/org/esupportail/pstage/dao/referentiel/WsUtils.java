@@ -10,18 +10,18 @@ import javax.xml.ws.BindingProvider;
 
 import org.apache.log4j.Logger;
 
-import fr.wsclient.apogee.AdministratifMetier.AdministratifMetierServiceInterface;
-import fr.wsclient.apogee.AdministratifMetier.AdministratifMetierServiceInterfaceService;
-import fr.wsclient.apogee.EtudiantMetier.EtudiantMetierServiceInterface;
-import fr.wsclient.apogee.EtudiantMetier.EtudiantMetierServiceInterfaceService;
-import fr.wsclient.apogee.GeographieMetier.GeographieMetierServiceInterface;
-import fr.wsclient.apogee.GeographieMetier.GeographieMetierServiceInterfaceService;
-import fr.wsclient.apogee.OffreFormationMetier.OffreFormationMetierServiceInterface;
-import fr.wsclient.apogee.OffreFormationMetier.OffreFormationMetierServiceInterfaceService;
-import fr.wsclient.apogee.PedagogiqueMetier.PedagogiqueMetierServiceInterface;
-import fr.wsclient.apogee.PedagogiqueMetier.PedagogiqueMetierServiceInterfaceService;
-import fr.wsclient.apogee.ReferentielMetier.ReferentielMetierServiceInterface;
-import fr.wsclient.apogee.ReferentielMetier.ReferentielMetierServiceInterfaceService;
+import gouv.education.apogee.commun.client.ws.GeographieMetier.GeographieMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.GeographieMetier.GeographieMetierServiceInterfaceService;
+import gouv.education.apogee.commun.client.ws.AdministratifMetier.AdministratifMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.AdministratifMetier.AdministratifMetierServiceInterfaceService;
+import gouv.education.apogee.commun.client.ws.EtudiantMetier.EtudiantMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.EtudiantMetier.EtudiantMetierServiceInterfaceService;
+import gouv.education.apogee.commun.client.ws.OffreFormationMetier.OffreFormationMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.OffreFormationMetier.OffreFormationMetierServiceInterfaceService;
+import gouv.education.apogee.commun.client.ws.PedagogiqueMetier.PedagogiqueMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.PedagogiqueMetier.PedagogiqueMetierServiceInterfaceService;
+import gouv.education.apogee.commun.client.ws.ReferentielMetier.ReferentielMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.ReferentielMetier.ReferentielMetierServiceInterfaceService;
 
 /**
  * WsUtils Class.

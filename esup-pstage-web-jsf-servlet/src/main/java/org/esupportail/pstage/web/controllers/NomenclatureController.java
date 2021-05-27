@@ -12,7 +12,7 @@ import java.util.List;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
-import fr.wsclient.apogee.GeographieMetier.CommuneDTO;
+import gouv.education.apogee.commun.client.ws.GeographieMetier.CommuneDTO;
 import org.apache.log4j.Logger;
 import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;

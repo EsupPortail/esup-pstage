@@ -2,6 +2,7 @@ package org.esupportail.pstage.dao.referentiel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.*;
 
 import org.apache.log4j.Logger;
@@ -19,24 +20,23 @@ import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
 import org.springframework.util.StringUtils;
 
-import fr.wsclient.apogee.AdministratifMetier.AdministratifMetierServiceInterface;
-import fr.wsclient.apogee.AdministratifMetier.InsAdmAnuDTO2;
-import fr.wsclient.apogee.AdministratifMetier.InsAdmEtpDTO2;
-import fr.wsclient.apogee.EtudiantMetier.CoordonneesDTO2;
-import fr.wsclient.apogee.EtudiantMetier.EtudiantMetierServiceInterface;
-import fr.wsclient.apogee.EtudiantMetier.IdentifiantsEtudiantDTO2;
-import fr.wsclient.apogee.EtudiantMetier.InfoAdmEtuDTO2;
-import fr.wsclient.apogee.OffreFormationMetier.DiplomeDTO3;
-import fr.wsclient.apogee.OffreFormationMetier.ElementPedagogiDTO22;
-import fr.wsclient.apogee.OffreFormationMetier.ListeElementPedagogiDTO2;
-import fr.wsclient.apogee.OffreFormationMetier.OffreFormationDTO3;
-import fr.wsclient.apogee.OffreFormationMetier.OffreFormationMetierServiceInterface;
-import fr.wsclient.apogee.OffreFormationMetier.SECritereDTO2;
-import fr.wsclient.apogee.OffreFormationMetier.VersionDiplomeDTO3;
-import fr.wsclient.apogee.PedagogiqueMetier.PedagogiqueMetierServiceInterface;
-import fr.wsclient.apogee.ReferentielMetier.ComposanteDTO3;
-import fr.wsclient.apogee.ReferentielMetier.ReferentielMetierServiceInterface;
-
+import gouv.education.apogee.commun.client.ws.AdministratifMetier.AdministratifMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.AdministratifMetier.InsAdmAnuDTO2;
+import gouv.education.apogee.commun.client.ws.AdministratifMetier.InsAdmEtpDTO2;
+import gouv.education.apogee.commun.client.ws.EtudiantMetier.CoordonneesDTO2;
+import gouv.education.apogee.commun.client.ws.EtudiantMetier.EtudiantMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.EtudiantMetier.IdentifiantsEtudiantDTO2;
+import gouv.education.apogee.commun.client.ws.EtudiantMetier.InfoAdmEtuDTO2;
+import gouv.education.apogee.commun.client.ws.OffreFormationMetier.DiplomeDTO3;
+import gouv.education.apogee.commun.client.ws.OffreFormationMetier.ElementPedagogiDTO22;
+import gouv.education.apogee.commun.client.ws.OffreFormationMetier.ListeElementPedagogiDTO2;
+import gouv.education.apogee.commun.client.ws.OffreFormationMetier.OffreFormationDTO3;
+import gouv.education.apogee.commun.client.ws.OffreFormationMetier.OffreFormationMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.OffreFormationMetier.SECritereDTO2;
+import gouv.education.apogee.commun.client.ws.OffreFormationMetier.VersionDiplomeDTO3;
+import gouv.education.apogee.commun.client.ws.PedagogiqueMetier.PedagogiqueMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.ReferentielMetier.ComposanteDTO3;
+import gouv.education.apogee.commun.client.ws.ReferentielMetier.ReferentielMetierServiceInterface;
 
 /**
  * Acces donnees etudiant
@@ -449,7 +449,7 @@ public class StudentDataRepositoryDaoWS extends AbstractAuthCredentials implemen
 			try{
 				coordonnees = etudiantMetierService.recupererAdressesEtudiantV2(
 						etudiant.getCodEtu().toString(), null, this.temoinRecupAnnu);
-			} catch (fr.wsclient.apogee.EtudiantMetier.WebBaseException_Exception wb) {
+			} catch (gouv.education.apogee.commun.client.ws.EtudiantMetier.WebBaseException_Exception wb) {
 				coordonnees = etudiantMetierService.recupererAdressesEtudiantV2(
 						etudiant.getCodEtu().toString(), anneeCourante, this.temoinRecupAnnu);
 			}
@@ -471,7 +471,7 @@ public class StudentDataRepositoryDaoWS extends AbstractAuthCredentials implemen
 				codeSexe = infosAdmEtu.getSexe();
 			}
 			if (infosAdmEtu.getDateNaissance() != null) {
-				dateNais = infosAdmEtu.getDateNaissance().toGregorianCalendar().getTime();
+				dateNais = Date.from(infosAdmEtu.getDateNaissance().atZone(ZoneId.systemDefault()).toInstant());
 			}
 
 			// recherche des informations etudiant dans APOGEE
@@ -659,7 +659,7 @@ public class StudentDataRepositoryDaoWS extends AbstractAuthCredentials implemen
 
 			return studentApogee;
 
-		} catch (fr.wsclient.apogee.EtudiantMetier.WebBaseException_Exception e) {
+		} catch (gouv.education.apogee.commun.client.ws.EtudiantMetier.WebBaseException_Exception e) {
 			logger.warn("WebBaseException globale : " + e );
 			if (e.toString().equals("technical.data.nullretrieve.etudiant")) {
 				logger.error("Etudiant non trouvé : " + id);
@@ -853,7 +853,7 @@ public class StudentDataRepositoryDaoWS extends AbstractAuthCredentials implemen
 		List<InsAdmEtpDTO2> tabInsAdmEtp;
 		try {
 			tabInsAdmEtp = serviceAdministratif.recupererIAEtapesV2(cod, annee, "E", "E");
-		} catch (fr.wsclient.apogee.AdministratifMetier.WebBaseException_Exception e) {
+		} catch (gouv.education.apogee.commun.client.ws.AdministratifMetier.WebBaseException_Exception e) {
 			tabInsAdmEtp = new ArrayList<InsAdmEtpDTO2>();
 			if (logger.isDebugEnabled()){
 				if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
@@ -907,7 +907,7 @@ public class StudentDataRepositoryDaoWS extends AbstractAuthCredentials implemen
 						if(composante != null && composante.get(0)!=null && composante.get(0).getLibCmp()!=null){
 							libComp=composante.get(0).getLibCmp();
 						}
-					} catch (fr.wsclient.apogee.ReferentielMetier.WebBaseException_Exception e) {
+					} catch (gouv.education.apogee.commun.client.ws.ReferentielMetier.WebBaseException_Exception e) {
 						composante = new ArrayList<ComposanteDTO3>();
 						logger.warn("WebBaseException recupererComposante_v2 : " + e );
 						continue;
@@ -1024,7 +1024,7 @@ public class StudentDataRepositoryDaoWS extends AbstractAuthCredentials implemen
 								}
 							}
 						}
-					} catch (fr.wsclient.apogee.OffreFormationMetier.WebBaseException_Exception e) {
+					} catch (gouv.education.apogee.commun.client.ws.OffreFormationMetier.WebBaseException_Exception e) {
 						logger.warn("WebBaseException recupererSE_v3 : " + e );
 						if (e.toString().equals("technical.data.nullretrieve.recupererse")) {
 							logger.warn("Aucune donnee en sortie pour " + cod + " - diplome/vers : " + codeDiplome + versDiplome);
@@ -1077,7 +1077,7 @@ public class StudentDataRepositoryDaoWS extends AbstractAuthCredentials implemen
 			IdentifiantsEtudiantDTO2 etudiant = etudiantMetierService.recupererIdentifiantsEtudiantV2(
 					null, codInd, null,  null, null, null, null, null, this.temoinRecupAnnu);
 			codEtu = etudiant.getCodEtu().toString();
-		} catch (fr.wsclient.apogee.EtudiantMetier.WebBaseException_Exception e) {
+		} catch (gouv.education.apogee.commun.client.ws.EtudiantMetier.WebBaseException_Exception e) {
 			logger.warn("WebBaseException in getStudentByNum = " + e );
 			if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
 				logger.warn("Aucun resultat pour l'etudiant "+ codInd);
@@ -1108,7 +1108,7 @@ public class StudentDataRepositoryDaoWS extends AbstractAuthCredentials implemen
 			IdentifiantsEtudiantDTO2 etudiant = etudiantMetierService.recupererIdentifiantsEtudiantV2(
 					codEtu, null,  null, null, null, null, null, null, this.temoinRecupAnnu);
 			codInd = etudiant.getCodInd().toString();
-		} catch (fr.wsclient.apogee.EtudiantMetier.WebBaseException_Exception e) {
+		} catch (gouv.education.apogee.commun.client.ws.EtudiantMetier.WebBaseException_Exception e) {
 			logger.warn("WebBaseException in getStudentByNum = " + e );
 			if (e.toString().equals("technical.security.invaliduser.user")) {
 				logger.warn("Aucun resultat pour l'etudiant "+ codEtu);

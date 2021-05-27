@@ -1,15 +1,15 @@
 package org.esupportail.pstage.dao.referentiel;
 
-import fr.wsclient.apogee.OffreFormationMetier.OffreFormationMetierServiceInterface;
-import fr.wsclient.apogee.ReferentielMetier.ReferentielMetierServiceInterface;
-import fr.wsclient.apogee.ReferentielMetier.VariableAppliWSEtabRefDTO;
-import fr.wsclient.apogee.ReferentielMetier.SignataireWSSignataireDTO;
-import fr.wsclient.apogee.OffreFormationMetier.DiplomeDTO3;
-import fr.wsclient.apogee.OffreFormationMetier.EtapeDTO3;
-import fr.wsclient.apogee.OffreFormationMetier.SECritereDTO2;
-import fr.wsclient.apogee.OffreFormationMetier.VersionDiplomeDTO3;
-import fr.wsclient.apogee.OffreFormationMetier.VersionEtapeDTO32;
-import fr.wsclient.apogee.ReferentielMetier.ComposanteDTO3;
+import gouv.education.apogee.commun.client.ws.OffreFormationMetier.OffreFormationMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.ReferentielMetier.ReferentielMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.ReferentielMetier.VariableAppliWSEtabRefDTO;
+import gouv.education.apogee.commun.client.ws.ReferentielMetier.SignataireWSSignataireDTO;
+import gouv.education.apogee.commun.client.ws.OffreFormationMetier.DiplomeDTO3;
+import gouv.education.apogee.commun.client.ws.OffreFormationMetier.EtapeDTO3;
+import gouv.education.apogee.commun.client.ws.OffreFormationMetier.SECritereDTO2;
+import gouv.education.apogee.commun.client.ws.OffreFormationMetier.VersionDiplomeDTO3;
+import gouv.education.apogee.commun.client.ws.OffreFormationMetier.VersionEtapeDTO32;
+import gouv.education.apogee.commun.client.ws.ReferentielMetier.ComposanteDTO3;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -120,7 +120,7 @@ StudentComponentRepositoryDao {
 			etabRef.setNomEtabRef(nomEtabRef);
 			etabRef.setAdresseEtabRef(adresseEtabRef);
 			return etabRef;
-		} catch (fr.wsclient.apogee.ReferentielMetier.WebBaseException_Exception e) {
+		} catch (gouv.education.apogee.commun.client.ws.ReferentielMetier.WebBaseException_Exception e) {
 			logger.error("WebBaseException getEtabRef = " + e );
 			throw new CommunicationApogeeException(e);
 
@@ -207,7 +207,7 @@ StudentComponentRepositoryDao {
 				}
 			}
 			return sigRef;
-		} catch (fr.wsclient.apogee.ReferentielMetier.WebBaseException_Exception e) {
+		} catch (gouv.education.apogee.commun.client.ws.ReferentielMetier.WebBaseException_Exception e) {
 			logger.error("WebBaseException getSigCompoRef = " + e );
 			throw new CommunicationApogeeException(e);
 
@@ -247,7 +247,7 @@ StudentComponentRepositoryDao {
 
 			return mapComp;
 
-		} catch (fr.wsclient.apogee.ReferentielMetier.WebBaseException_Exception e) {
+		} catch (gouv.education.apogee.commun.client.ws.ReferentielMetier.WebBaseException_Exception e) {
 			logger.error("WebBaseException getComposantesRef = " + e );
 			throw new CommunicationApogeeException(e);
 

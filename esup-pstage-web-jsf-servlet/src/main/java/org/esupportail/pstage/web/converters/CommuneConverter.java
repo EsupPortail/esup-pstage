@@ -3,7 +3,7 @@
  */
 package org.esupportail.pstage.web.converters;
 
-import fr.wsclient.apogee.GeographieMetier.CommuneDTO;
+import gouv.education.apogee.commun.client.ws.GeographieMetier.CommuneDTO;
 
 import java.io.Serializable;
 import java.util.List;

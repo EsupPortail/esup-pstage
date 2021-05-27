@@ -1,8 +1,8 @@
 package org.esupportail.pstage.dao.referentiel;
 
-import fr.wsclient.apogee.ReferentielMetier.ReferentielMetierServiceInterface;
-import fr.wsclient.apogee.ReferentielMetier.ComposanteDTO3;
-import fr.wsclient.apogee.ReferentielMetier.WebBaseException_Exception;
+import gouv.education.apogee.commun.client.ws.ReferentielMetier.ReferentielMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.ReferentielMetier.ComposanteDTO3;
+import gouv.education.apogee.commun.client.ws.ReferentielMetier.WebBaseException_Exception;
 
 import java.util.LinkedHashMap;
 import java.util.List;
