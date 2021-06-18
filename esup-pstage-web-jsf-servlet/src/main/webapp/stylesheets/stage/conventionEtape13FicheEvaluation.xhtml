@@ -77,20 +77,19 @@
                                             || not empty sessionController.droitsEvaluationEtudiantMap)
                                             and !conventionController.convention.reponseEvaluation.validationEtudiant}">
 
-                                            <t:fieldset rendered="#{not empty conventionController.convention.etudiant.mail
-                                                || not empty conventionController.convention.courrielPersoEtudiant}">
+                                            <t:fieldset rendered="#{not empty conventionController.convention.etudiant.mail}">
                                                 <t:div styleClass="mt10 mb10"
                                                        rendered="#{!conventionController.convention.envoiMailEtudiant}">
                                                     <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+                                                    <!-- 
                                                     <h:outputFormat value="#{msgs['CONVENTION.ETAPE13.MAIL.INFO_ETUDIANT']}"
                                                                     escape="false" styleClass="ml5"
                                                                     rendered="#{not empty conventionController.convention.courrielPersoEtudiant}">
                                                         <f:param value="#{conventionController.convention.courrielPersoEtudiant}" />
-                                                    </h:outputFormat>
+                                                    </h:outputFormat>-->
                                                     <h:outputFormat value="#{msgs['CONVENTION.ETAPE13.MAIL.INFO_ETUDIANT']}"
-                                                                    escape="false" styleClass="ml5"
-                                                                    rendered="#{empty conventionController.convention.courrielPersoEtudiant
-												        and not empty conventionController.convention.etudiant.mail}">
+                                                                    escape="false" styleClass="ml5" 
+                                                                    rendered="#{not empty conventionController.convention.etudiant.mail}">
                                                         <f:param value="#{conventionController.convention.etudiant.mail}" />
                                                     </h:outputFormat>
                                                 </t:div>

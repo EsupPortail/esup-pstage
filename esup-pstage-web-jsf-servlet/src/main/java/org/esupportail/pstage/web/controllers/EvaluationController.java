@@ -422,10 +422,10 @@ public class EvaluationController extends AbstractContextAwareController {
 		if (this.conventionController.getConvention().getEtudiant() != null) {
 			nomEtu = this.conventionController.getConvention().getEtudiant().getPrenom() + " "
 					+ this.conventionController.getConvention().getEtudiant().getNom();
-			if (this.conventionController.getConvention().getCourrielPersoEtudiant() != null
+			/*if (this.conventionController.getConvention().getCourrielPersoEtudiant() != null
 					&& !this.conventionController.getConvention().getCourrielPersoEtudiant().isEmpty()) {
 				adresseEtudiant = this.conventionController.getConvention().getCourrielPersoEtudiant();
-			} else if (this.conventionController.getConvention().getEtudiant().getMail() != null
+			} else*/ if (this.conventionController.getConvention().getEtudiant().getMail() != null
 					&& !this.conventionController.getConvention().getEtudiant().getMail().isEmpty()) {
 				adresseEtudiant = this.conventionController.getConvention().getEtudiant().getMail();
 			}
