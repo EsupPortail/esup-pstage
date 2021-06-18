@@ -70,13 +70,20 @@
 
 	<!-- entete -->
 	<xsl:template name="entete">
-		<fo:block>
+		<fo:block text-align="center">
 			<fo:external-graphic>
 				<xsl:attribute name="src">
 					<xsl:value-of select="document('config.xml')/config/logoUniversite" />
 				</xsl:attribute>
+				<xsl:attribute name="width">
+					<xsl:value-of select="document('config.xml')/config/largeurLogoUniversite" />
+				</xsl:attribute>
+				<xsl:attribute name="height">
+					<xsl:value-of select="document('config.xml')/config/hauteurLogoUniversite" />
+				</xsl:attribute>
 			</fo:external-graphic>
 		</fo:block>
+		<fo:leader />
 		<fo:block text-align="center">
 			<fo:inline hyphenate="false" language="fr" country="FR"
 				font-weight="bold" font-size="18pt">
@@ -113,26 +120,26 @@
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
 				<xsl:if test="reponse-evaluation/@reponse-ens-i1a = 'true'">
-					<fo:character character="&#x2612;" font-family="Symbol" />
+					<fo:external-graphic src="url('coche.jpg')" height="3.5mm" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-ens-i1a = 'false'">
-					<fo:character character="&#xF8E7;" font-family="Symbol" />
+					<fo:external-graphic src="url('decoche.jpg')" height="3.5mm" />
 				</xsl:if>
 				Mail&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
 				<xsl:if test="reponse-evaluation/@reponse-ens-i1b = 'true'">
-					<fo:character character="&#x2612;" font-family="Symbol" />
+					<fo:external-graphic src="url('coche.jpg')" height="3.5mm" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-ens-i1b = 'false'">
-					<fo:character character="&#xF8E7;" font-family="Symbol" />
+					<fo:external-graphic src="url('decoche.jpg')" height="3.5mm" />
 				</xsl:if>
 				Téléphone&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
 				<xsl:if test="reponse-evaluation/@reponse-ens-i1c = 'true'">
-					<fo:character character="&#x2612;" font-family="Symbol" />
+					<fo:external-graphic src="url('coche.jpg')" height="3.5mm" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-ens-i1c = 'false'">
-					<fo:character character="&#xF8E7;" font-family="Symbol" />
+					<fo:external-graphic src="url('decoche.jpg')" height="3.5mm" />
 				</xsl:if>
 				Rencontre
 			</fo:block>
@@ -146,26 +153,26 @@
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
 				<xsl:if test="reponse-evaluation/@reponse-ens-i2a = 'true'">
-					<fo:character character="&#x2612;" font-family="Symbol" />
+					<fo:external-graphic src="url('coche.jpg')" height="3.5mm" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-ens-i2a = 'false'">
-					<fo:character character="&#xF8E7;" font-family="Symbol" />
+					<fo:external-graphic src="url('decoche.jpg')" height="3.5mm" />
 				</xsl:if>
 				Mail&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
 				<xsl:if test="reponse-evaluation/@reponse-ens-i2b = 'true'">
-					<fo:character character="&#x2612;" font-family="Symbol" />
+					<fo:external-graphic src="url('coche.jpg')" height="3.5mm" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-ens-i2b = 'false'">
-					<fo:character character="&#xF8E7;" font-family="Symbol" />
+					<fo:external-graphic src="url('decoche.jpg')" height="3.5mm" />
 				</xsl:if>
 				Téléphone&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
 				<xsl:if test="reponse-evaluation/@reponse-ens-i2c = 'true'">
-					<fo:character character="&#x2612;" font-family="Symbol" />
+					<fo:external-graphic src="url('coche.jpg')" height="3.5mm" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-ens-i2c = 'false'">
-					<fo:character character="&#xF8E7;" font-family="Symbol" />
+					<fo:external-graphic src="url('decoche.jpg')" height="3.5mm" />
 				</xsl:if>
 				Rencontre
 			</fo:block>

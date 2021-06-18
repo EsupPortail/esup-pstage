@@ -69,13 +69,20 @@
 
 	<!-- entete -->
 	<xsl:template name="entete">
-		<fo:block>
+		<fo:block text-align="center">
 			<fo:external-graphic>
 				<xsl:attribute name="src">
 					<xsl:value-of select="document('config.xml')/config/logoUniversite" />
 				</xsl:attribute>
-			</fo:external-graphic>
+				<xsl:attribute name="width">
+					<xsl:value-of select="document('config.xml')/config/largeurLogoUniversite" />
+				</xsl:attribute>
+				<xsl:attribute name="height">
+					<xsl:value-of select="document('config.xml')/config/hauteurLogoUniversite" />
+				</xsl:attribute>
+			</fo:external-graphic>			
 		</fo:block>
+		<fo:leader />
 		<fo:block text-align="center">
 			<fo:inline hyphenate="false" language="fr" country="FR"
 				font-weight="bold" font-size="18pt">
@@ -115,10 +122,10 @@
 					Non, il est automatiquement proposé dans le cadre de la formation.
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-i1 = 2">
-					Non, je l’ai trouvé assez facilement par moi-même.
+					Non, je l'ai trouvé assez facilement par moi-même.
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-i1 = 3">
-					Oui j’ai eu des difficultés.
+					Oui j'ai eu des difficultés.
 				</xsl:if>
 			</fo:block>
 		</xsl:if>
@@ -179,36 +186,36 @@
 				utilisé(s) ?
 			</fo:block>
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
-				country="FR" font-size="11pt" margin-left="2.2cm">
+				country="FR" font-size="11pt" margin-left="2.2cm">				
 				<xsl:if test="reponse-evaluation/@reponse-etu-i4a = 'true'">
-					<fo:character character="&#x2612;" font-family="Symbol" />
+					<fo:external-graphic src="url('coche.jpg')" height="3.5mm" />				
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-i4a = 'false'">
-					<fo:character character="&#xF8E7;" font-family="Symbol" />
+					<fo:external-graphic src="url('decoche.jpg')" height="3.5mm" />
 				</xsl:if>
 				Mail&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
-				<xsl:if test="reponse-evaluation/@reponse-etu-i4b = 'true'">
-					<fo:character character="&#x2612;" font-family="Symbol" />
+                <xsl:if test="reponse-evaluation/@reponse-etu-i4b = 'true'">
+					<fo:external-graphic src="url('coche.jpg')" height="3.5mm" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-i4b = 'false'">
-					<fo:character character="&#xF8E7;" font-family="Symbol" />
+					<fo:external-graphic src="url('decoche.jpg')" height="3.5mm" />
 				</xsl:if>
-				Téléphone&#x00A0;&#x00A0;&#x00A0;&#x00A0;
+			    Téléphone&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
 				<xsl:if test="reponse-evaluation/@reponse-etu-i4c = 'true'">
-					<fo:character character="&#x2612;" font-family="Symbol" />
+					<fo:external-graphic src="url('coche.jpg')" height="3.5mm" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-i4c = 'false'">
-					<fo:character character="&#xF8E7;" font-family="Symbol" />
+					<fo:external-graphic src="url('decoche.jpg')" height="3.5mm" />
 				</xsl:if>
 				Courrier&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
 				<xsl:if test="reponse-evaluation/@reponse-etu-i4d = 'true'">
-					<fo:character character="&#x2612;" font-family="Symbol" />
+					<fo:external-graphic src="url('coche.jpg')" height="3.5mm" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-i4d = 'false'">
-					<fo:character character="&#xF8E7;" font-family="Symbol" />
+					<fo:external-graphic src="url('decoche.jpg')" height="3.5mm" />
 				</xsl:if>
 				Prospection directe
 			</fo:block>
@@ -414,7 +421,7 @@
 				country="FR" font-size="12pt" font-weight="bold">
 				- Comment
 				qualifieriez-vous l'encadrement de
-				votre stage dans l’entreprise ?
+				votre stage dans l'entreprise ?
 			</fo:block>
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
@@ -686,28 +693,28 @@
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII5a = 'true'">
-					<fo:character character="&#x2612;" font-family="Symbol" />
+					<fo:external-graphic src="url('coche.jpg')" height="3.5mm" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII5a = 'false'">
-					<fo:character character="&#xF8E7;" font-family="Symbol" />
+					<fo:external-graphic src="url('decoche.jpg')" height="3.5mm" />
 				</xsl:if>
 				Compétences techniques&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII5c = 'true'">
-					<fo:character character="&#x2612;" font-family="Symbol" />
+					<fo:external-graphic src="url('coche.jpg')" height="3.5mm" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII5c = 'false'">
-					<fo:character character="&#xF8E7;" font-family="Symbol" />
+					<fo:external-graphic src="url('decoche.jpg')" height="3.5mm" />
 				</xsl:if>
 				Nouvelles connaissances théoriques
 			</fo:block>
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII5b = 'true'">
-					<fo:character character="&#x2612;" font-family="Symbol" />
+					<fo:external-graphic src="url('coche.jpg')" height="3.5mm" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII5b = 'false'">
-					<fo:character character="&#xF8E7;" font-family="Symbol" />
+					<fo:external-graphic src="url('decoche.jpg')" height="3.5mm" />
 				</xsl:if>
 				Nouvelles méthodologies :
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII5b = 'true'">
