@@ -1758,18 +1758,23 @@ public class EvaluationController extends AbstractContextAwareController {
 				}
 			}
 
-			/** Ecriture du header dans la feuille excel **/
-			HSSFRow row_i;
+			/** Ecriture du header dans la feuille excel **/			
+			// Style entete column (gras)
+			HSSFCellStyle cellStyle2 = classeur.createCellStyle();
+			HSSFFont fonte = classeur.createFont();
+			fonte.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+			cellStyle2.setFont(fonte);
+			cellStyle2.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+			HSSFRow row_h = sheet.createRow(0);
+			HSSFCell cell_h;
 			for (int i = 0; i < header.size(); i++) {
-				row_i = sheet.createRow(i);
-				row_i.createCell(0).setCellValue(header.get(i));
+				cell_h=row_h.createCell(i);
+				cell_h.setCellValue(header.get(i));
+				cell_h.setCellStyle(cellStyle2);
 			}
 
-			// assignation d'une largeur fixe aux columns
-			sheet.setColumnWidth(0, 256 * 95);
-
-			// gele de la premiere colonne/en-tete
-			sheet.createFreezePane(1, 0);
+			// gele de la premiere ligne (entete)
+			sheet.createFreezePane(0, 1);
 
 			// initialisation des variables
 			ReponseEvaluationDTO reponseTmp;
@@ -1780,13 +1785,7 @@ public class EvaluationController extends AbstractContextAwareController {
 			// Style general
 			HSSFCellStyle cellStyle = classeur.createCellStyle();
 			cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-			// Style entete column (gras)
-			HSSFCellStyle cellStyle2 = classeur.createCellStyle();
-			HSSFFont fonte = classeur.createFont();
-			fonte.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-			cellStyle2.setFont(fonte);
-			cellStyle2.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-
+			
 
 			/***************************************************************
 			 * REMPLISSAGE AVEC LES REPONSES POUR CHAQUE CONVENTION TROUVEE
@@ -1797,20 +1796,18 @@ public class EvaluationController extends AbstractContextAwareController {
 				// recuperer ses reponses supplementaires via recupReponseSup
 				this.conventionController.setConvention(listeExportEval.get(i));
 
-				// Reglage taille colonne
-				sheet.setColumnWidth(i + 1, 256 * 40);
-
 				// Recuperation de la reponse
 				reponseTmp = listeExportEval.get(i).getReponseEvaluation();
 
 				if (reponseTmp != null && reponseTmp.isValidationEtudiant()) {
 
 					int cpt = 0;
+					
 					String reponse;
 					StringBuilder reponseBuilder;
-					row = sheet.getRow(cpt);
-					cell = row.createCell(j + 1); // j = colonne (0 = header, 1 = 1ere colonne de donnees)
-
+					row = sheet.createRow(j+1);
+					cell = row.createCell(cpt); 
+					
 					// num convention
 					cell.setCellValue(listeExportEval.get(i).getIdConvention());
 					cell.setCellStyle(cellStyle2);
@@ -1823,14 +1820,12 @@ public class EvaluationController extends AbstractContextAwareController {
 					// Renseignement etudiant
 					convention.setEtudiant(getEtudiantDomainService().getEtudiantFromId(convention.getIdEtudiant()));
 					// nom etu
-					row = sheet.getRow(cpt);
-					cell = row.createCell(j + 1);
+					cell = row.createCell(cpt);
 					cell.setCellValue(convention.getEtudiant().getNom());
 					cell.setCellStyle(cellStyle);
 					cpt++;
 					// prenom etu
-					row = sheet.getRow(cpt);
-					cell = row.createCell(j + 1);
+					cell = row.createCell(cpt);
 					cell.setCellValue(convention.getEtudiant().getPrenom());
 					cell.setCellStyle(cellStyle);
 					cpt++;
@@ -1840,8 +1835,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					 ******************************/
 					/** Question I-1 **/
 					if (ficheEvaluation.isQuestionEtuI1()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						reponse = "";
 						switch (reponseTmp.getReponseEtuI1()) {
 							case 1:
@@ -1863,8 +1857,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question I-2 **/
 					if (ficheEvaluation.isQuestionEtuI2()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						reponse = "";
 						switch (reponseTmp.getReponseEtuI2()) {
 							case 1:
@@ -1892,8 +1885,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question I-3 **/
 					if (ficheEvaluation.isQuestionEtuI3()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						reponse = "";
 						switch (reponseTmp.getReponseEtuI3()) {
 							case 1:
@@ -1918,8 +1910,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question I-4 **/
 					if (ficheEvaluation.isQuestionEtuI4()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						reponseBuilder = new StringBuilder("");
 						if (reponseTmp.isReponseEtuI4a())
 							reponseBuilder.append(getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL"));
@@ -1940,8 +1931,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question I-5 **/
 					if (ficheEvaluation.isQuestionEtuI5()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						reponse = "";
 						if (reponseTmp.getReponseEtuI5() > 0)
 							reponse = getNomenclatureDomainService()
@@ -1958,8 +1948,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question I-6 **/
 					if (ficheEvaluation.isQuestionEtuI6()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						reponse = "";
 						switch (reponseTmp.getReponseEtuI6()) {
 							case 1:
@@ -1984,8 +1973,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question I-7 **/
 					if (ficheEvaluation.isQuestionEtuI7()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						reponse = "";
 						// Cas NON
 						if (!reponseTmp.isReponseEtuI7()) {
@@ -2036,8 +2024,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question I-8 **/
 					if (ficheEvaluation.isQuestionEtuI8()){
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(transformBooleanRep(reponseTmp.isReponseEtuI8()));
 						cell.setCellStyle(cellStyle);
 						cpt++;
@@ -2050,8 +2037,7 @@ public class EvaluationController extends AbstractContextAwareController {
 							// On recupere la reponse a partir de la question
 							ReponseSupplementaireDTO reponseSup = recupReponseSup(question);
 							reponse = "";
-							row = sheet.getRow(cpt);
-							cell = row.createCell(j + 1);
+							cell = row.createCell(cpt);
 							if (question.getTypeQuestion() != null ){
 								// On evalue le type de la question pour savoir ce qu'il faut récupérer dans l'objet reponse (int, txt ou bool).
 								if ("TXT".equalsIgnoreCase(question.getTypeQuestion())){
@@ -2077,8 +2063,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					 ******************************/
 					/** Question II-1 **/
 					if (ficheEvaluation.isQuestionEtuII1()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						if (reponseTmp.getReponseEtuII1() == 4
 								|| reponseTmp.getReponseEtuII1() == 5) {
 							cell.setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII1()) + " : " + reponseTmp.getReponseEtuII1bis());
@@ -2091,8 +2076,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question II-2 **/
 					if (ficheEvaluation.isQuestionEtuII2()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						if (reponseTmp.getReponseEtuII2() == 4
 								|| reponseTmp.getReponseEtuII2() == 5) {
 							cell.setCellValue(this
@@ -2110,8 +2094,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question II-3 **/
 					if (ficheEvaluation.isQuestionEtuII3()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						if (reponseTmp.getReponseEtuII3() == 4
 								|| reponseTmp.getReponseEtuII3() == 5) {
 							cell.setCellValue(this
@@ -2129,8 +2112,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question II-4 **/
 					if (ficheEvaluation.isQuestionEtuII4()){
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleAvis(reponseTmp.getReponseEtuII4()));
 						cell.setCellStyle(cellStyle);
 						cpt++;
@@ -2142,8 +2124,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question II-5 **/
 					if (ficheEvaluation.isQuestionEtuII5()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						reponse = "";
 						// cas NON
 						if (!reponseTmp.isReponseEtuII5()) {
@@ -2190,8 +2171,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question II-6 **/
 					if (ficheEvaluation.isQuestionEtuII6()){
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(transformBooleanRep(reponseTmp.isReponseEtuII6()));
 						cell.setCellStyle(cellStyle);
 						cpt++;
@@ -2204,8 +2184,7 @@ public class EvaluationController extends AbstractContextAwareController {
 							// On recupere la reponse a partir de la question
 							ReponseSupplementaireDTO reponseSup = recupReponseSup(question);
 							reponse = "";
-							row = sheet.getRow(cpt);
-							cell = row.createCell(j + 1);
+							cell = row.createCell(cpt);
 							if (question.getTypeQuestion() != null && reponseSup != null){
 								// On evalue le type de la question pour savoir ce qu'il faut récupérer dans l'objet reponse (int, txt ou bool).
 								if ("TXT".equalsIgnoreCase(question.getTypeQuestion())){
@@ -2231,14 +2210,12 @@ public class EvaluationController extends AbstractContextAwareController {
 					 ******************************/
 					/** Question III-1 **/
 					if (ficheEvaluation.isQuestionEtuIII1()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(convention.getSujetStage());
 						cell.setCellStyle(cellStyle);
 						cpt++;
 
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						if (reponseTmp.isReponseEtuIII1()) {
 							cell.setCellValue("Oui, pour le sujet suivant : "
 									+ reponseTmp.getReponseEtuIII1bis());
@@ -2251,8 +2228,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question III-2 **/
 					if (ficheEvaluation.isQuestionEtuIII2()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						if (!reponseTmp.isReponseEtuIII2()) {
 							cell.setCellValue("Non : "
 									+ reponseTmp.getReponseEtuIII2bis());
@@ -2270,8 +2246,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question III-4 **/
 					if (ficheEvaluation.isQuestionEtuIII4()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						reponse = "";
 						switch (reponseTmp.getReponseEtuIII4()) {
 							case 1:
@@ -2302,8 +2277,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question III-5 **/
 					if (ficheEvaluation.isQuestionEtuIII5()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						reponseBuilder = new StringBuilder();
 						if (reponseTmp.isReponseEtuIII5a())
 							reponseBuilder.append(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.1"));
@@ -2323,8 +2297,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question III-6 **/
 					if (ficheEvaluation.isQuestionEtuIII6()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						if (reponseTmp.getReponseEtuIII6() == 4
 								|| reponseTmp.getReponseEtuIII6() == 5) {
 							cell.setCellValue(this.recupLibelleAvis(reponseTmp
@@ -2341,8 +2314,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question III-7 **/
 					if (ficheEvaluation.isQuestionEtuIII7()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						if (reponseTmp.getReponseEtuIII7() == 4
 								|| reponseTmp.getReponseEtuIII7() == 5) {
 							cell.setCellValue(this.recupLibelleAvis(reponseTmp
@@ -2359,8 +2331,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question III-8 **/
 					if (ficheEvaluation.isQuestionEtuIII8()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						if (reponseTmp.isReponseEtuIII8()) {
 							cell.setCellValue("Oui : "
 									+ reponseTmp.getReponseEtuIII8bis());
@@ -2373,8 +2344,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question III-9 **/
 					if (ficheEvaluation.isQuestionEtuIII9()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						if (!reponseTmp.isReponseEtuIII9())
 							cell.setCellValue("Non : "
 									+ reponseTmp.getReponseEtuIII9bis());
@@ -2386,8 +2356,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question III-10 **/
 					if (ficheEvaluation.isQuestionEtuIII10()){
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(transformBooleanRep(reponseTmp.isReponseEtuIII10()));
 						cell.setCellStyle(cellStyle);
 						cpt++;
@@ -2395,8 +2364,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question III-11 **/
 					if (ficheEvaluation.isQuestionEtuIII11()){
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(transformBooleanRep(reponseTmp.isReponseEtuIII11()));
 						cell.setCellStyle(cellStyle);
 						cpt++;
@@ -2404,8 +2372,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question III-12 **/
 					if (ficheEvaluation.isQuestionEtuIII12()){
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(transformBooleanRep(reponseTmp.isReponseEtuIII12()));
 						cell.setCellStyle(cellStyle);
 						cpt++;
@@ -2419,8 +2386,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question III-14 **/
 					if (ficheEvaluation.isQuestionEtuIII14()){
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(transformBooleanRep(reponseTmp.isReponseEtuIII14()));
 						cell.setCellStyle(cellStyle);
 						cpt++;
@@ -2428,8 +2394,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question III-15 **/
 					if (ficheEvaluation.isQuestionEtuIII15()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						if (reponseTmp.getReponseEtuIII15() == 4
 								|| reponseTmp.getReponseEtuIII15() == 5) {
 							cell.setCellValue(this.recupLibelleAvis(reponseTmp
@@ -2446,8 +2411,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question III-16 **/
 					if (ficheEvaluation.isQuestionEtuIII16()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						if (reponseTmp.getReponseEtuIII16() == 4
 								|| reponseTmp.getReponseEtuIII16() == 5) {
 							cell.setCellValue(this
@@ -2468,8 +2432,7 @@ public class EvaluationController extends AbstractContextAwareController {
 							// On recupere la reponse a partir de la question
 							ReponseSupplementaireDTO reponseSup = recupReponseSup(question);
 							reponse = "";
-							row = sheet.getRow(cpt);
-							cell = row.createCell(j + 1);
+							cell = row.createCell(cpt);
 							if (question.getTypeQuestion() != null ){
 								// On evalue le type de la question pour savoir ce qu'il faut récupérer dans l'objet reponse (int, txt ou bool).
 								if ("TXT".equalsIgnoreCase(question.getTypeQuestion())){
@@ -2493,6 +2456,14 @@ public class EvaluationController extends AbstractContextAwareController {
 					// Incrementation = passage a la colonne suivante
 					j++;
 				}
+			}
+			for (int i = 0; i < header.size(); i++) {				
+				sheet.autoSizeColumn(i);
+			}
+			for (int i = 0; i < header.size(); i++) {
+			    if (sheet.getColumnWidth(i) > 30000) {
+			       sheet.setColumnWidth(i, 30000);
+			    }
 			}
 			/**************************************
 			 * GENERATION DU FICHIER EXCEL ETUDIANT
@@ -2605,17 +2576,22 @@ public class EvaluationController extends AbstractContextAwareController {
 			}
 
 			/** Ecriture du header dans la feuille excel **/
-			HSSFRow row_i;
+			// Style entete column (gras)
+			HSSFCellStyle cellStyle2 = classeur.createCellStyle();
+			HSSFFont fonte = classeur.createFont();
+			fonte.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+			cellStyle2.setFont(fonte);
+			cellStyle2.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+			HSSFRow row_h = sheet.createRow(0);
+			HSSFCell cell_h;
 			for (int i = 0; i < header.size(); i++) {
-				row_i = sheet.createRow(i);
-				row_i.createCell(0).setCellValue(header.get(i));
+				cell_h=row_h.createCell(i);
+				cell_h.setCellValue(header.get(i));
+				cell_h.setCellStyle(cellStyle2);
 			}
 
-			// assignation d'une largeur fixe aux columns
-			sheet.setColumnWidth(0, 256 * 46);
-
-			// geler de la premiere colonne/en-tete
-			sheet.createFreezePane(1, 0);
+			// geler de la premiere ligne/en-tete
+			sheet.createFreezePane(0, 1);
 
 			// initialisation des variables
 			ReponseEvaluationDTO reponseTmp;
@@ -2625,12 +2601,6 @@ public class EvaluationController extends AbstractContextAwareController {
 			// Style general
 			HSSFCellStyle cellStyle = classeur.createCellStyle();
 			cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-			// Style entete column (gras)
-			HSSFCellStyle cellStyle2 = classeur.createCellStyle();
-			HSSFFont fonte = classeur.createFont();
-			fonte.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-			cellStyle2.setFont(fonte);
-			cellStyle2.setAlignment(HSSFCellStyle.ALIGN_CENTER);
 			int j = 0;
 
 			/***************************************************************
@@ -2642,9 +2612,6 @@ public class EvaluationController extends AbstractContextAwareController {
 				// recuperer ses reponses supplementaires via recupReponseSup
 				this.conventionController.setConvention(listeExportEval.get(i));
 
-				// Reglage taille colonne
-				sheet.setColumnWidth(i + 1, 256 * 22);
-
 				// Recuperation de la reponse
 				reponseTmp = listeExportEval.get(i).getReponseEvaluation();
 
@@ -2653,8 +2620,8 @@ public class EvaluationController extends AbstractContextAwareController {
 					int cpt = 0;
 					String reponse;
 					StringBuilder reponseBuilder;
-					row = sheet.getRow(cpt);
-					cell = row.createCell(j + 1); // j = colonne (0 = header, 1 = 1ere colonne de donnees)
+					row = sheet.createRow(j+1);
+					cell = row.createCell(cpt);
 
 					// num convention
 					cell.setCellValue(listeExportEval.get(i).getIdConvention());
@@ -2668,14 +2635,12 @@ public class EvaluationController extends AbstractContextAwareController {
 					// Renseignement etudiant
 					convention.setEtudiant(getEtudiantDomainService().getEtudiantFromId(convention.getIdEtudiant()));
 					// nom etu
-					row = sheet.getRow(cpt);
-					cell = row.createCell(j + 1);
+					cell = row.createCell(cpt);
 					cell.setCellValue(convention.getEtudiant().getNom());
 					cell.setCellStyle(cellStyle);
 					cpt++;
 					// prenom etu
-					row = sheet.getRow(cpt);
-					cell = row.createCell(j + 1);
+					cell = row.createCell(cpt);
 					cell.setCellValue(convention.getEtudiant().getPrenom());
 					cell.setCellStyle(cellStyle);
 					cpt++;
@@ -2685,8 +2650,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					 ******************************/
 					/** Question I-1 **/
 					if (ficheEvaluation.isQuestionEnsI1()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						reponseBuilder = new StringBuilder("");
 						if (reponseTmp.isReponseEnsI1a())
 							reponseBuilder.append(getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL"));
@@ -2705,8 +2669,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question I-2 **/
 					if (ficheEvaluation.isQuestionEnsI2()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						reponseBuilder = new StringBuilder("");
 						if (reponseTmp.isReponseEnsI2a())
 							reponseBuilder.append(getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL"));
@@ -2725,8 +2688,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question I-3 **/
 					if (ficheEvaluation.isQuestionEnsI3()){
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(reponseTmp.getReponseEnsI3());
 						cell.setCellStyle(cellStyle);
 						cpt++;
@@ -2740,8 +2702,7 @@ public class EvaluationController extends AbstractContextAwareController {
 							// On recupere la reponse a partir de la question
 							ReponseSupplementaireDTO reponseSup = recupReponseSup(question);
 							reponse = "";
-							row = sheet.getRow(cpt);
-							cell = row.createCell(j + 1);
+							cell = row.createCell(cpt);
 							if (question.getTypeQuestion() != null ){
 								// On evalue le type de la question pour savoir ce qu'il faut récupérer dans l'objet reponse (int, txt ou bool).
 								if ("TXT".equalsIgnoreCase(question.getTypeQuestion())){
@@ -2767,8 +2728,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					 ******************************/
 					/** Question II-1 **/
 					if (ficheEvaluation.isQuestionEnsII1()){
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnsII1()));
 						cell.setCellStyle(cellStyle);
@@ -2777,8 +2737,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question II-2 **/
 					if (ficheEvaluation.isQuestionEnsII2()){
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnsII2()));
 						cell.setCellStyle(cellStyle);
@@ -2787,8 +2746,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question II-3 **/
 					if (ficheEvaluation.isQuestionEnsII3()){
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnsII3()));
 						cell.setCellStyle(cellStyle);
@@ -2797,8 +2755,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question II-4 **/
 					if (ficheEvaluation.isQuestionEnsII4()){
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnsII4()));
 						cell.setCellStyle(cellStyle);
@@ -2807,8 +2764,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question II-5 **/
 					if (ficheEvaluation.isQuestionEnsII5()){
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnsII5()));
 						cell.setCellStyle(cellStyle);
@@ -2817,8 +2773,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question II-6 **/
 					if (ficheEvaluation.isQuestionEnsII6()){
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnsII6()));
 						cell.setCellStyle(cellStyle);
@@ -2827,8 +2782,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question II-7 **/
 					if (ficheEvaluation.isQuestionEnsII7()){
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnsII7()));
 						cell.setCellStyle(cellStyle);
@@ -2837,8 +2791,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question II-8 **/
 					if (ficheEvaluation.isQuestionEnsII8()){
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnsII8()));
 						cell.setCellStyle(cellStyle);
@@ -2847,8 +2800,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question II-9 **/
 					if (ficheEvaluation.isQuestionEnsII9()){
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnsII9()));
 						cell.setCellStyle(cellStyle);
@@ -2857,8 +2809,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question II-10 **/
 					if (ficheEvaluation.isQuestionEnsII10()){
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnsII10()));
 						cell.setCellStyle(cellStyle);
@@ -2867,8 +2818,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question II-11 **/
 					if (ficheEvaluation.isQuestionEnsII11()){
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(reponseTmp.getReponseEnsII11());
 						cell.setCellStyle(cellStyle);
 					}
@@ -2880,8 +2830,7 @@ public class EvaluationController extends AbstractContextAwareController {
 							// On recupere la reponse a partir de la question
 							ReponseSupplementaireDTO reponseSup = recupReponseSup(question);
 							reponse = "";
-							row = sheet.getRow(cpt);
-							cell = row.createCell(j + 1);
+							cell = row.createCell(cpt);
 							if (question.getTypeQuestion() != null && reponseSup != null){
 								// On evalue le type de la question pour savoir ce qu'il faut récupérer dans l'objet reponse (int, txt ou bool).
 								if ("TXT".equalsIgnoreCase(question.getTypeQuestion())){
@@ -2906,6 +2855,14 @@ public class EvaluationController extends AbstractContextAwareController {
 					j++;
 				}
 
+			}
+			for (int i = 0; i < header.size(); i++) {				
+				sheet.autoSizeColumn(i);
+			}
+			for (int i = 0; i < header.size(); i++) {
+			    if (sheet.getColumnWidth(i) > 30000) {
+			       sheet.setColumnWidth(i, 30000);
+			    }
 			}
 			/****************************************
 			 * GENERATION DU FICHIER EXCEL ENSEIGNANT
@@ -2949,8 +2906,7 @@ public class EvaluationController extends AbstractContextAwareController {
 			HSSFSheet sheet = classeur.createSheet("exportFichesEntreprise");
 
 			HSSFRow row;
-			sheet.setColumnWidth(0, 256 * 52);
-
+			
 			List<String> header = new ArrayList<String>();
 			FicheEvaluationDTO ficheEvaluation = getFicheEvaluationDomainService()
 					.getFicheEvaluationFromIdCentre(this.rechEvalIdCentre);
@@ -3040,14 +2996,22 @@ public class EvaluationController extends AbstractContextAwareController {
 			}
 
 			/** Ecriture du header dans la feuille excel **/
-			HSSFRow row_i;
+			// Style entete column (gras)
+			HSSFCellStyle cellStyle2 = classeur.createCellStyle();
+			HSSFFont fonte = classeur.createFont();
+			fonte.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+			cellStyle2.setFont(fonte);
+			cellStyle2.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+			HSSFRow row_h = sheet.createRow(0);
+			HSSFCell cell_h;
 			for (int i = 0; i < header.size(); i++) {
-				row_i = sheet.createRow(i);
-				row_i.createCell(0).setCellValue(header.get(i));
+				cell_h=row_h.createCell(i);
+				cell_h.setCellValue(header.get(i));
+				cell_h.setCellStyle(cellStyle2);
 			}
 
-			// geler de la premiere colonne/en-tête
-			sheet.createFreezePane(1, 0);
+			// geler de la premiere ligne/en-tête
+			sheet.createFreezePane(0, 1);
 
 			// initialisation des variables
 			ReponseEvaluationDTO reponseTmp;
@@ -3057,13 +3021,7 @@ public class EvaluationController extends AbstractContextAwareController {
 			// Style general
 			HSSFCellStyle cellStyle = classeur.createCellStyle();
 			cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-			// Style entete column (gras)
-			HSSFCellStyle cellStyle2 = classeur.createCellStyle();
-			HSSFFont fonte = classeur.createFont();
-			fonte.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-			cellStyle2.setFont(fonte);
-			cellStyle2.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-
+			
 			/***************************************************************
 			 * REMPLISSAGE AVEC LES REPONSES POUR CHAQUE CONVENTION TROUVEE
 			 *
@@ -3078,17 +3036,14 @@ public class EvaluationController extends AbstractContextAwareController {
 				// recuperer ses reponses supplementaires via recupReponseSup
 				this.conventionController.setConvention(listeExportEval.get(i));
 
-				// Reglage taille colonne
-				sheet.setColumnWidth(i + 1, 256 * 15);
-
 				// Recuperation de la reponse
 				reponseTmp = listeExportEval.get(i).getReponseEvaluation();
 
 				if (reponseTmp != null && reponseTmp.isValidationEntreprise()) {
 					int cpt = 0;
 					String reponse;
-					row = sheet.getRow(cpt);
-					cell = row.createCell(j + 1); // j = colonne (0 = header, 1 = 1ere colonne de donnees)
+					row = sheet.createRow(j+1);
+					cell = row.createCell(cpt); 
 
 					// num convention
 					cell.setCellValue(listeExportEval.get(i).getIdConvention());
@@ -3102,14 +3057,12 @@ public class EvaluationController extends AbstractContextAwareController {
 					// Renseignement etudiant
 					convention.setEtudiant(getEtudiantDomainService().getEtudiantFromId(convention.getIdEtudiant()));
 					// nom etu
-					row = sheet.getRow(cpt);
-					cell = row.createCell(j + 1);
+					cell = row.createCell(cpt); 
 					cell.setCellValue(convention.getEtudiant().getNom());
 					cell.setCellStyle(cellStyle);
 					cpt++;
 					// prenom etu
-					row = sheet.getRow(cpt);
-					cell = row.createCell(j + 1);
+					cell = row.createCell(cpt);
 					cell.setCellValue(convention.getEtudiant().getPrenom());
 					cell.setCellStyle(cellStyle);
 					cpt++;
@@ -3119,8 +3072,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					 ******************************/
 					/** Question I-1 **/
 					if (ficheEvaluation.isQuestionEnt1()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnt1())
 								+ " : "
@@ -3130,8 +3082,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					}
 					/** Question I-2 **/
 					if (ficheEvaluation.isQuestionEnt2()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnt2())
 								+ " : "
@@ -3141,8 +3092,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					}
 					/** Question I-3 **/
 					if (ficheEvaluation.isQuestionEnt3()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnt3()));
 						cell.setCellStyle(cellStyle);
@@ -3150,8 +3100,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					}
 					/** Question I-4 **/
 					if (ficheEvaluation.isQuestionEnt5()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnt5())
 								+ " : "
@@ -3161,8 +3110,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					}
 					/** Question I-5 **/
 					if (ficheEvaluation.isQuestionEnt9()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnt9())
 								+ " : "
@@ -3172,8 +3120,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					}
 					/** Question I-6 **/
 					if (ficheEvaluation.isQuestionEnt11()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnt11())
 								+ " : "
@@ -3183,8 +3130,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					}
 					/** Question I-7 **/
 					if (ficheEvaluation.isQuestionEnt12()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnt12())
 								+ " : "
@@ -3194,8 +3140,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					}
 					/** Question I-8 **/
 					if (ficheEvaluation.isQuestionEnt13()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnt13())
 								+ " : "
@@ -3205,8 +3150,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					}
 					/** Question I-9 **/
 					if (ficheEvaluation.isQuestionEnt14()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnt14())
 								+ " : "
@@ -3221,8 +3165,7 @@ public class EvaluationController extends AbstractContextAwareController {
 							// On recupere la reponse a partir de la question
 							ReponseSupplementaireDTO reponseSup = recupReponseSup(question);
 							reponse = "";
-							row = sheet.getRow(cpt);
-							cell = row.createCell(j + 1);
+							cell = row.createCell(cpt);
 							if (question.getTypeQuestion() != null ){
 								// On evalue le type de la question pour savoir ce qu'il faut récupérer dans l'objet reponse (int, txt ou bool).
 								if ("TXT".equalsIgnoreCase(question.getTypeQuestion())){
@@ -3248,8 +3191,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					 ******************************/
 					/** Question II-1 **/
 					if (ficheEvaluation.isQuestionEnt4()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnt4())
 								+ " : "
@@ -3259,8 +3201,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					}
 					/** Question II-2 **/
 					if (ficheEvaluation.isQuestionEnt6()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnt6())
 								+ " : "
@@ -3270,8 +3211,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					}
 					/** Question II-3 **/
 					if (ficheEvaluation.isQuestionEnt7()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnt7())
 								+ " : "
@@ -3281,8 +3221,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					}
 					/** Question II-4 **/
 					if (ficheEvaluation.isQuestionEnt8()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnt8())
 								+ " : "
@@ -3292,8 +3231,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					}
 					/** Question II-5 **/
 					if (ficheEvaluation.isQuestionEnt15()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleNotation(reponseTmp
 								.getReponseEnt15())
 								+ " : "
@@ -3308,8 +3246,7 @@ public class EvaluationController extends AbstractContextAwareController {
 							// On recupere la reponse a partir de la question
 							ReponseSupplementaireDTO reponseSup = recupReponseSup(question);
 							reponse = "";
-							row = sheet.getRow(cpt);
-							cell = row.createCell(j + 1);
+							cell = row.createCell(cpt);
 							if (question.getTypeQuestion() != null ){
 								// On evalue le type de la question pour savoir ce qu'il faut récupérer dans l'objet reponse (int, txt ou bool).
 								if ("TXT".equalsIgnoreCase(question.getTypeQuestion())){
@@ -3335,8 +3272,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					 ******************************/
 					/** Question III-1 **/
 					if (ficheEvaluation.isQuestionEnt16()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(this.recupLibelleAvis(reponseTmp
 								.getReponseEnt16())
 								+ " : "
@@ -3347,8 +3283,7 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					/** Question III-2 **/
 					if (ficheEvaluation.isQuestionEnt17()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						if (reponseTmp.getReponseEnt17() == 4
 								|| reponseTmp.getReponseEnt17() == 5)
 							cell.setCellValue(this
@@ -3364,24 +3299,21 @@ public class EvaluationController extends AbstractContextAwareController {
 					}
 					/** Question III-3 **/
 					if (ficheEvaluation.isQuestionEnt19()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(reponseTmp.getReponseEnt19());
 						cell.setCellStyle(cellStyle);
 						cpt++;
 					}
 					/** Question III-4 **/
 					if (ficheEvaluation.isQuestionEnt10()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						cell.setCellValue(transformBooleanRep(reponseTmp.isReponseEnt10()));
 						cell.setCellStyle(cellStyle);
 						cpt++;
 					}
 					/** Question III-5 **/
 					if (ficheEvaluation.isQuestionEnt18()) {
-						row = sheet.getRow(cpt);
-						cell = row.createCell(j + 1);
+						cell = row.createCell(cpt);
 						if (!reponseTmp.isReponseEnt18())
 							cell.setCellValue(" Non : "
 									+ reponseTmp.getReponseEnt18bis());
@@ -3397,8 +3329,7 @@ public class EvaluationController extends AbstractContextAwareController {
 							// On recupere la reponse a partir de la question
 							ReponseSupplementaireDTO reponseSup = recupReponseSup(question);
 							reponse = "";
-							row = sheet.getRow(cpt);
-							cell = row.createCell(j + 1);
+							cell = row.createCell(cpt);
 							if (question.getTypeQuestion() != null ){
 								// On evalue le type de la question pour savoir ce qu'il faut récupérer dans l'objet reponse (int, txt ou bool).
 								if ("TXT".equalsIgnoreCase(question.getTypeQuestion())){
@@ -3421,6 +3352,14 @@ public class EvaluationController extends AbstractContextAwareController {
 
 					j++;
 				}
+			}
+			for (int i = 0; i < header.size(); i++) {				
+				sheet.autoSizeColumn(i);
+			}
+			for (int i = 0; i < header.size(); i++) {
+			    if (sheet.getColumnWidth(i) > 30000) {
+			       sheet.setColumnWidth(i, 30000);
+			    }
 			}
 			/****************************************
 			 * GENERATION DU FICHIER EXCEL ENTREPRISE
