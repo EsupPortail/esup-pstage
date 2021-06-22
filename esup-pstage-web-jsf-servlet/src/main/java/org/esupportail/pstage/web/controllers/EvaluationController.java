@@ -1655,6 +1655,10 @@ public class EvaluationController extends AbstractContextAwareController {
 			// ajout colonne nom et prenom
 			header.add(getString("CONVENTION.NOM"));
 			header.add(getString("CONVENTION.PRENOM"));
+			header.add(getString("CONVENTION.VOTREUFR"));
+			header.add(getString("CONVENTION.VOTREETAPE"));
+			header.add(getString("CONVENTION.STRUCTURE"));
+			header.add(getString("CONVENTION.SUJET")+" du stage");
 
 			/*******************************
 			 * HEADER ETUDIANT PART I
@@ -1779,6 +1783,8 @@ public class EvaluationController extends AbstractContextAwareController {
 			// initialisation des variables
 			ReponseEvaluationDTO reponseTmp;
 			ConventionDTO convention;
+			String ufrConv;
+			String etapeConv;
 			int j = 0;
 			HSSFRow row;
 			HSSFCell cell;
@@ -1827,6 +1833,29 @@ public class EvaluationController extends AbstractContextAwareController {
 					// prenom etu
 					cell = row.createCell(cpt);
 					cell.setCellValue(convention.getEtudiant().getPrenom());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					// ufr etu
+					ufrConv = getConventionDomainService().getUfrFromId(convention.getCodeUFR(),convention.getCodeUniversiteUFR()).getLibelle();
+					cell = row.createCell(cpt);
+					cell.setCellValue(convention.getCodeUFR()+" - "+ufrConv);
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					// etape etu
+					etapeConv = getConventionDomainService().getEtapeFromId(convention.getCodeEtape(),convention.getCodeUniversiteEtape()).getLibelle();;
+					cell = row.createCell(cpt);
+					cell.setCellValue(convention.getCodeEtape()+"."+convention.getCodeVersionEtape()+" - "+etapeConv);
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					// raison sociale etablissement d'accueil
+					convention.setStructure(getStructureDomainService().getStructureFromId(convention.getIdStructure()));
+					cell = row.createCell(cpt);
+					cell.setCellValue(convention.getStructure().getRaisonSociale());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					// sujet du stage
+					cell = row.createCell(cpt);
+					cell.setCellValue(convention.getSujetStage());
 					cell.setCellStyle(cellStyle);
 					cpt++;
 
@@ -2518,6 +2547,10 @@ public class EvaluationController extends AbstractContextAwareController {
 			// ajout des noms prenoms
 			header.add(getString("CONVENTION.NOM"));
 			header.add(getString("CONVENTION.PRENOM"));
+			header.add(getString("CONVENTION.VOTREUFR"));
+			header.add(getString("CONVENTION.VOTREETAPE"));
+			header.add(getString("CONVENTION.STRUCTURE"));
+			header.add(getString("CONVENTION.SUJET")+" du stage");
 
 			/*******************************
 			 * HEADER ENSEIGNANT PART I
@@ -2596,6 +2629,8 @@ public class EvaluationController extends AbstractContextAwareController {
 			// initialisation des variables
 			ReponseEvaluationDTO reponseTmp;
 			ConventionDTO convention;
+			String ufrConv;
+			String etapeConv;
 			HSSFRow row;
 			HSSFCell cell;
 			// Style general
@@ -2642,6 +2677,29 @@ public class EvaluationController extends AbstractContextAwareController {
 					// prenom etu
 					cell = row.createCell(cpt);
 					cell.setCellValue(convention.getEtudiant().getPrenom());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					// ufr etu
+					ufrConv = getConventionDomainService().getUfrFromId(convention.getCodeUFR(),convention.getCodeUniversiteUFR()).getLibelle();
+					cell = row.createCell(cpt);
+					cell.setCellValue(convention.getCodeUFR()+" - "+ufrConv);
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					// etape etu
+					etapeConv = getConventionDomainService().getEtapeFromId(convention.getCodeEtape(),convention.getCodeUniversiteEtape()).getLibelle();;
+					cell = row.createCell(cpt);
+					cell.setCellValue(convention.getCodeEtape()+"."+convention.getCodeVersionEtape()+" - "+etapeConv);
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					// raison sociale etablissement d'accueil
+					convention.setStructure(getStructureDomainService().getStructureFromId(convention.getIdStructure()));
+					cell = row.createCell(cpt);
+					cell.setCellValue(convention.getStructure().getRaisonSociale());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					// sujet du stage
+					cell = row.createCell(cpt);
+					cell.setCellValue(convention.getSujetStage());
 					cell.setCellStyle(cellStyle);
 					cpt++;
 
@@ -2916,6 +2974,10 @@ public class EvaluationController extends AbstractContextAwareController {
 			// ajout des noms prenoms
 			header.add(getString("CONVENTION.NOM"));
 			header.add(getString("CONVENTION.PRENOM"));
+			header.add(getString("CONVENTION.VOTREUFR"));
+			header.add(getString("CONVENTION.VOTREETAPE"));
+			header.add(getString("CONVENTION.STRUCTURE"));
+			header.add(getString("CONVENTION.SUJET")+" du stage");
 
 			/*******************************
 			 * HEADER ENTREPRISE PART I
@@ -3016,6 +3078,8 @@ public class EvaluationController extends AbstractContextAwareController {
 			// initialisation des variables
 			ReponseEvaluationDTO reponseTmp;
 			ConventionDTO convention;
+			String ufrConv;
+			String etapeConv;
 			int j = 0;
 			HSSFCell cell;
 			// Style general
@@ -3064,6 +3128,29 @@ public class EvaluationController extends AbstractContextAwareController {
 					// prenom etu
 					cell = row.createCell(cpt);
 					cell.setCellValue(convention.getEtudiant().getPrenom());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					// ufr etu
+					ufrConv = getConventionDomainService().getUfrFromId(convention.getCodeUFR(),convention.getCodeUniversiteUFR()).getLibelle();
+					cell = row.createCell(cpt);
+					cell.setCellValue(convention.getCodeUFR()+" - "+ufrConv);
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					// etape etu
+					etapeConv = getConventionDomainService().getEtapeFromId(convention.getCodeEtape(),convention.getCodeUniversiteEtape()).getLibelle();;
+					cell = row.createCell(cpt);
+					cell.setCellValue(convention.getCodeEtape()+"."+convention.getCodeVersionEtape()+" - "+etapeConv);
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					// raison sociale etablissement d'accueil
+					convention.setStructure(getStructureDomainService().getStructureFromId(convention.getIdStructure()));
+					cell = row.createCell(cpt);
+					cell.setCellValue(convention.getStructure().getRaisonSociale());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					// sujet du stage
+					cell = row.createCell(cpt);
+					cell.setCellValue(convention.getSujetStage());
 					cell.setCellStyle(cellStyle);
 					cpt++;
 
