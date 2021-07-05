@@ -778,7 +778,7 @@
 
                         <t:htmlTag value="div" style="height:10px;" />
 
-                        <p:messages />
+                        <p:messages autoUpdate="true" />
 
                         <t:htmlTag value="div" style="height:10px;" />
                     </p:fieldset>
@@ -824,7 +824,8 @@
                 <h:form styleClass="textCenter">
                     <t:htmlTag value="div" style="height: 10px;" />
                     <p:commandButton value="#{msgs['FORM.OUI']}" update="@form"
-                                     action="#{evaluationController.envoiDemandeInvalidation}" />
+                                     action="#{evaluationController.envoiDemandeInvalidation}" 
+                                     oncomplete="PF('panelConfirmEnvoi').hide();" />
                     <p:commandButton value="#{msgs['FORM.NON']}" styleClass="ml20"
                                      onclick="PF('panelConfirmEnvoi').hide();" />
                     <t:htmlTag value="div" style="height: 15px;" />
