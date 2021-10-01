@@ -2,9 +2,11 @@ package org.esupportail.pstage.utils;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.nio.ByteBuffer;
 import java.security.Key;
 
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -100,6 +102,15 @@ public class BlowfishUtils implements Serializable {
 			Cipher cipher = Cipher.getInstance("Blowfish");
 			cipher.init(Cipher.DECRYPT_MODE, secretKey);
 			return cipher.doFinal(ciphertext);
+		}
+		catch (IllegalBlockSizeException ex) {
+			byte[] prependBytes = new byte[] { 0 };
+			byte[] allByteArray = new byte[prependBytes.length + ciphertext.length];
+			ByteBuffer buff = ByteBuffer.wrap(allByteArray);
+			buff.put(prependBytes);
+			buff.put(ciphertext);
+			byte[] output = buff.array();			
+			return decryptInBytes(secretKey, output);
 		}
 		catch (Exception e) {LOG.error(e);} 
 		return null;
