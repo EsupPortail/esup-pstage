@@ -26,7 +26,7 @@ import gouv.education.apogee.commun.client.ws.AdministratifMetier.InsAdmEtpDTO2;
 import gouv.education.apogee.commun.client.ws.EtudiantMetier.CoordonneesDTO2;
 import gouv.education.apogee.commun.client.ws.EtudiantMetier.EtudiantMetierServiceInterface;
 import gouv.education.apogee.commun.client.ws.EtudiantMetier.IdentifiantsEtudiantDTO2;
-import gouv.education.apogee.commun.client.ws.EtudiantMetier.InfoAdmEtuDTO2;
+import gouv.education.apogee.commun.client.ws.EtudiantMetier.InfoAdmEtuDTO4;
 import gouv.education.apogee.commun.client.ws.OffreFormationMetier.DiplomeDTO3;
 import gouv.education.apogee.commun.client.ws.OffreFormationMetier.ElementPedagogiDTO22;
 import gouv.education.apogee.commun.client.ws.OffreFormationMetier.ListeElementPedagogiDTO2;
@@ -442,7 +442,7 @@ public class StudentDataRepositoryDaoWS extends AbstractAuthCredentials implemen
 					id, null, null, null, null, null, null, null, this.temoinRecupAnnu);
 
 			// Recuperation des infos de l'etudiant dans Apogee
-			InfoAdmEtuDTO2 infosAdmEtu = etudiantMetierService.recupererInfosAdmEtuV2(etudiant.getCodEtu().toString());
+			InfoAdmEtuDTO4 infosAdmEtu = etudiantMetierService.recupererInfosAdmEtuV4(etudiant.getCodEtu().toString());
 
 			// Recuperation des coordonnees de l'etudiant
 			CoordonneesDTO2 coordonnees = new CoordonneesDTO2();
