@@ -21,6 +21,12 @@
 			<artifactId>esup-commons2-ws-cxf</artifactId>
 			<version>${esupcommons.version}</version>
 			<type>pom</type>
+		 	<exclusions>
+              <exclusion>
+                 <groupId>org.codehaus.woodstox</groupId>
+                 <artifactId>woodstox-core-asl</artifactId>
+              </exclusion>
+            </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.axis</groupId>
