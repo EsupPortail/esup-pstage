@@ -5542,7 +5542,8 @@ public class ConventionController extends AbstractContextAwareController {
 		this.conventionCree = false;
 		this.critereRechercheConvention.setEstValidee(false);
 
-		this.critereRechercheConvention.setAnneeUniversitaire(Utils.getCurrentYear(true));
+		String year = this.getYear();
+		this.critereRechercheConvention.setAnneeUniversitaire(year+"/"+(Integer.valueOf(year) + 1));
 		this.critereRechercheConvention.setTypeStructure(null);
 		this.critereRechercheConvention.setStatutJuridique(null);
 
