@@ -499,7 +499,22 @@
 							<xsl:text> </xsl:text>
 							<xsl:value-of select="structure/pays/libelle" />
 						</fo:block>
-
+                        <fo:block line-height="130%" hyphenate="false" language="fr"
+								  country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+								  padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								SIRET ou autre référencement du pays :
+							</fo:inline>
+							<xsl:choose>
+								<xsl:when test="structure/numero-siret">
+									<xsl:value-of select="structure/numero-siret" />
+								</xsl:when>
+								<xsl:otherwise>
+                                     N/A
+								</xsl:otherwise>
+							</xsl:choose>							
+						</fo:block> 
 						<fo:block line-height="130%" hyphenate="false" language="fr"
 								  country="FR" font-size="9pt" font-family="Times New Roman,serif"
 								  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
@@ -1137,7 +1152,7 @@
 							<fo:block line-height="110%" padding-top="1pt"
 									  padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 									  font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								La présente convention règle les rapports entre l'organisme d'accueil, l'établissement d'enseignement et le stagiaire.
+								La présente convention règle les rapports de l'organisme d'accueil avec l'établissement d'enseignement et le stagiaire.
 							</fo:block>
 
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1155,7 +1170,7 @@
 									  font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
 								Le stage s'inscrit dans le cadre de la formation et du projet personnel et professionnel d'évolution,
 								de reconversion ou d'insertion professionnelle du stagiaire. Il correspond à une période de mise en situation
-								en milieu professionnel au cours de laquelle il met en oeuvre les apprentissages de sa formation en vue de
+								en milieu professionnel au cours de laquelle il met en &#339;uvre les apprentissages de sa formation en vue de
 								l'acquisition ou du développement de compétences professionnelles.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1195,7 +1210,10 @@
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<xsl:value-of select="competences" />
 							</fo:block>
-
+                            <fo:block line-height="110%" hyphenate="false" language="fr"
+									  country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:leader />
+							</fo:block> 
 							<fo:block line-height="110%" padding-top="2pt"
 									  padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 									  font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
@@ -1270,6 +1288,10 @@
 								</xsl:otherwise>
 							</xsl:choose>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
+									  country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:leader />
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  keep-with-next="always" text-align="justify" font-weight="bold">Article
 								4 - Indemnité - Avantages
@@ -1277,7 +1299,7 @@
 							<fo:block line-height="110%" padding-top="1pt"
 									  padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 									  font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								L'indemnisation du stagiaire en formation continue n'est pas obligatoire et est
+								L'indemnisation du stagiaire en formation continue n'est pas obligatoire dans le secteur privé et est
 								interdite dans un organisme de droit public.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1288,11 +1310,6 @@
 								est fixé librement, en concertation avec le stagiaire, sauf contre-indication du contrat
 								de formation professionnelle.
 							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-									  country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-
 							<xsl:variable name="indemnisation" select="id-indemnisation" />
 							<xsl:choose>
 								<xsl:when test='$indemnisation!=1'>
@@ -1378,34 +1395,26 @@
 									  font-family="Times New Roman,serif" text-align="justify">
 								Le stagiaire peut avoir accès au restaurant d'entreprise ou aux titres-restaurants
 								prévus à l'article L.3262-1 du code du travail, dans les mêmes conditions que les
-								salariés de l'organisme d'accueil. Il peut bénéficier également de la prise en charge
+								salariés de l'organisme d'accueil. 
+							</fo:block>
+							<fo:block line-height="110%" padding-top="2pt"
+									  hyphenate="false" language="fr" country="FR" font-size="10pt"
+									  font-family="Times New Roman,serif" text-align="justify">
+								Il peut bénéficier également de la prise en charge
 								des frais de transport prévue à l'article L.3261-2 du même code.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-									  country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
+								Le stagiaire accueilli dans un organisme de droit privé et qui effectue 
+								une mission dans ce cadre bénéficie de la prise en charge de ses frais de 
+								déplacement temporaire selon la réglementation en vigueur.
+							</fo:block>							
 							<fo:block line-height="110%" padding-top="2pt"
 									  hyphenate="false" language="fr" country="FR" font-size="10pt"
 									  font-family="Times New Roman,serif" text-align="justify">
 								Le stagiaire peut avoir accès aux activités sociales et culturelles mentionnées à
-								l'article L.2323-83 du code du travail dans les mêmes conditions que les salariés.
+								l'article L.2312-78 du code du travail dans les mêmes conditions que les salariés
+								dans les conditions prévues dans les textes applicables à l'organisme d'accueil.
 							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-									  country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-									  hyphenate="false" language="fr" country="FR" font-size="10pt"
-									  font-family="Times New Roman,serif" text-align="justify">
-								Le stagiaire accueilli dans un organisme de droit privé et qui effectue une mission
-								dans ce cadre bénéficie de la prise en charge de ses frais de déplacement temporaire
-								selon la réglementation en vigueur.
-							</fo:block>
-
-
+							
 							<fo:block break-after="page" />
-
 
 							<fo:block line-height="110%" padding-top="2pt"
 									  hyphenate="false" language="fr" country="FR" font-size="10pt"
@@ -1427,7 +1436,8 @@
 							<fo:block line-height="110%" padding-top="2pt"
 									  padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 									  font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								Le stagiaire accueilli dans un organisme de droit public et qui effectue une mission
+								Le stagiaire ayant la qualité d'agent public accueilli dans un organisme de 
+								droit public et qui effectue une mission
 								dans ce cadre bénéficie de la prise en charge de ses frais de déplacement temporaire
 								selon la réglementation en vigueur.
 							</fo:block>
@@ -1435,7 +1445,8 @@
 									  padding-bottom="5pt" hyphenate="false" language="fr" country="FR"
 									  font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
 								Est considéré comme sa résidence administrative le lieu du stage
-								indiqué dans la présente convention.
+								indiqué dans la présente convention. Dans les autres cas, la prise en charge 
+								des frais de transports n'est pas prévue.
 							</fo:block>
 							<xsl:if test="avantages-nature and avantages-nature != ''">
 								<fo:block line-height="110%" hyphenate="false"
@@ -1459,12 +1470,12 @@
 									<fo:inline font-weight="bold">
 										<xsl:value-of select="avantages-nature" />
 									</fo:inline>
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false" language="fr"
+								</fo:block>								
+							</xsl:if>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
 										  country="FR" font-size="10pt" font-family="Times New Roman,serif">
 									<fo:leader />
-								</fo:block>
-							</xsl:if>
+							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  text-align="justify" font-weight="bold">Article 5 - Régime de
@@ -1472,7 +1483,7 @@
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
-									  text-align="justify">
+									  text-align="justify" padding-top="4pt">
 								Pendant la durée du stage, le stagiaire conserve son statut de bénéficiaire de la
 								formation professionnelle continue, à ce titre, il reste affilié au régime de sécurité
 								sociale dont il relève avant son entrée en formation.
@@ -1480,15 +1491,8 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  text-align="justify">
-								<fo:inline text-decoration="underline">
-									Maladie
-								</fo:inline> : Le bénéficiaire de la formation professionnelle continue qui ne relève
-								d'aucun régime avant son entrée en formation, doit vérifier qu'il bénéficie bien de la
-								protection maladie universelle auprès de la caisse d'assurance maladie de son lieu de
-								résidence et souscrire une assurance volontaire individuelle le couvrant au titre des
-								accidents du travail et des maladies professionnelles et fournir, à l'établissement
-								d'enseignement, l'attestation de couverture. La charge des cotisations
-								incombe au stagiaire.
+								Toute personne bénéficiaire de la formation continue doit vérifier avant 
+								le début du stage quelles sont les modalités de sa couverture maladie et accident.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr" padding-bottom="2pt"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif">
@@ -1502,9 +1506,10 @@
 								à faire parvenir aussitôt tous les éléments permettant la déclaration de l'accident à
 								l'établissement d'enseignement. Au plus tard 48h (non compris les dimanches et
 								jours fériés) après avoir eu connaissance de l'accident, l'établissement
-								d'enseignement procède à la déclaration d'accident du travail par lettre recommandée
-								auprès de la caisse primaire d'assurance maladie du lieu de résidence
-								habituelle du stagiaire.
+								d'enseignement procède à la déclaration d'accident du travail par tout moyen 
+								auprès de la caisse primaire d'assurance maladie du lieu de résidence habituelle 
+								du stagiaire ou informe les personnes contacts dans les cas particuliers 
+								(agents publics notamment).
 							</fo:block>
 
 							<fo:table table-layout="fixed" width="100%">
@@ -1546,6 +1551,10 @@
 								l'établissement d'enseignement.
 							</fo:block>
 
+							<fo:block line-height="110%" hyphenate="false" language="fr" padding-top="3pt"
+									  country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								En cas de stage à l'étranger, le stagiaire s'engage à souscrire une assurance spécifique accident.
+							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<fo:leader />
@@ -1569,7 +1578,7 @@
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  text-align="justify">
 								Pour les stages à l'étranger ou outre-mer, le
-								stagiaire s'engage à souscrire un contrat d'assistance
+								stagiaire peut également souscrire un contrat d'assistance
 								(rapatriement sanitaire, assistance juridique...) et un contrat
 								d'assurance individuel accident.
 							</fo:block>
@@ -1585,9 +1594,9 @@
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  space-before="0cm" space-after="0cm" font-weight="normal"
 									  text-align="justify">
-								Lorsque dans le cadre de son stage, l'étudiant
+								Lorsque dans le cadre de son stage, le stagiaire
 								utilise son propre véhicule ou un véhicule prêté par un tiers,
-								il déclare expressément à l'assureur dudit véhicule et, le cas
+								il le déclare expressément à l'assureur dudit véhicule et, le cas
 								échéant, s'acquitte de la prime y afférente.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1609,43 +1618,52 @@
 									  padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 									  font-family="Times New Roman,serif" text-align="justify"
 									  font-weight="bold">
-								Article 7 - Discipline
+								Article 7 - Règle d'hygiène et de sécurité et Discipline
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  text-align="justify">
-								Le stagiaire
-								est soumis à la discipline et aux
-								clauses
-								du règlement
-								intérieur qui lui sont applicables et qui
-								sont
-								portées à sa
-								connaissance avant le début du stage, notamment
-								en ce
-								qui
-								concerne les horaires et les règles d'hygiène et de
-								sécurité
-								en
-								vigueur dans l'organisme d'accueil.
+								Le stagiaire est soumis au règlement intérieur qui lui est applicable dans 
+								les mêmes conditions que les personnes titulaires d'un contrat de travail 
+								au sein de l'organisme d'accueil et qui est porté à sa connaissance 
+								préalablement à son entrée en stage, notamment en ce qui concerne 
+								les horaires et les règles d'hygiène et de sécurité en vigueur 
+								dans l'organisme d'accueil.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  text-align="justify">
-								Toute sanction disciplinaire ne peut être décidée que
-								par l'établissement d'enseignement. Dans ce cas, l'organisme
-								d'accueil informe
-								les tuteurs de stage et l'établissement d'enseignement des
-								manquements et
-								fournit éventuellement les éléments constitutifs.
+								L'organisme d'accueil prend toutes les dispositions nécessaires en vue de 
+								se conformer aux articles R.4141-3-1 et suivants du code du travail en 
+								matière d'information des salariés sur les règles d'hygiène et de 
+								sécurité applicables dans son établissement et fournir l'ensemble 
+								des équipements de protection individuelle (EPI) nécessaires 
+								à l'exercice du stage dans les meilleures conditions de sécurité sanitaire. 
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  text-align="justify">
-								En cas de manquement particulièrement grave à la discipline,
-								l'organisme d'accueil se réserve le droit de mettre fin au stage tout en respectant
-								les dispositions fixées à l'article 8 de la présente convention,
-								et de poursuivre pénalement le stagiaire.
+								Tout manquement du stagiaire aux règles de discipline de l'organisme d'accueil 
+								(retards répétitifs, non-respect des règles relatives au port des EPI, etc.) 
+								pourra entraîner la résiliation de la présente Convention selon 
+								les règles prévues à l'article 8. 
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
+									  text-align="justify">
+								Aucune procédure ni sanction disciplinaire autre que la résiliation 
+								de la Convention ne pourra être opposée au stagiaire par l'organisme 
+								d'accueil. Toute sanction disciplinaire ne peut être décidée que 
+								par l'établissement d'enseignement. Dans ce cas, l'organisme d'accueil 
+								informe les tuteurs de stage et l'établissement d'enseignement des 
+								manquements et fournit éventuellement les éléments constitutifs.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
+									  text-align="justify">
+								En cas de manquement particulièrement grave à la discipline, 
+								l'organisme d'accueil se réserve le droit de poursuivre pénalement 
+								le stagiaire.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif">
@@ -1655,21 +1673,23 @@
 									  padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 									  font-family="Times New Roman,serif" text-align="justify"
 									  font-weight="bold">
-								Article 8 - Absences - Interruption du stage
+								Article 8 - Absences - Interruption du stage - Résiliation de la Convention
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 									  font-family="Times New Roman,serif" text-align="justify">
-								Le stagiaire est autorisé à revenir dans son établissement d'enseignement pendant
-								la durée du stage pour y suivre les cours, séminaires prévus par le planning de la
-								formation ; les dates sont portées à la connaissance de l'organisme d'accueil par
-								l'établissement d'enseignement.
+								Sauf cas de crise sanitaire, le stagiaire est autorisé à revenir dans son 
+								établissement d'enseignement pendant la durée du stage pour y suivre les 
+								cours, séminaires prévus par le planning de la formation; 
+								les dates sont portées à la connaissance de l'organisme d'accueil 
+								par l'établissement d'enseignement.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-									  padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
+									  padding-top="1pt" padding-bottom="2pt" country="FR" font-size="10pt"
 									  font-family="Times New Roman,serif" text-align="justify">
-								Des autorisations d'absence sont possibles sous réserve que la durée du stage soit
-								respectée. Elles sont définies entre le stagiaire et l'organisme d'accueil,
+								Des autorisations d'absence sont possibles sous réserve que la durée du 
+								stage soit respectée et qu'elles ne soient pas interdites par ailleurs. 
+								Elles sont définies entre le stagiaire et l'organisme d'accueil, 
 								qui en informe l'établissement d'enseignement.
 							</fo:block>
 							<xsl:variable name="nb-conges" select="nb-conges" />
@@ -1689,7 +1709,7 @@
 									<xsl:value-of select="nb-conges" />
 								</fo:block>
 							</xsl:if>
-							<fo:block line-height="110%" hyphenate="false" language="fr" padding-top="5pt"
+							<fo:block line-height="110%" hyphenate="false" language="fr" padding-top="2pt"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								Toute absence du stagiaire doit être justifiée et signalée par le stagiaire à
 								l'organisme d'accueil et à l'établissement d'enseignement.
@@ -1700,7 +1720,7 @@
 								Toute interruption temporaire du stage doit être signalée aux autres
 								parties à la convention et au référent.
 							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
+							<fo:block line-height="110%" hyphenate="false" language="fr" padding-top="2pt"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								Service de l'établissement d'enseignement à informer :
 							</fo:block>
@@ -1719,10 +1739,7 @@
 									<xsl:value-of select="centre-gestion/commune" />
 								</fo:inline>
 							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-									  country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
+							<fo:block break-after="page" />
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  text-align="justify">
@@ -1743,11 +1760,10 @@
 								en étroite concertation. La décision définitive d'arrêt du stage ne sera prise qu'à
 								l'issue de cette phase de concertation.
 							</fo:block>
-
-
-							<fo:block break-after="page" />
-
-
+                            <fo:block line-height="110%" hyphenate="false" language="fr"
+									  country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:leader />
+							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 									  font-family="Times New Roman,serif" text-align="justify"
@@ -1757,45 +1773,30 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  text-align="justify">
-								Le devoir de
-								réserve est de rigueur absolue et
-								apprécié
-								par l'organisme
-								d'accueil compte-tenu de ses
-								spécificités. Le
-								stagiaire
-								prend donc l'engagement de n'utiliser
-								en aucun cas
-								les
-								informations recueillies ou obtenues pour
-								en faire
-								publication, communication à des tiers sans accord
-								préalable de
-								l'organisme d'accueil, y compris le rapport de
-								stage. Cet
-								engagement vaut non seulement pour la durée du stage
-								mais
-								également après son expiration. Le stagiaire s'engage à ne
-								conserver, emporter, ou prendre copie d'aucun document ou
-								logiciel, de quelque nature que ce soit, appartenant à
-								l'organisme d'accueil, sauf accord de ce dernier.
+								Le devoir de réserve est de rigueur absolue et apprécié par l'organisme d'accueil 
+								compte-tenu de ses spécificités. Le stagiaire prend donc l'engagement de n'utiliser 
+								en aucun cas les informations recueillies ou obtenues, pour en faire publication, 
+								communication à des tiers sans accord préalable de l'organisme d'accueil, 
+								y compris le rapport de stage. Cet engagement vaut non seulement pour la durée 
+								du stage mais également après son expiration. Le stagiaire s'engage à ne conserver, 
+								emporter, ou prendre copie d'aucun document ou logiciel, de quelque nature 
+								que ce soit, appartenant à l'organisme d'accueil, sauf accord de ce dernier.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  space-before="0cm" space-after="0cm" font-weight="normal"
 									  text-align="justify">
-								Dans le cadre de la confidentialité des informations
-								contenues dans le rapport de stage, l'organisme d'accueil peut
-								demander une restriction de la diffusion du rapport, voire le
-								retrait de certains éléments confidentiels.
+								Dans le cadre de la confidentialité des informations contenues dans le 
+								rapport de stage, l'organisme d'accueil peut demander une restriction 
+								de la diffusion du rapport, voire le retrait et / ou la modification 
+								de certains éléments confidentiels ou sensibles après relecture. 
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  space-before="0cm" space-after="0cm" font-weight="normal"
 									  text-align="justify">
-								Les personnes amenées à en connaître sont contraintes
-								par le secret professionnel à n'utiliser ni ne divulguer les
-								informations du rapport.
+								Les personnes amenées à en prendre connaissance sont contraintes par le secret 
+								professionnel à n'utiliser ni ne divulguer les informations du rapport.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif">
@@ -1810,14 +1811,13 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  text-align="justify">
-								Conformément au code de la propriété intellectuelle,
-								dans le cas où les activités du stagiaire donnent lieu à
-								la
-								création d'une &#339;uvre protégée par le droit d'auteur ou la
-								propriété industrielle (y compris un logiciel), si l'organisme
-								d'accueil souhaite l'utiliser et que le stagiaire en est
-								d'accord, un contrat devra être signé entre le stagiaire
-								(auteur) et l'organisme d'accueil.
+								Conformément au code de la propriété intellectuelle, dans le cas où 
+								les activités du stagiaire donnent lieu à la création d'une &#339;uvre 
+								protégée par le droit d'auteur ou la propriété industrielle 
+								(y compris un logiciel), si l'organisme d'accueil souhaite 
+								l'utiliser et que le stagiaire en est d'accord, un contrat 
+								devra être signé entre le stagiaire (auteur), ses éventuels 
+								ayant-cause et l'organisme d'accueil.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -1930,15 +1930,7 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 									  font-family="Times New Roman,serif" font-weight="bold">
-								Article 12 -
-								Droit applicable - Tribunaux compétents
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
-									  text-align="justify">
-								La présente convention
-								est régie exclusivement par le
-								droit français.
+								Article 12 - Litiges								
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
