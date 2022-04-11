@@ -8,8 +8,6 @@ import java.util.*;
 
 import javax.xml.ws.BindingProvider;
 
-import org.apache.log4j.Logger;
-
 import gouv.education.apogee.commun.client.ws.GeographieMetier.GeographieMetierServiceInterface;
 import gouv.education.apogee.commun.client.ws.GeographieMetier.GeographieMetierServiceInterfaceService;
 import gouv.education.apogee.commun.client.ws.AdministratifMetier.AdministratifMetierServiceInterface;
@@ -18,8 +16,6 @@ import gouv.education.apogee.commun.client.ws.EtudiantMetier.EtudiantMetierServi
 import gouv.education.apogee.commun.client.ws.EtudiantMetier.EtudiantMetierServiceInterfaceService;
 import gouv.education.apogee.commun.client.ws.OffreFormationMetier.OffreFormationMetierServiceInterface;
 import gouv.education.apogee.commun.client.ws.OffreFormationMetier.OffreFormationMetierServiceInterfaceService;
-import gouv.education.apogee.commun.client.ws.PedagogiqueMetier.PedagogiqueMetierServiceInterface;
-import gouv.education.apogee.commun.client.ws.PedagogiqueMetier.PedagogiqueMetierServiceInterfaceService;
 import gouv.education.apogee.commun.client.ws.ReferentielMetier.ReferentielMetierServiceInterface;
 import gouv.education.apogee.commun.client.ws.ReferentielMetier.ReferentielMetierServiceInterfaceService;
 
@@ -93,25 +89,7 @@ public class WsUtils {
 		bp.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, getPropValue("offreFormationMetier.username"));
 		bp.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, getPropValue("offreFormationMetier.password"));
 		return offreFormationMetierServiceInterface;
-	}
-	
-	public static PedagogiqueMetierServiceInterface initPedagogiqueMetierService() {
-		String wsdlUrl = getPropValue("pedagogiqueMetier.urlService")+"?wsdl";
-		PedagogiqueMetierServiceInterfaceService pedagogiqueMetierService;
-		URL wsdlLocation;
-		try {
-		  wsdlLocation = new URL(wsdlUrl);		
-		  pedagogiqueMetierService = new PedagogiqueMetierServiceInterfaceService(wsdlLocation);
-		} catch (MalformedURLException e) {
-			pedagogiqueMetierService = new PedagogiqueMetierServiceInterfaceService();
-		}		
-		PedagogiqueMetierServiceInterface pedagogiqueMetierServiceInterface = pedagogiqueMetierService.getPedagogiqueMetier();
-		BindingProvider bp = (BindingProvider)pedagogiqueMetierServiceInterface;
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, wsdlUrl);
-		bp.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, getPropValue("pedagogiqueMetier.username"));
-		bp.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, getPropValue("pedagogiqueMetier.password"));
-		return pedagogiqueMetierServiceInterface;
-	}
+	}	
 	
 	public static EtudiantMetierServiceInterface initEtudiantMetierService() {
 		String wsdlUrl = getPropValue("etudiantMetier.urlService")+"?wsdl";

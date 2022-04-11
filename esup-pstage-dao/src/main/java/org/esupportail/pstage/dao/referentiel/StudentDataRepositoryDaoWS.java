@@ -34,7 +34,6 @@ import gouv.education.apogee.commun.client.ws.OffreFormationMetier.OffreFormatio
 import gouv.education.apogee.commun.client.ws.OffreFormationMetier.OffreFormationMetierServiceInterface;
 import gouv.education.apogee.commun.client.ws.OffreFormationMetier.SECritereDTO2;
 import gouv.education.apogee.commun.client.ws.OffreFormationMetier.VersionDiplomeDTO3;
-import gouv.education.apogee.commun.client.ws.PedagogiqueMetier.PedagogiqueMetierServiceInterface;
 import gouv.education.apogee.commun.client.ws.ReferentielMetier.ComposanteDTO3;
 import gouv.education.apogee.commun.client.ws.ReferentielMetier.ReferentielMetierServiceInterface;
 
@@ -843,8 +842,6 @@ public class StudentDataRepositoryDaoWS extends AbstractAuthCredentials implemen
 		ApogeeMap apogeeMap = new ApogeeMap();
 
 		AdministratifMetierServiceInterface serviceAdministratif = WsUtils.initAdministratifMetierService();
-
-		PedagogiqueMetierServiceInterface servicePedagogique = WsUtils.initPedagogiqueMetierService();
 
 		ReferentielMetierServiceInterface referentielMetierService = WsUtils.initReferentielMetierService();
 
