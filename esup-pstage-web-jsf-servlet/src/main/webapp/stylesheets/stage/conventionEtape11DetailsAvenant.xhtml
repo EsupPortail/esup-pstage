@@ -35,6 +35,13 @@
                                              value="#{msgs['FORM.VALIDER']}" />
                         </t:div>
 
+                        <t:div styleClass="textCenter"
+                               rendered="#{!avenantController.avenant.validationAvenant and welcomeController.etudiant}">
+                            <p:commandButton id="modifetu"
+                                             action="#{avenantController.goToModifAvenantPage1}"
+                                             value="#{msgs['FORM.MODIFIER']}" />                            
+                        </t:div>
+
                         <t:div styleClass="textCenter">
                             <p:commandButton id="devalid"
                                              value="#{msgs['FORM.DEVALIDER']}"
