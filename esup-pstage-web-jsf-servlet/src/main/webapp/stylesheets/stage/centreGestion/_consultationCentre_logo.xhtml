@@ -60,7 +60,10 @@
                     <t:htmlTag value="div" style="height: 30px;" />
                     <t:htmlTag value="center">
                         <p:commandButton id="delete" value=" #{msgs['CENTRE.LOGO.MODIF']}"
-                                         onclick="PF('suppressionLogo').show();" />
+                                         onclick="PF('suppressionLogo').show();" 
+                                         rendered="#{welcomeController.superAdmin
+                            ||(sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin
+                            || sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitEcriture)}" />
                     </t:htmlTag>
                 </h:panelGrid>
             </h:form>
