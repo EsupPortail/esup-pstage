@@ -86,6 +86,12 @@ public class RequiredMessageController extends AbstractContextAwareController {
 	private String mtGratificationNonValide;
 	
 	/**
+	 * nb Heures Hebdo non valide
+	 */
+	@SuppressWarnings("unused")
+	private String nbHeuresHebdoNonValide;
+	
+	/**
 	 * Champs numérique non valide si inférieur ou égal à 0
 	 */
 	@SuppressWarnings("unused")
@@ -203,6 +209,13 @@ public class RequiredMessageController extends AbstractContextAwareController {
 	 */
 	public String getMtGratificationNonValide() {
 		return getFacesErrorMessage("CONVENTION.CREERCONVENTION.MT.GRATIFICATION.VALIDATION").getSummary();
+	}
+	
+	/**
+	 * @return the nbHeuresHebdoNonValide
+	 */
+	public String getNbHeuresHebdoNonValide() {
+		return getFacesErrorMessage("CONVENTION.CREERCONVENTION.NBHEURES.HEBDO.VALIDATION").getSummary();
 	}
 	
 	/**

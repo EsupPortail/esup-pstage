@@ -250,8 +250,9 @@
                     <p:inputText id="nbHeuresHebdo" styleClass="mt5" required="true"
                                  value="#{conventionController.convention.nbHeuresHebdo}"
                                  placeholder="xx.xx"
-                                 validatorMessage="#{requiredMessageController.mtGratificationNonValide}">
+                                 validatorMessage="#{requiredMessageController.nbHeuresHebdoNonValide}">
                         <f:validator binding="#{mtGratificationValidator}" />
+                        <f:validateLength maximum="5" />
                         <p:ajax event="blur" update="msgHrHebdo" />
                     </p:inputText>
                     <p:message id="msgHrHebdo" for="nbHeuresHebdo"/>
