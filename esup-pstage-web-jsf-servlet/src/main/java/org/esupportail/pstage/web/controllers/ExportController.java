@@ -558,13 +558,15 @@ public class ExportController extends AbstractContextAwareController {
 											if (avenant.getUniteDureeGratification() != null){
 												uniteDureeGratif = avenant.getUniteDureeGratification().getLibelle();
 											}
+											String uniteGratification = "Brut";
+											if (avenant.getUniteGratification() != null) {
+												uniteGratification = avenant.getUniteGratification().getLibelle();
+											}											
 											ligneAvenant.append("Remplacement de la gratification par : "
 													+ avenant
 													.getMontantGratification()
 													+ " "
-													+ avenant
-													.getUniteGratification()
-													.getLibelle()
+													+ uniteGratification
 													+ " par "
 													+ uniteDureeGratif);
 											ligneAvenant.append("\n");
