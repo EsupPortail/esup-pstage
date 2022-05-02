@@ -105,19 +105,19 @@
                 <t:htmlTag value="li">
                     <h:outputText styleClass="fontBold"
                                   value="#{msgs['CONVENTION.DEBUTSTAGE']} #{msgs['CONVENTION.ETOILE']}" />
-                    <p:calendar id="dateDebutStage"
+                    <p:datePicker id="dateDebutStage"
                                 value="#{conventionController.convention.dateDebutStage}"
-                                datePattern="dd/MM/yyyy"
-                                showApplyButton="false" cellWidth="24px" cellHeight="22px"
+                                pattern="dd/MM/yyyy"
+                                maxlength="10" size="12"
                                 required="true" />
                     <p:message for="dateDebutStage"/>
                 </t:htmlTag>
                 <t:htmlTag value="li">
                     <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.FINSTAGE']} #{msgs['CONVENTION.ETOILE']}" />
-                    <p:calendar id="dateFinStage"
+                    <p:datePicker id="dateFinStage"
                                 value="#{conventionController.convention.dateFinStage}"
-                                datePattern="dd/MM/yyyy"
-                                showApplyButton="false" cellWidth="24px" cellHeight="22px"
+                                pattern="dd/MM/yyyy"
+                                maxlength="10" size="12"
                                 required="true" />
                     <p:message for="dateFinStage"/>
                 </t:htmlTag>
@@ -135,20 +135,20 @@
                     <t:div styleClass="mt10" rendered="#{conventionController.convention.interruptionStage}">
                         <t:htmlTag value="li">
                             <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.INTERRUPDEBSTAGE']} #{msgs['CONVENTION.ETOILE']}" />
-                            <p:calendar id="dateDebutInterruption"
-                                        value="#{conventionController.convention.dateDebutInterruption}"
-                                        datePattern="dd/MM/yyyy"
-                                        showApplyButton="false" cellWidth="24px" cellHeight="22px"
-                                        required="true" />
+                            <p:datePicker id="dateDebutInterruption"
+       									value="#{conventionController.convention.dateDebutInterruption}"
+       									pattern="dd/MM/yyyy"
+       									maxlength="10" size="12"
+       									required="true" />
                             <p:message for="dateDebutInterruption"/>
                         </t:htmlTag>
                         <t:htmlTag value="li">
                             <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.INTERRUPFINSTAGE']} #{msgs['CONVENTION.ETOILE']}" />
-                            <p:calendar id="dateFinInterruption"
-                                        value="#{conventionController.convention.dateFinInterruption}"
-                                        datePattern="dd/MM/yyyy"
-                                        showApplyButton="false" cellWidth="24px" cellHeight="22px"
-                                        required="true" />
+                            <p:datePicker id="dateFinInterruption"
+       								value="#{conventionController.convention.dateFinInterruption}"
+       								pattern="dd/MM/yyyy"
+       								maxlength="10" size="12"
+       								required="true" />  
                             <p:message for="dateFinInterruption"/>
                         </t:htmlTag>
                     </t:div>

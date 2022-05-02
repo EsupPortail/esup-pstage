@@ -20,7 +20,7 @@ import org.esupportail.commons.services.logging.Logger;
 import org.esupportail.commons.services.logging.LoggerImpl;
 import org.esupportail.pstage.utils.Utils;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
+import org.primefaces.model.file.UploadedFile;
 
 /**
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr
@@ -89,7 +89,7 @@ public class ImageUploadBean{
 			ByteArrayInputStream is = null;
 			FileOutputStream fos = null;
 			try {
-				is = (ByteArrayInputStream) scaleImage(uploadItem.getInputstream(), 300, 300,this.extension);
+				is = (ByteArrayInputStream) scaleImage(uploadItem.getInputStream(), 300, 300,this.extension);
 				fos = new FileOutputStream(fileToWrite);
 				int data;
 				while((data=is.read())!=-1){

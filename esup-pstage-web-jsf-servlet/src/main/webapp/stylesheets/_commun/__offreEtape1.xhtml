@@ -68,7 +68,7 @@
                                               auto="true" label="#{msgs['OFFRE.SELECTIONFICHIER']}"
                                               invalidSizeMessage="Fichier trop grand."
                                               invalidFileMessage="Type de fichier incorrect."
-                                              fileUploadListener="#{offreController.uploadFileOffre}"
+                                              listener="#{offreController.uploadFileOffre}"
                                               sizeLimit="#{sessionController.uploadImagesFileSizeLimit}"
                                               fileLimit="1" required="true"
                                               allowTypes="/(\.|\/)(doc|pdf|odt|docx)$/"

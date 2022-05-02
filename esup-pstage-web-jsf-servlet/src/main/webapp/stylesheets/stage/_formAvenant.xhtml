@@ -125,16 +125,20 @@
                         <h:panelGrid columns="3">
                             <h:outputText value="#{msgs['CONVENTION.ETAPE11.NEW_DEBUT_STAGE']}"
                                           styleClass="fontBold" />
-                            <p:calendar id="dateDebutStage"
-                                        value="#{avenantController.avenant.dateDebutStage}"
-                                        required="true"/>
+                            <p:datePicker id="dateDebutStage"
+       									value="#{avenantController.avenant.dateDebutStage}"
+       									pattern="dd/MM/yyyy"
+       									maxlength="10" size="12"
+       									required="true" />
                             <p:message for="dateDebutStage" />
 
                             <h:outputText value="#{msgs['CONVENTION.ETAPE11.NEW_FIN_STAGE']}"
                                           styleClass="fontBold" />
-                            <p:calendar id="dateFinStage"
-                                        value="#{avenantController.avenant.dateFinStage}"
-                                        required="true" />
+                            <p:datePicker id="dateFinStage"
+       								value="#{avenantController.avenant.dateFinStage}"
+       								pattern="dd/MM/yyyy"
+       								maxlength="10" size="12"
+       								required="true" />
                             <p:message for="dateFinStage"/>
                         </h:panelGrid>
 
@@ -177,15 +181,19 @@
                             <t:div rendered="#{avenantController.avenant.interruptionStage}">
                                 <h:panelGrid columns="3">
                                     <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETAPE11.NEW_DEBUT_INTERRUPTION']}" />
-                                    <p:calendar id="dateDebutInterruptionStage"
-                                                value="#{avenantController.avenant.dateDebutInterruption}"
-                                                required="true"/>
+                                    <p:datePicker id="dateDebutInterruptionStage"
+      									 value="#{avenantController.avenant.dateDebutInterruption}"
+       									 pattern="dd/MM/yyyy"
+       									 maxlength="10" size="12"
+       									 required="true" />
                                     <p:message for="dateDebutInterruptionStage"/>
 
                                     <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETAPE11.NEW_FIN_INTERRUPTION']}" />
-                                    <p:calendar id="dateFinInterruptionStage"
-                                                value="#{avenantController.avenant.dateFinInterruption}"
-                                                required="true"/>
+                                    <p:datePicker id="dateFinInterruptionStage"
+       									value="#{avenantController.avenant.dateFinInterruption}"
+       									pattern="dd/MM/yyyy"
+       									maxlength="10" size="12"
+       									required="true" />
                                     <p:message for="dateFinInterruptionStage"/>
                                 </h:panelGrid>
                             </t:div>
@@ -641,9 +649,11 @@
                             <h:outputText value="#{msgs['CONVENTION.ETAPE11.RUPTURE.DATE']} *"
                                           styleClass="fontBold"/>
                             <t:htmlTag value="div" style="height:5px;" />
-                            <p:calendar id="dateRupture"
-                                        value="#{avenantController.avenant.dateRupture}"
-                                        required="true" styleClass="ml5"/>
+                            <p:datePicker id="dateRupture"
+       							value="#{avenantController.avenant.dateRupture}"
+       							pattern="dd/MM/yyyy"
+       							maxlength="10" size="12" styleClass="ml5"
+       							required="true" />
                             <p:message id="msgDateRupture" for="dateRupture" />
                         </t:div>
                     </t:htmlTag>

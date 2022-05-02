@@ -1,0 +1,9 @@
+.ui-datepicker .ui-datepicker-calendar .ui-state-active {
+  background-color: #95a7cb; 
+  color: white; 
+}
+
+.ui-datepicker .ui-datepicker-calendar .ui-state-default:hover {
+	background-color: #d5dcea; 
+    color: white;
+}
