@@ -283,14 +283,18 @@
                         <t:div styleClass="mb10 verticalAlignDiv">
                             <h:outputText styleClass="fontBold"
                                           value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.DATEDEBUT']}" />
-                            <p:calendar id="rechDateDebut" styleClass="autoWidth ml5"
-                                        value="#{rechercheController.dateDebut}" />
+                            <p:datePicker id="rechDateDebut"
+       								value="#{rechercheController.dateDebut}"
+       								pattern="dd/MM/yyyy"
+       								maxlength="10" size="12" styleClass="autoWidth ml5" />
                         </t:div>
                         <t:div styleClass="mb10 verticalAlignDiv">
                             <h:outputText styleClass="fontBold"
                                           value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.DATEFIN']}" />
-                            <p:calendar id="rechDateFin" styleClass="autoWidth ml5"
-                                        value="#{rechercheController.dateFin}" />
+                            <p:datePicker id="rechDateFin"
+       								value="#{rechercheController.dateFin}"
+       								pattern="dd/MM/yyyy"
+       								maxlength="10" size="12" styleClass="autoWidth ml5" />
                         </t:div>
                     </t:htmlTag>
                 </t:div>

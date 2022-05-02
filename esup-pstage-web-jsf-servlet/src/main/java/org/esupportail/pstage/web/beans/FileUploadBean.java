@@ -10,7 +10,7 @@ import org.esupportail.commons.services.logging.Logger;
 import org.esupportail.commons.services.logging.LoggerImpl;
 import org.esupportail.pstage.utils.Utils;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
+import org.primefaces.model.file.UploadedFile;
 
 /**
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr
@@ -70,7 +70,7 @@ public class FileUploadBean {
 			this.nameUploadedFile=fileName;
 			if(this.prefix>=0) fileName = this.prefix+"_"+fileName;
 			File fileToWrite = new File(this.directory + File.separator + fileName);
-			try(FileChannel in = ((FileInputStream)uploadItem.getInputstream()).getChannel()){
+			try(FileChannel in = ((FileInputStream)uploadItem.getInputStream()).getChannel()){
 				try (FileChannel out = new FileOutputStream(fileToWrite).getChannel()){
 					in.transferTo(0, in.size(), out);
 				}

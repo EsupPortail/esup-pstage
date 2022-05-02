@@ -215,7 +215,7 @@
 
                                 if (checked) {
                                     $(':checkbox[id*="checkEntry_input"]').each(function() {
-                                        $(this).context.checked=checked;
+                                        this.checked=true;
                                     });
 
                                     $('div[id*="checkEntry"] > div').each(function() {
@@ -225,7 +225,7 @@
                                     });
                                 } else {
                                     $(':checkbox[id*="checkEntry_input"]').each(function() {
-                                        $(this).context.checked=checked;
+                                        this.checked=false;
                                     });
 
                                     $('div[id*="checkEntry"] > div').each(function() {
