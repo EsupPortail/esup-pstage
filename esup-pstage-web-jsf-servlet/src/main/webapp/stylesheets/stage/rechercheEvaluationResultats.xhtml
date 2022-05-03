@@ -74,7 +74,7 @@
                                               rendered="#{not empty convention.etudiant}" />
                             </t:htmlTag>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{convention.structure.raisonSociale}">
                             <f:facet name="header">
                                 <h:outputText value="#{msgs['RECHERCHECONVENTION.ETAB']}" />
                             </f:facet>
@@ -108,7 +108,7 @@
                                 <f:converter binding="#{limitCharactersShownUpTo30Converter}" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{convention.etape.libelle}">
                             <f:facet name="header">
                                 <h:outputText value="#{msgs['RECHERCHECONVENTION.ETAPE']}" />
                             </f:facet>
