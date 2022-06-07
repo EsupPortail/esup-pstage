@@ -156,6 +156,29 @@
                 </p:column>
             </p:row>
         </p:panelGrid>
+        
+        <t:htmlTag value="i" styleClass="fa fa-medkit fz13 fontBlue2 mt15"/>
+        <h:outputText value="#{msgs['CONVENTION.CHOIX.CPAM']}" styleClass="fontBold fontBlue2 fz13 ml5" escape="false"/>
+        <p:panelGrid styleClass="panelInfos mt5 mb20 ml40">
+            <p:row>             
+              <p:column>    
+                 <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.CPAM']} *" /><br/>
+                 <p:selectOneMenu id="cpamEtu" value="#{conventionController.etudiantRef.libelleCPAM}" required="true" editable="true">
+                   <f:selectItem itemLabel="" itemValue="" />
+                   <f:selectItems value="#{conventionController.listeCPAM}" />                   
+                 </p:selectOneMenu> 
+              </p:column> 
+              <p:column>
+                 <p:message for="cpamEtu"/>
+              </p:column>              
+            </p:row> 
+            <p:row>
+            	<p:column colspan="3">
+             		<t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer" />
+                    <h:outputText styleClass="ml5 fontItalic" value="#{msgs['INFOSBULLES.CPAM']}" />          
+           		</p:column>
+            </p:row>
+        </p:panelGrid>        
     </t:div>
     <t:div id="panelInscription"
            rendered="#{not empty conventionController.listeAnneesUniv}">

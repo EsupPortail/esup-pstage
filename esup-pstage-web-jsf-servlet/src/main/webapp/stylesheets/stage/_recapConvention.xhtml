@@ -147,6 +147,14 @@
             </p:column>
         </p:row>
         <p:row>
+         <p:column style="text-align:right;">
+            <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.CPAM']}" />
+         </p:column>
+         <p:column>
+            <h:outputText value="#{conventionController.convention.libelleCPAM}" />
+        </p:column>
+        </p:row>
+        <p:row>
             <p:column colspan="2">
                 <p:separator style="height:2px;" styleClass="mr30 ml10"/>
             </p:column>
@@ -158,15 +166,7 @@
         <!--<p:column>-->
         <!--<h:outputText value="#{conventionController.convention.assurance.libelle}" />-->
         <!--</p:column>-->
-        <!--</p:row>-->
-        <!--<p:row>-->
-        <!--<p:column style="text-align:right;">-->
-        <!--<h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.CPAM']}" />-->
-        <!--</p:column>-->
-        <!--<p:column>-->
-        <!--<h:outputText value="#{conventionController.convention.caisseRegime.libelle}" />-->
-        <!--</p:column>-->
-        <!--</p:row>-->
+        <!--</p:row>-->        
         <p:row>
             <p:column style="text-align:right;">
                 <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.VOTREUFR']}" />

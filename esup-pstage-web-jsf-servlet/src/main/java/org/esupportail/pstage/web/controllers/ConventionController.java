@@ -5,9 +5,11 @@
 package org.esupportail.pstage.web.controllers;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,11 +23,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -754,6 +758,9 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 		}
 
+		//liste des CPAMs
+		this.setListeCPAM();
+		
 		getSessionController().setCreationConventionEtape1CurrentPage("_creerConventionEtape1ChoixEtapeEtudiant");
 
 	}
@@ -3905,6 +3912,9 @@ public class ConventionController extends AbstractContextAwareController {
 					this.selectedCodeEtape = (this.convention.getEtape().getCode() + ";" + etape.getCodVrsVet());
 				}
 			}
+			
+			//liste des CPAMs
+			this.setListeCPAM();
 
 			// On rempli la liste des annees en selectItems
 			this.listeAnneesUniv = new ArrayList<>();
@@ -7119,6 +7129,60 @@ public class ConventionController extends AbstractContextAwareController {
 		return listeAnneesUniv;
 	}
 
+	private List<SelectItem> listeCPAM;
+	/**
+	 * @return the listeCPAM
+	 */
+	public List<SelectItem> getListeCPAM() {
+		return listeCPAM;
+	}
+	/**
+	 * @set the listeCPAM
+	 */
+	public void setListeCPAM() {
+		this.listeCPAM = new ArrayList<SelectItem>();
+		String region_old = "";
+		SelectItemGroup grp = null;
+		List<SelectItem> cpams = new ArrayList<SelectItem>();
+		URL resource = getClass().getClassLoader().getResource("CPAM.csv");
+		if (resource != null) {
+		  try (Scanner scanner = new Scanner(new File(resource.getFile()))){
+		    while (scanner.hasNextLine()) {   //Read line
+				String line = scanner.nextLine();
+			    try (Scanner rowScanner = new Scanner(line)) {  //Scan the line for tokens
+				   rowScanner.useDelimiter(";");
+				   int i=0;
+				   while (rowScanner.hasNext()) {
+				      if (i==0) {
+						   String region = rowScanner.next();	
+						   if (!region_old.equals(region)) {
+							   if (grp != null) {
+								   grp.setSelectItems(cpams.toArray(new SelectItem[cpams.size()]));
+								   this.listeCPAM.add(grp);
+							   }	   
+							   grp = new SelectItemGroup(region);
+							   cpams = new ArrayList<SelectItem>();
+							   region_old = region;
+						   } 	   
+					   } if (i==1) {							   
+						   String cpam = rowScanner.next();	
+						   cpams.add(new SelectItem(cpam, cpam));						   
+					   }
+				       i++;
+				   }
+				 }
+			 }
+		     if (grp != null) {
+				   grp.setSelectItems(cpams.toArray(new SelectItem[cpams.size()]));
+				   this.listeCPAM.add(grp);
+			 }	 
+		   } catch (FileNotFoundException e) {
+				  
+		   }
+		}				
+	 }
+		
+	
 	public List<ConventionDTO> getListeConventionsSelectionnees() {
 		return listeConventionsSelectionnees;
 	}

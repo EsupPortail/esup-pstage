@@ -68,6 +68,9 @@
                             <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.MAILPERSO']}" />
                             <h:outputText id="mailperso1"
                                           value="#{conventionController.convention.courrielPersoEtudiant}" />
+                            <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.CPAM']}" />
+                            <h:outputText id="cpam1"
+                                          value="#{conventionController.convention.libelleCPAM}" />             
                         </h:panelGrid>
                         <p:commandButton id="modifEtudiant" value="#{msgs['FORM.MODIFIER']}"
                                          action="#{conventionController.goToConventionModifEtudiant}"
