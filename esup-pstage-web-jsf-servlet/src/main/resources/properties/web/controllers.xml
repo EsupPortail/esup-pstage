@@ -253,6 +253,9 @@
 		<property name="employee" value="${esup.employee}" />
 		<property name="faculty" value="${esup.faculty}" />
 		<property name="student" value="${esup.student}" />
+		<property name="studentPrioEmployee" value="${student.prio.employee}" />
+		<property name="studentPrioFaculty" value="${student.prio.faculty}" />
+		<property name="studentPrioBothEmployeeFaculty" value="${student.prio.bothEmployeeFaculty}" />
 	</bean>
 
 	<bean id="aboutController" class="org.esupportail.pstage.web.controllers.AboutController"

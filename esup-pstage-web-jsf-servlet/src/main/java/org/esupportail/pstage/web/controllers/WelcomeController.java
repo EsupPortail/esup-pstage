@@ -6,6 +6,7 @@ package org.esupportail.pstage.web.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -103,6 +104,21 @@ public class WelcomeController extends AbstractContextAwareController {
 	 * Valeur de ldap.affiliation pour un enseignant
 	 */
 	private String faculty;
+	/**
+	 * Détermine si c'est le profil Student qui doit être prioritaire
+	 * cas d'un user avec double profil Personnel administratif/Etudiant
+	 */
+	private boolean studentPrioEmployee;
+	/**
+	 * Détermine si c'est le profil Student qui doit être prioritaire
+	 * cas d'un user avec double profil Personnel enseignant/Etudiant
+	 */
+	private boolean studentPrioFaculty;
+	/**
+	 * Détermine si c'est le profil Student qui doit être prioritaire
+	 * cas d'un user avec profils Personnel administratif ET enseignant ET Etudiant
+	 */
+	private boolean studentPrioBothEmployeeFaculty;
 	/**
 	 * Création d'une convention autorisée
 	 */
@@ -610,19 +626,63 @@ public class WelcomeController extends AbstractContextAwareController {
 			getSessionController().setCentreGestionRattachement(null);
 
 			LdapUser ldapUser;
-			String userAffiliation;
+			List<String> userAffiliations;
+			boolean isEmployee = false;
+			boolean isFaculty = false;
+			boolean isStudent = false;
 			if(StringUtils.hasText(getSessionController().getCurrentStageCasUser().getId())){
 				ldapUser = ldapUserService.getLdapUser(getSessionController().getCurrentStageCasUser().getId());
-
-				userAffiliation = ldapUser.getAttribute(this.affiliation);
-				if(StringUtils.hasText(userAffiliation) && (employee.contains(userAffiliation) || faculty.contains(userAffiliation))){
+				
+				userAffiliations = ldapUser.getAttributes(this.affiliation);				
+				List<String> employees = Arrays.asList(employee.trim().split(","));
+				List<String> faculties = Arrays.asList(faculty.trim().split(","));
+				List<String> students = Arrays.asList(student.trim().split(","));
+				for (String userAff : userAffiliations) {
+					if (employees.contains(userAff)) {
+		            	isEmployee = true;		              
+		            }
+					if (faculties.contains(userAff)) {
+						isFaculty = true;		              
+		            }
+					if (students.contains(userAff)) {
+						isStudent = true;		              
+		            }					
+				}
+				// teste la priorité ou non au profil Etudiant (dans les cas des doubles profils Personnel/Etudiant)
+		        if (isStudent && (isEmployee || isFaculty)) {  
+		        	if (isEmployee && isFaculty) {
+		        		if (studentPrioBothEmployeeFaculty) {
+		        			isFaculty = false;
+		        			isEmployee = false;
+		        		} else {
+		        			isStudent = false;
+		        		}
+		        	} else {
+		        		if (isEmployee) {
+		        			if (studentPrioEmployee) {
+			        			isEmployee = false;
+			        		} else {
+			        			isStudent = false;
+			        		}
+		        		} else {  // donc cas isFaculty
+		        			if (studentPrioFaculty) {
+			        			isFaculty = false;			        			
+			        		} else {
+			        			isStudent = false;
+			        		}
+		        		}
+		        	}		        	
+		         }
+				if(userAffiliations!=null && !userAffiliations.isEmpty() && (isEmployee || isFaculty)){
 					// Gestion de ses droits pour chaque centre de l'université de l'individu connecté
 					List<PersonnelCentreGestionDTO> liste = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionFromUid(
 							getSessionController().getCurrentStageCasUser().getId(),getSessionController().getCodeUniversite());
 					if(logger.isDebugEnabled()){
 						logger.info("ldapUser : " + ldapUser);
 						logger.info("Employee : " + employee);
-						logger.info("Recherche des droits du personnel pour chaque centre de son université ==> " + liste.size());
+						if (liste != null) {
+						  logger.info("Recherche des droits du personnel pour chaque centre de son université ==> " + liste.size());
+						}
 					}
 
 					if (liste != null && !liste.isEmpty()){
@@ -678,7 +738,7 @@ public class WelcomeController extends AbstractContextAwareController {
 						});
 					}
 
-					if(employee.contains(userAffiliation)){
+					if(isEmployee){
 						//Si c'est un personnel
 						PersonnelCentreGestionDTO p = getPersonalDataRepositoryDomain().getPersonnelCentreGestionRef(getSessionController().getCodeUniversite(),
 								getSessionController().getCurrentStageCasUser().getId());
@@ -697,7 +757,7 @@ public class WelcomeController extends AbstractContextAwareController {
 						}
 					}
 
-					if (faculty.contains(userAffiliation)){
+					if (isFaculty){						
 						// /!\ Si le personnel est également enseignant, on rempli également sessionController -> currentAuthEnseignant
 						//Si c'est un enseignant
 						EnseignantDTO en = getPersonalDataRepositoryDomain().getEnseignantRef(getSessionController().getCodeUniversite(),
@@ -716,7 +776,7 @@ public class WelcomeController extends AbstractContextAwareController {
 							}
 						}
 					}
-				} else if (StringUtils.hasText(userAffiliation) && student.contains(userAffiliation)){
+				} else if (userAffiliations!=null && !userAffiliations.isEmpty() && isStudent){
 					// Sinon, si c'est un étudiant
 					// Il existe forcement dans le Ldap donc on appelle getEtudiantRef a partir de son uid
 					// Avec le temoin pour recuperer les annees precedentes a false
@@ -1220,6 +1280,30 @@ public class WelcomeController extends AbstractContextAwareController {
 	 */
 	public void setFaculty(String faculty) {
 		this.faculty = faculty;
+	}
+    
+	public boolean isStudentPrioEmployee() {
+		return studentPrioEmployee;
+	}
+
+	public void setStudentPrioEmployee(boolean studentPrioEmployee) {
+		this.studentPrioEmployee = studentPrioEmployee;
+	}
+
+	public boolean isStudentPrioFaculty() {
+		return studentPrioFaculty;
+	}
+
+	public void setStudentPrioFaculty(boolean studentPrioFaculty) {
+		this.studentPrioFaculty = studentPrioFaculty;
+	}
+
+	public boolean isStudentPrioBothEmployeeFaculty() {
+		return studentPrioBothEmployeeFaculty;
+	}
+
+	public void setStudentPrioBothEmployeeFaculty(boolean studentPrioBothEmployeeFaculty) {
+		this.studentPrioBothEmployeeFaculty = studentPrioBothEmployeeFaculty;
 	}
 
 	/**
