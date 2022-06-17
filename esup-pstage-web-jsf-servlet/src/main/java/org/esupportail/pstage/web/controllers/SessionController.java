@@ -339,6 +339,10 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	private boolean avertissementEtudiantAvenant;
 	/**
+	 * Envoi des mails aux étudiants à leur adresse courriel institutionnelle
+	 */
+	private boolean etudiantAdresseInstitutionnelle;
+	/**
 	 * Envoi d'un mail aux Personnels à la création d'une convention les concernant
 	 */
 	private boolean avertissementPersonnelCreaConvention;
@@ -2234,6 +2238,14 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	public void setAvertissementEtudiantAvenant(boolean avertissementEtudiantAvenant) {
 		this.avertissementEtudiantAvenant = avertissementEtudiantAvenant;
+	}
+
+	public boolean isEtudiantAdresseInstitutionnelle() {
+		return etudiantAdresseInstitutionnelle;
+	}
+
+	public void setEtudiantAdresseInstitutionnelle(boolean etudiantAdresseInstitutionnelle) {
+		this.etudiantAdresseInstitutionnelle = etudiantAdresseInstitutionnelle;
 	}
 
 	/**

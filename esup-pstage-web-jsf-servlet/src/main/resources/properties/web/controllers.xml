@@ -161,6 +161,7 @@
 		<property name="avertissementEtudiantConvention"
 				  value="${alerteMail.avertissementEtudiantConvention}" />
 		<property name="avertissementEtudiantAvenant" value="${alerteMail.avertissementEtudiantAvenant}" />
+		<property name="etudiantAdresseInstitutionnelle" value="${alerteMail.etudiant.adresseInstitutionnelle}" />
 		<property name="avertissementPersonnelCreaConvention"
 				  value="${alerteMail.avertissementPersonnelCreaConvention}" />
 		<property name="avertissementPersonnelModifConvention"

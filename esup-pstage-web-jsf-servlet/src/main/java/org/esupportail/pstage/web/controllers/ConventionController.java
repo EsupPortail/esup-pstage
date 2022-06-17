@@ -2642,7 +2642,8 @@ public class ConventionController extends AbstractContextAwareController {
 					String prenomEtu = this.convention.getEtudiant().getPrenom().toUpperCase();
 					String mailEtu = this.convention.getEtudiant().getMail();
 					if (this.convention.getCourrielPersoEtudiant() != null
-							&& !this.convention.getCourrielPersoEtudiant().isEmpty()) {
+							&& !this.convention.getCourrielPersoEtudiant().isEmpty()
+							&& !getSessionController().isEtudiantAdresseInstitutionnelle()) {
 						mailEtu = this.convention.getCourrielPersoEtudiant();
 					}
 					String telEtu = this.convention.getTelEtudiant();
@@ -4541,7 +4542,8 @@ public class ConventionController extends AbstractContextAwareController {
 					this.convention.getIdConvention());
 			String mail = this.convention.getEtudiant().getMail();
 			if (this.convention.getCourrielPersoEtudiant() != null
-					&& !this.convention.getCourrielPersoEtudiant().isEmpty()) {
+					&& !this.convention.getCourrielPersoEtudiant().isEmpty()
+					&& !getSessionController().isEtudiantAdresseInstitutionnelle()) {
 				mail = this.convention.getCourrielPersoEtudiant();
 			}
 			getSmtpService().send(new InternetAddress(mail), sujet, text, text);
@@ -5479,7 +5481,8 @@ public class ConventionController extends AbstractContextAwareController {
 
 							String mail = getEtudiantDomainService().getEtudiantFromId(conventionTmp.getIdEtudiant()).getMail();
 							if (conventionTmp.getCourrielPersoEtudiant() != null
-									&& !conventionTmp.getCourrielPersoEtudiant().isEmpty()) {
+									&& !conventionTmp.getCourrielPersoEtudiant().isEmpty()
+									&& !getSessionController().isEtudiantAdresseInstitutionnelle()) {
 								mail = conventionTmp.getCourrielPersoEtudiant();
 							}
 							getSmtpService().send(new InternetAddress(mail), sujet, text, text);
@@ -5623,7 +5626,8 @@ public class ConventionController extends AbstractContextAwareController {
 				// Mail à l'étudiant
 				String mailEtu = this.convention.getEtudiant().getMail();
 				if (this.convention.getCourrielPersoEtudiant() != null
-						&& !this.convention.getCourrielPersoEtudiant().isEmpty()) {
+						&& !this.convention.getCourrielPersoEtudiant().isEmpty()
+						&& !getSessionController().isEtudiantAdresseInstitutionnelle()) {
 					mailEtu = this.convention.getCourrielPersoEtudiant();
 				}
 
