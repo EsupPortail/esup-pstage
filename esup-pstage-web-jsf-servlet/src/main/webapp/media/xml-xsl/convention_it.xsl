@@ -1516,10 +1516,10 @@
 										<xsl:when
 											test="temps-travail/code-ctrl='TCOMP' or temps-travail/code-ctrl='TPART'">
 											<xsl:if test="temps-travail/code-ctrl='TCOMP'">
-												ordinario.
+												a tempo pieno.
 											</xsl:if>
 											<xsl:if test="temps-travail/code-ctrl='TPART'">
-												part-time.
+												a tempo parziale.
 											</xsl:if>
 										</xsl:when>
 										<xsl:otherwise>
@@ -1539,7 +1539,7 @@
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
 								Servizio presso l'organismo ospitante nelle ore notturne, la
-								domenica o in giorni feriali, precisare i casi particolari :
+								domenica o in giorni festivi, precisare i casi particolari :
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="travail-nuit-ferie" />
 								</fo:inline>
@@ -3500,19 +3500,7 @@
 								apertura dei diritti al regime generale di assicurazione
 								vecchiaia previsto dall'art. L.351-17 del Codice di Prevenzione
 								Sociale francese;
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify">
-								El estudiante
-								deberá presentar este certificado
-								en caso de que solicite
-								la
-								apertura de derechos al régimen general
-								del seguro de pensiones
-								previsto en el art. L.351-17 del Código
-								de la Seguridad Social.
-							</fo:block>
+							</fo:block>							
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" padding-top="2pt">
