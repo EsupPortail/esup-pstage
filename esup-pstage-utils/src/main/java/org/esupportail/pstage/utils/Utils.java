@@ -230,7 +230,12 @@ public class Utils {
             boolean ret=true;
             if(isNumber(numSiret) && Long.parseLong(numSiret)==0)ret=false;
             /** Si la somme est un multiple de 5 alors le SIRET de la Poste est valide */
-            return (total % 5 == 0) ? ret : false;
+            if (total % 5 == 0 || ret==false) {
+            	return ret;
+            } else {  	// doit passer par la verification du cas classique (ex de siret concerné: 35600000000048)
+            	total = 0;
+        		nb = 0;
+            }
         }
         /** Cas classique **/
 		for (int i = 0; i<numSiret.length(); i++) {
