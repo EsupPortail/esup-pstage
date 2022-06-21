@@ -44,7 +44,13 @@
                                     <h:outputText value="#{msgs['RECHERCHEEVALUATION.CHOIX_ETAPE']}" />
                                 </t:htmlTag>
                                 <p:message for="codesEtapes"/>
-                                <p:selectManyMenu id="codesEtapes" showCheckbox="true"
+                                <t:div styleClass="verticalAlignDiv">
+                                  <p:selectBooleanCheckbox id="checkAll"  onchange="selectAll(this);">
+                                    <p:tooltip trackMouse="true" for="checkAll" value="#{msgs['FORM.SELECTIONNER_TOUT']}" />
+                                  </p:selectBooleanCheckbox>
+                                <h:outputText styleClass="fontBold" value="#{msgs['FORM.SELECTIONNER_TOUT']}" />
+                                </t:div>                      
+                                <p:selectManyMenu id="codesEtapes" showCheckbox="true" widgetVar="codesEtapes"
                                                   filter="true" filterMatchMode="contains"
                                                   value="#{conventionController.critereRechercheConvention.idsEtapes}" styleClass="customPstage mt5"
                                                   required="true" style="width: auto;">
@@ -110,7 +116,19 @@
                                      action="#{evaluationController.rechercherEvaluation}" update="@form"
                                      onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
                 </t:div>
-                <p:message for="formRechEval" />
+                <p:message for="formRechEval" />   
+                
+                	<script type="text/javascript">
+                            function selectAll(checkAll) {
+                                var checked = checkAll.checked;
+                                if (checked) {
+                                	PF('codesEtapes').selectAll();
+                                } else {
+                                	PF('codesEtapes').unselectAll();
+                                }
+                            }
+                        </script>
+                           
             </h:form>
         </p:panel>
     </ui:define>
