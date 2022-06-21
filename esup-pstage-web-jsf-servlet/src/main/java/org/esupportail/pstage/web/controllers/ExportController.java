@@ -768,6 +768,8 @@ public class ExportController extends AbstractContextAwareController {
 				return convention.getUniteGratification().getLibelle();
 			} else if ("EXPORTCONVENTION.UNITEDUREEGRATIF".equalsIgnoreCase(nameProperty)) {
 				return convention.getUniteDureeGratification().getLibelle();
+			} else if ("EXPORTCONVENTION.ORIGINESTAGE".equalsIgnoreCase(nameProperty)) {
+				return convention.getOrigineStage().getLibelle();					
 			} else if ("EXPORTCONVENTION.VALIDEE".equalsIgnoreCase(nameProperty)) {
 				if (convention.getValidationConventionExport()) {
 					return "Oui";

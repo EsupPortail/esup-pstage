@@ -276,8 +276,12 @@ public enum ConventionColonneEnum {
 	/**
 	 *   Date de modification de la convention
 	 */
-	col54("EXPORTCONVENTION.DATEMODIF","dateModif");
+	col54("EXPORTCONVENTION.DATEMODIF","dateModif"),
 	
+	/**
+	 *   Origine du stage  
+	 */
+	col55("EXPORTCONVENTION.ORIGINESTAGE","origineStage.libelle");
 	
 	/*
 	 ******************* PROPERTIES ******************* */

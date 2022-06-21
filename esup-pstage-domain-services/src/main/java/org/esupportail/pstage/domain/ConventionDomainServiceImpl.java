@@ -401,6 +401,9 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 			if (c.getIdTheme() > 0){
 				c.setTheme(this.nomenclatureDomainService.getThemeDTOFromId(c.getIdTheme()));
 			}
+			if (c.getIdOrigineStage() != null && c.getIdOrigineStage() > 0){
+				c.setOrigineStage(this.nomenclatureDomainService.getOrigineStageDTOFromId(c.getIdOrigineStage()));
+			}			
 		}
 	}
 
