@@ -140,7 +140,7 @@ public interface ConventionDomainService extends Serializable {
 	 * @param codeUniversite 
 	 * @return List<EtapeDTO>
 	 */
-	public List<EtapeDTO> getEtapesFromIdsCentreGestion(List<Integer> idsCentreGestion, String codeUniversite);
+	public List<EtapeDTO> getEtapesFromIdsCentreGestion(List<Integer> idsCentreGestion, String codeUniversite, String anneeUniv);
 
 	/**
 	 * @param idsCentreGestion

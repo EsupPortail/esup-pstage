@@ -6609,10 +6609,14 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public List<SelectItem> getRechEtapes() {
 		rechEtapes = null;
+		String anneeUniv = critereRechercheConvention.getAnneeUniversitaire();
+		if ("".equals(anneeUniv)) {
+			anneeUniv = null;
+		}
 		List<EtapeDTO> l = getConventionDomainService()
 				.getEtapesFromIdsCentreGestion(
 						getSessionController().getCurrentIdsCentresGestion(),
-						getSessionController().getCodeUniversite());
+						getSessionController().getCodeUniversite(),	anneeUniv);
 		String affichageCodeVersionEtape;
 		if (l != null && !l.isEmpty()) {
 			rechEtapes = new ArrayList<SelectItem>();

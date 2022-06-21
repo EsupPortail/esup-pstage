@@ -37,6 +37,9 @@
                                 <h:selectOneMenu id="anU" styleClass="customPstage fix-selectOneMenu" effect="none" value="#{conventionController.critereRechercheConvention.anneeUniversitaire}">
                                     <f:selectItem itemValue="" />
                                     <f:selectItems value="#{nomenclatureController.anneesConvention}" />
+                                    <p:ajax  event="valueChange"
+                                             update="etapes" onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                             listener="#{conventionController.getRechEtapes}" />
                                 </h:selectOneMenu>
                             </t:htmlTag>
                             <t:htmlTag value="li">

@@ -253,10 +253,10 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	/**
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#getEtapesFromIdsCentreGestion(java.util.List, java.lang.String)
 	 */
-	public List<EtapeDTO> getEtapesFromIdsCentreGestion(List<Integer> idsCentreGestion, String codeUniversite){
+	public List<EtapeDTO> getEtapesFromIdsCentreGestion(List<Integer> idsCentreGestion, String codeUniversite, String anneeUniv){
 		List<EtapeDTO> l = null;
 		if(idsCentreGestion!=null &&! idsCentreGestion.isEmpty()){
-			l = this.remoteServices.getEtapesFromIdsCentreGestionFromCodUniv(idsCentreGestion, codeUniversite);
+			l = this.remoteServices.getEtapesFromIdsCentreGestionFromCodUniv(idsCentreGestion, codeUniversite, anneeUniv);
 		}
 		return l;
 	}
