@@ -738,7 +738,7 @@
                                                          styleClass="fontRed"/>
 
                                         <p:commandButton value="#{msgs['FORM.TERMINER']}"
-                                                         oncomplete="PF('panelValidEval').show();"
+                                                         oncomplete="if (args &amp;&amp; !args.validationFailed) PF('panelValidEval').show();"
                                                          update="@form"
                                                          styleClass="ml20 fz16 fontGreen" />
                                     </t:div>
