@@ -104,7 +104,7 @@
         </plugins>
     </build>
     <properties>
-        <pstage.version>3.0.7</pstage.version>
+        <pstage.version>3.0.8</pstage.version>
         <esupcommons.version>0.3.2</esupcommons.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
