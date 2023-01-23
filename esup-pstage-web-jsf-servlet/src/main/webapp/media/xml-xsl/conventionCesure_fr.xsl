@@ -201,14 +201,14 @@
 								n°
 								<xsl:value-of select="id-convention" />
 								<xsl:text> </xsl:text>
-								entre
+								réalisée 
 							</fo:inline>
 						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-                                  country="FR" font-size="7.5pt" font-family="Times New Roman,serif"
-                                  padding-top="0.035cm" text-align="center" padding-bottom="0.3cm" font-style="italic">
-                             En référence à l'arrêté du 29 décembre 2014 relatif aux conventions de stage
-                        </fo:block>
+						<fo:block line-height="110%" padding-top="5pt"
+								  hyphenate="false" language="fr" country="FR" font-size="14pt"
+								  font-family="Times New Roman,serif" text-align="center">
+							 <fo:inline font-weight="bold">dans le cadre d'une césure entre</fo:inline>
+						</fo:block>		  
 						<fo:block line-height="200%" hyphenate="false" language="fr"
 								  country="FR" font-size="8pt" font-family="Times New Roman,serif">
 							<fo:leader />
@@ -231,6 +231,13 @@
 			"tuteur de
 			stage", "représentant légal", et "étudiant" sont utilisés
 			au masculin.
+		</fo:block>
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+				  country="FR" font-size="8.5pt" font-family="Times New Roman,serif"
+				  padding-left="0.141cm" padding-right="0.141cm"
+				  padding-bottom="0.3cm" font-style="italic">
+			Remarque : le stage objet de la présente convention entre dans le cadre d'une césure. 
+			Il n'est pas rattaché à un cursus d'enseignement.
 		</fo:block>
 		<fo:table table-layout="fixed" width="100%">
 			<fo:table-column column-width="proportional-column-width(1)" />
@@ -283,8 +290,8 @@
 								</xsl:when>
 								<xsl:otherwise>
 									<xsl:value-of select="document('config.xml')/config/adresseUniversite" />
-								</xsl:otherwise>
-							</xsl:choose>
+								</xsl:otherwise> 
+							</xsl:choose> 
 						</fo:block>
 						<xsl:choose>
 							<xsl:when test="document('config.xml')/config/telUniversite">
@@ -364,19 +371,9 @@
 						</fo:block>
 						<fo:block line-height="130%" hyphenate="false" language="fr"
 								  country="FR" font-size="9pt" font-family="Times New Roman,serif"
-								  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-								  padding-bottom="0.035cm">
-							<fo:inline font-weight="bold">
-								Composante/UFR :
-							</fo:inline>
-							<xsl:value-of select="centre-gestion/nom-centre" />
-						</fo:block>
-						<fo:block line-height="130%" hyphenate="false" language="fr"
-								  country="FR" font-size="9pt" font-family="Times New Roman,serif"
 								  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm">
 							<fo:inline font-weight="bold">
-								Adresse (si différente de celle
-								de l'établissement) :
+								Adresse (si différente de celle	de l'établissement) :
 							</fo:inline>
 							<xsl:value-of select="centre-gestion/batiment-residence" />
 							<xsl:text> </xsl:text>
@@ -506,6 +503,7 @@
 								Tél :
 							</fo:inline>
 							<xsl:value-of select="structure/telephone" />
+							
 							<!-- <xsl:if test="structure/fax != ''"> -->
 							<!-- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; -->
 							<!-- <fo:inline font-weight="bold"> -->
@@ -522,6 +520,7 @@
 								Mél :
 							</fo:inline>
 							<xsl:value-of select="structure/mail" />
+														
 						</fo:block>
 						<xsl:if test="service/voie != structure/voie">
 							<fo:block line-height="130%" hyphenate="false" language="fr"
@@ -645,11 +644,7 @@
 								  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 								  padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								INTITULÉ DE LA FORMATION OU 
-								DU CURSUS SUIVI
-								DANS
-								L'ÉTABLISSEMENT D'ENSEIGNEMENT SUPÉRIEUR ET
-								VOLUME HORAIRE (ANNUEL OU SEMESTRIEL) :
+								Cursus dans lequel l'étudiant sera inscrit à son retour de césure :
 							</fo:inline>
 						</fo:block>
 						<fo:block line-height="130%" hyphenate="false" language="fr"
@@ -657,37 +652,7 @@
 								  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 								  padding-bottom="0.035cm">
 							<xsl:value-of select="etape/libelle" />
-						</fo:block>
-						<fo:block line-height="130%" hyphenate="false" language="fr"
-								  country="FR" font-size="9pt" font-family="Times New Roman,serif"
-								  padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-								  padding-bottom="0.035cm">
-							<fo:inline font-weight="bold">
-								Nombre d'heures de formation :
-							</fo:inline>
-
-							<xsl:choose>
-								<xsl:when test="volume-horaire-formation and volume-horaire-formation != '0'">
-									<xsl:choose>
-										<xsl:when test="contains(volume-horaire-formation, '+')">
-											<fo:inline>
-												Plus de <xsl:value-of select="substring-before(volume-horaire-formation,'+')"/> heures.
-											</fo:inline>
-										</xsl:when>
-										<xsl:otherwise>
-											<fo:inline>
-												<xsl:value-of select="volume-horaire-formation" /> heures
-											</fo:inline>
-										</xsl:otherwise>
-									</xsl:choose>
-								</xsl:when>
-								<xsl:otherwise>
-									<fo:inline>
-										.........................................
-									</fo:inline>
-								</xsl:otherwise>
-							</xsl:choose>
-						</fo:block>
+						</fo:block>						
 					</fo:table-cell>
 				</fo:table-row>
 			</fo:table-body>
@@ -882,15 +847,7 @@
 						<fo:block line-height="110%" hyphenate="false" language="fr"
 				           country="FR" font-size="9pt" font-family="Times New Roman,serif">
 			               <fo:leader />
-		                </fo:block>
-		                <fo:block line-height="110%" padding-top="1pt" padding-bottom="1pt" hyphenate="false"
-								language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-								text-align="justify" font-style="italic">
-							Chaque période au moins égale à sept heures de présence, consécutives ou non, 
-							est considérée comme équivalente à un jour et chaque période au moins égale à 
-							vingt-deux jours de présence, consécutifs ou non, est considérée comme 
-							équivalente à un mois. (art. D124-6 Code de l'éducation)	
-						</fo:block>
+		                </fo:block>		                
 					</fo:table-cell>
 				</fo:table-row>
 			</fo:table-body>
@@ -1055,7 +1012,7 @@
 		                <fo:block line-height="110%" hyphenate="false" language="fr"
 								  country="FR" font-size="8pt" font-family="Times New Roman,serif">
 							<fo:leader />
-						</fo:block>
+						</fo:block>		   
 						<fo:block line-height="130%" hyphenate="false" language="fr"
 								  country="FR" font-size="9pt" font-family="Times New Roman,serif">
 							Caisse Primaire
@@ -1075,6 +1032,17 @@
 									</xsl:otherwise>
 								</xsl:choose>
 							</fo:inline>
+						</fo:block>
+						<fo:block line-height="110%" hyphenate="false" language="fr"
+								  country="FR" font-size="8pt" font-family="Times New Roman,serif">
+							<fo:leader />
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+								  country="FR" font-size="9pt" font-family="Times New Roman,serif">
+						  <fo:inline>
+							Contact en cas d'urgence ou de problème (parents, référent établissement) :	
+						  </fo:inline> 							
+						  <fo:inline>.........................................</fo:inline>										
 						</fo:block>
 						<fo:block line-height="110%" hyphenate="false" language="fr"
 								  country="FR" font-size="8pt" font-family="Times New Roman,serif">
@@ -1119,7 +1087,7 @@
 
 		<fo:block line-height="110%" hyphenate="false" language="fr"
 				  country="FR" font-size="8pt" font-family="Times New Roman,serif"
-				  padding-top="10pt" text-align="center">
+				  padding-top="50pt" text-align="center">
 			Date d'impression :
 			<xsl:value-of
 					select="java:format (java:java.text.SimpleDateFormat.new('dd-MM-yyyy kk:mm:ss'), java:java.util.Date.new())" />
@@ -1145,7 +1113,8 @@
 								La présente convention règle les rapports de l'organisme
 								d'accueil avec
 								l'établissement
-								d'enseignement et le stagiaire.
+								d'enseignement et le stagiaire, dans le cadre d'une période de 
+								césure réalisée par le stagiaire.
 							</fo:block>
 
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1161,38 +1130,16 @@
 							<fo:block line-height="110%" padding-top="1pt"
 									  padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 									  font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								Le stage correspond à une période temporaire
-								de mise en situation
-								en milieu professionnel au cours de laquelle
-								le stagiaire acquiert
-								des compétences professionnelles
-								et met en &#339;uvre les
-								acquis
-								de sa
-								formation en vue de
-								l'obtention d'un diplôme ou d'une
-								certification et de favoriser son insertion professionnelle.
-								Le
-								stagiaire se voit confier une ou des missions
-								conformes au
-								projet
-								pédagogique défini par son établissement
-								d'enseignement
-								et
-								approuvées par l'organisme d'accueil.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
-									  text-align="justify">
-								Le programme est établi par l'établissement
-								d'enseignement
-								et
-								l'organisme
-								d'accueil en fonction du programme
-								général de la
-								formation
-								dispensée.
-							</fo:block>
+								Le stage réalisé dans le cadre d'une césure correspond 
+								à une période temporaire de mise en situation en milieu 
+								professionnel au cours de laquelle l'étudiant acquiert ou 
+								développe des compétences professionnelles indépendamment 
+								de son cursus de formation d'origine. 
+								Le stagiaire se voit confier une ou des missions conformes 
+								au projet de césure qu'il a au préalable soumis et 
+								validé auprès de son établissement d'enseignement et 
+								qui ont été approuvées par l'organisme d'accueil.								
+							</fo:block>							
 							<fo:block line-height="110%" padding-top="2pt"
 									  padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 									  font-size="10pt" font-family="Times New Roman,serif">
@@ -1228,7 +1175,9 @@
 									  padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 									  font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
 								La durée hebdomadaire de présence effective du stagiaire
-								sera de
+								dans
+								l'organisme
+								d'accueil sera de
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="nb-heures-hebdo" />
 								</fo:inline>
@@ -1290,18 +1239,11 @@
 								présente convention est chargé d'assurer le suivi du stagiaire
 								et d'optimiser les conditions de réalisation du
 								stage
-								conformément aux stipulations pédagogiques définies.
+								conformément aux missions et objectifs définis.
 							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt"
 									  padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 									  font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								Le stagiaire est autorisé à revenir dans son établissement
-								d'enseignement
-								pendant la durée du stage pour y suivre des cours
-								demandés explicitement par le programme, ou pour participer à
-								des
-								réunions ; les dates sont portées à la connaissance de
-								l'organisme d'accueil par l'établissement.
 								L'organisme d'accueil
 								peut autoriser le stagiaire à se déplacer.
 							</fo:block>
@@ -2063,7 +2005,7 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  text-align="justify">
-								Pour les stages à l'étranger ou en cas de risque identifié par l'établissement, 
+								Pour les stages à l'étranger ou en outre-mer, 
 								le stagiaire s'engage à souscrire un contrat d'assistance
 								(rapatriement sanitaire, assistance juridique...) et un contrat
 								d'assurance individuel accident.
@@ -2350,41 +2292,19 @@
 								de l'organisme
 								d'accueil. Ce
 								document n'est pas pris en compte
-								dans son
-								évaluation ou dans
-								l'obtention du diplôme ou de la
-								certification.
+								dans l'évaluation du stagiaire.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  text-align="justify" padding-top="2pt">
 								3)
-								<fo:inline text-decoration="underline">Évaluation de l'activité
-									du
-									stagiaire
+								<fo:inline text-decoration="underline">Evaluation de la césure 
+								 sous forme de stage									
 								</fo:inline>
-								: à l'issue du stage, l'organisme d'accueil renseigne une fiche
-								d'évaluation de l'activité du stagiaire qu'il retourne à
-								l'enseignant référent (ou préciser si fiche
-								annexe ou modalités
-								d'évaluation préalablement définis en
-								accord avec l'enseignant
-								référent).
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
-									  text-align="justify" padding-top="2pt">
-								4)
-								<fo:inline text-decoration="underline">Modalités d'évaluation
-									pédagogiques
-								</fo:inline>
-								:
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="nature-travail/libelle" />
-								</fo:inline>,
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="mode-validation-stage/libelle" />
-								</fo:inline>
+								: à l'issue de la période de césure sous forme de stage et 
+								dans le cas où cette période ne comporte pas d'autres formes de césure, 
+								un bilan doit être établi à la fin du stage. 
+								Ce bilan peut servir de support à l'attribution de crédits ECTS.								
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -2407,15 +2327,12 @@
 								</xsl:choose>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
-									  text-align="justify" padding-top="2pt">
-								5) Le tuteur de l'organisme
-								d'accueil ou tout membre de l'organisme d'accueil appelé à se
-								rendre dans l'établissement d'enseignement dans le cadre de la
-								préparation, du déroulement et de la validation du stage ne peut
-								prétendre à une quelconque prise en charge ou indemnisation de
-								la part de l'établissement d'enseignement.
-							</fo:block>
+				                country="FR" font-size="7.5pt" font-family="Times New Roman,serif"
+				                padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+				                padding-bottom="0.3cm" font-style="italic">
+				                (attention, dans le cadre d'une césure sous forme de stage, 
+				                les ECTS sont le seul mode de validation possible).			
+		                    </fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 									  country="FR" font-size="10pt" font-family="Times New Roman,serif"
 									  text-align="justify" font-style="italic">

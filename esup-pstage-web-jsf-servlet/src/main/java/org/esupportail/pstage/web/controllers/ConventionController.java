@@ -3010,8 +3010,12 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 			if (DonneesStatic.TYPE_CONVENTION_CODE_CTRL_FC.equalsIgnoreCase(this.convention.getTypeConvention().getCodeCtrl())){
 				nomDocxsl = "conventionFormationContinue_fr.xsl";
-			} else {
-				nomDocxsl = "convention" + "_" + language + ".xsl";
+			} else { 
+				if (DonneesStatic.TYPE_CONVENTION_CODE_CTRL_CESURE.equalsIgnoreCase(this.convention.getTypeConvention().getCodeCtrl())) {
+				   nomDocxsl = "conventionCesure_fr.xsl";
+				} else {
+				   nomDocxsl = "convention" + "_" + language + ".xsl";
+				}
 			}
 
 			if (etudiant != null) {

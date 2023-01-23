@@ -23,6 +23,10 @@
 	<!-- Logo de l'université : /!\ Doit se situer dans le sous-dossier images /!\ -->
 	<logoUniversiteOffre>square2.jpg</logoUniversiteOffre>
 
+    <!--  Contacts (nouveauté 2022) -->
+    <medPrev>.........................................</medPrev>
+    <contactConflit>.........................................</contactConflit>
+
 	<!-- Paramètrage pour triptik page 6 convention francaise -->
 	<!-- si parametre présent edition triptik.xsl  -->
 	<!--   <triptik></triptik> -->

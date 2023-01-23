@@ -37,6 +37,12 @@
                         Notice Convention de stage
                     </h:outputLink>
                     <t:htmlTag value="div" style="height:5px;"/>
+                    <h:outputLink rendered="#{!welcomeController.etudiant || (welcomeController.etudiant and !sessionController.etudiantFC)}"
+                                  value="#{sessionController.baseUrl}#{sessionController.mediaPath}/docs/Notice_Convention_Stage_Cesure.pdf">
+                        <h:graphicImage alt="notice" value="../../media/images/docs.gif"/>
+                        Notice Convention de stage pour la césure
+                    </h:outputLink>
+                    <t:htmlTag value="div" style="height:5px;"/>
                     <h:outputLink rendered="#{!welcomeController.etudiant || (welcomeController.etudiant and sessionController.etudiantFC)}"
                                   value="#{sessionController.baseUrl}#{sessionController.mediaPath}/docs/Notice_Convention_Stage_FC.pdf">
                         <h:graphicImage alt="noticeFC" value="../../media/images/docs.gif"/>

@@ -169,6 +169,10 @@ public class DonneesStatic {
 	 * valeur du code pour les conventions en formation continue pour les controles de la table typeConvention.
 	 */
 	public static final String TYPE_CONVENTION_CODE_CTRL_FC = "FC";
+	/**
+	 * valeur du code pour les conventions césure pour les controles de la table typeConvention.
+	 */
+	public static final String TYPE_CONVENTION_CODE_CTRL_CESURE = "CS";
 	/*
 	 * Codes controles des données TempsTravail
 	 */
