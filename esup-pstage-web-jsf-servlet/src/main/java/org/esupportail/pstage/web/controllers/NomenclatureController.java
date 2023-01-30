@@ -1845,7 +1845,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 		List<TypeConventionDTO> l = getNomenclatureDomainService().getTypeConventions();
 		if(l!=null){
 			for(TypeConventionDTO t : l){
-				if (DonneesStatic.TYPE_CONVENTION_CODE_CTRL_FI.equalsIgnoreCase(t.getCodeCtrl())) {
+				if (DonneesStatic.TYPE_CONVENTION_CODE_CTRL_FI.equalsIgnoreCase(t.getCodeCtrl()) || DonneesStatic.TYPE_CONVENTION_CODE_CTRL_CESURE.equalsIgnoreCase(t.getCodeCtrl())) {
 					ls.add(new SelectItem(t, t.getLibelle()));
 				}
 			}
