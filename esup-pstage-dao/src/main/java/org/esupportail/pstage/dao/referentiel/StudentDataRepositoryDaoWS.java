@@ -22,7 +22,7 @@ import org.springframework.util.StringUtils;
 
 import gouv.education.apogee.commun.client.ws.AdministratifMetier.AdministratifMetierServiceInterface;
 import gouv.education.apogee.commun.client.ws.AdministratifMetier.InsAdmAnuDTO2;
-import gouv.education.apogee.commun.client.ws.AdministratifMetier.InsAdmEtpDTO2;
+import gouv.education.apogee.commun.client.ws.AdministratifMetier.InsAdmEtpDTO3;
 import gouv.education.apogee.commun.client.ws.EtudiantMetier.CoordonneesDTO2;
 import gouv.education.apogee.commun.client.ws.EtudiantMetier.EtudiantMetierServiceInterface;
 import gouv.education.apogee.commun.client.ws.EtudiantMetier.IdentifiantsEtudiantDTO2;
@@ -847,11 +847,11 @@ public class StudentDataRepositoryDaoWS extends AbstractAuthCredentials implemen
 
 		// Recuperation des etapes auxquelles l'etudiant est inscrit administrativement
 		// (inscription admin etape en cours (E)) en fonction de l'annee en param
-		List<InsAdmEtpDTO2> tabInsAdmEtp;
+		List<InsAdmEtpDTO3> tabInsAdmEtp;
 		try {
-			tabInsAdmEtp = serviceAdministratif.recupererIAEtapesV2(cod, annee, "E", "E");
+			tabInsAdmEtp = serviceAdministratif.recupererIAEtapesV3(cod, annee, "E", "E");
 		} catch (gouv.education.apogee.commun.client.ws.AdministratifMetier.WebBaseException_Exception e) {
-			tabInsAdmEtp = new ArrayList<InsAdmEtpDTO2>();
+			tabInsAdmEtp = new ArrayList<InsAdmEtpDTO3>();
 			if (logger.isDebugEnabled()){
 				if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
 					logger.debug("Aucun resultat pour l'etudiant "+ cod +" sur l'annee "+annee);
@@ -879,7 +879,7 @@ public class StudentDataRepositoryDaoWS extends AbstractAuthCredentials implemen
 		List<ElementPedagogique> listeELPs = new  ArrayList<ElementPedagogique>();
 
 		// recherche des Inscriptions Administratives payees de l'etudiant
-		for (InsAdmEtpDTO2 insAdmEtp : tabInsAdmEtp) {
+		for (InsAdmEtpDTO3 insAdmEtp : tabInsAdmEtp) {
 			if (logger.isDebugEnabled()){
 				logger.debug("- Inscription Administrative -");
 				logger.debug("[codeEtape : "+insAdmEtp.getEtape().getCodeEtp() +
